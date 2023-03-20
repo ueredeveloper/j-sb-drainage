@@ -1,52 +1,63 @@
 package com.api.main.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.api.main.models.TipoDocumentoModel;
 
 //import javax.validation.constraints.NotBlank;
 
 public class DocumentoDTO {
+  private long doc_id;
   // @NotBlank
-  private String doc_number;
+  private String doc_numeracao;
   // @NotBlank
-  private String doc_process;
-
-  // @NotBlank
-  private String doc_sei;
+  private String doc_processo;
 
   // @NotBlank
-  private String doc_type;
+  private String doc_numeracao_sei;
 
-  public String getDoc_number() {
-    return doc_number;
+  // @NotBlank
+  private TipoDocumentoModel tipoDocumento;
+  
+
+  public long getDoc_id() {
+    return doc_id;
   }
 
-  public void setDoc_number(String doc_number) {
-    this.doc_number = doc_number;
+  public void setDoc_id(long doc_id) {
+    this.doc_id = doc_id;
   }
 
-  public String getDoc_process() {
-    return doc_process;
+  public String getDoc_numeracao() {
+    return doc_numeracao;
   }
 
-  public void setDoc_process(String doc_process) {
-    this.doc_process = doc_process;
+  public void setDoc_numeracao(String doc_numeracao) {
+    this.doc_numeracao = doc_numeracao;
   }
 
-  public String getDoc_sei() {
-    return doc_sei;
+  public String getDoc_numeracao_sei() {
+    return doc_numeracao_sei;
   }
 
-  public void setDoc_sei(String doc_sei) {
-    this.doc_sei = doc_sei;
+  public void setDoc_numeracao_sei(String doc_numeracao_sei) {
+    this.doc_numeracao_sei = doc_numeracao_sei;
   }
 
-  public String getDoc_type() {
-    return doc_type;
+  public String getDoc_processo() {
+    return doc_processo;
   }
 
-  public void setDoc_type(String doc_type) {
-    this.doc_type = doc_type;
+  public void setDoc_processo(String doc_processo) {
+    this.doc_processo = doc_processo;
   }
+
+  public TipoDocumentoModel getTipoDocumentoModel() {
+    return tipoDocumento;
+  }
+
+  public void setTipoDocumentoModel (TipoDocumentoModel tipoDocumento) {
+    this.tipoDocumento = tipoDocumento;
+  }
+
+  
 
 }

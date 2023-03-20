@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin (origins="*", maxAge=3600)
-@RequestMapping("/document")
+@RequestMapping("/documento")
 public class DocumentoController {
 
   final DocumentoService documentoService;
@@ -30,8 +30,6 @@ public class DocumentoController {
   public ResponseEntity<Object> saveDocumento (@RequestBody @Valid DocumentoDTO documentoDTO){
     DocumentoModel documentoModel = new DocumentoModel();
 
-    System.out.println(documentoModel);
-    
     BeanUtils.copyProperties(documentoDTO, documentoModel);
     return ResponseEntity.status(HttpStatus.CREATED).body(documentoService.save(documentoModel));
   }
