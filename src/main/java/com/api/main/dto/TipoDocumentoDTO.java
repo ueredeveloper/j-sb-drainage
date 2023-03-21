@@ -1,27 +1,45 @@
 package com.api.main.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.api.main.models.DocumentoModel;
+
 //import javax.validation.constraints.NotBlank;
 
 public class TipoDocumentoDTO {
 
-  private long tp_id;
+	private long td_id;
 
-  private String tp_descricao;
+	private String td_descricao;
 
-  public long getTp_id() {
-    return tp_id;
-  }
+	private List<DocumentoModel> documentos;
 
-  public void setTp_id(long tp_id) {
-    this.tp_id = tp_id;
-  }
+	public long getTd_id() {
+		return td_id;
+	}
 
-  public String getTp_descricao() {
-    return tp_descricao;
-  }
+	public void setTd_id(long td_id) {
+		this.td_id = td_id;
+	}
 
-  public void setTp_descricao(String tp_descricao) {
-    this.tp_descricao = tp_descricao;
-  }
+	public String getTd_descricao() {
+		return td_descricao;
+	}
 
+	public void setTd_descricao(String td_descricao) {
+		this.td_descricao = td_descricao;
+	}
+
+	public List<DocumentoModel> getDocumentos() {
+		return documentos;
+	}
+
+	public void setDocumentos(List<DocumentoModel> documentos) {
+		this.documentos = documentos;
+	}
+
+	
+	
+	
 }
