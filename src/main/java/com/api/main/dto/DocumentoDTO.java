@@ -7,14 +7,14 @@ import com.api.main.models.TipoDocumentoModel;
 public class DocumentoDTO {
 	private long doc_id;
 	// @NotBlank
-	private String doc_numeracao;
+	private String doc_numero;
 	// @NotBlank
 	private String doc_processo;
 
 	// @NotBlank
-	private String doc_numeracao_sei;
+	private String doc_sei;
 
-	private TipoDocumentoModel doc_td_fk;
+	private TipoDocumentoModel doc_tipo;
 
 	public long getDoc_id() {
 		return doc_id;
@@ -24,20 +24,12 @@ public class DocumentoDTO {
 		this.doc_id = doc_id;
 	}
 
-	public String getDoc_numeracao() {
-		return doc_numeracao;
+	public String getDoc_numero() {
+		return doc_numero;
 	}
 
-	public void setDoc_numeracao(String doc_numeracao) {
-		this.doc_numeracao = doc_numeracao;
-	}
-
-	public String getDoc_numeracao_sei() {
-		return doc_numeracao_sei;
-	}
-
-	public void setDoc_numeracao_sei(String doc_numeracao_sei) {
-		this.doc_numeracao_sei = doc_numeracao_sei;
+	public void setDoc_numero(String doc_numero) {
+		this.doc_numero = doc_numero;
 	}
 
 	public String getDoc_processo() {
@@ -48,12 +40,23 @@ public class DocumentoDTO {
 		this.doc_processo = doc_processo;
 	}
 
-	public TipoDocumentoModel getDoc_td_fk() {
-		return doc_td_fk;
+	public String getDoc_sei() {
+		return doc_sei;
 	}
 
-	public void setDoc_td_fk(TipoDocumentoModel doc_td_fk) {
-		this.doc_td_fk = doc_td_fk;
+	public void setDoc_sei(String doc_sei) {
+		this.doc_sei = doc_sei;
 	}
+
+	public TipoDocumentoModel getDoc_tipo() {
+		return doc_tipo;
+	}
+
+	public void setDoc_tipo(TipoDocumentoModel doc_tipo) {
+		this.doc_tipo = doc_tipo;
+	}
+
+	
+	
 
 }

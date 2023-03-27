@@ -1,6 +1,5 @@
 package com.api.main.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.api.main.models.DocumentoModel;

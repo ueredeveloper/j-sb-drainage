@@ -1,5 +1,8 @@
 package com.api.main.models;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -7,11 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import javax.persistence.Column;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "documentos")
@@ -23,17 +22,17 @@ public class DocumentoModel implements Serializable {
 	private long doc_id;
 
 	@Column(nullable = true, unique = false, length = 40)
-	private String doc_numeracao;
+	private String doc_numero;
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String doc_processo;
 
 	@Column(nullable = true, unique = false, length = 40)
-	private String doc_numeracao_sei;
+	private String doc_sei;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "doc_td_fk")
-	private TipoDocumentoModel doc_td_fk;
+	@JoinColumn(name = "doc_tipo")
+	private TipoDocumentoModel doc_tipo;
 
 	public long getDoc_id() {
 		return doc_id;
@@ -43,20 +42,12 @@ public class DocumentoModel implements Serializable {
 		this.doc_id = doc_id;
 	}
 
-	public String getDoc_numeracao_sei() {
-		return doc_numeracao_sei;
+	public String getDoc_numero() {
+		return doc_numero;
 	}
 
-	public void setDoc_numeracao_sei(String doc_numeracao_sei) {
-		this.doc_numeracao_sei = doc_numeracao_sei;
-	}
-
-	public String getDoc_numeracao() {
-		return doc_numeracao;
-	}
-
-	public void setDoc_numeracao(String doc_numeracao) {
-		this.doc_numeracao = doc_numeracao;
+	public void setDoc_numero(String doc_numero) {
+		this.doc_numero = doc_numero;
 	}
 
 	public String getDoc_processo() {
@@ -67,12 +58,27 @@ public class DocumentoModel implements Serializable {
 		this.doc_processo = doc_processo;
 	}
 
-	public TipoDocumentoModel getDoc_td_fk() {
-		return doc_td_fk;
+	public String getDoc_sei() {
+		return doc_sei;
 	}
 
-	public void setDoc_td_fk(TipoDocumentoModel doc_td_fk) {
-		this.doc_td_fk = doc_td_fk;
+	public void setDoc_sei(String doc_sei) {
+		this.doc_sei = doc_sei;
 	}
 
+	
+
+	public TipoDocumentoModel getDoc_tipo() {
+		return doc_tipo;
+	}
+
+	public void setDoc_tipo(TipoDocumentoModel doc_tipo) {
+		this.doc_tipo = doc_tipo;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
 }

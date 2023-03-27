@@ -1,19 +1,18 @@
 package com.api.main.models;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "tipos_documentos")
@@ -29,6 +28,7 @@ public class TipoDocumentoModel implements Serializable {
 	public TipoDocumentoModel(String td_descricao) {
 		this.td_descricao = td_descricao;
 	}
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class TipoDocumentoModel implements Serializable {
 	@Column(nullable = true, unique = false, length = 40)
 	private String td_descricao;
 
-	@OneToMany(mappedBy = "doc_td_fk", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "doc_tipo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<DocumentoModel> documentos = new ArrayList<>();
 
 	public long getTd_id() {
@@ -63,5 +63,11 @@ public class TipoDocumentoModel implements Serializable {
 	public void setDocumentos(List<DocumentoModel> documentos) {
 		this.documentos = documentos;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
 
 }
