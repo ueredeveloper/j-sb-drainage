@@ -9,14 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class DocumentoService {
 
-  final DocumentoRepository documentoRepository;
+	final DocumentoRepository documentoRepository;
 
-  public DocumentoService (DocumentoRepository documentoRepository){
-    this.documentoRepository = documentoRepository;
-  }
-  @Transactional
-  public DocumentoModel save(DocumentoModel documentoModel){
-    return documentoRepository.save(documentoModel);
-  }
-  
+	public DocumentoService(DocumentoRepository documentoRepository) {
+		this.documentoRepository = documentoRepository;
+	}
+
+	@Transactional
+	public DocumentoModel save(DocumentoModel documentoModel) {
+		return documentoRepository.save(documentoModel);
+	}
+
 }

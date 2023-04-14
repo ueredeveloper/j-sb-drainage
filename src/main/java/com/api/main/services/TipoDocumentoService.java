@@ -9,14 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class TipoDocumentoService {
 
-  final TipoDocumentoRepository tdr;
+	final TipoDocumentoRepository tdr;
 
-  public TipoDocumentoService (TipoDocumentoRepository tdr){
-    this.tdr = tdr;
-  }
-  @Transactional
-  public TipoDocumentoModel save(TipoDocumentoModel tdm){
-    return tdr.save(tdm);
-  }
-  
+	public TipoDocumentoService(TipoDocumentoRepository tdr) {
+		this.tdr = tdr;
+	}
+
+	@Transactional
+	public TipoDocumentoModel save(TipoDocumentoModel tdm) {
+		return tdr.save(tdm);
+	}
+
 }
