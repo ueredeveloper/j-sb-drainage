@@ -1,5 +1,7 @@
 package com.api.main.services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +21,10 @@ public class ProcessoService {
 	@Transactional
 	public ProcessoModel save(ProcessoModel procMod) {
 		return procRepo.save(procMod);
+	}
+	@Transactional
+	public List<ProcessoModel> findProcessos () {
+		return procRepo.findAll();
 	}
 
 }
