@@ -4,13 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "documentos")
@@ -20,7 +23,15 @@ public class DocumentoModel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long doc_id;
+	private Long doc_id;
+
+	public Long getDoc_id() {
+		return doc_id;
+	}
+
+	public void setDoc_id(Long doc_id) {
+		this.doc_id = doc_id;
+	}
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String doc_numero;
@@ -31,17 +42,11 @@ public class DocumentoModel implements Serializable {
 	@Column(nullable = true, unique = false, length = 40)
 	private String doc_sei;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "td_id", scope = TipoDocumentoModel.class)
+	@ManyToOne
 	@JoinColumn(name = "doc_tipo")
 	private TipoDocumentoModel doc_tipo;
 
-	public long getDoc_id() {
-		return doc_id;
-	}
-
-	public void setDoc_id(long doc_id) {
-		this.doc_id = doc_id;
-	}
 
 	public String getDoc_numero() {
 		return doc_numero;

@@ -8,17 +8,17 @@ import com.api.main.models.DocumentoModel;
 
 public class TipoDocumentoDTO {
 
-	private long td_id;
+	private Long td_id;
 
 	private String td_descricao;
 
 	private List<DocumentoModel> documentos;
 
-	public long getTd_id() {
+	public Long getTd_id() {
 		return td_id;
 	}
 
-	public void setTd_id(long td_id) {
+	public void setTd_id(Long td_id) {
 		this.td_id = td_id;
 	}
 
@@ -38,7 +38,5 @@ public class TipoDocumentoDTO {
 		this.documentos = documentos;
 	}
 
-	
-	
 	
 }

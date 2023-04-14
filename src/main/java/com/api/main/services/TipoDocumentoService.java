@@ -1,23 +1,32 @@
 package com.api.main.services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
 
 import com.api.main.models.TipoDocumentoModel;
 import com.api.main.repositories.TipoDocumentoRepository;
-import org.springframework.stereotype.Service;
 
 @Service
 public class TipoDocumentoService {
 
-	final TipoDocumentoRepository tdr;
+	final TipoDocumentoRepository tdRepo;
 
-	public TipoDocumentoService(TipoDocumentoRepository tdr) {
-		this.tdr = tdr;
+	public TipoDocumentoService(TipoDocumentoRepository tdRepo) {
+		this.tdRepo = tdRepo;
 	}
 
 	@Transactional
 	public TipoDocumentoModel save(TipoDocumentoModel tdm) {
-		return tdr.save(tdm);
+		return tdRepo.save(tdm);
 	}
+
+	@Transactional
+	public List<TipoDocumentoModel> listAll() {
+		return tdRepo.findAll();
+	}
+	
 
 }

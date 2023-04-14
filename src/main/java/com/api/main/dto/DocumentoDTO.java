@@ -5,7 +5,8 @@ import com.api.main.models.TipoDocumentoModel;
 //import javax.validation.constraints.NotBlank;
 
 public class DocumentoDTO {
-	private long doc_id;
+	
+	private Long doc_id;
 	// @NotBlank
 	private String doc_numero;
 	// @NotBlank
@@ -16,11 +17,11 @@ public class DocumentoDTO {
 
 	private TipoDocumentoModel doc_tipo;
 
-	public long getDoc_id() {
+	public Long getDoc_id() {
 		return doc_id;
 	}
 
-	public void setDoc_id(long doc_id) {
+	public void setDoc_id(Long doc_id) {
 		this.doc_id = doc_id;
 	}
 
@@ -56,7 +57,5 @@ public class DocumentoDTO {
 		this.doc_tipo = doc_tipo;
 	}
 
-	
-	
 
 }

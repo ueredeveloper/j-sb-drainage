@@ -30,7 +30,7 @@ public class ProcessoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Object> saveDocumento (@RequestBody @Valid ProcessoDTO procDTO){
+	public ResponseEntity<Object> save (@RequestBody @Valid ProcessoDTO procDTO){
 		
 	  ProcessoModel procMod = new ProcessoModel();
 	
@@ -38,8 +38,9 @@ public class ProcessoController {
 	  return ResponseEntity.status(HttpStatus.CREATED).body(procServ.save(procMod));
 	}
 	@GetMapping
-	public ResponseEntity<List<ProcessoModel>> findProcessos () {
-		return ResponseEntity.status(HttpStatus.CREATED).body(procServ.findProcessos());
+	public ResponseEntity<List<ProcessoModel>> listAll () {
+		return ResponseEntity.status(HttpStatus.CREATED).body(procServ.listAll());
 	}
+	
 
 }

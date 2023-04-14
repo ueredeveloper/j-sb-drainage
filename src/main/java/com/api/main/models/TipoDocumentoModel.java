@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tipos_documentos")
@@ -36,9 +36,10 @@ public class TipoDocumentoModel implements Serializable {
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String td_descricao;
-
-	@OneToMany(mappedBy = "doc_tipo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<DocumentoModel> documentos = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "doc_tipo")
+	private List<DocumentoModel> documentos = new ArrayList<DocumentoModel>();
 
 	public long getTd_id() {
 		return td_id;
@@ -55,7 +56,7 @@ public class TipoDocumentoModel implements Serializable {
 	public void setTd_descricao(String td_descricao) {
 		this.td_descricao = td_descricao;
 	}
-
+	
 	public List<DocumentoModel> getDocumentos() {
 		return documentos;
 	}
