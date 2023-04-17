@@ -8,30 +8,23 @@
 		<version>2.2.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>restservice</artifactId>
+	<groupId>com.ueredeveloper</groupId>
+	<artifactId>j-sb-drainage</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>restservice</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Java SpringBoot Drainage</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
-    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <version>1.18.0</version>
-    <scope>provided</scope>
-</dependency>
-
+    
     <!-- H2 Database -->
-<dependency>
-  <groupId>com.h2database</groupId>
-  <artifactId>h2</artifactId>
-</dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+    </dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

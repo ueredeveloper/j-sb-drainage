@@ -32,7 +32,7 @@ public class TipoDocumentoModel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long td_id;
+	private Long td_id;
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String td_descricao;
@@ -41,11 +41,11 @@ public class TipoDocumentoModel implements Serializable {
 	@OneToMany(mappedBy = "doc_tipo")
 	private List<DocumentoModel> documentos = new ArrayList<DocumentoModel>();
 
-	public long getTd_id() {
+	public Long getTd_id() {
 		return td_id;
 	}
 
-	public void setTd_id(long td_id) {
+	public void setTd_id(Long td_id) {
 		this.td_id = td_id;
 	}
 
