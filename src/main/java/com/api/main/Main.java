@@ -44,7 +44,7 @@ public class Main {
 
     return (args) -> {
 
-      procRepo.save(new ProcessoModel("197.123.456/2013"));
+    procRepo.save(new ProcessoModel("197.123.456/2013"));
       procRepo.save(new ProcessoModel("197.456.789/2015"));
       procRepo.save(new ProcessoModel("197.789.456/2018"));
  

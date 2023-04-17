@@ -2,13 +2,8 @@ package com.api.main.services;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Service;
 
 import com.api.main.models.ProcessoModel;
@@ -34,6 +29,15 @@ public class ProcessoService {
 		return  procRepo.findAll();
 	}
 	
+	@Transactional
+	public List<ProcessoModel> findProcessosSecundarios (Long proc_principal_fk){
+		return procRepo.findProcessosSecundarios(proc_principal_fk);
+	}
+	
+	@Transactional
+	public void deleteProcessos (){
+		procRepo.deleteAll();
+	}
 	
 
 

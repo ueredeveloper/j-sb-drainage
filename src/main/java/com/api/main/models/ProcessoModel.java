@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -43,12 +44,11 @@ public class ProcessoModel {
 	@JoinColumn(name = "proc_principal_fk")
 	private ProcessoModel proc_principal_fk;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "proc_principal_fk")
 	private List<ProcessoModel> processos =  new ArrayList<>();
 	
 	
-	
-
 	public Long getProc_id() {
 		return proc_id;
 	}
