@@ -26,6 +26,10 @@ public class DocumentoService {
 	public List<DocumentoModel> listAll () {
 		return docRepo.findAll();
 	}
+	@Transactional
+	public void deleteAll () {
+		docRepo.deleteAll();
+	}
 	
 
 }

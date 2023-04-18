@@ -35,7 +35,7 @@ public class ProcessoService {
 	}
 	
 	@Transactional
-	public void deleteProcessos (){
+	public void deleteAll (){
 		procRepo.deleteAll();
 	}
 	

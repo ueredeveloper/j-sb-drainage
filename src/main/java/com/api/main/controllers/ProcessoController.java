@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,9 +51,9 @@ public class ProcessoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(procServ.findProcessosSecundarios(proc_principal_fk));
 	}
 
-	@DeleteMapping("deleteAll")
-	public ResponseEntity<String> deleteProcessos() {
-		procServ.deleteProcessos();
+	@DeleteMapping()
+	public ResponseEntity<String> deleteAll () {
+		procServ.deleteAll();
 		return ResponseEntity.ok("Todos os objetos deletados!!!");
 	}
 

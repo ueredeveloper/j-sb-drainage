@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,23 +24,28 @@ import com.api.main.services.TipoDocumentoService;
 @RequestMapping("/tipo-documento")
 public class TipoDocumentoController {
 
-  final TipoDocumentoService tps;
+  final TipoDocumentoService tdServ;
 
-  public TipoDocumentoController (TipoDocumentoService tps){
-    this.tps = tps;
+  public TipoDocumentoController (TipoDocumentoService tdServ){
+    this.tdServ = tdServ;
   }
 
   @PostMapping
-  public ResponseEntity<Object> save (@RequestBody @Valid TipoDocumentoDTO tddto){
-    TipoDocumentoModel tdm = new TipoDocumentoModel();
+  public ResponseEntity<Object> save (@RequestBody @Valid TipoDocumentoDTO tdDTO){
+    TipoDocumentoModel tdMod = new TipoDocumentoModel();
 
-    BeanUtils.copyProperties(tddto, tdm);
-    return ResponseEntity.status(HttpStatus.CREATED).body(tps.save(tdm));
+    BeanUtils.copyProperties(tdDTO, tdMod);
+    return ResponseEntity.status(HttpStatus.CREATED).body(tdServ.save(tdMod));
   }
   @GetMapping
-	public ResponseEntity<List<TipoDocumentoModel>> listall () {
-		return ResponseEntity.status(HttpStatus.CREATED).body(tps.listAll());
+	public ResponseEntity<List<TipoDocumentoModel>> listAll () {
+		return ResponseEntity.status(HttpStatus.CREATED).body(tdServ.listAll());
 	}
+  @DeleteMapping
+  public ResponseEntity<String> deleteAll (){
+	  tdServ.deleteAll();
+	  return ResponseEntity.ok("Todos os tipos de documento deletados!!!");
+  }
 }
 
 

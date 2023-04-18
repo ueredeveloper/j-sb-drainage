@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,12 @@ public class DocumentoController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<DocumentoModel>> listall() {
+	public ResponseEntity<List<DocumentoModel>> listAll() {
 		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.listAll());
+	}
+	@DeleteMapping
+	public ResponseEntity<String> deleteAll (){
+		docServ.deleteAll();
+		return ResponseEntity.ok("Todos documentos deletados!!!");
 	}
 }

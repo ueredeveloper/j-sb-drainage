@@ -1,11 +1,8 @@
 package com.api.main.services;
 
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
-
 import com.api.main.models.TipoDocumentoModel;
 import com.api.main.repositories.TipoDocumentoRepository;
 
@@ -26,6 +23,10 @@ public class TipoDocumentoService {
 	@Transactional
 	public List<TipoDocumentoModel> listAll() {
 		return tdRepo.findAll();
+	}
+	@Transactional
+	public void deleteAll () {
+		tdRepo.deleteAll();
 	}
 	
 
