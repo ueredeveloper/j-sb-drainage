@@ -24,3 +24,10 @@ hs_err_pid*
 
 target/**
 /target/
+
+# database
+*.properties
+
+.env
+
+

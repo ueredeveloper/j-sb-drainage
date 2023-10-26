@@ -11,7 +11,7 @@
 	<groupId>com.ueredeveloper</groupId>
 	<artifactId>j-sb-drainage</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>restservice</name>
+	<name>j-sb-drainage</name>
 	<description>Java SpringBoot Drainage</description>
 
 	<properties>
