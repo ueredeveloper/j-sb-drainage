@@ -30,8 +30,8 @@ public class ProcessoService {
 	}
 	
 	@Transactional
-	public List<ProcessoModel> findProcessosSecundarios (Long proc_principal_fk){
-		return procRepo.findProcessosSecundarios(proc_principal_fk);
+	public List<ProcessoModel> findProcessosSecundarios (Long proc_processo_principal){
+		return procRepo.findProcessosSecundarios(proc_processo_principal);
 	}
 	
 	@Transactional

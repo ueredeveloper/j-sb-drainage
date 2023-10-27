@@ -9,36 +9,42 @@ public class ProcessoDTO {
 	// @NotBlank
 	private String proc_numero;
 	
-	private ProcessoModel proc_principal_fk;
+	private ProcessoModel proc_processo_principal;
 	
 	private List<ProcessoModel> processos;
-	
-	
+
 	public long getProc_id() {
 		return proc_id;
 	}
+
 	public void setProc_id(long proc_id) {
 		this.proc_id = proc_id;
 	}
+
 	public String getProc_numero() {
 		return proc_numero;
 	}
+
 	public void setProc_numero(String proc_numero) {
 		this.proc_numero = proc_numero;
+	}
+
+	public ProcessoModel getProc_processo_principal() {
+		return proc_processo_principal;
+	}
+
+	public void setProc_processo_principal(ProcessoModel proc_processo_principal) {
+		this.proc_processo_principal = proc_processo_principal;
 	}
 
 	public List<ProcessoModel> getProcessos() {
 		return processos;
 	}
+
 	public void setProcessos(List<ProcessoModel> processos) {
 		this.processos = processos;
 	}
-	public ProcessoModel getProc_principal_fk() {
-		return proc_principal_fk;
-	}
-	public void setProc_principal_fk(ProcessoModel proc_principal_fk) {
-		this.proc_principal_fk = proc_principal_fk;
-	}
 
+  
 	
 }

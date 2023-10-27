@@ -4,6 +4,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.api.main.dto.DocumentoTipoDTO;
+import com.api.main.models.DocumentoTipoModel;
+import com.api.main.services.DocumentoTipoService;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,35 +19,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.main.dto.TipoDocumentoDTO;
-import com.api.main.models.TipoDocumentoModel;
-import com.api.main.services.TipoDocumentoService;
-
 @RestController
 @CrossOrigin (origins="*", maxAge=3600)
-@RequestMapping("/tipo-documento")
-public class TipoDocumentoController {
+@RequestMapping("/documento-tipo")
+public class DocumentoTipoController {
 
-  final TipoDocumentoService tdServ;
+  final DocumentoTipoService dtServ;
 
-  public TipoDocumentoController (TipoDocumentoService tdServ){
-    this.tdServ = tdServ;
+  public DocumentoTipoController (DocumentoTipoService dtServ){
+    this.dtServ = dtServ;
   }
 
   @PostMapping
-  public ResponseEntity<Object> save (@RequestBody @Valid TipoDocumentoDTO tdDTO){
-    TipoDocumentoModel tdMod = new TipoDocumentoModel();
+  public ResponseEntity<Object> save (@RequestBody @Valid DocumentoTipoDTO dtDTO){
+    DocumentoTipoModel dtMod = new DocumentoTipoModel();
 
-    BeanUtils.copyProperties(tdDTO, tdMod);
-    return ResponseEntity.status(HttpStatus.CREATED).body(tdServ.save(tdMod));
+    BeanUtils.copyProperties(dtDTO, dtMod);
+    return ResponseEntity.status(HttpStatus.CREATED).body(dtServ.save(dtMod));
   }
   @GetMapping
-	public ResponseEntity<List<TipoDocumentoModel>> listAll () {
-		return ResponseEntity.status(HttpStatus.CREATED).body(tdServ.listAll());
+	public ResponseEntity<List<DocumentoTipoModel>> listAll () {
+		return ResponseEntity.status(HttpStatus.CREATED).body(dtServ.listAll());
 	}
   @DeleteMapping
   public ResponseEntity<String> deleteAll (){
-	  tdServ.deleteAll();
+	  dtServ.deleteAll();
 	  return ResponseEntity.ok("Todos os tipos de documento deletados!!!");
   }
 }

@@ -1,9 +1,9 @@
 package com.api.main;
 
 import com.api.main.models.ProcessoModel;
-import com.api.main.models.TipoDocumentoModel;
+import com.api.main.models.DocumentoTipoModel;
 import com.api.main.repositories.ProcessoRepository;
-import com.api.main.repositories.TipoDocumentoRepository;
+import com.api.main.repositories.DocumentoTipoRepository;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,13 +26,13 @@ public class Main {
   }
 
   @Bean
-  public CommandLineRunner insertTipoDocumento(TipoDocumentoRepository tdr) {
+  public CommandLineRunner insertTipoDocumento(DocumentoTipoRepository tdr) {
 
     return (args) -> {
 
-      tdr.save(new TipoDocumentoModel("Requerimento"));
-      tdr.save(new TipoDocumentoModel("Ofício"));
-      tdr.save(new TipoDocumentoModel("Despacho"));
+      tdr.save(new DocumentoTipoModel("Requerimento"));
+      tdr.save(new DocumentoTipoModel("Ofício"));
+      tdr.save(new DocumentoTipoModel("Despacho"));
  
     };
 

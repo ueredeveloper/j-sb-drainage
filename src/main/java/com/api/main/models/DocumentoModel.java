@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
-@Table(name = "documentos")
+@Table(name = "documento")
 public class DocumentoModel implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class DocumentoModel implements Serializable {
 		return doc_id;
 	}
 
-	public void setDoc_id(Long doc_id) {
+	public void setDoc_Id(Long doc_id) {
 		this.doc_id = doc_id;
 	}
 
@@ -42,10 +42,10 @@ public class DocumentoModel implements Serializable {
 	@Column(nullable = true, unique = false, length = 40)
 	private String doc_sei;
 
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "td_id", scope = TipoDocumentoModel.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "dt_id", scope = DocumentoTipoModel.class)
 	@ManyToOne
 	@JoinColumn(name = "doc_tipo")
-	private TipoDocumentoModel doc_tipo;
+	private DocumentoTipoModel doc_tipo;
 
 
 	public String getDoc_numero() {
@@ -74,11 +74,11 @@ public class DocumentoModel implements Serializable {
 
 	
 
-	public TipoDocumentoModel getDoc_tipo() {
+	public DocumentoTipoModel getDoc_tipo() {
 		return doc_tipo;
 	}
 
-	public void setDoc_tipo(TipoDocumentoModel doc_tipo) {
+	public void setDoc_tipo(DocumentoTipoModel doc_tipo) {
 		this.doc_tipo = doc_tipo;
 	}
 

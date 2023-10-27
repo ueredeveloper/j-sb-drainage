@@ -25,36 +25,36 @@ import com.api.main.services.ProcessoService;
 @RequestMapping("/processo")
 public class ProcessoController {
 
-	final ProcessoService procServ;
+  final ProcessoService procServ;
 
-	public ProcessoController(ProcessoService procServ) {
-		this.procServ = procServ;
-	}
+  public ProcessoController(ProcessoService procServ) {
+    this.procServ = procServ;
+  }
 
-	@PostMapping
-	public ResponseEntity<Object> save(@RequestBody @Valid ProcessoDTO procDTO) {
+  @PostMapping
+  public ResponseEntity<Object> save(@RequestBody @Valid ProcessoDTO procDTO) {
 
-		ProcessoModel procMod = new ProcessoModel();
+    ProcessoModel procMod = new ProcessoModel();
 
-		BeanUtils.copyProperties(procDTO, procMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(procServ.save(procMod));
-	}
+    BeanUtils.copyProperties(procDTO, procMod);
+    return ResponseEntity.status(HttpStatus.CREATED).body(procServ.save(procMod));
+  }
 
-	@GetMapping("/")
-	public ResponseEntity<List<ProcessoModel>> listAll() {
-		return ResponseEntity.status(HttpStatus.CREATED).body(procServ.listAll());
-	}
+  @GetMapping
+  public ResponseEntity<List<ProcessoModel>> listAll() {
+    return ResponseEntity.status(HttpStatus.CREATED).body(procServ.listAll());
+  }
 
-	@GetMapping("/secundarios")
-	public ResponseEntity<List<ProcessoModel>> findProcessosSecundarios(
-			@RequestParam("proc_principal_fk") Long proc_principal_fk) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(procServ.findProcessosSecundarios(proc_principal_fk));
-	}
+  @GetMapping("/secundarios")
+  public ResponseEntity<List<ProcessoModel>> findProcessosSecundarios(
+      @RequestParam("proc_processo_principal") Long proc_processo_principal) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(procServ.findProcessosSecundarios(proc_processo_principal));
+  }
 
-	@DeleteMapping()
-	public ResponseEntity<String> deleteAll () {
-		procServ.deleteAll();
-		return ResponseEntity.ok("Todos os objetos deletados!!!");
-	}
+  @DeleteMapping()
+  public ResponseEntity<String> deleteAll() {
+    procServ.deleteAll();
+    return ResponseEntity.ok("Todos os objetos deletados!!!");
+  }
 
 }
