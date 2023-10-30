@@ -33,7 +33,7 @@ public class DocumentoController {
 	@PostMapping
 	public ResponseEntity<Object> save (@RequestBody @Valid DocumentoDTO docDTO) {
 		DocumentoModel docMod = new DocumentoModel();
-
+		System.out.println(docMod.getDoc_tipo());
 		BeanUtils.copyProperties(docDTO, docMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.save(docMod));
 	}

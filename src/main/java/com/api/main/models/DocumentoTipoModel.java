@@ -18,62 +18,55 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "documento_tipo")
 public class DocumentoTipoModel implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long dt_id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long dt_id;
 
-  @Column(nullable = true, unique = false, length = 40)
-  private String dt_descricao;
+	@Column(nullable = true, unique = false, length = 40)
+	private String dt_descricao;
 
-  @JsonIgnore
-  @OneToMany(mappedBy = "doc_tipo")
-  private List<DocumentoModel> documentos = new ArrayList<DocumentoModel>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "doc_tipo")
+	private List<DocumentoModel> documentos = new ArrayList<DocumentoModel>();
 
-  // constructors
-  public DocumentoTipoModel() {
-    super();
-  }
-  public DocumentoTipoModel(String dt_descricao) {
-    super();
-    this.dt_descricao = dt_descricao;
-  }
-  
-  public DocumentoTipoModel(Long dt_id, String dt_descricao) {
-    super();
-    this.dt_id = dt_id;
-    this.dt_descricao = dt_descricao;
-  }
-  
+	// constructors
+	public DocumentoTipoModel() {
+		super();
+	}
 
-  // getters and settters
-  public static long getSerialversionuid() {
-    return serialVersionUID;
-  }
+	public DocumentoTipoModel(String dt_descricao) {
+		super();
+		this.dt_descricao = dt_descricao;
+	}
 
-  public Long getDt_id() {
-    return dt_id;
-  }
+	public Long getDt_id() {
+		return dt_id;
+	}
 
-  public void setDt_id(Long dt_id) {
-    this.dt_id = dt_id;
-  }
+	public void setDt_id(Long dt_id) {
+		this.dt_id = dt_id;
+	}
 
-  public String getDt_descricao() {
-    return dt_descricao;
-  }
+	public String getDt_descricao() {
+		return dt_descricao;
+	}
 
-  public void setDt_descricao(String dt_descricao) {
-    this.dt_descricao = dt_descricao;
-  }
+	public void setDt_descricao(String dt_descricao) {
+		this.dt_descricao = dt_descricao;
+	}
 
-  public List<DocumentoModel> getDocumentos() {
-    return documentos;
-  }
+	public List<DocumentoModel> getDocumentos() {
+		return documentos;
+	}
 
-  public void setDocumentos(List<DocumentoModel> documentos) {
-    this.documentos = documentos;
-  }
+	public void setDocumentos(List<DocumentoModel> documentos) {
+		this.documentos = documentos;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

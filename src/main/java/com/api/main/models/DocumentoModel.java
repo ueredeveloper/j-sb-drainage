@@ -34,7 +34,8 @@ public class DocumentoModel implements Serializable {
 	@Column(nullable = true, unique = false, length = 40)
 	private String doc_sei;
 
-	/*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "dt_id", scope = DocumentoTipoModel.class)*/
+	// retirado pois retira do segundo objeto em diante o objeto relacionado ao objeto.
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "dt_id", scope = DocumentoTipoModel.class)
 	@ManyToOne
 	@JoinColumn(name = "doc_tipo")
 	private DocumentoTipoModel doc_tipo;

@@ -5,6 +5,7 @@ import java.util.List;
 import com.api.main.models.ProcessoModel;
 
 public class ProcessoDTO {
+	
 	private long proc_id;
 	// @NotBlank
 	private String proc_numero;
