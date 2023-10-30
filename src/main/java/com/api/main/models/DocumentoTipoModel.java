@@ -31,17 +31,25 @@ public class DocumentoTipoModel implements Serializable {
   @OneToMany(mappedBy = "doc_tipo")
   private List<DocumentoModel> documentos = new ArrayList<DocumentoModel>();
 
+  // constructors
+  public DocumentoTipoModel() {
+    super();
+  }
+  public DocumentoTipoModel(String dt_descricao) {
+    super();
+    this.dt_descricao = dt_descricao;
+  }
+  
+  public DocumentoTipoModel(Long dt_id, String dt_descricao) {
+    super();
+    this.dt_id = dt_id;
+    this.dt_descricao = dt_descricao;
+  }
+  
+
+  // getters and settters
   public static long getSerialversionuid() {
     return serialVersionUID;
-  }
-
-  // default constructor
-  public DocumentoTipoModel() {
-  }
-
-  // descrição constructor
-  public DocumentoTipoModel(String dt_descricao) {
-    this.dt_descricao = dt_descricao;
   }
 
   public Long getDt_id() {

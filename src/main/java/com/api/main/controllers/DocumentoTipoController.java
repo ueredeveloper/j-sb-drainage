@@ -20,34 +20,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin (origins="*", maxAge=3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/documento-tipo")
 public class DocumentoTipoController {
 
   final DocumentoTipoService dtServ;
 
-  public DocumentoTipoController (DocumentoTipoService dtServ){
+  public DocumentoTipoController(DocumentoTipoService dtServ) {
     this.dtServ = dtServ;
   }
 
   @PostMapping
-  public ResponseEntity<Object> save (@RequestBody @Valid DocumentoTipoDTO dtDTO){
+  public ResponseEntity<Object> save(@RequestBody @Valid DocumentoTipoDTO dtDTO) {
     DocumentoTipoModel dtMod = new DocumentoTipoModel();
 
     BeanUtils.copyProperties(dtDTO, dtMod);
     return ResponseEntity.status(HttpStatus.CREATED).body(dtServ.save(dtMod));
   }
+
   @GetMapping
-	public ResponseEntity<List<DocumentoTipoModel>> listAll () {
-		return ResponseEntity.status(HttpStatus.CREATED).body(dtServ.listAll());
-	}
+  public ResponseEntity<List<DocumentoTipoModel>> listAll() {
+    return ResponseEntity.status(HttpStatus.CREATED).body(dtServ.listAll());
+  }
+
   @DeleteMapping
-  public ResponseEntity<String> deleteAll (){
-	  dtServ.deleteAll();
-	  return ResponseEntity.ok("Todos os tipos de documento deletados!!!");
+  public ResponseEntity<String> deleteAll() {
+    dtServ.deleteAll();
+    return ResponseEntity.ok("Todos os tipos de documento deletados!!!");
   }
 }
-
-
-
-  

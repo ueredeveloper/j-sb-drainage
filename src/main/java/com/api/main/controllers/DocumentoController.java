@@ -42,6 +42,13 @@ public class DocumentoController {
 	public ResponseEntity<List<DocumentoModel>> listAll() {
 		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.listAll());
 	}
+  /*
+  @GetMapping
+  public ResponseEntity<List<Object>> listAll() {
+      List<Object> customDocumentos = docServ.listAll();
+    System.out.println(customDocumentos);
+      return ResponseEntity.status(HttpStatus.OK).body(customDocumentos);
+  }*/
 	@DeleteMapping
 	public ResponseEntity<String> deleteAll (){
 		docServ.deleteAll();

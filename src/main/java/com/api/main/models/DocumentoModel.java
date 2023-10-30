@@ -25,14 +25,6 @@ public class DocumentoModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long doc_id;
 
-	public Long getDoc_id() {
-		return doc_id;
-	}
-
-	public void setDoc_Id(Long doc_id) {
-		this.doc_id = doc_id;
-	}
-
 	@Column(nullable = true, unique = false, length = 40)
 	private String doc_numero;
 
@@ -42,11 +34,22 @@ public class DocumentoModel implements Serializable {
 	@Column(nullable = true, unique = false, length = 40)
 	private String doc_sei;
 
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "dt_id", scope = DocumentoTipoModel.class)
+	/*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "dt_id", scope = DocumentoTipoModel.class)*/
 	@ManyToOne
 	@JoinColumn(name = "doc_tipo")
 	private DocumentoTipoModel doc_tipo;
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Long getDoc_id() {
+		return doc_id;
+	}
+
+	public void setDoc_id(Long doc_id) {
+		this.doc_id = doc_id;
+	}
 
 	public String getDoc_numero() {
 		return doc_numero;
@@ -72,8 +75,6 @@ public class DocumentoModel implements Serializable {
 		this.doc_sei = doc_sei;
 	}
 
-	
-
 	public DocumentoTipoModel getDoc_tipo() {
 		return doc_tipo;
 	}
@@ -82,9 +83,8 @@ public class DocumentoModel implements Serializable {
 		this.doc_tipo = doc_tipo;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+  
+  
 
 	
 }

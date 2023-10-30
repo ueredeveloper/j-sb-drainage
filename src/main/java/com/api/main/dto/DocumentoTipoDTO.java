@@ -14,6 +14,18 @@ public class DocumentoTipoDTO {
 
   private List<DocumentoModel> documentos;
 
+  // constructors
+  /*
+  public DocumentoTipoDTO() { 
+  }*/
+  
+  public DocumentoTipoDTO(Long dt_id, String dt_descricao) {
+    super();
+    this.dt_id=dt_id;
+    this.dt_descricao=dt_descricao;
+  }
+  
+  // getters and setters
   public Long getDt_id() {
     return dt_id;
   }
