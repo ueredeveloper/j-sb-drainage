@@ -27,7 +27,13 @@ target/**
 
 # database
 src/main/resources/application.properties
-# senhas
+# password
 .env
+
+# replit
+.cache/replit/__replit_disk_meta.json
+.replit
+.replit.backup
+
 
 
