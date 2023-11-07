@@ -1,16 +1,13 @@
 package com.api.main.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
-import com.api.main.dto.DocumentoDTO;
-import com.api.main.dto.DocumentoTipoDTO;
-import com.api.main.models.DocumentoModel;
-import com.api.main.models.DocumentoTipoModel;
-import com.api.main.repositories.DocumentoRepository;
 
 import org.springframework.stereotype.Service;
+
+import com.api.main.models.DocumentoModel;
+import com.api.main.repositories.DocumentoRepository;
 
 @Service
 public class DocumentoService {
