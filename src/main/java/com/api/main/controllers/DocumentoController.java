@@ -10,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.DocumentoDTO;
@@ -38,18 +40,25 @@ public class DocumentoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.save(docMod));
 	}
 
+	// Buscar todos os resultados
 	@GetMapping
 	public ResponseEntity<List<DocumentoModel>> listAll() {
 		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.listAll());
 	}
-  /*
-  @GetMapping
-  public ResponseEntity<List<Object>> listAll() {
-      List<Object> customDocumentos = docServ.listAll();
-    System.out.println(customDocumentos);
-      return ResponseEntity.status(HttpStatus.OK).body(customDocumentos);
-  }*/
-	@DeleteMapping
+	// Buscar por parâmetro
+	@GetMapping("/pesquisa")
+	public ResponseEntity<List<DocumentoModel>> searchDocuments(@RequestParam String keyword) {
+	    List<DocumentoModel> searchResults = docServ.searchDocuments(keyword);
+	    return ResponseEntity.status(HttpStatus.OK).body(searchResults);
+	}
+
+	@DeleteMapping("/")
+	public ResponseEntity<String> deleteById(@RequestParam Long id) {
+		System.out.println("delete id: " + id);
+	    docServ.deleteById(id);
+	    return ResponseEntity.ok("Documento deletado com sucesso!");
+	}
+	@DeleteMapping("")
 	public ResponseEntity<String> deleteAll (){
 		docServ.deleteAll();
 		return ResponseEntity.ok("Todos documentos deletados!!!");
