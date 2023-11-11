@@ -1,6 +1,7 @@
 package com.api.main.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
@@ -56,8 +57,12 @@ public class DocumentoService {
 		docRepo.deleteAll();
 	}
 	@Transactional
-	 public void deleteById(Long id) {
-        docRepo.deleteById(id);
-    }
+	public DocumentoModel deleteById(Long id) {
+	    DocumentoModel deletedDocument = docRepo.findById(id)
+	            .orElseThrow(() -> new NoSuchElementException("Não foi encontrado documento com o id: " + id));
+
+	    docRepo.deleteById(id);
+	    return deletedDocument;
+	}
 
 }

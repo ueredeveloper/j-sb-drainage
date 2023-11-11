@@ -53,10 +53,10 @@ public class DocumentoController {
 	}
 
 	@DeleteMapping("/")
-	public ResponseEntity<String> deleteById(@RequestParam Long id) {
-		System.out.println("delete id: " + id);
-	    docServ.deleteById(id);
-	    return ResponseEntity.ok("Documento deletado com sucesso!");
+	public ResponseEntity<DocumentoModel> deleteById(@RequestParam Long id) {
+		
+	    DocumentoModel deletedDoc = docServ.deleteById(id);
+	    return ResponseEntity.ok(deletedDoc);
 	}
 	@DeleteMapping("")
 	public ResponseEntity<String> deleteAll (){
