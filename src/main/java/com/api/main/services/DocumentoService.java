@@ -2,6 +2,7 @@ package com.api.main.services;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -29,26 +30,8 @@ public class DocumentoService {
 		return docRepo.findAll();
 	}
 
-	/*
-	 * @Transactional public List<Object> listAll() { List<DocumentoModel>
-	 * documentos = docRepo.findAll(); List<Object> customDocumentos = new
-	 * ArrayList<>();
-	 * 
-	 * for (DocumentoModel documento : documentos) { Object docTipo =
-	 * documento.getDoc_tipo(); DocumentoTipoModel docTipoModel =
-	 * (DocumentoTipoModel) docTipo;
-	 * 
-	 * DocumentoDTO customDTO = new DocumentoDTO( documento.getDoc_id(),
-	 * documento.getDoc_numero(), documento.getDoc_processo(),
-	 * documento.getDoc_sei(), new DocumentoTipoDTO(docTipoModel.getDt_id(),
-	 * docTipoModel.getDt_descricao()));
-	 * 
-	 * customDocumentos.add(customDTO); }
-	 * 
-	 * return customDocumentos; }
-	 */
 	@Transactional
-	public List<DocumentoModel> searchDocuments (String keyword){
+	public List<DocumentoModel> searchDocuments(String keyword) {
 		return docRepo.searchDocuments(keyword);
 	}
 
@@ -56,13 +39,35 @@ public class DocumentoService {
 	public void deleteAll() {
 		docRepo.deleteAll();
 	}
+
 	@Transactional
 	public DocumentoModel deleteById(Long id) {
-	    DocumentoModel deletedDocument = docRepo.findById(id)
-	            .orElseThrow(() -> new NoSuchElementException("Não foi encontrado documento com o id: " + id));
+		DocumentoModel deletedDocument = docRepo.findById(id)
+				.orElseThrow(() -> new NoSuchElementException("Não foi encontrado documento com o id: " + id));
 
-	    docRepo.deleteById(id);
-	    return deletedDocument;
+		docRepo.deleteById(id);
+		return deletedDocument;
 	}
+	public Optional<DocumentoModel> findById(Long id) {
+        return docRepo.findById(id);
+    }
+
+	public DocumentoModel updateDocumento(Long id, DocumentoModel updateDocumento) {
+	    DocumentoModel responseDocumento = docRepo.findById(id)
+	            .map((DocumentoModel record) -> {
+	                record.setDoc_numero(updateDocumento.getDoc_numero());
+	                record.setDoc_processo(updateDocumento.getDoc_processo());
+	                record.setDoc_sei(updateDocumento.getDoc_sei());
+	                return docRepo.save(record);
+	            })
+	            .orElse(null);
+	    
+	    if(updateDocumento == null) {
+	    	throw new NoSuchElementException("Não foi encontrado documento com o id: " + id);
+	    }
+	    
+	    return responseDocumento;
+	}
+	
 
 }
