@@ -58,11 +58,12 @@ public class DocumentoService {
 	                record.setDoc_numero(updateDocumento.getDoc_numero());
 	                record.setDoc_processo(updateDocumento.getDoc_processo());
 	                record.setDoc_sei(updateDocumento.getDoc_sei());
+	                record.setDoc_tipo(updateDocumento.getDoc_tipo());
 	                return docRepo.save(record);
 	            })
 	            .orElse(null);
 	    
-	    if(updateDocumento == null) {
+	    if(responseDocumento == null) {
 	    	throw new NoSuchElementException("Não foi encontrado documento com o id: " + id);
 	    }
 	    

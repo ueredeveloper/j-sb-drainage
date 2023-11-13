@@ -45,10 +45,8 @@ public class DocumentoController {
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody DocumentoModel updateDocumento) {
 		DocumentoModel updated = docServ.updateDocumento(id, updateDocumento);
 		if (updated != null) {
-			System.out.println("if");
 			return ResponseEntity.ok().body(updated);
 		} else {
-			System.out.println("else");
 			return ResponseEntity.notFound().build();
 		}
 	}
