@@ -7,32 +7,32 @@ import com.api.main.models.ProcessoModel;
 //@JsonSerialize(using = CustomDocTipoSerializer.class)
 public class DocumentoDTO {
 
-	private Long doc_id;
+	private Long docId;
 	// @NotBlank
-	private String doc_numero;
+	private String docNumero;
 	// @NotBlank
 	private ProcessoModel docProcesso;
 
 	// @NotBlank
-	private String doc_sei;
+	private String docSEI;
 
 	// @JsonInclude(Include.NON_NULL)
-	private DocumentoTipoModel doc_tipo;
+	private DocumentoTipoModel docTipo;
 
-	public Long getDoc_id() {
-		return doc_id;
+	public Long getDocId() {
+		return docId;
 	}
 
-	public void setDoc_id(Long doc_id) {
-		this.doc_id = doc_id;
+	public void setDocId(Long docId) {
+		this.docId = docId;
 	}
 
-	public String getDoc_numero() {
-		return doc_numero;
+	public String getDocNumero() {
+		return docNumero;
 	}
 
-	public void setDoc_numero(String doc_numero) {
-		this.doc_numero = doc_numero;
+	public void setDocNumero(String docNumero) {
+		this.docNumero = docNumero;
 	}
 
 	public ProcessoModel getDocProcesso() {
@@ -43,20 +43,22 @@ public class DocumentoDTO {
 		this.docProcesso = docProcesso;
 	}
 
-	public String getDoc_sei() {
-		return doc_sei;
+	public String getDocSEI() {
+		return docSEI;
 	}
 
-	public void setDoc_sei(String doc_sei) {
-		this.doc_sei = doc_sei;
+	public void setDocSEI(String docSEI) {
+		this.docSEI = docSEI;
 	}
 
-	public DocumentoTipoModel getDoc_tipo() {
-		return doc_tipo;
+	public DocumentoTipoModel getDocTipo() {
+		return docTipo;
 	}
 
-	public void setDoc_tipo(DocumentoTipoModel doc_tipo) {
-		this.doc_tipo = doc_tipo;
+	public void setDocTipo(DocumentoTipoModel docTipo) {
+		this.docTipo = docTipo;
 	}
+
+	
 
 }

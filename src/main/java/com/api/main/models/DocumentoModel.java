@@ -19,70 +19,50 @@ public class DocumentoModel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long doc_id;
+	private Long docId;
 
 	@Column(nullable = true, unique = false, length = 40)
-	private String doc_numero;
+	private String docNumero;
 
 	@ManyToOne
 	@JoinColumn(name = "docProcesso")
 	private ProcessoModel docProcesso;
 
 	@Column(nullable = true, unique = false, length = 40)
-	private String doc_sei;
+	private String docSEI;
 
 	// está retirando o tipo de documento relacionado, trazendo só o id. Ex:
 	// documento: {doc_tipo:{dt_id: 1}} => documento: {doc_tipo: 1}
 	// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
 	// property = "dt_id", scope = DocumentoTipoModel.class)
 	@ManyToOne
-	@JoinColumn(name = "doc_tipo")
-	private DocumentoTipoModel doc_tipo;
-	
-	
+	@JoinColumn(name = "docTipo")
+	private DocumentoTipoModel docTipo;
+
 	public DocumentoModel() {
 		super();
 	}
-
-	public DocumentoModel(String doc_numero) {
+	
+	public DocumentoModel(String docNumero) {
 		super();
-		this.doc_numero = doc_numero;
+		this.docNumero = docNumero;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+
+	public Long getDocId() {
+		return docId;
 	}
 
-	public Long getDoc_id() {
-		return doc_id;
+	public void setDocId(Long docId) {
+		this.docId = docId;
 	}
 
-	public void setDoc_id(Long doc_id) {
-		this.doc_id = doc_id;
+	public String getDocNumero() {
+		return docNumero;
 	}
 
-	public String getDoc_numero() {
-		return doc_numero;
-	}
-
-	public void setDoc_numero(String doc_numero) {
-		this.doc_numero = doc_numero;
-	}
-
-	public String getDoc_sei() {
-		return doc_sei;
-	}
-
-	public void setDoc_sei(String doc_sei) {
-		this.doc_sei = doc_sei;
-	}
-
-	public DocumentoTipoModel getDoc_tipo() {
-		return doc_tipo;
-	}
-
-	public void setDoc_tipo(DocumentoTipoModel doc_tipo) {
-		this.doc_tipo = doc_tipo;
+	public void setDocNumero(String docNumero) {
+		this.docNumero = docNumero;
 	}
 
 	public ProcessoModel getDocProcesso() {
@@ -91,6 +71,26 @@ public class DocumentoModel implements Serializable {
 
 	public void setDocProcesso(ProcessoModel docProcesso) {
 		this.docProcesso = docProcesso;
+	}
+
+	public String getDocSEI() {
+		return docSEI;
+	}
+
+	public void setDocSEI(String docSEI) {
+		this.docSEI = docSEI;
+	}
+
+	public DocumentoTipoModel getDocTipo() {
+		return docTipo;
+	}
+
+	public void setDocTipo(DocumentoTipoModel docTipo) {
+		this.docTipo = docTipo;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

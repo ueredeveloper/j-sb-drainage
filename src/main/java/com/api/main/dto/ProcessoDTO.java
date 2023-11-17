@@ -6,55 +6,55 @@ import com.api.main.models.DocumentoModel;
 import com.api.main.models.ProcessoModel;
 
 public class ProcessoDTO {
-	
-	private long proc_id;
+
+	private long proId;
 	// @NotBlank
-	private String proc_numero;
-	
-	private ProcessoModel proc_processo_principal;
-	
-	private List<ProcessoModel> processos;
-	
-	private List<DocumentoModel> documentos;
+	private String procNumero;
 
-	public long getProc_id() {
-		return proc_id;
+	private ProcessoModel procPrincipal;
+
+	private List<ProcessoModel> procProcessos;
+
+	private List<DocumentoModel> procDocumentos;
+
+	public long getProId() {
+		return proId;
 	}
 
-	public void setProc_id(long proc_id) {
-		this.proc_id = proc_id;
+	public void setProId(long proId) {
+		this.proId = proId;
 	}
 
-	public String getProc_numero() {
-		return proc_numero;
+	public String getProcNumero() {
+		return procNumero;
 	}
 
-	public void setProc_numero(String proc_numero) {
-		this.proc_numero = proc_numero;
+	public void setProcNumero(String procNumero) {
+		this.procNumero = procNumero;
 	}
 
-	public ProcessoModel getProc_processo_principal() {
-		return proc_processo_principal;
+	public ProcessoModel getProcPrincipal() {
+		return procPrincipal;
 	}
 
-	public void setProc_processo_principal(ProcessoModel proc_processo_principal) {
-		this.proc_processo_principal = proc_processo_principal;
+	public void setProcPrincipal(ProcessoModel procPrincipal) {
+		this.procPrincipal = procPrincipal;
 	}
 
-	public List<ProcessoModel> getProcessos() {
-		return processos;
+	public List<ProcessoModel> getProcProcessos() {
+		return procProcessos;
 	}
 
-	public void setProcessos(List<ProcessoModel> processos) {
-		this.processos = processos;
+	public void setProcProcessos(List<ProcessoModel> procProcessos) {
+		this.procProcessos = procProcessos;
 	}
 
-	public List<DocumentoModel> getDocumentos() {
-		return documentos;
+	public List<DocumentoModel> getProcDocumentos() {
+		return procDocumentos;
 	}
 
-	public void setDocumentos(List<DocumentoModel> documentos) {
-		this.documentos = documentos;
+	public void setProcDocumentos(List<DocumentoModel> procDocumentos) {
+		this.procDocumentos = procDocumentos;
 	}
-	
+
 }

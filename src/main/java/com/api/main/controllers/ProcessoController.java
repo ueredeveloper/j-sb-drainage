@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,36 +26,60 @@ import com.api.main.services.ProcessoService;
 @RequestMapping("/processo")
 public class ProcessoController {
 
-  final ProcessoService procServ;
+	final ProcessoService service;
 
-  public ProcessoController(ProcessoService procServ) {
-    this.procServ = procServ;
-  }
+	public ProcessoController(ProcessoService service) {
+		this.service = service;
+	}
 
-  @PostMapping
-  public ResponseEntity<Object> save(@RequestBody @Valid ProcessoDTO procDTO) {
+	@PostMapping("/create")
+	public ResponseEntity<Object> save(@RequestBody @Valid ProcessoDTO procDTO) {
 
-    ProcessoModel procMod = new ProcessoModel();
+		ProcessoModel procMod = new ProcessoModel();
 
-    BeanUtils.copyProperties(procDTO, procMod);
-    return ResponseEntity.status(HttpStatus.CREATED).body(procServ.save(procMod));
-  }
+		BeanUtils.copyProperties(procDTO, procMod);
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(procMod));
+	}
 
-  @GetMapping
-  public ResponseEntity<List<ProcessoModel>> listAll() {
-    return ResponseEntity.status(HttpStatus.CREATED).body(procServ.listAll());
-  }
+	@GetMapping("/list")
+	public ResponseEntity<List<ProcessoModel>> listAll() {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.list());
+	}
+	
+	// Buscar por parâmetro
+	@GetMapping("/search")
+	public ResponseEntity<List<ProcessoModel>> searchProcess (@RequestParam String keyword) {
+			List<ProcessoModel> searchResults = service.search(keyword);
+			return ResponseEntity.status(HttpStatus.OK).body(searchResults);
+		}
 
-  @GetMapping("/secundarios")
-  public ResponseEntity<List<ProcessoModel>> findProcessosSecundarios(
-      @RequestParam("proc_processo_principal") Long proc_processo_principal) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(procServ.findProcessosSecundarios(proc_processo_principal));
-  }
+	@GetMapping("/childrens")
+	public ResponseEntity<List<ProcessoModel>> findChildrensProcess(
+			@RequestParam("procPrincipal") Long procPrincipal) {
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(service.findChildrens(procPrincipal));
+	}
 
-  @DeleteMapping()
-  public ResponseEntity<String> deleteAll() {
-    procServ.deleteAll();
-    return ResponseEntity.ok("Todos os objetos deletados!!!");
-  }
+	@PutMapping(value = "")
+	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody ProcessoModel udpateProcesso) {
+		ProcessoModel updated = service.update(id, udpateProcesso);
+		if (updated != null) {
+			return ResponseEntity.ok().body(updated);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	@DeleteMapping("/deleteAll")
+	public ResponseEntity<String> deleteAll() {
+		service.delete();
+		return ResponseEntity.ok("Todos os objetos deletados!!!");
+	}
+	@DeleteMapping("")
+	public ResponseEntity<ProcessoModel> deleteById(@RequestParam Long id) {
+
+		ProcessoModel deleteResponse = service.deleteById(id);
+		return ResponseEntity.ok(deleteResponse);
+	}
 
 }

@@ -22,51 +22,51 @@ public class DocumentoTipoModel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long dt_id;
+	private Long dtId;
 
 	@Column(nullable = true, unique = false, length = 40)
-	private String dt_descricao;
+	private String dtDescricao;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "doc_tipo")
-	private List<DocumentoModel> documentos = new ArrayList<DocumentoModel>();
+	@OneToMany(mappedBy = "docTipo")
+	private List<DocumentoModel> dtDocumentos = new ArrayList<DocumentoModel>();
 
 	// constructors
 	public DocumentoTipoModel() {
 		super();
 	}
-
-	public DocumentoTipoModel(String dt_descricao) {
+	
+	public DocumentoTipoModel(String dtDescricao) {
 		super();
-		this.dt_descricao = dt_descricao;
+		this.dtDescricao = dtDescricao;
 	}
 
-	public Long getDt_id() {
-		return dt_id;
+	public Long getDtId() {
+		return dtId;
 	}
 
-	public void setDt_id(Long dt_id) {
-		this.dt_id = dt_id;
+	public void setDtId(Long dtId) {
+		this.dtId = dtId;
 	}
 
-	public String getDt_descricao() {
-		return dt_descricao;
+	public String getDtDescricao() {
+		return dtDescricao;
 	}
 
-	public void setDt_descricao(String dt_descricao) {
-		this.dt_descricao = dt_descricao;
-	}
-
-	public List<DocumentoModel> getDocumentos() {
-		return documentos;
-	}
-
-	public void setDocumentos(List<DocumentoModel> documentos) {
-		this.documentos = documentos;
+	public void setDtDescricao(String dtDescricao) {
+		this.dtDescricao = dtDescricao;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public List<DocumentoModel> getDtDocumentos() {
+		return dtDocumentos;
+	}
+
+	public void setDtDocumentos(List<DocumentoModel> dtDocumentos) {
+		this.dtDocumentos = dtDocumentos;
 	}
 
 }

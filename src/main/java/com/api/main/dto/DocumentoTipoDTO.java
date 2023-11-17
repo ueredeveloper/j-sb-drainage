@@ -8,35 +8,35 @@ import com.api.main.models.DocumentoModel;
 
 public class DocumentoTipoDTO {
 
-	private Long dt_id;
+	private Long dtId;
 
-	private String dt_descricao;
+	private String dtDescricao;
 
-	private List<DocumentoModel> documentos;
+	private List<DocumentoModel> dtDocumentos;
 
-	// getters and setters
-	public Long getDt_id() {
-		return dt_id;
+	public Long getDtId() {
+		return dtId;
 	}
 
-	public void setDt_id(Long dt_id) {
-		this.dt_id = dt_id;
+	public void setDtId(Long dtId) {
+		this.dtId = dtId;
 	}
 
-	public String getDt_descricao() {
-		return dt_descricao;
+	public String getDtDescricao() {
+		return dtDescricao;
 	}
 
-	public void setDt_descricao(String dt_descricao) {
-		this.dt_descricao = dt_descricao;
+	public void setDtDescricao(String dtDescricao) {
+		this.dtDescricao = dtDescricao;
 	}
 
-	public List<DocumentoModel> getDocumentos() {
-		return documentos;
+	public List<DocumentoModel> getDtDocumentos() {
+		return dtDocumentos;
 	}
 
-	public void setDocumentos(List<DocumentoModel> documentos) {
-		this.documentos = documentos;
+	public void setDtDocumentos(List<DocumentoModel> dtDocumentos) {
+		this.dtDocumentos = dtDocumentos;
 	}
+
 
 }

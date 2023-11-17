@@ -13,9 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "processo")
@@ -25,79 +23,78 @@ public class ProcessoModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long proc_id;
+	private Long procId;
 
 	@Column(nullable = true, unique = false, length = 40)
-	private String proc_numero;
+	private String procNumero;
 
 	// está retirando o objeto relacionado, trazendo apenas o id, ex:
 	// proc_principal: {proc: 1} => proc_principal: 1
 	// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
 	// property = "proc_id", scope = ProcessoModel.class)
 	@ManyToOne
-	@JoinColumn(name = "proc_processo_principal")
-	private ProcessoModel proc_processo_principal;
+	@JoinColumn(name = "procPrincipal")
+	private ProcessoModel procPrincipal;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "proc_processo_principal")
-	private List<ProcessoModel> processos = new ArrayList<>();
+	@OneToMany(mappedBy = "procPrincipal")
+	private List<ProcessoModel> procProcessos = new ArrayList<>();
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "docProcesso")
-	private List<DocumentoModel> documentos = new ArrayList<>();
+	private List<DocumentoModel> procDocumentos = new ArrayList<>();
 
 	public ProcessoModel() {
-
+		super();
+	}
+	
+	public ProcessoModel(String procNumero) {
+		super();
+		this.procNumero = procNumero;
 	}
 
-	public ProcessoModel(String proc_numero) {
-		this.proc_numero = proc_numero;
+	public Long getProcId() {
+		return procId;
+	}
+
+	public void setProcId(Long procId) {
+		this.procId = procId;
+	}
+
+	public String getProcNumero() {
+		return procNumero;
+	}
+
+	public void setProcNumero(String procNumero) {
+		this.procNumero = procNumero;
+	}
+
+	public ProcessoModel getProcPrincipal() {
+		return procPrincipal;
+	}
+
+	public void setProcPrincipal(ProcessoModel procPrincipal) {
+		this.procPrincipal = procPrincipal;
+	}
+
+	public List<ProcessoModel> getProcProcessos() {
+		return procProcessos;
+	}
+
+	public void setProcProcessos(List<ProcessoModel> procProcessos) {
+		this.procProcessos = procProcessos;
+	}
+
+	public List<DocumentoModel> getProcDocumentos() {
+		return procDocumentos;
+	}
+
+	public void setProcDocumentos(List<DocumentoModel> procDocumentos) {
+		this.procDocumentos = procDocumentos;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-	public Long getProc_id() {
-		return proc_id;
-	}
-
-	public void setProc_id(Long proc_id) {
-		this.proc_id = proc_id;
-	}
-
-	public String getProc_numero() {
-		return proc_numero;
-	}
-
-	public void setProc_numero(String proc_numero) {
-		this.proc_numero = proc_numero;
-	}
-
-	public ProcessoModel getProc_processo_principal() {
-		return proc_processo_principal;
-	}
-
-	public void setProc_processo_principal(ProcessoModel proc_processo_principal) {
-		this.proc_processo_principal = proc_processo_principal;
-	}
-
-	public List<ProcessoModel> getProcessos() {
-		return processos;
-	}
-
-	public void setProcessos(List<ProcessoModel> processos) {
-		this.processos = processos;
-	}
-
-	public List<DocumentoModel> getDocumentos() {
-		return documentos;
-	}
-
-	public void setDocumentos(List<DocumentoModel> documentos) {
-		this.documentos = documentos;
-	}
-	
-	
 
 }

@@ -41,9 +41,9 @@ public class DocumentoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.save(docMod));
 	}
 
-	@PutMapping(value = "/")
+	@PutMapping(value = "")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody DocumentoModel updateDocumento) {
-		DocumentoModel updated = docServ.updateDocumento(id, updateDocumento);
+		DocumentoModel updated = docServ.update(id, updateDocumento);
 		if (updated != null) {
 			return ResponseEntity.ok().body(updated);
 		} else {
@@ -52,15 +52,15 @@ public class DocumentoController {
 	}
 	
 	// Buscar todos os resultados
-	@GetMapping
+	@GetMapping("/list")
 	public ResponseEntity<List<DocumentoModel>> listAll() {
-		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.listAll());
+		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.list());
 	}
 
 	// Buscar por parâmetro
-	@GetMapping("/pesquisa")
+	@GetMapping("/search")
 	public ResponseEntity<List<DocumentoModel>> searchDocuments(@RequestParam String keyword) {
-		List<DocumentoModel> searchResults = docServ.searchDocuments(keyword);
+		List<DocumentoModel> searchResults = docServ.search(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(searchResults);
 	}
 
@@ -73,7 +73,7 @@ public class DocumentoController {
 
 	@DeleteMapping("")
 	public ResponseEntity<String> deleteAll() {
-		docServ.deleteAll();
+		docServ.delete();
 		return ResponseEntity.ok("Todos documentos deletados!!!");
 	}
 }

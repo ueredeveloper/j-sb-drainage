@@ -26,17 +26,17 @@ public class DocumentoService {
 	}
 
 	@Transactional
-	public List<DocumentoModel> listAll() {
+	public List<DocumentoModel> list() {
 		return docRepo.findAll();
 	}
 
 	@Transactional
-	public List<DocumentoModel> searchDocuments(String keyword) {
-		return docRepo.searchDocuments(keyword);
+	public List<DocumentoModel> search(String keyword) {
+		return docRepo.search(keyword);
 	}
 
 	@Transactional
-	public void deleteAll() {
+	public void delete() {
 		docRepo.deleteAll();
 	}
 
@@ -48,27 +48,25 @@ public class DocumentoService {
 		docRepo.deleteById(id);
 		return deletedDocument;
 	}
-	public Optional<DocumentoModel> findById(Long id) {
-        return docRepo.findById(id);
-    }
 
-	public DocumentoModel updateDocumento(Long id, DocumentoModel updateDocumento) {
-	    DocumentoModel responseDocumento = docRepo.findById(id)
-	            .map((DocumentoModel record) -> {
-	                record.setDoc_numero(updateDocumento.getDoc_numero());
-	                record.setDocProcesso(updateDocumento.getDocProcesso());
-	                record.setDoc_sei(updateDocumento.getDoc_sei());
-	                record.setDoc_tipo(updateDocumento.getDoc_tipo());
-	                return docRepo.save(record);
-	            })
-	            .orElse(null);
-	    
-	    if(responseDocumento == null) {
-	    	throw new NoSuchElementException("Não foi encontrado documento com o id: " + id);
-	    }
-	    
-	    return responseDocumento;
+	public Optional<DocumentoModel> findById(Long id) {
+		return docRepo.findById(id);
 	}
-	
+
+	public DocumentoModel update(Long id, DocumentoModel updateDocumento) {
+		DocumentoModel responseDocumento = docRepo.findById(id).map((DocumentoModel record) -> {
+			record.setDocNumero(updateDocumento.getDocNumero());
+			record.setDocProcesso(updateDocumento.getDocProcesso());
+			record.setDocSEI(updateDocumento.getDocSEI());
+			record.setDocTipo(updateDocumento.getDocTipo());
+			return docRepo.save(record);
+		}).orElse(null);
+
+		if (responseDocumento == null) {
+			throw new NoSuchElementException("Não foi encontrado documento com o id: " + id);
+		}
+
+		return responseDocumento;
+	}
 
 }
