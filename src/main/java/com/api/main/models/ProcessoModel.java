@@ -28,10 +28,6 @@ public class ProcessoModel {
 	@Column(nullable = true, unique = false, length = 40)
 	private String procNumero;
 
-	// está retirando o objeto relacionado, trazendo apenas o id, ex:
-	// proc_principal: {proc: 1} => proc_principal: 1
-	// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-	// property = "proc_id", scope = ProcessoModel.class)
 	@ManyToOne
 	@JoinColumn(name = "procPrincipal")
 	private ProcessoModel procPrincipal;

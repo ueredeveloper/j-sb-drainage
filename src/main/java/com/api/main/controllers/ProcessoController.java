@@ -40,24 +40,27 @@ public class ProcessoController {
 		BeanUtils.copyProperties(procDTO, procMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(procMod));
 	}
+	/*
+	 * @GetMapping("/list") public ResponseEntity<List<ProcessoModel>> list() {
+	 * return ResponseEntity.status(HttpStatus.CREATED).body(service.list()); }
+	 * 
+	 * // Buscar por parâmetro
+	 * 
+	 * @GetMapping("/list") public ResponseEntity<List<ProcessoModel>> list
+	 * (@RequestParam String keyword) { List<ProcessoModel> searchResults =
+	 * service.search(keyword); return
+	 * ResponseEntity.status(HttpStatus.OK).body(searchResults); }
+	 */
 
 	@GetMapping("/list")
-	public ResponseEntity<List<ProcessoModel>> listAll() {
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.list());
+	public ResponseEntity<List<ProcessoModel>> list(@RequestParam(required = false) String keyword) {
+		List<ProcessoModel> resultList = service.list(keyword);
+		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
-	
-	// Buscar por parâmetro
-	@GetMapping("/search")
-	public ResponseEntity<List<ProcessoModel>> searchProcess (@RequestParam String keyword) {
-			List<ProcessoModel> searchResults = service.search(keyword);
-			return ResponseEntity.status(HttpStatus.OK).body(searchResults);
-		}
 
 	@GetMapping("/childrens")
-	public ResponseEntity<List<ProcessoModel>> findChildrensProcess(
-			@RequestParam("procPrincipal") Long procPrincipal) {
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(service.findChildrens(procPrincipal));
+	public ResponseEntity<List<ProcessoModel>> listChildrens (@RequestParam("id") Long id) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.listChildrens(id));
 	}
 
 	@PutMapping(value = "")
@@ -70,16 +73,32 @@ public class ProcessoController {
 		}
 	}
 
-	@DeleteMapping("/deleteAll")
-	public ResponseEntity<String> deleteAll() {
-		service.delete();
-		return ResponseEntity.ok("Todos os objetos deletados!!!");
-	}
+	/*
+	 * @DeleteMapping("/deleteAll") public ResponseEntity<String> deleteAll() {
+	 * service.delete(); return ResponseEntity.ok("Todos os objetos deletados!!!");
+	 * }
+	 * 
+	 * @DeleteMapping("") public ResponseEntity<ProcessoModel>
+	 * deleteById(@RequestParam Long id) {
+	 * 
+	 * ProcessoModel deleteResponse = service.deleteById(id); return
+	 * ResponseEntity.ok(deleteResponse); }
+	 */
 	@DeleteMapping("")
-	public ResponseEntity<ProcessoModel> deleteById(@RequestParam Long id) {
-
-		ProcessoModel deleteResponse = service.deleteById(id);
-		return ResponseEntity.ok(deleteResponse);
+	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
+		if (id != null) {
+			// Delete a specific object by ID
+			ProcessoModel deleteResponse = service.deleteById(id);
+			if (deleteResponse != null) {
+				return ResponseEntity.ok(deleteResponse);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} else {
+			// Delete all objects
+			service.delete();
+			return ResponseEntity.ok("Todos os objetos deletados!!!");
+		}
 	}
 
 }
