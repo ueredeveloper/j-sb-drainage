@@ -11,11 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "documento")
 public class DocumentoModel implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,17 +24,30 @@ public class DocumentoModel implements Serializable {
 	@Column(nullable = true, unique = false, length = 40)
 	private String doc_numero;
 
-	@Column(nullable = true, unique = false, length = 40)
-	private String doc_processo;
+	@ManyToOne
+	@JoinColumn(name = "docProcesso")
+	private ProcessoModel docProcesso;
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String doc_sei;
 
-  // está retirando o tipo de documento relacionado, trazendo só o id. Ex: documento: {doc_tipo:{dt_id: 1}} => documento: {doc_tipo: 1}
-  //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "dt_id", scope = DocumentoTipoModel.class)
+	// está retirando o tipo de documento relacionado, trazendo só o id. Ex:
+	// documento: {doc_tipo:{dt_id: 1}} => documento: {doc_tipo: 1}
+	// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+	// property = "dt_id", scope = DocumentoTipoModel.class)
 	@ManyToOne
 	@JoinColumn(name = "doc_tipo")
 	private DocumentoTipoModel doc_tipo;
+	
+	
+	public DocumentoModel() {
+		super();
+	}
+
+	public DocumentoModel(String doc_numero) {
+		super();
+		this.doc_numero = doc_numero;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -57,14 +69,6 @@ public class DocumentoModel implements Serializable {
 		this.doc_numero = doc_numero;
 	}
 
-	public String getDoc_processo() {
-		return doc_processo;
-	}
-
-	public void setDoc_processo(String doc_processo) {
-		this.doc_processo = doc_processo;
-	}
-
 	public String getDoc_sei() {
 		return doc_sei;
 	}
@@ -81,8 +85,12 @@ public class DocumentoModel implements Serializable {
 		this.doc_tipo = doc_tipo;
 	}
 
-  
-  
+	public ProcessoModel getDocProcesso() {
+		return docProcesso;
+	}
 
-	
+	public void setDocProcesso(ProcessoModel docProcesso) {
+		this.docProcesso = docProcesso;
+	}
+
 }

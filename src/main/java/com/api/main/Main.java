@@ -1,8 +1,10 @@
 package com.api.main;
 
 import com.api.main.models.ProcessoModel;
+import com.api.main.models.DocumentoModel;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.repositories.ProcessoRepository;
+import com.api.main.repositories.DocumentoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
 
 import org.springframework.boot.CommandLineRunner;
@@ -15,39 +17,50 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class Main {
-  public static void main(String... args) {
-    SpringApplication.run(Main.class, args);
+	public static void main(String... args) {
+		SpringApplication.run(Main.class, args);
 
-  }
+	}
 
-  @GetMapping("/")
-  public String index() {
-    return "Hello World!";
-  }
+	@GetMapping("/")
+	public String index() {
+		return "Hello World!";
+	}
 
-  @Bean
-  public CommandLineRunner insertTipoDocumento(DocumentoTipoRepository tdr) {
+	@Bean
+	public CommandLineRunner insertTipoDocumento(DocumentoTipoRepository tdr) {
 
-    return (args) -> {
+		return (args) -> {
 
-      tdr.save(new DocumentoTipoModel("Requerimento"));
-      tdr.save(new DocumentoTipoModel("Ofício"));
-      tdr.save(new DocumentoTipoModel("Despacho"));
- 
-    };
+			tdr.save(new DocumentoTipoModel("Requerimento"));
+			tdr.save(new DocumentoTipoModel("Ofício"));
+			tdr.save(new DocumentoTipoModel("Despacho"));
 
-    
-  }
-  
-  @Bean
-  public CommandLineRunner insertProcesso(ProcessoRepository procRepo) {
+		};
+	}
 
-    return (args) -> {
+	@Bean
+	public CommandLineRunner insertProcesso(ProcessoRepository procRepo) {
 
-      procRepo.save(new ProcessoModel("197.123.456/2013"));
-      procRepo.save(new ProcessoModel("197.456.789/2015"));
-      procRepo.save(new ProcessoModel("197.789.456/2018"));
- 
-    };
-  };
+		return (args) -> {
+
+			procRepo.save(new ProcessoModel("197.123.456/2013"));
+			procRepo.save(new ProcessoModel("197.456.789/2015"));
+			procRepo.save(new ProcessoModel("197.789.456/2018"));
+
+		};
+	};
+
+	@Bean
+	public CommandLineRunner isertDocumento(DocumentoRepository dr) {
+
+		return (args) -> {
+
+			dr.save(new DocumentoModel("12/2015"));
+			dr.save(new DocumentoModel("13/2015"));
+			dr.save(new DocumentoModel("14/2015"));
+
+		};
+
+	}
 }

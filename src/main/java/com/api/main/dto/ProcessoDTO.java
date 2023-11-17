@@ -2,6 +2,7 @@ package com.api.main.dto;
 
 import java.util.List;
 
+import com.api.main.models.DocumentoModel;
 import com.api.main.models.ProcessoModel;
 
 public class ProcessoDTO {
@@ -13,6 +14,8 @@ public class ProcessoDTO {
 	private ProcessoModel proc_processo_principal;
 	
 	private List<ProcessoModel> processos;
+	
+	private List<DocumentoModel> documentos;
 
 	public long getProc_id() {
 		return proc_id;
@@ -46,6 +49,12 @@ public class ProcessoDTO {
 		this.processos = processos;
 	}
 
-  
+	public List<DocumentoModel> getDocumentos() {
+		return documentos;
+	}
+
+	public void setDocumentos(List<DocumentoModel> documentos) {
+		this.documentos = documentos;
+	}
 	
 }

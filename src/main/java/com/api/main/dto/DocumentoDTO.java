@@ -1,6 +1,7 @@
 package com.api.main.dto;
 
 import com.api.main.models.DocumentoTipoModel;
+import com.api.main.models.ProcessoModel;
 
 //import javax.validation.constraints.NotBlank;
 //@JsonSerialize(using = CustomDocTipoSerializer.class)
@@ -10,7 +11,7 @@ public class DocumentoDTO {
 	// @NotBlank
 	private String doc_numero;
 	// @NotBlank
-	private String doc_processo;
+	private ProcessoModel docProcesso;
 
 	// @NotBlank
 	private String doc_sei;
@@ -34,12 +35,12 @@ public class DocumentoDTO {
 		this.doc_numero = doc_numero;
 	}
 
-	public String getDoc_processo() {
-		return doc_processo;
+	public ProcessoModel getDocProcesso() {
+		return docProcesso;
 	}
 
-	public void setDoc_processo(String doc_processo) {
-		this.doc_processo = doc_processo;
+	public void setDocProcesso(ProcessoModel docProcesso) {
+		this.docProcesso = docProcesso;
 	}
 
 	public String getDoc_sei() {

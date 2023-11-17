@@ -56,7 +56,7 @@ public class DocumentoService {
 	    DocumentoModel responseDocumento = docRepo.findById(id)
 	            .map((DocumentoModel record) -> {
 	                record.setDoc_numero(updateDocumento.getDoc_numero());
-	                record.setDoc_processo(updateDocumento.getDoc_processo());
+	                record.setDocProcesso(updateDocumento.getDocProcesso());
 	                record.setDoc_sei(updateDocumento.getDoc_sei());
 	                record.setDoc_tipo(updateDocumento.getDoc_tipo());
 	                return docRepo.save(record);
