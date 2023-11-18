@@ -11,6 +11,7 @@ import com.api.main.models.ProcessoModel;
 
 @Repository
 public interface ProcessoRepository extends JpaRepository<ProcessoModel, Long> {
+	
 
 	@Query("SELECT p FROM ProcessoModel p WHERE p.procPrincipal.procId = :id")
 	List<ProcessoModel> listChildrens(@Param("id") Long id);

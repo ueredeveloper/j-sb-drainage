@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/documento-tipo")
 public class DocumentoTipoController {
 
+	
   final DocumentoTipoService dtServ;
 
   public DocumentoTipoController(DocumentoTipoService dtServ) {

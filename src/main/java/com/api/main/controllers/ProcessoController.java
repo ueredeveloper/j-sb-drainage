@@ -26,6 +26,7 @@ import com.api.main.services.ProcessoService;
 @RequestMapping("/processo")
 public class ProcessoController {
 
+	
 	final ProcessoService service;
 
 	public ProcessoController(ProcessoService service) {
@@ -40,17 +41,7 @@ public class ProcessoController {
 		BeanUtils.copyProperties(procDTO, procMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(procMod));
 	}
-	/*
-	 * @GetMapping("/list") public ResponseEntity<List<ProcessoModel>> list() {
-	 * return ResponseEntity.status(HttpStatus.CREATED).body(service.list()); }
-	 * 
-	 * // Buscar por parâmetro
-	 * 
-	 * @GetMapping("/list") public ResponseEntity<List<ProcessoModel>> list
-	 * (@RequestParam String keyword) { List<ProcessoModel> searchResults =
-	 * service.search(keyword); return
-	 * ResponseEntity.status(HttpStatus.OK).body(searchResults); }
-	 */
+
 
 	@GetMapping("/list")
 	public ResponseEntity<List<ProcessoModel>> list(@RequestParam(required = false) String keyword) {

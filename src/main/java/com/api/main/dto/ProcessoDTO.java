@@ -7,6 +7,7 @@ import com.api.main.models.ProcessoModel;
 
 public class ProcessoDTO {
 
+	
 	private long proId;
 	// @NotBlank
 	private String procNumero;

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "processo")
 public class ProcessoModel {
+	
 
 	private static final long serialVersionUID = 1L;
 
