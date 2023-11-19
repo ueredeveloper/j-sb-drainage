@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "processo")
 public class ProcessoModel {
-	
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,11 +30,7 @@ public class ProcessoModel {
 
 	@ManyToOne
 	@JoinColumn(name = "procPrincipal")
-	private ProcessoModel procPrincipal;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "procPrincipal")
-	private List<ProcessoModel> procProcessos = new ArrayList<>();
+	private ProcessoPrincipalModel procPrincipal;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "docProcesso")
@@ -44,7 +39,7 @@ public class ProcessoModel {
 	public ProcessoModel() {
 		super();
 	}
-	
+
 	public ProcessoModel(String procNumero) {
 		super();
 		this.procNumero = procNumero;
@@ -66,20 +61,12 @@ public class ProcessoModel {
 		this.procNumero = procNumero;
 	}
 
-	public ProcessoModel getProcPrincipal() {
+	public ProcessoPrincipalModel getProcPrincipal() {
 		return procPrincipal;
 	}
 
-	public void setProcPrincipal(ProcessoModel procPrincipal) {
+	public void setProcPrincipal(ProcessoPrincipalModel procPrincipal) {
 		this.procPrincipal = procPrincipal;
-	}
-
-	public List<ProcessoModel> getProcProcessos() {
-		return procProcessos;
-	}
-
-	public void setProcProcessos(List<ProcessoModel> procProcessos) {
-		this.procProcessos = procProcessos;
 	}
 
 	public List<DocumentoModel> getProcDocumentos() {

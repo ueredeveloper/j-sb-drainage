@@ -1,11 +1,13 @@
 package com.api.main;
 
 import com.api.main.models.ProcessoModel;
+import com.api.main.models.ProcessoPrincipalModel;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.repositories.ProcessoRepository;
 import com.api.main.repositories.DocumentoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
+import com.api.main.repositories.ProcessoPrincipalRepository;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,7 +31,7 @@ public class Main {
 	}
 
 	@Bean
-	public CommandLineRunner insertTipoDocumento(DocumentoTipoRepository tdr) {
+	public CommandLineRunner insertDocumentosTipos(DocumentoTipoRepository tdr) {
 
 		return (args) -> {
 
@@ -41,7 +43,7 @@ public class Main {
 	}
 
 	@Bean
-	public CommandLineRunner insertProcesso(ProcessoRepository procRepo) {
+	public CommandLineRunner insertProcessos(ProcessoRepository procRepo) {
 
 		return (args) -> {
 
@@ -53,13 +55,25 @@ public class Main {
 	};
 
 	@Bean
-	public CommandLineRunner isertDocumento(DocumentoRepository dr) {
+	public CommandLineRunner insertDocumentos(DocumentoRepository dr) {
 
 		return (args) -> {
 
 			dr.save(new DocumentoModel("12/2015"));
 			dr.save(new DocumentoModel("13/2015"));
 			dr.save(new DocumentoModel("14/2015"));
+
+		};
+
+	}
+	
+	@Bean
+	public CommandLineRunner isertProcessosPrincipais(ProcessoPrincipalRepository repo) {
+
+		return (args) -> {
+
+			repo.save(new ProcessoPrincipalModel("800/2015"));
+			repo.save(new ProcessoPrincipalModel("800/2015"));
 
 		};
 

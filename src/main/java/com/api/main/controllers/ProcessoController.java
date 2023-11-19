@@ -49,11 +49,6 @@ public class ProcessoController {
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
-	@GetMapping("/childrens")
-	public ResponseEntity<List<ProcessoModel>> listChildrens (@RequestParam("id") Long id) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.listChildrens(id));
-	}
-
 	@PutMapping(value = "")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody ProcessoModel udpateProcesso) {
 		ProcessoModel updated = service.update(id, udpateProcesso);
@@ -64,17 +59,6 @@ public class ProcessoController {
 		}
 	}
 
-	/*
-	 * @DeleteMapping("/deleteAll") public ResponseEntity<String> deleteAll() {
-	 * service.delete(); return ResponseEntity.ok("Todos os objetos deletados!!!");
-	 * }
-	 * 
-	 * @DeleteMapping("") public ResponseEntity<ProcessoModel>
-	 * deleteById(@RequestParam Long id) {
-	 * 
-	 * ProcessoModel deleteResponse = service.deleteById(id); return
-	 * ResponseEntity.ok(deleteResponse); }
-	 */
 	@DeleteMapping("")
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {
