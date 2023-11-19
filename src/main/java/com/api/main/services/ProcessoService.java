@@ -31,11 +31,6 @@ public class ProcessoService {
 	}
 
 	@Transactional
-	public void delete() {
-		repository.deleteAll();
-	}
-
-	@Transactional
 	public List<ProcessoModel> list(String keyword) {
 		return repository.list(keyword);
 	}
@@ -63,6 +58,10 @@ public class ProcessoService {
 
 		repository.deleteById(id);
 		return deleteResponse;
+	}
+	@Transactional
+	public void delete() {
+		repository.deleteAll();
 	}
 
 }

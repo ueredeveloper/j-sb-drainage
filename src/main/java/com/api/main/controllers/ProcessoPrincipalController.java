@@ -8,8 +8,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +44,15 @@ public class ProcessoPrincipalController {
 		BeanUtils.copyProperties(procDTO, procMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(procMod));
 	}
-	
+	@PutMapping(value = "/update")
+	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody ProcessoPrincipalModel udpateProcesso) {
+		ProcessoPrincipalModel updated = service.update(id, udpateProcesso);
+		if (updated != null) {
+			return ResponseEntity.ok().body(updated);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
 	@GetMapping("/list")
 	public ResponseEntity<List<ProcessoPrincipalModel>> list(@RequestParam(required = false) String keyword) {
@@ -50,9 +60,25 @@ public class ProcessoPrincipalController {
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
-	@GetMapping("/childrens")
+	@GetMapping("/list-childrens")
 	public ResponseEntity<List<ProcessoModel>> listChildrens (@RequestParam("id") Long id) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.listChildrens(id));
+	}
+	@DeleteMapping("/delete")
+	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
+		if (id != null) {
+			// Delete a specific object by ID
+			ProcessoPrincipalModel deleteResponse = service.deleteById(id);
+			if (deleteResponse != null) {
+				return ResponseEntity.ok(deleteResponse);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} else {
+			// Delete all objects
+			service.delete();
+			return ResponseEntity.ok("Processo principal deletado!!!");
+		}
 	}
 
 }

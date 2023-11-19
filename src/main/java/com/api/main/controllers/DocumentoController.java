@@ -41,8 +41,6 @@ public class DocumentoController {
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO docDTO) {
 		DocumentoModel docMod = new DocumentoModel();
-		
-		System.out.println(docDTO.getDocProcesso().getProcPrincipal().getProcId());
 		BeanUtils.copyProperties(docDTO, docMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.save(docMod));
 	}

@@ -49,7 +49,7 @@ public class ProcessoController {
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
-	@PutMapping(value = "")
+	@PutMapping("/update")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody ProcessoModel udpateProcesso) {
 		ProcessoModel updated = service.update(id, udpateProcesso);
 		if (updated != null) {
@@ -59,7 +59,7 @@ public class ProcessoController {
 		}
 	}
 
-	@DeleteMapping("")
+	@DeleteMapping("/delete")
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
