@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.DocumentoDTO;
 import com.api.main.models.DocumentoModel;
+import com.api.main.models.ProcessoModel;
+import com.api.main.repositories.ProcessoRepository;
 import com.api.main.services.DocumentoService;
 
 @RestController
@@ -30,18 +32,21 @@ public class DocumentoController {
 
 	
 	final DocumentoService docServ;
+	final ProcessoRepository procRepo;
 
-	public DocumentoController(DocumentoService docServ) {
+	public DocumentoController(DocumentoService docServ, ProcessoRepository procRepo) {
 		this.docServ = docServ;
+		this.procRepo = procRepo;
 	}
-
-	@PostMapping
+	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO docDTO) {
 		DocumentoModel docMod = new DocumentoModel();
+		
+		System.out.println(docDTO.getDocProcesso().getProcPrincipal().getProcId());
 		BeanUtils.copyProperties(docDTO, docMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.save(docMod));
 	}
-
+	
 	@PutMapping(value = "")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody DocumentoModel updateDocumento) {
 		DocumentoModel updated = docServ.update(id, updateDocumento);
