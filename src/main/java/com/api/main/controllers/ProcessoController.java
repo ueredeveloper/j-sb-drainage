@@ -18,20 +18,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.ProcessoDTO;
+import com.api.main.models.ProcessoSecudarioModel;
+import com.api.main.models.ProcessoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.services.ProcessoService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/processo")
+@RequestMapping("/processes")
 public class ProcessoController {
-
 	
 	final ProcessoService service;
 
 	public ProcessoController(ProcessoService service) {
+		super();
 		this.service = service;
 	}
+	
 
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid ProcessoDTO procDTO) {
@@ -41,15 +44,7 @@ public class ProcessoController {
 		BeanUtils.copyProperties(procDTO, procMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(procMod));
 	}
-
-
-	@GetMapping("/list")
-	public ResponseEntity<List<ProcessoModel>> list(@RequestParam(required = false) String keyword) {
-		List<ProcessoModel> resultList = service.list(keyword);
-		return ResponseEntity.status(HttpStatus.OK).body(resultList);
-	}
-
-	@PutMapping("/update")
+	@PutMapping(value = "/update")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody ProcessoModel udpateProcesso) {
 		ProcessoModel updated = service.update(id, udpateProcesso);
 		if (updated != null) {
@@ -59,6 +54,16 @@ public class ProcessoController {
 		}
 	}
 
+	@GetMapping("/list")
+	public ResponseEntity<List<ProcessoModel>> list(@RequestParam(required = false) String keyword) {
+		List<ProcessoModel> resultList = service.list(keyword);
+		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+	}
+
+	@GetMapping("/list-secondary")
+	public ResponseEntity<List<ProcessoSecudarioModel>> listChildrens (@RequestParam("id") Long id) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.listChildrens(id));
+	}
 	@DeleteMapping("/delete")
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {
@@ -72,7 +77,7 @@ public class ProcessoController {
 		} else {
 			// Delete all objects
 			service.delete();
-			return ResponseEntity.ok("Todos os objetos deletados!!!");
+			return ResponseEntity.ok("Processo principal deletado!!!");
 		}
 	}
 

@@ -2,21 +2,25 @@ package com.api.main.services;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.api.main.models.ProcessoSecudarioModel;
+import com.api.main.models.ProcessoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.repositories.ProcessoRepository;
 
 @Service
 public class ProcessoService {
-	
 
 	final ProcessoRepository repository;
 
 	public ProcessoService(ProcessoRepository repository) {
+		super();
 		this.repository = repository;
 	}
 
@@ -26,8 +30,16 @@ public class ProcessoService {
 	}
 
 	@Transactional
-	public List<ProcessoModel> listChildrens(Long proc_processo_principal) {
-		return repository.listChildrens(proc_processo_principal);
+	public ProcessoModel update(Long id, ProcessoModel updateProcesso) {
+		Optional<ProcessoModel> optionalProcesso = repository.findById(id);
+
+		if (optionalProcesso.isPresent()) {
+			ProcessoModel processo = optionalProcesso.get();
+			processo.setProcNumero(updateProcesso.getProcNumero());
+			return repository.save(processo);
+		} else {
+			throw new EntityNotFoundException("ProcessoPrincipalModel with ID " + id + " not found.");
+		}
 	}
 
 	@Transactional
@@ -36,19 +48,8 @@ public class ProcessoService {
 	}
 
 	@Transactional
-	public ProcessoModel update(Long id, ProcessoModel updateProcesso) {
-		ProcessoModel responseDocumento = repository.findById(id).map((ProcessoModel record) -> {
-			record.setProcNumero(updateProcesso.getProcNumero());
-			record.setProcPrincipal(updateProcesso.getProcPrincipal());
-
-			return repository.save(record);
-		}).orElse(null);
-
-		if (responseDocumento == null) {
-			throw new NoSuchElementException("Não foi encontrado documento com o id: " + id);
-		}
-
-		return responseDocumento;
+	public List<ProcessoSecudarioModel> listChildrens(Long proc_processo_principal) {
+		return repository.listChildrens(proc_processo_principal);
 	}
 
 	@Transactional
@@ -59,9 +60,10 @@ public class ProcessoService {
 		repository.deleteById(id);
 		return deleteResponse;
 	}
+
 	@Transactional
 	public void delete() {
 		repository.deleteAll();
 	}
 
-}
+};

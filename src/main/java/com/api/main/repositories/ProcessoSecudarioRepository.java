@@ -8,17 +8,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.api.main.models.ProcessoSecudarioModel;
-import com.api.main.models.ProcessoModel;
-import com.api.main.models.ProcessoModel;
-
 
 @Repository
-public interface ProcessoRepository extends JpaRepository<ProcessoModel, Long> {
+public interface ProcessoSecudarioRepository extends JpaRepository<ProcessoSecudarioModel, Long> {
 	
-	@Query("SELECT p FROM ProcessoModel p WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(p.procNumero) LIKE %:keyword%)")
-	List<ProcessoModel> list(String keyword);
 
 	@Query("SELECT p FROM ProcessoSecudarioModel p WHERE p.procPrincipal.procId = :id")
 	List<ProcessoSecudarioModel> listChildrens(@Param("id") Long id);
-}
+	//docSEI
 
+	@Query("SELECT p FROM ProcessoSecudarioModel p WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(p.procNumero) LIKE %:keyword%)")
+	List<ProcessoSecudarioModel> list(String keyword);
+
+}

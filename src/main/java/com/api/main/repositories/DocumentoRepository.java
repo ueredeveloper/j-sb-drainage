@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.api.main.models.DocumentoModel;
-import com.api.main.models.ProcessoModel;
+import com.api.main.models.ProcessoSecudarioModel;
 
 @Repository
 public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long> {

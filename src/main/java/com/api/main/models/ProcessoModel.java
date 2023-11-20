@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,25 +17,26 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "processo")
 public class ProcessoModel {
 
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long procId;
-
+	Long procId;
 	@Column(nullable = true, unique = false, length = 40)
-	private String procNumero;
-
-	@ManyToOne
-	@JoinColumn(name = "procPrincipal")
-	private ProcessoPrincipalModel procPrincipal;
+	String procNumero;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "docProcesso")
-	private List<DocumentoModel> procDocumentos = new ArrayList<>();
-
+	@OneToMany(mappedBy = "procPrincipal")
+	private List<ProcessoSecudarioModel> procProcessos = new ArrayList<>();
+	
+	
 	public ProcessoModel() {
 		super();
+	}
+
+	public ProcessoModel(Long procId, String procNumero, List<ProcessoSecudarioModel> procProcessos) {
+		super();
+		this.procId = procId;
+		this.procNumero = procNumero;
+		this.procProcessos = procProcessos;
 	}
 
 	public ProcessoModel(String procNumero) {
@@ -61,24 +60,12 @@ public class ProcessoModel {
 		this.procNumero = procNumero;
 	}
 
-	public ProcessoPrincipalModel getProcPrincipal() {
-		return procPrincipal;
+	public List<ProcessoSecudarioModel> getProcProcessos() {
+		return procProcessos;
 	}
 
-	public void setProcPrincipal(ProcessoPrincipalModel procPrincipal) {
-		this.procPrincipal = procPrincipal;
-	}
-
-	public List<DocumentoModel> getProcDocumentos() {
-		return procDocumentos;
-	}
-
-	public void setProcDocumentos(List<DocumentoModel> procDocumentos) {
-		this.procDocumentos = procDocumentos;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public void setProcProcessos(List<ProcessoSecudarioModel> procProcessos) {
+		this.procProcessos = procProcessos;
 	}
 
 }

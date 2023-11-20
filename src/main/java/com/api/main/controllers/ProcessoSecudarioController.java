@@ -17,36 +17,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.main.dto.ProcessoPrincipalDTO;
-import com.api.main.models.ProcessoModel;
-import com.api.main.models.ProcessoPrincipalModel;
-import com.api.main.models.ProcessoPrincipalModel;
-import com.api.main.services.ProcessoPrincipalService;
+import com.api.main.dto.ProcessoSecudarioDTO;
+import com.api.main.models.ProcessoSecudarioModel;
+import com.api.main.services.ProcessoSecudarioService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/processo-principal")
-public class ProcessoPrincipalController {
-	
-	final ProcessoPrincipalService service;
+@RequestMapping("/processes-secondary")
+public class ProcessoSecudarioController {
 
-	public ProcessoPrincipalController(ProcessoPrincipalService service) {
-		super();
+	
+	final ProcessoSecudarioService service;
+
+	public ProcessoSecudarioController(ProcessoSecudarioService service) {
 		this.service = service;
 	}
-	
 
 	@PostMapping("/create")
-	public ResponseEntity<Object> save(@RequestBody @Valid ProcessoPrincipalDTO procDTO) {
+	public ResponseEntity<Object> save(@RequestBody @Valid ProcessoSecudarioDTO procDTO) {
 
-		ProcessoPrincipalModel procMod = new ProcessoPrincipalModel();
+		ProcessoSecudarioModel procMod = new ProcessoSecudarioModel();
 
 		BeanUtils.copyProperties(procDTO, procMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(procMod));
 	}
-	@PutMapping(value = "/update")
-	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody ProcessoPrincipalModel udpateProcesso) {
-		ProcessoPrincipalModel updated = service.update(id, udpateProcesso);
+
+
+	@GetMapping("/list")
+	public ResponseEntity<List<ProcessoSecudarioModel>> list(@RequestParam(required = false) String keyword) {
+		List<ProcessoSecudarioModel> resultList = service.list(keyword);
+		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+	}
+
+	@PutMapping("/update")
+	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody ProcessoSecudarioModel udpateProcesso) {
+		ProcessoSecudarioModel updated = service.update(id, udpateProcesso);
 		if (updated != null) {
 			return ResponseEntity.ok().body(updated);
 		} else {
@@ -54,21 +59,11 @@ public class ProcessoPrincipalController {
 		}
 	}
 
-	@GetMapping("/list")
-	public ResponseEntity<List<ProcessoPrincipalModel>> list(@RequestParam(required = false) String keyword) {
-		List<ProcessoPrincipalModel> resultList = service.list(keyword);
-		return ResponseEntity.status(HttpStatus.OK).body(resultList);
-	}
-
-	@GetMapping("/list-childrens")
-	public ResponseEntity<List<ProcessoModel>> listChildrens (@RequestParam("id") Long id) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.listChildrens(id));
-	}
 	@DeleteMapping("/delete")
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
-			ProcessoPrincipalModel deleteResponse = service.deleteById(id);
+			ProcessoSecudarioModel deleteResponse = service.deleteById(id);
 			if (deleteResponse != null) {
 				return ResponseEntity.ok(deleteResponse);
 			} else {
@@ -77,7 +72,7 @@ public class ProcessoPrincipalController {
 		} else {
 			// Delete all objects
 			service.delete();
-			return ResponseEntity.ok("Processo principal deletado!!!");
+			return ResponseEntity.ok("Todos os objetos deletados!!!");
 		}
 	}
 

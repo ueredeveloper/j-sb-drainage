@@ -1,13 +1,13 @@
 package com.api.main;
 
+import com.api.main.models.ProcessoSecudarioModel;
 import com.api.main.models.ProcessoModel;
-import com.api.main.models.ProcessoPrincipalModel;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.DocumentoTipoModel;
-import com.api.main.repositories.ProcessoRepository;
+import com.api.main.repositories.ProcessoSecudarioRepository;
 import com.api.main.repositories.DocumentoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
-import com.api.main.repositories.ProcessoPrincipalRepository;
+import com.api.main.repositories.ProcessoRepository;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -43,13 +43,13 @@ public class Main {
 	}
 
 	@Bean
-	public CommandLineRunner insertProcessos(ProcessoRepository procRepo) {
+	public CommandLineRunner insertProcessos(ProcessoSecudarioRepository procRepo) {
 
 		return (args) -> {
 
-			procRepo.save(new ProcessoModel("197.123.456/2013"));
-			procRepo.save(new ProcessoModel("197.456.789/2015"));
-			procRepo.save(new ProcessoModel("197.789.456/2018"));
+			procRepo.save(new ProcessoSecudarioModel("197.123.456/2013"));
+			procRepo.save(new ProcessoSecudarioModel("197.456.789/2015"));
+			procRepo.save(new ProcessoSecudarioModel("197.789.456/2018"));
 
 		};
 	};
@@ -68,12 +68,12 @@ public class Main {
 	}
 	
 	@Bean
-	public CommandLineRunner isertProcessosPrincipais(ProcessoPrincipalRepository repo) {
+	public CommandLineRunner isertProcessosPrincipais(ProcessoRepository repo) {
 
 		return (args) -> {
 
-			repo.save(new ProcessoPrincipalModel("800/2015"));
-			repo.save(new ProcessoPrincipalModel("800/2015"));
+			repo.save(new ProcessoModel("800/2015"));
+			repo.save(new ProcessoModel("800/2015"));
 
 		};
 

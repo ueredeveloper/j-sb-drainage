@@ -21,20 +21,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.DocumentoDTO;
 import com.api.main.models.DocumentoModel;
-import com.api.main.models.ProcessoModel;
-import com.api.main.repositories.ProcessoRepository;
+import com.api.main.models.ProcessoSecudarioModel;
+import com.api.main.repositories.ProcessoSecudarioRepository;
 import com.api.main.services.DocumentoService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/documento")
+@RequestMapping("/document")
 public class DocumentoController {
 
 	
 	final DocumentoService service;
-	final ProcessoRepository procRepo;
+	final ProcessoSecudarioRepository procRepo;
 
-	public DocumentoController(DocumentoService service, ProcessoRepository procRepo) {
+	public DocumentoController(DocumentoService service, ProcessoSecudarioRepository procRepo) {
 		this.service = service;
 		this.procRepo = procRepo;
 	}

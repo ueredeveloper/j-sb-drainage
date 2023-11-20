@@ -1,26 +1,21 @@
 package com.api.main.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.api.main.models.DocumentoModel;
-import com.api.main.models.ProcessoPrincipalModel;
+import com.api.main.models.ProcessoSecudarioModel;
 
 public class ProcessoDTO {
-
-	private long procId;
-	// @NotBlank
-	private String procNumero;
-
-	private ProcessoPrincipalModel procPrincipal;
-
-	private List<DocumentoModel> procDocumentos;
-
 	
-	public long getProcId() {
+	Long procId;
+	String procNumero;
+	private List<ProcessoSecudarioModel> procProcessos = new ArrayList<>();
+
+	public Long getProcId() {
 		return procId;
 	}
 
-	public void setProcId(long procId) {
+	public void setProcId(Long procId) {
 		this.procId = procId;
 	}
 
@@ -32,20 +27,13 @@ public class ProcessoDTO {
 		this.procNumero = procNumero;
 	}
 
-	public ProcessoPrincipalModel getProcPrincipal() {
-		return procPrincipal;
+	public List<ProcessoSecudarioModel> getProcProcessos() {
+		return procProcessos;
 	}
 
-	public void setProcPrincipal(ProcessoPrincipalModel procPrincipal) {
-		this.procPrincipal = procPrincipal;
+	public void setProcProcessos(List<ProcessoSecudarioModel> procProcessos) {
+		this.procProcessos = procProcessos;
 	}
-
-	public List<DocumentoModel> getProcDocumentos() {
-		return procDocumentos;
-	}
-
-	public void setProcDocumentos(List<DocumentoModel> procDocumentos) {
-		this.procDocumentos = procDocumentos;
-	}
+	
 
 }

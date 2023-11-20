@@ -28,7 +28,7 @@ public class DocumentoModel implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "docProcesso")
-	private ProcessoModel docProcesso;
+	private ProcessoSecudarioModel docProcesso;
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String docSEI;
@@ -67,11 +67,11 @@ public class DocumentoModel implements Serializable {
 		this.docNumero = docNumero;
 	}
 
-	public ProcessoModel getDocProcesso() {
+	public ProcessoSecudarioModel getDocProcesso() {
 		return docProcesso;
 	}
 
-	public void setDocProcesso(ProcessoModel docProcesso) {
+	public void setDocProcesso(ProcessoSecudarioModel docProcesso) {
 		this.docProcesso = docProcesso;
 	}
 
