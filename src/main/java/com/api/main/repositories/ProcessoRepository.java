@@ -15,6 +15,7 @@ public interface ProcessoRepository extends JpaRepository<ProcessoModel, Long> {
 
 	@Query("SELECT p FROM ProcessoModel p WHERE p.procPrincipal.procId = :id")
 	List<ProcessoModel> listChildrens(@Param("id") Long id);
+	//docSEI
 
 	@Query("SELECT p FROM ProcessoModel p WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(p.procNumero) LIKE %:keyword%)")
 	List<ProcessoModel> list(String keyword);

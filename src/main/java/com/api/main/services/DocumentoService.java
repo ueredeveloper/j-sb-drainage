@@ -9,58 +9,65 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.api.main.models.DocumentoModel;
+import com.api.main.models.ProcessoModel;
 import com.api.main.repositories.DocumentoRepository;
 
 @Service
 public class DocumentoService {
 	
 
-	final DocumentoRepository docRepo;
+	final DocumentoRepository repository;
 
-	public DocumentoService(DocumentoRepository docRepo) {
-		this.docRepo = docRepo;
+	public DocumentoService(DocumentoRepository repository) {
+		this.repository = repository;
 	}
 
+	
 	@Transactional
 	public DocumentoModel save(DocumentoModel documentoModel) {
-		return docRepo.save(documentoModel);
+		return repository.save(documentoModel);
 	}
 
+	/*
 	@Transactional
 	public List<DocumentoModel> list() {
-		return docRepo.findAll();
+		return repository.findAll();
 	}
 
 	@Transactional
 	public List<DocumentoModel> search(String keyword) {
-		return docRepo.search(keyword);
+		return repository.search(keyword);
+	}*/
+	@Transactional
+	public List<DocumentoModel> list(String keyword) {
+		return repository.list(keyword);
 	}
 
 	@Transactional
 	public void delete() {
-		docRepo.deleteAll();
+		repository.deleteAll();
 	}
 
 	@Transactional
 	public DocumentoModel deleteById(Long id) {
-		DocumentoModel deletedDocument = docRepo.findById(id)
+		DocumentoModel deletedDocument = repository.findById(id)
 				.orElseThrow(() -> new NoSuchElementException("Não foi encontrado documento com o id: " + id));
 
-		docRepo.deleteById(id);
+		repository.deleteById(id);
 		return deletedDocument;
 	}
 
 	public Optional<DocumentoModel> findById(Long id) {
-		return docRepo.findById(id);
+		return repository.findById(id);
 	}
 
 	public DocumentoModel update(Long id, DocumentoModel updateDocumento) {
-		DocumentoModel responseDocumento = docRepo.findById(id).map((DocumentoModel record) -> {
+		DocumentoModel responseDocumento = repository.findById(id).map((DocumentoModel record) -> {
 			record.setDocNumero(updateDocumento.getDocNumero());
 			record.setDocProcesso(updateDocumento.getDocProcesso());
 			record.setDocSEI(updateDocumento.getDocSEI());
 			record.setDocTipo(updateDocumento.getDocTipo());
-			return docRepo.save(record);
+			return repository.save(record);
 		}).orElse(null);
 
 		if (responseDocumento == null) {

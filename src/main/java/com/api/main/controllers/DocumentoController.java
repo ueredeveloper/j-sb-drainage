@@ -31,23 +31,23 @@ import com.api.main.services.DocumentoService;
 public class DocumentoController {
 
 	
-	final DocumentoService docServ;
+	final DocumentoService service;
 	final ProcessoRepository procRepo;
 
-	public DocumentoController(DocumentoService docServ, ProcessoRepository procRepo) {
-		this.docServ = docServ;
+	public DocumentoController(DocumentoService service, ProcessoRepository procRepo) {
+		this.service = service;
 		this.procRepo = procRepo;
 	}
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO docDTO) {
 		DocumentoModel docMod = new DocumentoModel();
 		BeanUtils.copyProperties(docDTO, docMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.save(docMod));
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(docMod));
 	}
 	
-	@PutMapping(value = "")
+	@PutMapping("/update")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody DocumentoModel updateDocumento) {
-		DocumentoModel updated = docServ.update(id, updateDocumento);
+		DocumentoModel updated = service.update(id, updateDocumento);
 		if (updated != null) {
 			return ResponseEntity.ok().body(updated);
 		} else {
@@ -55,29 +55,39 @@ public class DocumentoController {
 		}
 	}
 	
-	// Buscar todos os resultados
+	@GetMapping("/list")
+	public ResponseEntity<List<DocumentoModel>> list(@RequestParam(required = false) String keyword) {
+		List<DocumentoModel> resultList = service.list(keyword);
+		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+	}
+	
+	/*// Buscar todos os resultados
 	@GetMapping("/list")
 	public ResponseEntity<List<DocumentoModel>> listAll() {
-		return ResponseEntity.status(HttpStatus.CREATED).body(docServ.list());
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.list());
 	}
 
 	// Buscar por parâmetro
 	@GetMapping("/search")
 	public ResponseEntity<List<DocumentoModel>> searchDocuments(@RequestParam String keyword) {
-		List<DocumentoModel> searchResults = docServ.search(keyword);
+		List<DocumentoModel> searchResults = service.search(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(searchResults);
-	}
+	}*/
 
-	@DeleteMapping("/")
-	public ResponseEntity<DocumentoModel> deleteById(@RequestParam Long id) {
-
-		DocumentoModel deletedDoc = docServ.deleteById(id);
-		return ResponseEntity.ok(deletedDoc);
-	}
-
-	@DeleteMapping("")
-	public ResponseEntity<String> deleteAll() {
-		docServ.delete();
-		return ResponseEntity.ok("Todos documentos deletados!!!");
+	@DeleteMapping("/delete")
+	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
+		if (id != null) {
+			// Delete a specific object by ID
+			DocumentoModel deleteResponse = service.deleteById(id);
+			if (deleteResponse != null) {
+				return ResponseEntity.ok(deleteResponse);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} else {
+			// Delete all objects
+			service.delete();
+			return ResponseEntity.ok("Todos os objetos deletados!!!");
+		}
 	}
 }
