@@ -60,12 +60,12 @@ public class ProcessoController {
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
-	@GetMapping("/list-secondary")
-	public ResponseEntity<List<AnexoModel>> listChildrens (@RequestParam("id") Long id) {
+	@GetMapping("/list-attachments")
+	public ResponseEntity<List<AnexoModel>> listAnexos (@RequestParam("id") Long id) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.listChildrens(id));
 	}
 	@DeleteMapping("/delete")
-	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
+	public ResponseEntity<Object> delete(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
 			ProcessoModel deleteResponse = service.deleteById(id);

@@ -22,22 +22,11 @@ public class DocumentoService {
 		this.repository = repository;
 	}
 
-	
 	@Transactional
 	public DocumentoModel save(DocumentoModel documentoModel) {
 		return repository.save(documentoModel);
 	}
 
-	/*
-	@Transactional
-	public List<DocumentoModel> list() {
-		return repository.findAll();
-	}
-
-	@Transactional
-	public List<DocumentoModel> search(String keyword) {
-		return repository.search(keyword);
-	}*/
 	@Transactional
 	public List<DocumentoModel> list(String keyword) {
 		return repository.list(keyword);
@@ -52,7 +41,6 @@ public class DocumentoService {
 	public DocumentoModel deleteById(Long id) {
 		DocumentoModel deletedDocument = repository.findById(id)
 				.orElseThrow(() -> new NoSuchElementException("Não foi encontrado documento com o id: " + id));
-
 		repository.deleteById(id);
 		return deletedDocument;
 	}

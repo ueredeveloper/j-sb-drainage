@@ -13,7 +13,6 @@ import com.api.main.repositories.AnexoRepository;
 @Service
 public class AnexoService {
 	
-
 	final AnexoRepository repository;
 
 	public AnexoService(AnexoRepository repository) {
@@ -23,16 +22,6 @@ public class AnexoService {
 	@Transactional
 	public AnexoModel save(AnexoModel procMod) {
 		return repository.save(procMod);
-	}
-
-	@Transactional
-	public List<AnexoModel> listChildrens(Long proc_processo_principal) {
-		return repository.listAnexos(proc_processo_principal);
-	}
-
-	@Transactional
-	public List<AnexoModel> list(String keyword) {
-		return repository.list(keyword);
 	}
 
 	@Transactional
@@ -49,6 +38,16 @@ public class AnexoService {
 		}
 
 		return responseDocumento;
+	}
+
+	@Transactional
+	public List<AnexoModel> list(String keyword) {
+		return repository.list(keyword);
+	}
+
+	@Transactional
+	public List<AnexoModel> listAnexos(Long proc_processo_principal) {
+		return repository.listAnexos(proc_processo_principal);
 	}
 
 	@Transactional
