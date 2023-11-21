@@ -3,13 +3,13 @@ package com.api.main.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.api.main.models.ProcessoSecudarioModel;
+import com.api.main.models.AnexoModel;
 
 public class ProcessoDTO {
 	
 	Long procId;
 	String procNumero;
-	private List<ProcessoSecudarioModel> procProcessos = new ArrayList<>();
+	private List<AnexoModel> procProcessos = new ArrayList<>();
 
 	public Long getProcId() {
 		return procId;
@@ -27,11 +27,11 @@ public class ProcessoDTO {
 		this.procNumero = procNumero;
 	}
 
-	public List<ProcessoSecudarioModel> getProcProcessos() {
+	public List<AnexoModel> getProcProcessos() {
 		return procProcessos;
 	}
 
-	public void setProcProcessos(List<ProcessoSecudarioModel> procProcessos) {
+	public void setProcProcessos(List<AnexoModel> procProcessos) {
 		this.procProcessos = procProcessos;
 	}
 	

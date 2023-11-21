@@ -24,15 +24,15 @@ public class ProcessoModel {
 	String procNumero;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "procPrincipal")
-	private List<ProcessoSecudarioModel> procProcessos = new ArrayList<>();
+	@OneToMany(mappedBy = "anPrincipal")
+	private List<AnexoModel> procProcessos = new ArrayList<>();
 	
 	
 	public ProcessoModel() {
 		super();
 	}
 
-	public ProcessoModel(Long procId, String procNumero, List<ProcessoSecudarioModel> procProcessos) {
+	public ProcessoModel(Long procId, String procNumero, List<AnexoModel> procProcessos) {
 		super();
 		this.procId = procId;
 		this.procNumero = procNumero;
@@ -60,11 +60,11 @@ public class ProcessoModel {
 		this.procNumero = procNumero;
 	}
 
-	public List<ProcessoSecudarioModel> getProcProcessos() {
+	public List<AnexoModel> getProcProcessos() {
 		return procProcessos;
 	}
 
-	public void setProcProcessos(List<ProcessoSecudarioModel> procProcessos) {
+	public void setProcProcessos(List<AnexoModel> procProcessos) {
 		this.procProcessos = procProcessos;
 	}
 

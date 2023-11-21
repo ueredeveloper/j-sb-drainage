@@ -8,17 +8,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.api.main.models.AnexoModel;
-import com.api.main.models.ProcessoModel;
-import com.api.main.models.ProcessoModel;
-
 
 @Repository
-public interface ProcessoRepository extends JpaRepository<ProcessoModel, Long> {
+public interface AnexoRepository extends JpaRepository<AnexoModel, Long> {
 	
-	@Query("SELECT p FROM ProcessoModel p WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(p.procNumero) LIKE %:keyword%)")
-	List<ProcessoModel> list(String keyword);
 
 	@Query("SELECT a FROM AnexoModel a WHERE a.anPrincipal.procId = :id")
-	List<AnexoModel> listChildrens(@Param("id") Long id);
-}
+	List<AnexoModel> listAnexos(@Param("id") Long id);
+	//docSEI
 
+	@Query("SELECT a FROM AnexoModel a WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(a.anNumero) LIKE %:keyword%)")
+	List<AnexoModel> list(String keyword);
+
+}

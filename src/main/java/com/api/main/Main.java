@@ -1,10 +1,10 @@
 package com.api.main;
 
-import com.api.main.models.ProcessoSecudarioModel;
+import com.api.main.models.AnexoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.DocumentoTipoModel;
-import com.api.main.repositories.ProcessoSecudarioRepository;
+import com.api.main.repositories.AnexoRepository;
 import com.api.main.repositories.DocumentoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
 import com.api.main.repositories.ProcessoRepository;
@@ -43,13 +43,13 @@ public class Main {
 	}
 
 	@Bean
-	public CommandLineRunner insertProcessos(ProcessoSecudarioRepository procRepo) {
+	public CommandLineRunner insertProcessos(AnexoRepository procRepo) {
 
 		return (args) -> {
 
-			procRepo.save(new ProcessoSecudarioModel("197.123.456/2013"));
-			procRepo.save(new ProcessoSecudarioModel("197.456.789/2015"));
-			procRepo.save(new ProcessoSecudarioModel("197.789.456/2018"));
+			procRepo.save(new AnexoModel("197.123.456/2013"));
+			procRepo.save(new AnexoModel("197.456.789/2015"));
+			procRepo.save(new AnexoModel("197.789.456/2018"));
 
 		};
 	};

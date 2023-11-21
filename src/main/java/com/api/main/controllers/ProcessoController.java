@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.ProcessoDTO;
-import com.api.main.models.ProcessoSecudarioModel;
+import com.api.main.models.AnexoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.services.ProcessoService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/processes")
+@RequestMapping("/process")
 public class ProcessoController {
 	
 	final ProcessoService service;
@@ -61,7 +61,7 @@ public class ProcessoController {
 	}
 
 	@GetMapping("/list-secondary")
-	public ResponseEntity<List<ProcessoSecudarioModel>> listChildrens (@RequestParam("id") Long id) {
+	public ResponseEntity<List<AnexoModel>> listChildrens (@RequestParam("id") Long id) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.listChildrens(id));
 	}
 	@DeleteMapping("/delete")

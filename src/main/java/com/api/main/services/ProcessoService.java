@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.api.main.models.ProcessoSecudarioModel;
+import com.api.main.models.AnexoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.repositories.ProcessoRepository;
@@ -48,7 +48,7 @@ public class ProcessoService {
 	}
 
 	@Transactional
-	public List<ProcessoSecudarioModel> listChildrens(Long proc_processo_principal) {
+	public List<AnexoModel> listChildrens(Long proc_processo_principal) {
 		return repository.listChildrens(proc_processo_principal);
 	}
 

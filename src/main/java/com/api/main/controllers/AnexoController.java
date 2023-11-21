@@ -17,26 +17,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.main.dto.ProcessoSecudarioDTO;
-import com.api.main.models.ProcessoSecudarioModel;
-import com.api.main.services.ProcessoSecudarioService;
+import com.api.main.dto.AnexoDTO;
+import com.api.main.models.AnexoModel;
+import com.api.main.services.AnexoService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/processes-secondary")
-public class ProcessoSecudarioController {
+@RequestMapping("/attachment")
+public class AnexoController {
 
 	
-	final ProcessoSecudarioService service;
+	final AnexoService service;
 
-	public ProcessoSecudarioController(ProcessoSecudarioService service) {
+	public AnexoController(AnexoService service) {
 		this.service = service;
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Object> save(@RequestBody @Valid ProcessoSecudarioDTO procDTO) {
+	public ResponseEntity<Object> save(@RequestBody @Valid AnexoDTO procDTO) {
 
-		ProcessoSecudarioModel procMod = new ProcessoSecudarioModel();
+		AnexoModel procMod = new AnexoModel();
 
 		BeanUtils.copyProperties(procDTO, procMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(procMod));
@@ -44,14 +44,14 @@ public class ProcessoSecudarioController {
 
 
 	@GetMapping("/list")
-	public ResponseEntity<List<ProcessoSecudarioModel>> list(@RequestParam(required = false) String keyword) {
-		List<ProcessoSecudarioModel> resultList = service.list(keyword);
+	public ResponseEntity<List<AnexoModel>> list(@RequestParam(required = false) String keyword) {
+		List<AnexoModel> resultList = service.list(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody ProcessoSecudarioModel udpateProcesso) {
-		ProcessoSecudarioModel updated = service.update(id, udpateProcesso);
+	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody AnexoModel udpateProcesso) {
+		AnexoModel updated = service.update(id, udpateProcesso);
 		if (updated != null) {
 			return ResponseEntity.ok().body(updated);
 		} else {
@@ -63,7 +63,7 @@ public class ProcessoSecudarioController {
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
-			ProcessoSecudarioModel deleteResponse = service.deleteById(id);
+			AnexoModel deleteResponse = service.deleteById(id);
 			if (deleteResponse != null) {
 				return ResponseEntity.ok(deleteResponse);
 			} else {

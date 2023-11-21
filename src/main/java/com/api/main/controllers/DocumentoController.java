@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.DocumentoDTO;
 import com.api.main.models.DocumentoModel;
-import com.api.main.models.ProcessoSecudarioModel;
-import com.api.main.repositories.ProcessoSecudarioRepository;
+import com.api.main.models.AnexoModel;
+import com.api.main.repositories.AnexoRepository;
 import com.api.main.services.DocumentoService;
 
 @RestController
@@ -32,11 +32,11 @@ public class DocumentoController {
 
 	
 	final DocumentoService service;
-	final ProcessoSecudarioRepository procRepo;
+	final AnexoRepository anRepostory;
 
-	public DocumentoController(DocumentoService service, ProcessoSecudarioRepository procRepo) {
+	public DocumentoController(DocumentoService service, AnexoRepository anRepostory) {
 		this.service = service;
-		this.procRepo = procRepo;
+		this.anRepostory = anRepostory;
 	}
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO docDTO) {
@@ -61,19 +61,6 @@ public class DocumentoController {
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 	
-	/*// Buscar todos os resultados
-	@GetMapping("/list")
-	public ResponseEntity<List<DocumentoModel>> listAll() {
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.list());
-	}
-
-	// Buscar por parâmetro
-	@GetMapping("/search")
-	public ResponseEntity<List<DocumentoModel>> searchDocuments(@RequestParam String keyword) {
-		List<DocumentoModel> searchResults = service.search(keyword);
-		return ResponseEntity.status(HttpStatus.OK).body(searchResults);
-	}*/
-
 	@DeleteMapping("/delete")
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {
