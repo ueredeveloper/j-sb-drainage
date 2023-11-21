@@ -2,7 +2,6 @@ package com.api.main.models;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +27,7 @@ public class DocumentoModel implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "docProcesso")
-	private AnexoModel docProcesso;
+	private ProcessoModel docProcesso;
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String docSEI;
@@ -49,7 +48,15 @@ public class DocumentoModel implements Serializable {
 		super();
 		this.docNumero = docNumero;
 	}
-
+	
+	
+	public DocumentoModel(String docNumero, ProcessoModel docProcesso, String docSEI, DocumentoTipoModel docTipo) {
+		super();
+		this.docNumero = docNumero;
+		this.docProcesso = docProcesso;
+		this.docSEI = docSEI;
+		this.docTipo = docTipo;
+	}
 
 	public Long getDocId() {
 		return docId;
@@ -65,14 +72,6 @@ public class DocumentoModel implements Serializable {
 
 	public void setDocNumero(String docNumero) {
 		this.docNumero = docNumero;
-	}
-
-	public AnexoModel getDocProcesso() {
-		return docProcesso;
-	}
-
-	public void setDocProcesso(AnexoModel docProcesso) {
-		this.docProcesso = docProcesso;
 	}
 
 	public String getDocSEI() {
@@ -95,4 +94,13 @@ public class DocumentoModel implements Serializable {
 		return serialVersionUID;
 	}
 
+	public ProcessoModel getDocProcesso() {
+		return docProcesso;
+	}
+
+	public void setDocProcesso(ProcessoModel docProcesso) {
+		this.docProcesso = docProcesso;
+	}
+
+	
 }

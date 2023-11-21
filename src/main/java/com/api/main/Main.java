@@ -70,8 +70,12 @@ public class Main {
 
 		return (args) -> {
 
-			repo.save(new ProcessoModel("800/2015"));
-			repo.save(new ProcessoModel("800/2015"));
+			repo.save(new ProcessoModel("123/2015"));
+			repo.save(new ProcessoModel("456/2015"));
+			repo.save(new ProcessoModel("789/2015"));
+			repo.save(new ProcessoModel("321/2015"));
+			repo.save(new ProcessoModel("654/2015"));
+			repo.save(new ProcessoModel("987/2015"));
 
 		};
 

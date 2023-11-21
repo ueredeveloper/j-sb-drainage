@@ -13,7 +13,6 @@ public class AnexoDTO {
 
 	private ProcessoModel anPrincipal;
 
-	private List<DocumentoModel> anDocumentos;
 
 	public long getAnId() {
 		return anId;
@@ -39,14 +38,5 @@ public class AnexoDTO {
 		this.anPrincipal = anPrincipal;
 	}
 
-	public List<DocumentoModel> getAnDocumentos() {
-		return anDocumentos;
-	}
-
-	public void setAnDocumentos(List<DocumentoModel> anDocumentos) {
-		this.anDocumentos = anDocumentos;
-	}
-
-	
 
 }

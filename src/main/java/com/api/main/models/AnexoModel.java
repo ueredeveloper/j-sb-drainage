@@ -1,8 +1,5 @@
 package com.api.main.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "anexo")
@@ -31,11 +25,6 @@ public class AnexoModel {
 	@ManyToOne
 	@JoinColumn(name = "anPrincipal", referencedColumnName = "procId")
 	private ProcessoModel anPrincipal;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "docProcesso")
-	private List<DocumentoModel> anDocumentos = new ArrayList<>();
-	
 
 	public AnexoModel() {
 		super();
@@ -69,13 +58,6 @@ public class AnexoModel {
 		this.anPrincipal = anPrincipal;
 	}
 
-	public List<DocumentoModel> getAnDocumentos() {
-		return anDocumentos;
-	}
-
-	public void setAnDocumentos(List<DocumentoModel> anDocumentos) {
-		this.anDocumentos = anDocumentos;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

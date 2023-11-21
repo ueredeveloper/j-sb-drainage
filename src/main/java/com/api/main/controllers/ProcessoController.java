@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.main.dto.ProcessoDTO;
 import com.api.main.models.AnexoModel;
 import com.api.main.models.ProcessoModel;
-import com.api.main.models.ProcessoModel;
 import com.api.main.services.ProcessoService;
 
 @RestController

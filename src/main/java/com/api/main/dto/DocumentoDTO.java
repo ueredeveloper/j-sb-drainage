@@ -1,6 +1,7 @@
 package com.api.main.dto;
 
 import com.api.main.models.DocumentoTipoModel;
+import com.api.main.models.ProcessoModel;
 import com.api.main.models.AnexoModel;
 
 //import javax.validation.constraints.NotBlank;
@@ -12,13 +13,26 @@ public class DocumentoDTO {
 	// @NotBlank
 	private String docNumero;
 	// @NotBlank
-	private AnexoModel docProcesso;
+	private ProcessoModel docProcesso;
 
 	// @NotBlank
 	private String docSEI;
 
 	// @JsonInclude(Include.NON_NULL)
 	private DocumentoTipoModel docTipo;
+
+	public DocumentoDTO(String docNumero, ProcessoModel docProcesso, String docSEI, DocumentoTipoModel docTipo) {
+		super();
+		this.docNumero = docNumero;
+		this.docProcesso = docProcesso;
+		this.docSEI = docSEI;
+		this.docTipo = docTipo;
+	}
+	
+	public DocumentoDTO(String docNumero) {
+		super();
+		this.docNumero = docNumero;
+	}
 
 	public Long getDocId() {
 		return docId;
@@ -36,11 +50,11 @@ public class DocumentoDTO {
 		this.docNumero = docNumero;
 	}
 
-	public AnexoModel getDocProcesso() {
+	public ProcessoModel getDocProcesso() {
 		return docProcesso;
 	}
 
-	public void setDocProcesso(AnexoModel docProcesso) {
+	public void setDocProcesso(ProcessoModel docProcesso) {
 		this.docProcesso = docProcesso;
 	}
 
@@ -59,7 +73,5 @@ public class DocumentoDTO {
 	public void setDocTipo(DocumentoTipoModel docTipo) {
 		this.docTipo = docTipo;
 	}
-
-	
 
 }

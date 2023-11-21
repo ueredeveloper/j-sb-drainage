@@ -9,31 +9,28 @@ public class ProcessoDTO {
 	
 	Long procId;
 	String procNumero;
-	private List<AnexoModel> procProcessos = new ArrayList<>();
-
+	private List<AnexoModel> procAnexos = new ArrayList<>();
+	
 	public Long getProcId() {
 		return procId;
 	}
-
 	public void setProcId(Long procId) {
 		this.procId = procId;
 	}
-
 	public String getProcNumero() {
 		return procNumero;
 	}
-
 	public void setProcNumero(String procNumero) {
 		this.procNumero = procNumero;
 	}
-
-	public List<AnexoModel> getProcProcessos() {
-		return procProcessos;
+	public List<AnexoModel> getProcAnexos() {
+		return procAnexos;
+	}
+	public void setProcAnexos(List<AnexoModel> procAnexos) {
+		this.procAnexos = procAnexos;
 	}
 
-	public void setProcProcessos(List<AnexoModel> procProcessos) {
-		this.procProcessos = procProcessos;
-	}
+	
 	
 
 }
