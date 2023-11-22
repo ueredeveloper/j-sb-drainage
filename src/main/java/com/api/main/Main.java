@@ -41,13 +41,12 @@ public class Main {
 	}
 
 	@Bean
-	public CommandLineRunner insertProcessos(AnexoRepository procRepo) {
+	public CommandLineRunner insertAnexos(AnexoRepository procRepo) {
 
 		return (args) -> {
 
 			procRepo.save(new AnexoModel("197.123.456/2013"));
 			procRepo.save(new AnexoModel("197.456.789/2015"));
-			procRepo.save(new AnexoModel("197.789.456/2018"));
 
 		};
 	};
@@ -59,23 +58,19 @@ public class Main {
 
 			dr.save(new DocumentoModel("12/2015"));
 			dr.save(new DocumentoModel("13/2015"));
-			dr.save(new DocumentoModel("14/2015"));
 
 		};
 
 	}
 	
 	@Bean
-	public CommandLineRunner isertProcessosPrincipais(ProcessoRepository repo) {
+	public CommandLineRunner isertProcessos(ProcessoRepository repo) {
 
 		return (args) -> {
 
 			repo.save(new ProcessoModel("123/2015"));
 			repo.save(new ProcessoModel("456/2015"));
-			repo.save(new ProcessoModel("789/2015"));
-			repo.save(new ProcessoModel("321/2015"));
-			repo.save(new ProcessoModel("654/2015"));
-			repo.save(new ProcessoModel("987/2015"));
+	
 
 		};
 

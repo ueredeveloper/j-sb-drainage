@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.DocumentoDTO;
 import com.api.main.models.DocumentoModel;
-import com.api.main.repositories.AnexoRepository;
 import com.api.main.services.DocumentoService;
 
 @RestController
@@ -29,17 +28,58 @@ public class DocumentoController {
 
 	
 	final DocumentoService service;
-	final AnexoRepository anRepostory;
+	//final AnexoRepository anRepostory;
 
-	public DocumentoController(DocumentoService service, AnexoRepository anRepostory) {
+	public DocumentoController(DocumentoService service) {
 		this.service = service;
-		this.anRepostory = anRepostory;
+		//this.anRepostory = anRepostory;
 	}
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO docDTO) {
-		DocumentoModel docMod = new DocumentoModel();
+		/*DocumentoModel docMod = new DocumentoModel();
 		BeanUtils.copyProperties(docDTO, docMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(docMod));
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(docMod));*/
+		try {
+            DocumentoModel docMod = new DocumentoModel();
+            BeanUtils.copyProperties(docDTO, docMod);
+            
+           // System.out.println(docDTO.getDocAnexo().getAnPrincipal().getProcNumero());
+           
+            // Save DocumentoModel
+            DocumentoModel savedDocumento = service.save(docMod, docDTO);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedDocumento);
+        } catch (Exception e) {
+        	e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving Documento and Anexo");
+        }
+		
+		
+		
+	/*	 DocumentoModel docMod = new DocumentoModel();
+	        BeanUtils.copyProperties(docDTO, docMod);
+	        
+	        
+
+	       if (docDTO.getDocAnexo() != null) {
+	        	 // Create AnexoModel
+		        AnexoModel anexoModel = new AnexoModel();
+		        AnexoDTO anexoDTO = docDTO.getDocAnexo();
+		        BeanUtils.copyProperties(anexoDTO, anexoModel);
+
+		        // Set relationship between AnexoModel and ProcessoModel
+		        ProcessoModel processoAnexo = new ProcessoModel();
+		        BeanUtils.copyProperties(anexoDTO.getAnPrincipal(), processoAnexo);
+		        anexoModel.setAnPrincipal(processoAnexo);
+	        
+		        anRepostory.save(anexoModel);
+	        }
+	       
+	        // Save both DocumentoModel and AnexoModel
+	        DocumentoModel savedDocumento = service.save(docMod);
+	        
+	        return ResponseEntity.status(HttpStatus.CREATED).body(savedDocumento);*/
+		
 	}
 	
 	@PutMapping("/update")

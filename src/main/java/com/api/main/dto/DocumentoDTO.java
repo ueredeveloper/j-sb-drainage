@@ -2,12 +2,10 @@ package com.api.main.dto;
 
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.models.ProcessoModel;
-import com.api.main.models.AnexoModel;
 
 //import javax.validation.constraints.NotBlank;
 //@JsonSerialize(using = CustomDocTipoSerializer.class)
 public class DocumentoDTO {
-	
 
 	private Long docId;
 	// @NotBlank
@@ -21,6 +19,8 @@ public class DocumentoDTO {
 	// @JsonInclude(Include.NON_NULL)
 	private DocumentoTipoModel docTipo;
 
+	private AnexoDTO docAnexo;
+
 	public DocumentoDTO(String docNumero, ProcessoModel docProcesso, String docSEI, DocumentoTipoModel docTipo) {
 		super();
 		this.docNumero = docNumero;
@@ -28,7 +28,7 @@ public class DocumentoDTO {
 		this.docSEI = docSEI;
 		this.docTipo = docTipo;
 	}
-	
+
 	public DocumentoDTO(String docNumero) {
 		super();
 		this.docNumero = docNumero;
@@ -70,8 +70,17 @@ public class DocumentoDTO {
 		return docTipo;
 	}
 
+	public AnexoDTO getDocAnexo() {
+		return docAnexo;
+	}
+
 	public void setDocTipo(DocumentoTipoModel docTipo) {
 		this.docTipo = docTipo;
 	}
 
+	public void setDocAnexo(AnexoDTO docAnexo) {
+		this.docAnexo = docAnexo;
+	}
+
+	
 }

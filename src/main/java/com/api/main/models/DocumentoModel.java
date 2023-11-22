@@ -39,6 +39,7 @@ public class DocumentoModel implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "docTipo")
 	private DocumentoTipoModel docTipo;
+	
 
 	public DocumentoModel() {
 		super();
