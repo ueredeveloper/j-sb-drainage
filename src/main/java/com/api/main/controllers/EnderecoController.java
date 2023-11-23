@@ -17,34 +17,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.main.dto.DocumentoDTO;
-import com.api.main.models.DocumentoModel;
-import com.api.main.services.DocumentoService;
+import com.api.main.dto.EnderecoDTO;
+import com.api.main.models.EnderecoModel;
+import com.api.main.services.EnderecoService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/document")
-public class DocumentoController {
+@RequestMapping("/address")
+public class EnderecoController {
 
-	
-	final DocumentoService service;
+	final EnderecoService endServ;
 
-	public DocumentoController(DocumentoService service) {
-		this.service = service;
+	public EnderecoController(EnderecoService endServ) {
+		super();
+		this.endServ = endServ;
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO docDTO) {
-		DocumentoModel docMod = new DocumentoModel();
-		BeanUtils.copyProperties(docDTO, docMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(docDTO, docMod));
-		
-		
+	public ResponseEntity<Object> save(@RequestBody @Valid EnderecoDTO dto) {
+		EnderecoModel mod = new EnderecoModel();
+		BeanUtils.copyProperties(dto, mod);
+		return ResponseEntity.status(HttpStatus.CREATED).body(endServ.save(mod));
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody DocumentoModel updateDocumento) {
-		DocumentoModel updated = service.update(id, updateDocumento);
+	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody EnderecoModel updateRequest) {
+		EnderecoModel updated = endServ.update(id, updateRequest);
 		if (updated != null) {
 			return ResponseEntity.ok().body(updated);
 		} else {
@@ -53,8 +51,8 @@ public class DocumentoController {
 	}
 	
 	@GetMapping("/list")
-	public ResponseEntity<List<DocumentoModel>> list(@RequestParam(required = false) String keyword) {
-		List<DocumentoModel> resultList = service.list(keyword);
+	public ResponseEntity<List<EnderecoModel>> list(@RequestParam(required = false) String keyword) {
+		List<EnderecoModel> resultList = endServ.list(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 	
@@ -62,7 +60,7 @@ public class DocumentoController {
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
-			DocumentoModel deleteResponse = service.deleteById(id);
+			EnderecoModel deleteResponse = endServ.deleteById(id);
 			if (deleteResponse != null) {
 				return ResponseEntity.ok(deleteResponse);
 			} else {
@@ -70,8 +68,9 @@ public class DocumentoController {
 			}
 		} else {
 			// Delete all objects
-			service.delete();
-			return ResponseEntity.ok("Todos os objetos deletados!!!");
+			endServ.delete();
+			return ResponseEntity.ok("Todos os endereços deletados!!!");
 		}
 	}
+	
 }

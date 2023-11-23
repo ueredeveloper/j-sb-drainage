@@ -79,14 +79,13 @@ public class Main {
 	}
 	@Bean
 	public CommandLineRunner insertEndereco(EnderecoRepository repo) {
-
-		return (args) -> {
-
-			repo.save(new EnderecoModel("123/2015"));
-			
-	
-
-		};
-
+	    return (args) -> {
+	        repo.save(new EnderecoModel("Rua Novaes Terceiro, Casa 12"));
+	        repo.save(new EnderecoModel("Avenida Principal, Bloco A"));
+	        repo.save(new EnderecoModel("Rua das Flores, Apartamento 5"));
+	        repo.save(new EnderecoModel("Praça Central, Lote 30"));
+	        repo.save(new EnderecoModel("Alameda dos Sonhos, Casa 8"));
+	    };
 	}
+
 }
