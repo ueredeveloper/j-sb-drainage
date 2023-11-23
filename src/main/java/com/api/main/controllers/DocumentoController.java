@@ -36,10 +36,10 @@ public class DocumentoController {
 	}
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO docDTO) {
-		/*DocumentoModel docMod = new DocumentoModel();
+		DocumentoModel docMod = new DocumentoModel();
 		BeanUtils.copyProperties(docDTO, docMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(docMod));*/
-		try {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(docDTO, docMod));
+		/*try {
             DocumentoModel docMod = new DocumentoModel();
             BeanUtils.copyProperties(docDTO, docMod);
             
@@ -52,7 +52,7 @@ public class DocumentoController {
         } catch (Exception e) {
         	e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving Documento and Anexo");
-        }
+        }*/
 		
 		
 		

@@ -15,7 +15,6 @@ import javax.persistence.Table;
 @Table(name = "documento")
 public class DocumentoModel implements Serializable {
 	
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -40,6 +39,10 @@ public class DocumentoModel implements Serializable {
 	@JoinColumn(name = "docTipo")
 	private DocumentoTipoModel docTipo;
 	
+	@ManyToOne
+	@JoinColumn(name = "docEndereco")
+	private EnderecoModel docEndereco;
+	
 
 	public DocumentoModel() {
 		super();
@@ -57,6 +60,19 @@ public class DocumentoModel implements Serializable {
 		this.docProcesso = docProcesso;
 		this.docSEI = docSEI;
 		this.docTipo = docTipo;
+	}
+	
+	
+	
+	public DocumentoModel(Long docId, String docNumero, ProcessoModel docProcesso, String docSEI,
+			DocumentoTipoModel docTipo, EnderecoModel docEndereco) {
+		super();
+		this.docId = docId;
+		this.docNumero = docNumero;
+		this.docProcesso = docProcesso;
+		this.docSEI = docSEI;
+		this.docTipo = docTipo;
+		this.docEndereco = docEndereco;
 	}
 
 	public Long getDocId() {
@@ -101,6 +117,14 @@ public class DocumentoModel implements Serializable {
 
 	public void setDocProcesso(ProcessoModel docProcesso) {
 		this.docProcesso = docProcesso;
+	}
+
+	public EnderecoModel getDocEndereco() {
+		return docEndereco;
+	}
+
+	public void setDocEndereco(EnderecoModel docEndereco) {
+		this.docEndereco = docEndereco;
 	}
 
 	

@@ -1,6 +1,7 @@
 package com.api.main.dto;
 
 import com.api.main.models.DocumentoTipoModel;
+import com.api.main.models.EnderecoModel;
 import com.api.main.models.ProcessoModel;
 
 //import javax.validation.constraints.NotBlank;
@@ -19,20 +20,30 @@ public class DocumentoDTO {
 	// @JsonInclude(Include.NON_NULL)
 	private DocumentoTipoModel docTipo;
 
-	private AnexoDTO docAnexo;
+	private EnderecoModel docEndereco;
 
-	public DocumentoDTO(String docNumero, ProcessoModel docProcesso, String docSEI, DocumentoTipoModel docTipo) {
+	public DocumentoDTO() {
 		super();
-		this.docNumero = docNumero;
-		this.docProcesso = docProcesso;
-		this.docSEI = docSEI;
-		this.docTipo = docTipo;
 	}
+	
 
 	public DocumentoDTO(String docNumero) {
 		super();
 		this.docNumero = docNumero;
 	}
+	
+
+	public DocumentoDTO(Long docId, String docNumero, ProcessoModel docProcesso, String docSEI,
+			DocumentoTipoModel docTipo, EnderecoModel docEndereco) {
+		super();
+		this.docId = docId;
+		this.docNumero = docNumero;
+		this.docProcesso = docProcesso;
+		this.docSEI = docSEI;
+		this.docTipo = docTipo;
+		this.docEndereco = docEndereco;
+	}
+
 
 	public Long getDocId() {
 		return docId;
@@ -66,20 +77,24 @@ public class DocumentoDTO {
 		this.docSEI = docSEI;
 	}
 
+
 	public DocumentoTipoModel getDocTipo() {
 		return docTipo;
 	}
 
-	public AnexoDTO getDocAnexo() {
-		return docAnexo;
-	}
 
 	public void setDocTipo(DocumentoTipoModel docTipo) {
 		this.docTipo = docTipo;
 	}
 
-	public void setDocAnexo(AnexoDTO docAnexo) {
-		this.docAnexo = docAnexo;
+
+	public EnderecoModel getDocEndereco() {
+		return docEndereco;
+	}
+
+
+	public void setDocEndereco(EnderecoModel docEndereco) {
+		this.docEndereco = docEndereco;
 	}
 
 	

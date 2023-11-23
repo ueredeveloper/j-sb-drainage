@@ -4,9 +4,11 @@ import com.api.main.models.AnexoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.DocumentoTipoModel;
+import com.api.main.models.EnderecoModel;
 import com.api.main.repositories.AnexoRepository;
 import com.api.main.repositories.DocumentoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
+import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.ProcessoRepository;
 
 import org.springframework.boot.CommandLineRunner;
@@ -70,6 +72,18 @@ public class Main {
 
 			repo.save(new ProcessoModel("123/2015"));
 			repo.save(new ProcessoModel("456/2015"));
+	
+
+		};
+
+	}
+	@Bean
+	public CommandLineRunner insertEndereco(EnderecoRepository repo) {
+
+		return (args) -> {
+
+			repo.save(new EnderecoModel("123/2015"));
+			
 	
 
 		};
