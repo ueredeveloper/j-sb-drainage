@@ -6,17 +6,15 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import com.api.main.dto.AnexoDTO;
 import com.api.main.dto.DocumentoDTO;
-import com.api.main.models.AnexoModel;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.ProcessoModel;
-import com.api.main.repositories.AnexoRepository;
+import com.api.main.models.DocumentoTipoModel;
 import com.api.main.repositories.DocumentoRepository;
+import com.api.main.repositories.DocumentoTipoRepository;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.ProcessoRepository;
 
@@ -25,24 +23,18 @@ public class DocumentoService {
 	
 
 	final DocumentoRepository docRepo;
-	final ProcessoRepository proRepo;
+	final ProcessoRepository procRepo;
 	final EnderecoRepository endRepo;
+	final DocumentoTipoRepository docTipoRepo;
 	
-	public DocumentoService(DocumentoRepository docRepo, ProcessoRepository proRepo, EnderecoRepository endRepo) {
+	public DocumentoService(DocumentoRepository docRepo, ProcessoRepository procRepo, EnderecoRepository endRepo,
+			DocumentoTipoRepository docTipoRepo) {
 		super();
 		this.docRepo = docRepo;
-		this.proRepo = proRepo;
+		this.procRepo = procRepo;
 		this.endRepo = endRepo;
+		this.docTipoRepo = docTipoRepo;
 	}
-
-	
-/*
-	@Transactional
-	public DocumentoModel save(DocumentoModel documentoModel) {
-		return docRepo.save(documentoModel);
-	}*/
-
-	
 
 	@Transactional
 	public List<DocumentoModel> list(String keyword) {
@@ -67,13 +59,14 @@ public class DocumentoService {
 		return docRepo.findById(id);
 	}
 
-	@Transactional
+	/*@Transactional
 	public DocumentoModel update(Long id, DocumentoModel updateDocumento) {
 		DocumentoModel responseDocumento = docRepo.findById(id).map((DocumentoModel record) -> {
 			record.setDocNumero(updateDocumento.getDocNumero());
 			record.setDocProcesso(updateDocumento.getDocProcesso());
 			record.setDocSEI(updateDocumento.getDocSEI());
 			record.setDocTipo(updateDocumento.getDocTipo());
+			record.setDocEndereco(updateDocumento.getDocEndereco());
 			return docRepo.save(record);
 		}).orElse(null);
 
@@ -82,67 +75,66 @@ public class DocumentoService {
 		}
 
 		return responseDocumento;
-	}
-/*
+	}*/
+	
 	@Transactional
-	public DocumentoModel save(DocumentoModel docMod, DocumentoDTO docDTO) {
-	    DocumentoModel savedDocumento = null;
+    public DocumentoModel update(Long id, DocumentoModel updateDocumento) {
+        DocumentoModel responseDocumento = docRepo.findById(id).map((DocumentoModel record) -> {
+            record.setDocNumero(updateDocumento.getDocNumero());
+            record.setDocSEI(updateDocumento.getDocSEI());
 
-	    // Check if docProcesso is present in the DTO
-	    if (docDTO.getDocProcesso() != null && docDTO.getDocProcesso().getProcNumero() != null) {
-	        ProcessoModel procAnexo = new ProcessoModel();
-	        procAnexo.setProcNumero(docDTO.getDocProcesso().getProcNumero());
+            // Verifies and saves DocumentoTipoModel (must not be null)
+            if (updateDocumento.getDocTipo() != null && updateDocumento.getDocTipo().getDtId() != null) {
+                Optional<DocumentoTipoModel> documentoTipo = docTipoRepo.findById(updateDocumento.getDocTipo().getDtId());
+                documentoTipo.ifPresent(record::setDocTipo);
+            } else {
+                throw new IllegalArgumentException("É requerido o Tipo de Documento.");
+            }
 
-	        // Save the ProcessoModel
-	        procAnexo = proRepo.save(procAnexo);
+            // Saves or updates ProcessoModel (can be null or have an existing ID)
+            if (updateDocumento.getDocProcesso() != null) {
+                if (updateDocumento.getDocProcesso().getProcId() != null) {
+                    Optional<ProcessoModel> processo = procRepo.findById(updateDocumento.getDocProcesso().getProcId());
+                    processo.ifPresent(record::setDocProcesso);
+                } else {
+                    // Create a new ProcessoModel if the ID is null
+                    ProcessoModel newProcesso = procRepo.save(updateDocumento.getDocProcesso());
+                    record.setDocProcesso(newProcesso);
+                }
+            }
 
-	        // Set the saved ProcessoModel in DocumentoModel
-	        docMod.setDocProcesso(procAnexo);
-	        savedDocumento = docRepo.save(docMod);
+            // Saves or updates EnderecoModel (can be null or have an existing ID)
+            if (updateDocumento.getDocEndereco() != null) {
+                if (updateDocumento.getDocEndereco().getEndId() != null) {
+                    Optional<EnderecoModel> enderecoOptional = endRepo.findById(updateDocumento.getDocEndereco().getEndId());
+                    enderecoOptional.ifPresent(endereco -> {
+                        // Editar attributos como Cidade e Cep.
+                        EnderecoModel existingEndereco = endereco;
+                        existingEndereco.setEndLogradouro(updateDocumento.getDocEndereco().getEndLogradouro());
+                        existingEndereco.setEndCidade(updateDocumento.getDocEndereco().getEndCidade());
 
-	        // If there's an Anexo, handle saving the AnexoModel
-	        if (docDTO.getDocAnexo() != null) {
-	            AnexoModel anModel = new AnexoModel();
-	            AnexoDTO anDTO = docDTO.getDocAnexo();
-	            BeanUtils.copyProperties(anDTO, anModel);
+                        EnderecoModel updatedEndereco = endRepo.save(existingEndereco);
+                        record.setDocEndereco(updatedEndereco);
+                    });
+                    
+                   // endereco.ifPresent(record::setDocEndereco);
+                } else {
+                    // Create a new EnderecoModel if the ID is null
+                    EnderecoModel newEndereco = endRepo.save(updateDocumento.getDocEndereco());
+                    record.setDocEndereco(newEndereco);
+                }
+            }
 
-	            // Set the previously saved ProcessoModel in AnexoModel
-	            anModel.setAnPrincipal(procAnexo);
-	            anRepo.save(anModel);
-	        }
-	    } else {
-	        // Save only the DocumentoModel without a related ProcessoModel
-	        savedDocumento = docRepo.save(docMod);
-	    }
+            return docRepo.save(record);
+        }).orElse(null);
 
-	    return savedDocumento;
-	}*/
-	
-	/*@Transactional
-	public DocumentoModel save( DocumentoDTO docDTO, DocumentoModel docMod) {
-	    DocumentoModel savedDocumento = null;
+        if (responseDocumento == null) {
+            throw new NoSuchElementException("Não foi encontrado documento com o id: " + id);
+        }
 
-	    // Check if docProcesso is present in the DTO
-	    if (docDTO.getDocProcesso() != null ) {
-	        ProcessoModel processo = new ProcessoModel();
-	        processo.setProcNumero(docDTO.getDocProcesso().getProcNumero());
+        return responseDocumento;
+    }
 
-	        // Save the ProcessoModel
-	        processo = proRepo.save(processo);
-
-	        // Set the saved ProcessoModel in DocumentoModel
-	        docMod.setDocProcesso(processo);
-	        savedDocumento = docRepo.save(docMod);
-
-	       
-	    } else {
-	        // Save only the DocumentoModel without a related ProcessoModel
-	        savedDocumento = docRepo.save(docMod);
-	    }
-
-	    return savedDocumento;
-	}*/
-	
 	@Transactional
 	public DocumentoModel save(DocumentoDTO docDTO, DocumentoModel docMod) {
 	    DocumentoModel savedDocumento = null;
@@ -154,7 +146,7 @@ public class DocumentoService {
 	        processo.setProcNumero(docDTO.getDocProcesso().getProcNumero());
 
 	        // Save the ProcessoModel
-	        processo = proRepo.save(processo);
+	        processo = procRepo.save(processo);
 
 	        // Set the saved ProcessoModel in DocumentoModel
 	        docMod.setDocProcesso(processo);
