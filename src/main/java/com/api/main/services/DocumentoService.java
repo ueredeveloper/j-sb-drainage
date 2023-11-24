@@ -112,7 +112,7 @@ public class DocumentoService {
                         EnderecoModel existingEndereco = endereco;
                         existingEndereco.setEndLogradouro(updateDocumento.getDocEndereco().getEndLogradouro());
                         existingEndereco.setEndCidade(updateDocumento.getDocEndereco().getEndCidade());
-                        existingEndereco.setEndCEP(updateDocumento.getDocEndereco().getEndCidade());
+                        existingEndereco.setEndCEP(updateDocumento.getDocEndereco().getEndCEP());
 
                         EnderecoModel updatedEndereco = endRepo.save(existingEndereco);
                         record.setDocEndereco(updatedEndereco);
