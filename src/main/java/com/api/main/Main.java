@@ -53,17 +53,7 @@ public class Main {
 		};
 	};
 
-	@Bean
-	public CommandLineRunner insertDocumentos(DocumentoRepository dr) {
-
-		return (args) -> {
-
-			dr.save(new DocumentoModel("12/2015"));
-			dr.save(new DocumentoModel("13/2015"));
-
-		};
-
-	}
+	
 	
 	@Bean
 	public CommandLineRunner isertProcessos(ProcessoRepository repo) {
@@ -88,4 +78,15 @@ public class Main {
 	    };
 	}
 
+	@Bean
+	public CommandLineRunner insertDocumentos(DocumentoRepository dr) {
+
+		return (args) -> {
+
+			dr.save(new DocumentoModel("12/2015", new EnderecoModel(1L)));
+			dr.save(new DocumentoModel("13/2015"));
+
+		};
+
+	}
 }

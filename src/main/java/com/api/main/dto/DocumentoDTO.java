@@ -15,7 +15,7 @@ public class DocumentoDTO {
 	private ProcessoModel docProcesso;
 
 	// @NotBlank
-	private String docSEI;
+	private String docSei;
 
 	// @JsonInclude(Include.NON_NULL)
 	private DocumentoTipoModel docTipo;
@@ -33,13 +33,13 @@ public class DocumentoDTO {
 	}
 	
 
-	public DocumentoDTO(Long docId, String docNumero, ProcessoModel docProcesso, String docSEI,
+	public DocumentoDTO(Long docId, String docNumero, ProcessoModel docProcesso, String docSei,
 			DocumentoTipoModel docTipo, EnderecoModel docEndereco) {
 		super();
 		this.docId = docId;
 		this.docNumero = docNumero;
 		this.docProcesso = docProcesso;
-		this.docSEI = docSEI;
+		this.docSei = docSei;
 		this.docTipo = docTipo;
 		this.docEndereco = docEndereco;
 	}
@@ -69,12 +69,12 @@ public class DocumentoDTO {
 		this.docProcesso = docProcesso;
 	}
 
-	public String getDocSEI() {
-		return docSEI;
+	public String getDocSei() {
+		return docSei;
 	}
 
-	public void setDocSEI(String docSEI) {
-		this.docSEI = docSEI;
+	public void setDocSei(String docSei) {
+		this.docSei = docSei;
 	}
 
 

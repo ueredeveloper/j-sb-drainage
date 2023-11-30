@@ -81,7 +81,7 @@ public class DocumentoService {
     public DocumentoModel update(Long id, DocumentoModel updateDocumento) {
         DocumentoModel responseDocumento = docRepo.findById(id).map((DocumentoModel record) -> {
             record.setDocNumero(updateDocumento.getDocNumero());
-            record.setDocSEI(updateDocumento.getDocSEI());
+            record.setDocSei(updateDocumento.getDocSei());
 
             // Verifies and saves DocumentoTipoModel (must not be null)
             if (updateDocumento.getDocTipo() != null && updateDocumento.getDocTipo().getDtId() != null) {

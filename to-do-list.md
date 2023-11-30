@@ -40,3 +40,7 @@ alter table documento add constraint FK3weu158dj5w5o5le1qbmj5jqw foreign key (do
 	}
 	
 - [ ] Task 4
+
+### 30 de Novembro de 2023
+* ** [X] Tarefa 1 - Select All with Query*
+	* Selecionar documento por numero, sei, processo e endereço relacionado

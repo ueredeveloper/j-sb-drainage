@@ -42,6 +42,12 @@ public class EnderecoModel {
 		super();
 		this.endLogradouro = endLogradouro;
 	}
+	
+
+	public EnderecoModel(Long endId) {
+		super();
+		this.endId = endId;
+	}
 
 	public EnderecoModel(Long endId, String endLogradouro, String endCidade, String endCEP,
 			List<DocumentoModel> endDocumentos) {

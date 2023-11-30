@@ -29,7 +29,7 @@ public class DocumentoModel implements Serializable {
 	private ProcessoModel docProcesso;
 
 	@Column(nullable = true, unique = false, length = 40)
-	private String docSEI;
+	private String docSei;
 
 	// está retirando o tipo de documento relacionado, trazendo só o id. Ex:
 	// documento: {doc_tipo:{dt_id: 1}} => documento: {doc_tipo: 1}
@@ -54,24 +54,29 @@ public class DocumentoModel implements Serializable {
 	}
 	
 	
-	public DocumentoModel(String docNumero, ProcessoModel docProcesso, String docSEI, DocumentoTipoModel docTipo) {
+
+	public DocumentoModel(String docNumero, String docSei) {
 		super();
 		this.docNumero = docNumero;
-		this.docProcesso = docProcesso;
-		this.docSEI = docSEI;
-		this.docTipo = docTipo;
+		this.docSei = docSei;
 	}
-	
-	
-	
-	public DocumentoModel(Long docId, String docNumero, ProcessoModel docProcesso, String docSEI,
+
+	public DocumentoModel(Long docId, String docNumero, ProcessoModel docProcesso, String docSei,
 			DocumentoTipoModel docTipo, EnderecoModel docEndereco) {
 		super();
 		this.docId = docId;
 		this.docNumero = docNumero;
 		this.docProcesso = docProcesso;
-		this.docSEI = docSEI;
+		this.docSei = docSei;
 		this.docTipo = docTipo;
+		this.docEndereco = docEndereco;
+	}
+	
+	
+
+	public DocumentoModel(String docNumero, EnderecoModel docEndereco) {
+		super();
+		this.docNumero = docNumero;
 		this.docEndereco = docEndereco;
 	}
 
@@ -91,13 +96,6 @@ public class DocumentoModel implements Serializable {
 		this.docNumero = docNumero;
 	}
 
-	public String getDocSEI() {
-		return docSEI;
-	}
-
-	public void setDocSEI(String docSEI) {
-		this.docSEI = docSEI;
-	}
 
 	public DocumentoTipoModel getDocTipo() {
 		return docTipo;
@@ -127,5 +125,14 @@ public class DocumentoModel implements Serializable {
 		this.docEndereco = docEndereco;
 	}
 
+	public String getDocSei() {
+		return docSei;
+	}
+
+	public void setDocSei(String docSei) {
+		this.docSei = docSei;
+	}
+
+	
 	
 }
