@@ -18,7 +18,7 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 			+ "LEFT JOIN EnderecoModel e ON e.endId = d.docEndereco "
 			+ "WHERE "
 			+ "LOWER (d.docNumero) LIKE LOWER(concat('%', :keyword, '%')) "
-			+ "OR d.docSei LIKE %:keyword% "
+			+ "OR LOWER (d.docSei) LIKE LOWER(concat('%', :keyword, '%')) "
 			+ "OR LOWER (p.procNumero) LIKE LOWER(concat('%', :keyword, '%')) "
 			+ "OR LOWER(e.endLogradouro) LIKE LOWER(concat('%', :keyword, '%'))")
 		List<DocumentoModel> list(@Param("keyword") String keyword);
