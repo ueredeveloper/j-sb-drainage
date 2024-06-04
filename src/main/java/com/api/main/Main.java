@@ -53,8 +53,7 @@ public class Main {
 		};
 	};
 
-	
-	
+
 	@Bean
 	public CommandLineRunner isertProcessos(ProcessoRepository repo) {
 
@@ -62,14 +61,14 @@ public class Main {
 
 			repo.save(new ProcessoModel("123/2015"));
 			repo.save(new ProcessoModel("456/2015"));
-	
 
 		};
-
 	}
+	
 	@Bean
 	public CommandLineRunner insertEndereco(EnderecoRepository repo) {
 	    return (args) -> {
+	    	
 	        repo.save(new EnderecoModel("Rua Novaes Terceiro, Casa 12"));
 	        repo.save(new EnderecoModel("Avenida Principal, Bloco A"));
 	        repo.save(new EnderecoModel("Rua das Flores, Apartamento 5"));

@@ -27,24 +27,24 @@ import com.api.main.services.DocumentoService;
 public class DocumentoController {
 
 	
-	final DocumentoService service;
+	final DocumentoService docService;
 
-	public DocumentoController(DocumentoService service) {
-		this.service = service;
+	public DocumentoController(DocumentoService docService) {
+		this.docService = docService;
 	}
 	
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO docDTO) {
 		DocumentoModel docMod = new DocumentoModel();
 		BeanUtils.copyProperties(docDTO, docMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(docDTO, docMod));
+		return ResponseEntity.status(HttpStatus.CREATED).body(docService.save(docDTO, docMod));
 		
 		
 	}
 	
 	@PutMapping("/update")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody DocumentoModel updateDocumento) {
-		DocumentoModel updated = service.update(id, updateDocumento);
+		DocumentoModel updated = docService.update(id, updateDocumento);
 		if (updated != null) {
 			return ResponseEntity.ok().body(updated);
 		} else {
@@ -54,7 +54,7 @@ public class DocumentoController {
 	
 	@GetMapping("/list")
 	public ResponseEntity<List<DocumentoModel>> list(@RequestParam(required = false) String keyword) {
-		List<DocumentoModel> resultList = service.list(keyword);
+		List<DocumentoModel> resultList = docService.list(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 	
@@ -62,7 +62,7 @@ public class DocumentoController {
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
-			DocumentoModel deleteResponse = service.deleteById(id);
+			DocumentoModel deleteResponse = docService.deleteById(id);
 			if (deleteResponse != null) {
 				return ResponseEntity.ok(deleteResponse);
 			} else {
@@ -70,7 +70,7 @@ public class DocumentoController {
 			}
 		} else {
 			// Delete all objects
-			service.delete();
+			docService.delete();
 			return ResponseEntity.ok("Todos os objetos deletados!!!");
 		}
 	}

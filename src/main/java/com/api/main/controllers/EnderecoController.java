@@ -26,23 +26,23 @@ import com.api.main.services.EnderecoService;
 @RequestMapping("/address")
 public class EnderecoController {
 
-	final EnderecoService endServ;
+	final EnderecoService endService;
 
-	public EnderecoController(EnderecoService endServ) {
+	public EnderecoController(EnderecoService endService) {
 		super();
-		this.endServ = endServ;
+		this.endService = endService;
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<Object> save(@RequestBody @Valid EnderecoDTO dto) {
-		EnderecoModel mod = new EnderecoModel();
-		BeanUtils.copyProperties(dto, mod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(endServ.save(mod));
+	public ResponseEntity<Object> save(@RequestBody @Valid EnderecoDTO endDTO) {
+		EnderecoModel endMod = new EnderecoModel();
+		BeanUtils.copyProperties(endDTO, endMod);
+		return ResponseEntity.status(HttpStatus.CREATED).body(endService.save(endMod));
 	}
 	
 	@PutMapping("/update")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody EnderecoModel updateRequest) {
-		EnderecoModel updated = endServ.update(id, updateRequest);
+		EnderecoModel updated = endService.update(id, updateRequest);
 		if (updated != null) {
 			return ResponseEntity.ok().body(updated);
 		} else {
@@ -52,7 +52,7 @@ public class EnderecoController {
 	
 	@GetMapping("/list")
 	public ResponseEntity<List<EnderecoModel>> list(@RequestParam(required = false) String keyword) {
-		List<EnderecoModel> resultList = endServ.list(keyword);
+		List<EnderecoModel> resultList = endService.list(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 	
@@ -60,7 +60,7 @@ public class EnderecoController {
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
-			EnderecoModel deleteResponse = endServ.deleteById(id);
+			EnderecoModel deleteResponse = endService.deleteById(id);
 			if (deleteResponse != null) {
 				return ResponseEntity.ok(deleteResponse);
 			} else {
@@ -68,7 +68,7 @@ public class EnderecoController {
 			}
 		} else {
 			// Delete all objects
-			endServ.delete();
+			endService.delete();
 			return ResponseEntity.ok("Todos os endereços deletados!!!");
 		}
 	}

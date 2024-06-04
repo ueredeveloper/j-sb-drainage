@@ -25,28 +25,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class DocumentoTipoController {
 
 	
-  final DocumentoTipoService dtServ;
+  final DocumentoTipoService docTipoService;
 
-  public DocumentoTipoController(DocumentoTipoService dtServ) {
-    this.dtServ = dtServ;
+  public DocumentoTipoController(DocumentoTipoService docTipoService) {
+    this.docTipoService = docTipoService;
   }
 
   @PostMapping
   public ResponseEntity<Object> save(@RequestBody @Valid DocumentoTipoDTO dtDTO) {
-    DocumentoTipoModel dtMod = new DocumentoTipoModel();
+    DocumentoTipoModel docTipoMod = new DocumentoTipoModel();
 
-    BeanUtils.copyProperties(dtDTO, dtMod);
-    return ResponseEntity.status(HttpStatus.CREATED).body(dtServ.save(dtMod));
+    BeanUtils.copyProperties(dtDTO, docTipoMod);
+    return ResponseEntity.status(HttpStatus.CREATED).body(docTipoService.save(docTipoMod));
   }
 
   @GetMapping
   public ResponseEntity<List<DocumentoTipoModel>> listAll() {
-    return ResponseEntity.status(HttpStatus.CREATED).body(dtServ.listAll());
+    return ResponseEntity.status(HttpStatus.CREATED).body(docTipoService.listAll());
   }
 
   @DeleteMapping
   public ResponseEntity<String> deleteAll() {
-    dtServ.deleteAll();
+    docTipoService.deleteAll();
     return ResponseEntity.ok("Todos os tipos de documento deletados!!!");
   }
 }

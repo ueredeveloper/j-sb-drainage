@@ -23,8 +23,8 @@ public class EnderecoService {
 	
 	
 	@Transactional
-	public EnderecoModel save(EnderecoModel EnderecoModel) {
-		return endRepo.save(EnderecoModel);
+	public EnderecoModel save(EnderecoModel endModel) {
+		return endRepo.save(endModel);
 	}
 
 	
