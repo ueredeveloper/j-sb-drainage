@@ -1,27 +1,24 @@
-package com.api.main.models;
+package com.api.main.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class FinalidadeRequeridaDTO {
 
-@Entity
-@Table(name = "finalidade_autorizada")
-public class FinalidadeAutorizadaModel extends FinalidadeModel {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long finId;
-	@Column(nullable = true, unique = false, length = 80)
 	private String finFinalidade;
-	@Column(nullable = true, unique = false, length = 80)
 	private String finSubfinalidade;
-	@Column(nullable = true, unique = false)
 	private Double finQuantidade;
-	@Column(nullable = true, unique = false)
 	private Double finConsumo;
+
+	public FinalidadeRequeridaDTO() {
+		super();
+
+	}
+
+	public FinalidadeRequeridaDTO(Long finId, String finFinalidade, String finSubfinalidade) {
+		super();
+		this.finId = finId;
+		this.finFinalidade = finFinalidade;
+		this.finSubfinalidade = finSubfinalidade;
+	}
 
 	public Long getFinId() {
 		return finId;

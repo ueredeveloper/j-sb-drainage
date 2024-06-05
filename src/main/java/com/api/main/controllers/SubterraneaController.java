@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.SubterraneaDTO;
 import com.api.main.models.SubterraneaModel;
-import com.api.main.models.SubterraneaModel;
 import com.api.main.services.SubterraneaService;
 
 @RestController
@@ -34,7 +33,7 @@ public class SubterraneaController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(subterraneaService.save(subDTO, subMod));
 
 	}
-	
+
 	@GetMapping("/list")
 	public ResponseEntity<List<SubterraneaModel>> list(@RequestParam(required = false) String keyword) {
 		List<SubterraneaModel> resultList = subterraneaService.list(keyword);

@@ -7,12 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.api.main.models.FinalidadeModel;
+import com.api.main.models.FinalidadeAutorizadaModel;
 
 @Repository
-public interface FinalidadeRepository extends JpaRepository<FinalidadeModel, Long> {
+public interface FinalidadeAutorizadaRepository extends JpaRepository<FinalidadeAutorizadaModel, Long> {
 
-	@Query("SELECT f FROM FinalidadeModel f")
-	List<FinalidadeModel> list(@Param("keyword") String keyword);
-
+	@Query("SELECT f FROM FinalidadeAutorizadaModel f")
+	List<FinalidadeAutorizadaModel> list(@Param("keyword") String keyword);
 }

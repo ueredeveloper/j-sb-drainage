@@ -59,23 +59,6 @@ public class DocumentoService {
 		return docRepo.findById(id);
 	}
 
-	/*@Transactional
-	public DocumentoModel update(Long id, DocumentoModel updateDocumento) {
-		DocumentoModel responseDocumento = docRepo.findById(id).map((DocumentoModel record) -> {
-			record.setDocNumero(updateDocumento.getDocNumero());
-			record.setDocProcesso(updateDocumento.getDocProcesso());
-			record.setDocSEI(updateDocumento.getDocSEI());
-			record.setDocTipo(updateDocumento.getDocTipo());
-			record.setDocEndereco(updateDocumento.getDocEndereco());
-			return docRepo.save(record);
-		}).orElse(null);
-
-		if (responseDocumento == null) {
-			throw new NoSuchElementException("Não foi encontrado documento com o id: " + id);
-		}
-
-		return responseDocumento;
-	}*/
 	
 	@Transactional
     public DocumentoModel update(Long id, DocumentoModel updateDocumento) {

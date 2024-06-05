@@ -1,0 +1,28 @@
+@startuml
+class Interferencia {
+interId:Long
+interLatitude:Double
+interLongitude:Double
+interGeometry:Geometry
+}
+class Subterranea extends Interferencia {
+subVazao:String
+}
+class Finalidade {
+ finId:Long
+}
+class FinalidadeAutorizada extends Finalidade {
+ finId:Long
+ finFinalidade:String
+ finSubfinalidade:String
+ finQuantidade:Double
+ finConsumo:Double
+}
+class FinalidadeRequerida extends Finalidade {
+ finId:Long
+ finFinalidade:String
+ finSubfinalidade:String
+ finQuantidade:Double
+ finConsumo:Double
+}
+@enduml

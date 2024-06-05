@@ -44,3 +44,95 @@ alter table documento add constraint FK3weu158dj5w5o5le1qbmj5jqw foreign key (do
 ### 30 de Novembro de 2023
 * ** [X] Tarefa 1 - Select All with Query*
 	* Selecionar documento por numero, sei, processo e endereço relacionado
+	
+### 05 de Junho de 2024
+* ** [] Tabelas de Finalidade
+
+Criar depois se necessário tabelas de acordo com a Resolução 18/2020.
+		
+```
+
+CREATE TABLE Finalidade (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    finalidade VARCHAR(255) NOT NULL,
+    subfinalidade VARCHAR(255),
+    consumo_por VARCHAR(255),
+    quantidade INT,
+    consumo DECIMAL(10, 2),
+    observacao TEXT
+);
+
+ CREATE TABLE DemandaIrrigacao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cultura VARCHAR(255) NOT NULL,
+    demanda DECIMAL(10, 2) NOT NULL,
+    duracao_ciclo INT NOT NULL
+);
+
+CREATE TABLE EficienciaIrrigacao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sistema VARCHAR(255) NOT NULL,
+    eficiencia DECIMAL(5, 2) NOT NULL
+);
+
+CREATE TABLE DemandaIndustrialProduto (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    produto VARCHAR(255) NOT NULL,
+    consumo DECIMAL(10, 2) NOT NULL,
+    unidade VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE DemandaIndustrialAtividade (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    atividade VARCHAR(255) NOT NULL,
+    unidade_atividade VARCHAR(255) NOT NULL,
+    retirada DECIMAL(10, 2),
+    consumo DECIMAL(10, 2),
+    observacao TEXT
+);
+
+
+INSERT INTO DemandaIrrigacao (cultura, demanda, duracao_ciclo) VALUES
+('Abóbora', 350, 115),
+('Abóbora híbrida', 350, 105),
+('Abóbora italiana', 400, 80),
+('Abóbora menina', 500, 110),
+('Acelga', 300, 65),
+('Agrião', 750, 130),
+('Alface', 200, 60),
+('Alho', 850, 150),
+('Almeirão', 200, 65);
+
+
+INSERT INTO EficienciaIrrigacao (sistema, eficiencia) VALUES
+('Aspersão por sistema autopropelido', 70.00),
+('Aspersão por sistema convencional', 80.00),
+('Aspersão por sistema de malha', 80.00),
+('Aspersão por sistema de pivô central', 85.00),
+('Aspersão por sistema de deslocamento linear', 85.00),
+('Aspersão por sistema pivô central com LEPA', 90.00),
+('Gotejamento', 90.00),
+('Gotejamento subterrâneo - tubo poroso', 90.00),
+('Micro aspersão', 85.00),
+('Sulcos', 60.00),
+('Tubos perfurados', 70.00);
+
+INSERT INTO DemandaIndustrialProduto (produto, consumo, unidade) VALUES
+('Acabamento de metais', 1.00, 'm³/t'),
+('Aço', 250.00, 'm³/t'),
+('Agroindústria (algodão)', 0.30, 'm³/t'),
+('Agroindústria (cacau)', 1.20, 'm³/t'),
+('Agroindústria (café)', 0.10, 'm³/t'),
+('Agroindústria (hortaliças minimamente processadas)', 4.00, 'm³/t'),
+('Agroindústria (mandioca)', 4.00, 'm³/t'),
+('Agroindústria (polpa de frutas)', 7.00, 'm³/t'),
+('Agroindústria (soja)', 0.90, 'm³/t'),
+('Alimentos desidratados', 4.00, 'm³/t'),
+('Borracha sintética', 200.00, 'm³/t'),
+('Cerâmica', 0.01, 'm³/m² de azulejo'),
+('Computador', 30.00, 'm³/computador'),
+('Conservas', 40.00, 'm³/t');
+
+
+```
+  

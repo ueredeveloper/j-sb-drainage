@@ -1,8 +1,5 @@
 package com.api.main.dto;
 
-import java.util.List;
-
-import com.api.main.models.DocumentoModel;
 import com.api.main.models.ProcessoModel;
 
 public class AnexoDTO {
@@ -12,7 +9,6 @@ public class AnexoDTO {
 	private String anNumero;
 
 	private ProcessoModel anPrincipal;
-	
 
 	public long getAnId() {
 		return anId;
@@ -37,6 +33,5 @@ public class AnexoDTO {
 	public void setAnPrincipal(ProcessoModel anPrincipal) {
 		this.anPrincipal = anPrincipal;
 	}
-
 
 }
