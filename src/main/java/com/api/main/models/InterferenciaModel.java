@@ -31,7 +31,7 @@ public class InterferenciaModel implements Serializable {
 	private Double interLongitude;
 
 	@Column(nullable = true, unique = false)
-	private Geometry intGeometry;
+	private Geometry interGeometry;
 	
 	
 	public Long getInterId() {
@@ -58,12 +58,12 @@ public class InterferenciaModel implements Serializable {
 		this.interLongitude = interLongitude;
 	}
 
-	public Geometry getIntGeometry() {
-		return intGeometry;
+	public Geometry getInterGeometry() {
+		return interGeometry;
 	}
 
-	public void setIntGeometry(Geometry intGeometry) {
-		this.intGeometry = intGeometry;
+	public void setInterGeometry(Geometry interGeometry) {
+		this.interGeometry = interGeometry;
 	}
 
 	public static long getSerialversionuid() {

@@ -56,7 +56,7 @@ public class EnderecoService {
 		EnderecoModel responseDocumento = endRepo.findById(id).map((EnderecoModel record) -> {
 			record.setEndLogradouro(updateDocumento.getEndLogradouro());
 			record.setEndCidade(updateDocumento.getEndCidade());
-			record.setEndCEP(updateDocumento.getEndCEP());
+			record.setEndCep(updateDocumento.getEndCep());
 			return endRepo.save(record);
 		}).orElse(null);
 

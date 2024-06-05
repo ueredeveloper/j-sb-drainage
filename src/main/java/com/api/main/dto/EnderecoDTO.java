@@ -9,17 +9,17 @@ public class EnderecoDTO {
 	private Long endId;
 
 	private String endLogradouro;
-	
+
 	private String endCidade;
 
-	private String endCEP;
+	private String endCep;
 
 	private List<DocumentoModel> endDocumentos;
-	
+
 	public EnderecoDTO() {
 		super();
 	}
-	
+
 	public EnderecoDTO(String endLogradouro) {
 		super();
 		this.endLogradouro = endLogradouro;
@@ -49,12 +49,12 @@ public class EnderecoDTO {
 		this.endCidade = endCidade;
 	}
 
-	public String getEndCEP() {
-		return endCEP;
+	public String getEndCep() {
+		return endCep;
 	}
 
-	public void setEndCEP(String endCEP) {
-		this.endCEP = endCEP;
+	public void setEndCep(String endCep) {
+		this.endCep = endCep;
 	}
 
 	public List<DocumentoModel> getEndDocumentos() {
@@ -64,5 +64,5 @@ public class EnderecoDTO {
 	public void setEndDocumentos(List<DocumentoModel> endDocumentos) {
 		this.endDocumentos = endDocumentos;
 	}
-	
+
 }

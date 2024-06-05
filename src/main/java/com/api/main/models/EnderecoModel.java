@@ -28,7 +28,7 @@ public class EnderecoModel {
 	private String endCidade;
 
 	@Column(nullable = true, unique = false, length = 10)
-	private String endCEP;
+	private String endCep;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "docEndereco")
@@ -42,20 +42,19 @@ public class EnderecoModel {
 		super();
 		this.endLogradouro = endLogradouro;
 	}
-	
 
 	public EnderecoModel(Long endId) {
 		super();
 		this.endId = endId;
 	}
 
-	public EnderecoModel(Long endId, String endLogradouro, String endCidade, String endCEP,
+	public EnderecoModel(Long endId, String endLogradouro, String endCidade, String endCep,
 			List<DocumentoModel> endDocumentos) {
 		super();
 		this.endId = endId;
 		this.endLogradouro = endLogradouro;
 		this.endCidade = endCidade;
-		this.endCEP = endCEP;
+		this.endCep = endCep;
 		this.endDocumentos = endDocumentos;
 	}
 
@@ -83,12 +82,12 @@ public class EnderecoModel {
 		this.endCidade = endCidade;
 	}
 
-	public String getEndCEP() {
-		return endCEP;
+	public String getEndCep() {
+		return endCep;
 	}
 
-	public void setEndCEP(String endCEP) {
-		this.endCEP = endCEP;
+	public void setEndCep(String endCep) {
+		this.endCep = endCep;
 	}
 
 	public List<DocumentoModel> getEndDocumentos() {
