@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.vividsolutions.jts.geom.Geometry;
@@ -32,6 +34,10 @@ public class InterferenciaModel implements Serializable {
 
 	@Column(nullable = true, unique = false)
 	private Geometry interGeometry;
+	
+	@ManyToOne
+	@JoinColumn(name = "interEndereco")
+	private EnderecoModel interEndereco;
 	
 	
 	public Long getInterId() {
@@ -70,4 +76,13 @@ public class InterferenciaModel implements Serializable {
 		return serialVersionUID;
 	}
 
+	public EnderecoModel getInterEndereco() {
+		return interEndereco;
+	}
+
+	public void setInterEndereco(EnderecoModel interEndereco) {
+		this.interEndereco = interEndereco;
+	}
+	
+	
 }

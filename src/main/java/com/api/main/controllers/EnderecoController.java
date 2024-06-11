@@ -60,9 +60,9 @@ public class EnderecoController {
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
-			EnderecoModel deleteResponse = endService.deleteById(id);
-			if (deleteResponse != null) {
-				return ResponseEntity.ok(deleteResponse);
+			EnderecoModel response = endService.deleteById(id);
+			if (response != null) {
+				return ResponseEntity.ok(response);
 			} else {
 				return ResponseEntity.notFound().build();
 			}

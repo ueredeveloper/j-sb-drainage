@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,13 +27,22 @@ public class EnderecoModel {
 
 	@Column(nullable = true, unique = false, length = 80)
 	private String endCidade;
+	
+	@Column(nullable = true, unique = false, length = 80)
+	private String endBairro;
 
 	@Column(nullable = true, unique = false, length = 10)
 	private String endCep;
+	
+	@Column(nullable = true, unique = false, length = 2)
+	private String endEstado;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "docEndereco")
 	private List<DocumentoModel> endDocumentos = new ArrayList<DocumentoModel>();
+	
+	@OneToMany(mappedBy = "interEndereco", fetch = FetchType.EAGER)
+	private List<InterferenciaModel> endInterferencias = new ArrayList<InterferenciaModel>();
 
 	public EnderecoModel() {
 		super();
@@ -82,6 +92,14 @@ public class EnderecoModel {
 		this.endCidade = endCidade;
 	}
 
+	public String getEndBairro() {
+		return endBairro;
+	}
+
+	public void setEndBairro(String endBairro) {
+		this.endBairro = endBairro;
+	}
+
 	public String getEndCep() {
 		return endCep;
 	}
@@ -90,12 +108,28 @@ public class EnderecoModel {
 		this.endCep = endCep;
 	}
 
+	public String getEndEstado() {
+		return endEstado;
+	}
+
+	public void setEndEstado(String endEstado) {
+		this.endEstado = endEstado;
+	}
+
 	public List<DocumentoModel> getEndDocumentos() {
 		return endDocumentos;
 	}
 
 	public void setEndDocumentos(List<DocumentoModel> endDocumentos) {
 		this.endDocumentos = endDocumentos;
+	}
+
+	public List<InterferenciaModel> getEndInterferencias() {
+		return endInterferencias;
+	}
+
+	public void setEndInterferencias(List<InterferenciaModel> endInterferencias) {
+		this.endInterferencias = endInterferencias;
 	}
 
 }

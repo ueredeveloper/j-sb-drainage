@@ -3,6 +3,7 @@ package com.api.main.dto;
 import java.util.List;
 
 import com.api.main.models.DocumentoModel;
+import com.api.main.models.InterferenciaModel;
 
 public class EnderecoDTO {
 
@@ -13,8 +14,14 @@ public class EnderecoDTO {
 	private String endCidade;
 
 	private String endCep;
+	
+	private String endBairro;
+
+	private String endEstado;
 
 	private List<DocumentoModel> endDocumentos;
+	
+	private List<InterferenciaModel> endInterferencias;
 
 	public EnderecoDTO() {
 		super();
@@ -57,12 +64,36 @@ public class EnderecoDTO {
 		this.endCep = endCep;
 	}
 
+	public String getEndBairro() {
+		return endBairro;
+	}
+
+	public void setEndBairro(String endBairro) {
+		this.endBairro = endBairro;
+	}
+
+	public String getEndEstado() {
+		return endEstado;
+	}
+
+	public void setEndEstado(String endEstado) {
+		this.endEstado = endEstado;
+	}
+
 	public List<DocumentoModel> getEndDocumentos() {
 		return endDocumentos;
 	}
 
 	public void setEndDocumentos(List<DocumentoModel> endDocumentos) {
 		this.endDocumentos = endDocumentos;
+	}
+
+	public List<InterferenciaModel> getEndInterferencias() {
+		return endInterferencias;
+	}
+
+	public void setEndInterferencias(List<InterferenciaModel> endInterferencias) {
+		this.endInterferencias = endInterferencias;
 	}
 
 }

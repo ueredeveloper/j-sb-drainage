@@ -9,22 +9,44 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.api.main.models.EnderecoModel;
+import com.api.main.models.InterferenciaModel;
 import com.api.main.repositories.EnderecoRepository;
+import com.api.main.repositories.InterferenciaRepository;
 
 @Service
 public class EnderecoService {
 	
 	final EnderecoRepository endRepo;
+	final InterferenciaRepository interRepo;
 
-	public EnderecoService(EnderecoRepository endRepo) {
+	public EnderecoService(EnderecoRepository endRepo, InterferenciaRepository interRepo) {
 		super();
 		this.endRepo = endRepo;
+		this.interRepo = interRepo;
 	};
 	
 	
 	@Transactional
-	public EnderecoModel save(EnderecoModel endModel) {
-		return endRepo.save(endModel);
+	public EnderecoModel save(EnderecoModel endereco) {
+		
+		EnderecoModel response =  new EnderecoModel();
+	
+		if (endereco.getEndInterferencias()!= null) {
+			
+			List<InterferenciaModel> inter = interRepo.saveAll(endereco.getEndInterferencias());
+			
+			response.setEndInterferencias(inter);
+		}
+		
+		response.setEndLogradouro(endereco.getEndLogradouro());
+		response.setEndCidade(endereco.getEndCidade());
+		response.setEndBairro(endereco.getEndBairro());
+		response.setEndCep(endereco.getEndCep());
+		response.setEndEstado(endereco.getEndEstado());
+		
+		endRepo.save(response);
+		
+		return response;
 	}
 
 	
@@ -52,19 +74,22 @@ public class EnderecoService {
 	}
 
 	@Transactional
-	public EnderecoModel update(Long id, EnderecoModel updateDocumento) {
-		EnderecoModel responseDocumento = endRepo.findById(id).map((EnderecoModel record) -> {
-			record.setEndLogradouro(updateDocumento.getEndLogradouro());
-			record.setEndCidade(updateDocumento.getEndCidade());
-			record.setEndCep(updateDocumento.getEndCep());
+	public EnderecoModel update(Long id, EnderecoModel endereco) {
+		EnderecoModel response = endRepo.findById(id).map((EnderecoModel record) -> {
+			record.setEndLogradouro(endereco.getEndLogradouro());
+			record.setEndCidade(endereco.getEndCidade());
+			record.setEndCep(endereco.getEndCep());
+			record.setEndBairro(endereco.getEndBairro());
+			record.setEndEstado(endereco.getEndEstado());
+			
 			return endRepo.save(record);
 		}).orElse(null);
 
-		if (responseDocumento == null) {
+		if (response == null) {
 			throw new NoSuchElementException("Não foi encontrado endereço com o id: " + id);
 		}
 
-		return responseDocumento;
+		return response;
 	}
 	
 }

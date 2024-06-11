@@ -19,9 +19,9 @@ public class FinalidadeAutorizadaModel extends FinalidadeModel {
 	@Column(nullable = true, unique = false, length = 80)
 	private String finSubfinalidade;
 	@Column(nullable = true, unique = false)
-	private Double finQuantidade;
+	private Double finQuantidade; // Numero de habitantes, número de animais...
 	@Column(nullable = true, unique = false)
-	private Double finConsumo;
+	private Double finConsumo; // consumo diário, ex: nº hab * consumo por habitante
 
 	public Long getFinId() {
 		return finId;
