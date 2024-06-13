@@ -1,5 +1,6 @@
 package com.api.main.dto;
 
+import com.api.main.models.EnderecoModel;
 import com.vividsolutions.jts.geom.Geometry;
 
 public class InterferenciaDTO {
@@ -9,6 +10,8 @@ public class InterferenciaDTO {
 	private Double interLongitude;
 
 	private Geometry intGeometry;
+
+	private EnderecoModel interEndereco;
 
 	public Double getInterLatitude() {
 		return interLatitude;
@@ -32,6 +35,14 @@ public class InterferenciaDTO {
 
 	public void setIntGeometry(Geometry intGeometry) {
 		this.intGeometry = intGeometry;
+	}
+
+	public EnderecoModel getInterEndereco() {
+		return interEndereco;
+	}
+
+	public void setInterEndereco(EnderecoModel interEndereco) {
+		this.interEndereco = interEndereco;
 	}
 
 }

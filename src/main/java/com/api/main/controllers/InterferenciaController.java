@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.InterferenciaDTO;
+import com.api.main.dto.SubterraneaDTO;
 import com.api.main.models.InterferenciaModel;
+import com.api.main.models.SubterraneaModel;
 import com.api.main.services.InterferenciaService;
 
 @RestController
@@ -37,6 +39,15 @@ public class InterferenciaController {
 		BeanUtils.copyProperties(interDTO, interMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(interService.save(interDTO, interMod));
 		
+	}
+	
+	@PostMapping("/create/subterranean")
+	public ResponseEntity<Object> save(@RequestBody @Valid SubterraneaDTO subDTO) {
+		SubterraneaModel subMod = new SubterraneaModel();
+		
+		System.out.println(subDTO.getInterEndereco().getEndLogradouro());
+		BeanUtils.copyProperties(subDTO, subMod);
+		return ResponseEntity.status(HttpStatus.CREATED).body(interService.save(subMod));
 	}
 
 	@GetMapping("/list")

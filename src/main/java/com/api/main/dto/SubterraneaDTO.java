@@ -1,45 +1,39 @@
 package com.api.main.dto;
 
-public class SubterraneaDTO {
+public class SubterraneaDTO extends InterferenciaDTO {
 
-	private Long interId;
-	private Double interLatitude;
-	private Double interLongitude;
-	private String subVazao;
+	private Boolean subCaesb;  // tem caesb () sim () não
 
+	private String subNivelEstatico;  // em metros
+
+	private String subDinamico;  // em metros
+	
+	
 	public SubterraneaDTO() {
 	}
 
-	public Long getInterId() {
-		return interId;
+	public Boolean getSubCaesb() {
+		return subCaesb;
 	}
 
-	public void setInterId(Long interId) {
-		this.interId = interId;
+	public void setSubCaesb(Boolean subCaesb) {
+		this.subCaesb = subCaesb;
 	}
 
-	public Double getInterLatitude() {
-		return interLatitude;
+	public String getSubNivelEstatico() {
+		return subNivelEstatico;
 	}
 
-	public void setInterLatitude(Double interLatitude) {
-		this.interLatitude = interLatitude;
+	public void setSubNivelEstatico(String subNivelEstatico) {
+		this.subNivelEstatico = subNivelEstatico;
 	}
 
-	public Double getInterLongitude() {
-		return interLongitude;
+	public String getSubDinamico() {
+		return subDinamico;
 	}
 
-	public void setInterLongitude(Double interLongitude) {
-		this.interLongitude = interLongitude;
-	}
-
-	public String getSubVazao() {
-		return subVazao;
-	}
-
-	public void setSubVazao(String subVazao) {
-		this.subVazao = subVazao;
+	public void setSubDinamico(String subDinamico) {
+		this.subDinamico = subDinamico;
 	}
 
 }
