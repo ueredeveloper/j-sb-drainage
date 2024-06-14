@@ -25,6 +25,7 @@ import com.api.main.services.EnderecoService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/address")
 public class EnderecoController {
+	
 
 	final EnderecoService endService;
 

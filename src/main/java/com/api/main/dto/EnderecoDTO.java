@@ -6,6 +6,7 @@ import com.api.main.models.DocumentoModel;
 import com.api.main.models.InterferenciaModel;
 
 public class EnderecoDTO {
+	
 
 	private Long endId;
 

@@ -11,6 +11,7 @@ import com.api.main.models.InterferenciaModel;
 
 @Repository
 public interface InterferenciaRepository extends JpaRepository<InterferenciaModel, Long> {
+	
 
 	@Query("SELECT i FROM InterferenciaModel i")
 	List<InterferenciaModel> list(@Param("keyword") String keyword);

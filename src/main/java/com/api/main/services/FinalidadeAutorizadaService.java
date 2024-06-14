@@ -12,6 +12,7 @@ import com.api.main.repositories.FinalidadeAutorizadaRepository;
 
 @Service
 public class FinalidadeAutorizadaService {
+	
 
 	@Autowired
 	FinalidadeAutorizadaRepository finRepo;

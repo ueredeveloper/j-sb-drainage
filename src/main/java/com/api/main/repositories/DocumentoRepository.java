@@ -12,6 +12,7 @@ import com.api.main.models.DocumentoModel;
 @Repository
 public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long> {
 	
+	
 
 		@Query("SELECT d FROM DocumentoModel d "
 			+ "LEFT JOIN ProcessoModel p ON p.procId = d.docProcesso "

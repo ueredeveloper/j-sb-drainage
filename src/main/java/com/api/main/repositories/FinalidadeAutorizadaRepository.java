@@ -11,6 +11,7 @@ import com.api.main.models.FinalidadeAutorizadaModel;
 
 @Repository
 public interface FinalidadeAutorizadaRepository extends JpaRepository<FinalidadeAutorizadaModel, Long> {
+	
 
 	@Query("SELECT f FROM FinalidadeAutorizadaModel f")
 	List<FinalidadeAutorizadaModel> list(@Param("keyword") String keyword);

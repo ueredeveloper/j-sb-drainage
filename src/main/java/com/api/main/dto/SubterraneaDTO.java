@@ -1,6 +1,7 @@
 package com.api.main.dto;
 
 public class SubterraneaDTO extends InterferenciaDTO {
+	
 
 	private Boolean subCaesb;  // tem caesb () sim () não
 

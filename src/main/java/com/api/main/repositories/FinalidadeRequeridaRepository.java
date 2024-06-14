@@ -12,6 +12,7 @@ import com.api.main.models.FinalidadeRequeridaModel;
 
 @Repository
 public interface FinalidadeRequeridaRepository extends JpaRepository<FinalidadeRequeridaModel, Long> {
+	
 
 	@Query("SELECT f FROM FinalidadeRequeridaModel f")
 	List<FinalidadeRequeridaModel> list(@Param("keyword") String keyword);

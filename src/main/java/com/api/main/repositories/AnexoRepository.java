@@ -12,6 +12,7 @@ import com.api.main.models.AnexoModel;
 @Repository
 public interface AnexoRepository extends JpaRepository<AnexoModel, Long> {
 	
+	
 
 	@Query("SELECT a FROM AnexoModel a WHERE a.anPrincipal.procId = :id")
 	List<AnexoModel> listAnexos(@Param("id") Long id);

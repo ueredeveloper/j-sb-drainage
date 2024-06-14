@@ -7,6 +7,7 @@ import com.api.main.models.AnexoModel;
 
 public class ProcessoDTO {
 	
+	
 	Long procId;
 	String procNumero;
 	private List<AnexoModel> procAnexos = new ArrayList<>();

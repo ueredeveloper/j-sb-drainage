@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "finalidade_autorizada")
 public class FinalidadeAutorizadaModel extends FinalidadeModel {
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

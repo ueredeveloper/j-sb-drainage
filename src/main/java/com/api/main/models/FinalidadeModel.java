@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Table(name = "finalidade")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class FinalidadeModel {
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

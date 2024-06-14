@@ -26,6 +26,7 @@ import com.api.main.services.InterferenciaService;
 @RequestMapping("/interference")
 public class InterferenciaController {
 	
+	
 	final InterferenciaService interService;
 
 	public InterferenciaController(InterferenciaService interService) {

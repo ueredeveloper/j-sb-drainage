@@ -23,6 +23,7 @@ import com.api.main.services.FinalidadeRequeridaService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/purpose_required")
 public class FinalidadeRequeridaController {
+	
 
 	final FinalidadeRequeridaService finService;
 

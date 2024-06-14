@@ -7,6 +7,7 @@ import com.api.main.models.ProcessoModel;
 //import javax.validation.constraints.NotBlank;
 //@JsonSerialize(using = CustomDocTipoSerializer.class)
 public class DocumentoDTO {
+	
 
 	private Long docId;
 	// @NotBlank

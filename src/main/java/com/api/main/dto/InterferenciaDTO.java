@@ -4,6 +4,7 @@ import com.api.main.models.EnderecoModel;
 import com.vividsolutions.jts.geom.Geometry;
 
 public class InterferenciaDTO {
+	
 
 	private Double interLatitude;
 

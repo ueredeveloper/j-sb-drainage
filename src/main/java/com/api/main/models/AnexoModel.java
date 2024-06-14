@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "anexo")
 public class AnexoModel {
+	
 
 	private static final long serialVersionUID = 1L;
 
