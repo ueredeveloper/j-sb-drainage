@@ -13,6 +13,36 @@ public class InterferenciaDTO {
 	private Geometry intGeometry;
 
 	private EnderecoModel interEndereco;
+	
+	// 
+	private String interLogradouro;
+	
+	
+	public InterferenciaDTO() {
+		super();
+	}
+
+	
+
+	public InterferenciaDTO(Double interLatitude, Double interLongitude, String interLogradouro) {
+		super();
+		this.interLatitude = interLatitude;
+		this.interLongitude = interLongitude;
+		this.interLogradouro = interLogradouro;
+	}
+
+
+	public String getInterLogradouro() {
+		return interLogradouro;
+	}
+
+
+
+	public void setInterLogradouro(String interLogradouro) {
+		this.interLogradouro = interLogradouro;
+	}
+
+
 
 	public Double getInterLatitude() {
 		return interLatitude;

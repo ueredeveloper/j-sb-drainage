@@ -54,5 +54,9 @@ public class InterferenciaService {
 
 		return interferenciaRepository.save(interModel);
 	}
+	@Transactional
+	public List<InterferenciaDTO> searchInterferenciasByLogradouro(String keyword) {
+        return interferenciaRepository.searchInterferenciasByLogradouro(keyword);
+    }
 
 }

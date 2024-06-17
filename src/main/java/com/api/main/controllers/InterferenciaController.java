@@ -52,8 +52,8 @@ public class InterferenciaController {
 	}
 
 	@GetMapping("/list")
-	public ResponseEntity<List<InterferenciaModel>> list(@RequestParam(required = false) String keyword) {
-		List<InterferenciaModel> resultList = interService.list(keyword);
+	public ResponseEntity<List<InterferenciaDTO>> list(@RequestParam(required = false) String keyword) {
+		List<InterferenciaDTO> resultList = interService.searchInterferenciasByLogradouro(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 }

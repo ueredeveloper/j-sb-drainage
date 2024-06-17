@@ -42,6 +42,7 @@ public class EnderecoModel {
 	@OneToMany(mappedBy = "docEndereco")
 	private List<DocumentoModel> endDocumentos = new ArrayList<DocumentoModel>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "interEndereco", fetch = FetchType.EAGER)
 	private List<InterferenciaModel> endInterferencias = new ArrayList<InterferenciaModel>();
 
