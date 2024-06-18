@@ -64,7 +64,7 @@ public class Main {
 
 		};
 	}
-	/*
+	
 	@Bean
 	public CommandLineRunner insertEndereco(EnderecoRepository repo) {
 	    return (args) -> {
@@ -75,9 +75,9 @@ public class Main {
 	        repo.save(new EnderecoModel("Praça Central, Lote 30"));
 	        repo.save(new EnderecoModel("Alameda dos Sonhos, Casa 8"));
 	    };
-	}*/
+	}
 
-	/*
+	
 	@Bean
 	public CommandLineRunner insertDocumentos(DocumentoRepository dr) {
 
@@ -88,5 +88,5 @@ public class Main {
 
 		};
 
-	}*/
+	}
 }

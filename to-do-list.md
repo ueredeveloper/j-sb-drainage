@@ -135,4 +135,9 @@ INSERT INTO DemandaIndustrialProduto (produto, consumo, unidade) VALUES
 
 
 ```
-  
+ 
+ ## 17 de Junho de 2024
+ 	[] - Estou fazendo busca por interferência. 
+ 		É preciso decidir se faz a busca por coordenadas convertendo para string estas coordenadas ou criando um círculo no sql e buscar as  coordenadas contidas neste círculo, assim busca-se por proximidade com o ponto solicitado.
+ 		
+ 		

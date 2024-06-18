@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,24 +26,18 @@ import com.api.main.services.DocumentoService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/document")
 public class DocumentoController {
-	
 
-	
-	final DocumentoService docService;
+	@Autowired
+	private DocumentoService docService;
 
-	public DocumentoController(DocumentoService docService) {
-		this.docService = docService;
-	}
-	
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO docDTO) {
 		DocumentoModel docMod = new DocumentoModel();
 		BeanUtils.copyProperties(docDTO, docMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(docService.save(docDTO, docMod));
-		
-		
+
 	}
-	
+
 	@PutMapping("/update")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody DocumentoModel updateDocumento) {
 		DocumentoModel updated = docService.update(id, updateDocumento);
@@ -52,13 +47,13 @@ public class DocumentoController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
+
 	@GetMapping("/list")
 	public ResponseEntity<List<DocumentoModel>> list(@RequestParam(required = false) String keyword) {
 		List<DocumentoModel> resultList = docService.list(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
-	
+
 	@DeleteMapping("/delete")
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {

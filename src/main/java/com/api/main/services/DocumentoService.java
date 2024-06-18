@@ -1,32 +1,43 @@
 package com.api.main.services;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.main.dto.DocumentoDTO;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.ProcessoModel;
+import com.api.main.models.UsuarioModel;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.repositories.DocumentoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.ProcessoRepository;
+import com.api.main.repositories.UsuarioRepository;
 
 @Service
 public class DocumentoService {
 	
+	@Autowired
+	private DocumentoRepository docRepo;
+	@Autowired
+	private ProcessoRepository procRepo;
+	@Autowired
+	private EnderecoRepository endRepo;
+	@Autowired
+	private DocumentoTipoRepository docTipoRepo;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
-
-	final DocumentoRepository docRepo;
-	final ProcessoRepository procRepo;
-	final EnderecoRepository endRepo;
-	final DocumentoTipoRepository docTipoRepo;
+	
 	
 	public DocumentoService(DocumentoRepository docRepo, ProcessoRepository procRepo, EnderecoRepository endRepo,
 			DocumentoTipoRepository docTipoRepo) {
@@ -125,10 +136,10 @@ public class DocumentoService {
 	    DocumentoModel savedDocumento = null;
 
 	    // Check if docProcesso is present in the DTO
-	    if (docDTO.getDocProcesso() != null) {
+	    if (docMod.getDocProcesso() != null) {
 	        ProcessoModel processo = new ProcessoModel();
-	        processo.setProcId(docDTO.getDocProcesso().getProcId());
-	        processo.setProcNumero(docDTO.getDocProcesso().getProcNumero());
+	        processo.setProcId(docMod.getDocProcesso().getProcId());
+	        processo.setProcNumero(docMod.getDocProcesso().getProcNumero());
 
 	        // Save the ProcessoModel
 	        processo = procRepo.save(processo);
@@ -138,12 +149,12 @@ public class DocumentoService {
 	    }
 
 	    // Check if docEndereco is present in the DTO
-	    if (docDTO.getDocEndereco() != null) {
+	    if (docMod.getDocEndereco() != null) {
 	        EnderecoModel endereco = new EnderecoModel();
-	        endereco.setEndId(docDTO.getDocEndereco().getEndId());
-	        endereco.setEndLogradouro(docDTO.getDocEndereco().getEndLogradouro());
-	        endereco.setEndCidade(docDTO.getDocEndereco().getEndCidade());
-	        endereco.setEndCep(docDTO.getDocEndereco().getEndCep());
+	        endereco.setEndId(docMod.getDocEndereco().getEndId());
+	        endereco.setEndLogradouro(docMod.getDocEndereco().getEndLogradouro());
+	        endereco.setEndCidade(docMod.getDocEndereco().getEndCidade());
+	        endereco.setEndCep(docMod.getDocEndereco().getEndCep());
 
 	        // Save the EnderecoModel
 	        endereco = endRepo.save(endereco);
@@ -151,9 +162,28 @@ public class DocumentoService {
 	        // Set the saved EnderecoModel in DocumentoModel
 	        docMod.setDocEndereco(endereco);
 	    }
+	    
+	    
+	    
+	    Set<UsuarioModel> usuarios = new HashSet<>();
+	    
+	    //savedDocumento.setUsuarios(docDTO.getUsuarios());
+        
+        // Salvando os usuários e garantindo o relacionamento bidirecional
+        for (UsuarioModel usuario : docMod.getUsuarios()) {
+            if (usuario.getUsId() == null) {
+                usuario = usuarioRepository.save(usuario);
+            }
+            usuario.getDocumentos().add(savedDocumento);
+            usuarios.add(usuario);
+        }
+        
+        docMod.setUsuarios(usuarios);
 
 	    // Save the DocumentoModel
 	    savedDocumento = docRepo.save(docMod);
+	    
+	    
 
 	    return savedDocumento;
 	}

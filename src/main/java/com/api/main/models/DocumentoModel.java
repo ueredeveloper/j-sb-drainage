@@ -1,6 +1,8 @@
 package com.api.main.models;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,14 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "documento")
 public class DocumentoModel implements Serializable {
-	
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -39,22 +41,22 @@ public class DocumentoModel implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "docTipo")
 	private DocumentoTipoModel docTipo;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "docEndereco")
 	private EnderecoModel docEndereco;
-	
+
+	@ManyToMany(mappedBy = "documentos")
+	private Set<UsuarioModel> usuarios = new HashSet<>();
 
 	public DocumentoModel() {
 		super();
 	}
-	
+
 	public DocumentoModel(String docNumero) {
 		super();
 		this.docNumero = docNumero;
 	}
-	
-	
 
 	public DocumentoModel(String docNumero, String docSei) {
 		super();
@@ -72,8 +74,6 @@ public class DocumentoModel implements Serializable {
 		this.docTipo = docTipo;
 		this.docEndereco = docEndereco;
 	}
-	
-	
 
 	public DocumentoModel(String docNumero, EnderecoModel docEndereco) {
 		super();
@@ -96,7 +96,6 @@ public class DocumentoModel implements Serializable {
 	public void setDocNumero(String docNumero) {
 		this.docNumero = docNumero;
 	}
-
 
 	public DocumentoTipoModel getDocTipo() {
 		return docTipo;
@@ -134,6 +133,12 @@ public class DocumentoModel implements Serializable {
 		this.docSei = docSei;
 	}
 
-	
-	
+	public Set<UsuarioModel> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Set<UsuarioModel> usuarios) {
+		this.usuarios = usuarios;
+	}
+
 }
