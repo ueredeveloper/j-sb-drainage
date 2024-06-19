@@ -1,69 +1,66 @@
 package com.api.main.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "anexo")
 public class AnexoModel {
-	
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long anId;
+	private Long id;
 
 	@Column(nullable = true, unique = false, length = 40)
-	private String anNumero;
+	private String numero;
 
-	@ManyToOne
-	@JoinColumn(name = "anPrincipal", referencedColumnName = "procId")
-	private ProcessoModel anPrincipal;
+	@OneToMany(mappedBy = "anexo", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonBackReference
+	private Set<ProcessoModel> processos = new HashSet<>();
 
 	public AnexoModel() {
 		super();
 	}
-	public AnexoModel (String anNumero) {
-		super();
-		this.anNumero = anNumero;
+
+	public Long getId() {
+		return id;
 	}
 
-	public Long getAnId() {
-		return anId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setAnId(Long anId) {
-		this.anId = anId;
+	public String getNumero() {
+		return numero;
 	}
 
-	public String getAnNumero() {
-		return anNumero;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
-	public void setAnNumero(String anNumero) {
-		this.anNumero = anNumero;
+	public Set<ProcessoModel> getProcessos() {
+		return processos;
 	}
 
-	public ProcessoModel getAnPrincipal() {
-		return anPrincipal;
+	public void setProcessos(Set<ProcessoModel> processos) {
+		this.processos = processos;
 	}
-
-	public void setAnPrincipal(ProcessoModel anPrincipal) {
-		this.anPrincipal = anPrincipal;
-	}
-
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-	
 
 }

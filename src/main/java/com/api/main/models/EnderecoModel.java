@@ -1,7 +1,9 @@
 package com.api.main.models;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,7 +46,8 @@ public class EnderecoModel {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "interEndereco", fetch = FetchType.EAGER)
-	private List<InterferenciaModel> endInterferencias = new ArrayList<InterferenciaModel>();
+	//private List<InterferenciaModel> endInterferencias = new ArrayList<InterferenciaModel>();
+	private Set<InterferenciaModel> endInterferencias = new HashSet<>();
 
 	public EnderecoModel() {
 		super();
@@ -126,12 +129,14 @@ public class EnderecoModel {
 		this.endDocumentos = endDocumentos;
 	}
 
-	public List<InterferenciaModel> getEndInterferencias() {
+	public Set<InterferenciaModel> getEndInterferencias() {
 		return endInterferencias;
 	}
 
-	public void setEndInterferencias(List<InterferenciaModel> endInterferencias) {
+	public void setEndInterferencias(Set<InterferenciaModel> endInterferencias) {
 		this.endInterferencias = endInterferencias;
 	}
+
+	
 
 }

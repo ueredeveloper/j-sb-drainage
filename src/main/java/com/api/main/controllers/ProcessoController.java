@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.ProcessoDTO;
-import com.api.main.models.AnexoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.services.ProcessoService;
 
@@ -26,15 +25,13 @@ import com.api.main.services.ProcessoService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/process")
 public class ProcessoController {
-	
-	
+
 	final ProcessoService service;
 
 	public ProcessoController(ProcessoService service) {
 		super();
 		this.service = service;
 	}
-	
 
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid ProcessoDTO procDTO) {
@@ -44,6 +41,7 @@ public class ProcessoController {
 		BeanUtils.copyProperties(procDTO, procMod);
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(procMod));
 	}
+
 	@PutMapping(value = "/update")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody ProcessoModel udpateProcesso) {
 		ProcessoModel updated = service.update(id, udpateProcesso);
@@ -60,10 +58,6 @@ public class ProcessoController {
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
-	@GetMapping("/list-attachments")
-	public ResponseEntity<List<AnexoModel>> listAnexos (@RequestParam("id") Long id) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.listChildrens(id));
-	}
 	@DeleteMapping("/delete")
 	public ResponseEntity<Object> delete(@RequestParam(required = false) Long id) {
 		if (id != null) {

@@ -12,14 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.main.dto.DocumentoDTO;
+import com.api.main.models.AnexoModel;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.models.EnderecoModel;
+import com.api.main.models.InterferenciaModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.models.UsuarioModel;
+import com.api.main.repositories.AnexoRepository;
 import com.api.main.repositories.DocumentoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
 import com.api.main.repositories.EnderecoRepository;
+import com.api.main.repositories.InterferenciaRepository;
 import com.api.main.repositories.ProcessoRepository;
 import com.api.main.repositories.UsuarioRepository;
 
@@ -36,6 +40,10 @@ public class DocumentoService {
 	private DocumentoTipoRepository docTipoRepo;
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+    @Autowired
+    private AnexoRepository anexoRepository;
+    @Autowired
+    private InterferenciaRepository interferenciaRepository;
 
 
 	@Transactional
@@ -122,65 +130,103 @@ public class DocumentoService {
 		return responseDocumento;
 	}
 
+	 /*@Transactional
+	    public DocumentoModel save(DocumentoDTO docDTO, DocumentoModel docMod) {
+	        DocumentoModel newDocumento = documentoRepository.save(docMod);
+
+	        // Verifica se docProcesso está presente no DTO
+	        if (docMod.getDocProcesso() != null) {
+	            ProcessoModel processo = docMod.getDocProcesso();
+
+	            // Verifica se o anexo associado ao processo precisa ser salvo primeiro
+	            if (processo.getAnexo() != null && processo.getAnexo().getId() == null) {
+	                AnexoModel anexo = processo.getAnexo();
+	                anexo = anexoRepository.save(anexo);
+	                processo.setAnexo(anexo);
+	            }
+
+	            // Salva o ProcessoModel
+	            processo = processoRepository.save(processo);
+	            docMod.setDocProcesso(processo);
+	        }
+
+	        // Verifica se docEndereco está presente no DTO
+	        if (docMod.getDocEndereco() != null) {
+	            EnderecoModel endereco = docMod.getDocEndereco();
+	            endereco = enderecoRepository.save(endereco);
+	            docMod.setDocEndereco(endereco);
+	        }
+
+	        Set<UsuarioModel> usuarios = new HashSet<>();
+
+	        // Salvando os usuários e garantindo o relacionamento bidirecional
+	        for (UsuarioModel usuario : docMod.getUsuarios()) {
+	            if (usuario.getUsId() == null) {
+	                usuario = usuarioRepository.save(usuario);
+	            }
+	            usuario.getDocumentos().add(newDocumento);
+	            usuarios.add(usuario);
+	        }
+
+	        newDocumento.setUsuarios(usuarios);
+
+	        // Salva o DocumentoModel atualizado com todas as relações
+	        newDocumento = documentoRepository.save(docMod);
+
+	        return newDocumento;
+	    }*/
+	
 	@Transactional
 	public DocumentoModel save(DocumentoDTO docDTO, DocumentoModel docMod) {
-		DocumentoModel savedDocumento = null;
+	    DocumentoModel newDocumento = documentoRepository.save(docMod);
 
-		// Salve o DocumentoModel primeiro para obter seu ID
-		savedDocumento = documentoRepository.save(docMod);
+	    // Verifica se docProcesso está presente no DTO
+	    if (docMod.getDocProcesso() != null) {
+	    	
+	        ProcessoModel processo = docMod.getDocProcesso();
 
-		// Check if docProcesso is present in the DTO
-		if (docMod.getDocProcesso() != null) {
-			ProcessoModel processo = new ProcessoModel();
-			processo.setProcId(docMod.getDocProcesso().getProcId());
-			processo.setProcNumero(docMod.getDocProcesso().getProcNumero());
-			
-			// Save the ProcessoModel
-			processo = processoRepository.save(processo);
+	        // Verifica se o anexo associado ao processo precisa ser salvo primeiro
+	        if (processo.getAnexo() != null && processo.getAnexo().getId() == null) {
+	            AnexoModel anexo = processo.getAnexo();
+	            anexo = anexoRepository.save(anexo);
+	            processo.setAnexo(anexo);
+	        }
 
-			// Set the saved ProcessoModel in DocumentoModel
-			docMod.setDocProcesso(processo);
-		}
+	        // Salva o ProcessoModel
+	        processo = processoRepository.save(processo);
+	        docMod.setDocProcesso(processo);
+	    }
 
-		// Check if docEndereco is present in the DTO
-		if (docMod.getDocEndereco() != null) {
-			EnderecoModel endereco = new EnderecoModel();
-			endereco.setEndId(docMod.getDocEndereco().getEndId());
-			endereco.setEndLogradouro(docMod.getDocEndereco().getEndLogradouro());
-			endereco.setEndCidade(docMod.getDocEndereco().getEndCidade());
-			endereco.setEndCep(docMod.getDocEndereco().getEndCep());
+	    // Verifica se docEndereco está presente no DTO
+	    if (docMod.getDocEndereco() != null) {
+	        EnderecoModel endereco = docMod.getDocEndereco();
+	        System.out.println("endereco model");
+	        System.out.println(docMod.getDocEndereco().getEndInterferencias().size());
+	        endereco = enderecoRepository.save(endereco);
+	        docMod.setDocEndereco(endereco);
+	    }
+	    
+	  
 
-			// Save the EnderecoModel
-			endereco = enderecoRepository.save(endereco);
+	    Set<UsuarioModel> usuarios = new HashSet<>();
 
-			// Set the saved EnderecoModel in DocumentoModel
-			docMod.setDocEndereco(endereco);
-		}
-		
-		
+	    // Salvando os usuários e garantindo o relacionamento bidirecional
+	    for (UsuarioModel usuario : docMod.getUsuarios()) {
+	        if (usuario.getUsId() == null) {
+	            usuario = usuarioRepository.save(usuario);
+	        }
+	        usuario.getDocumentos().add(newDocumento);
+	        usuarios.add(usuario);
+	    }
 
-		Set<UsuarioModel> usuarios = new HashSet<>();
+	    newDocumento.setUsuarios(usuarios);
 
-		// savedDocumento.setUsuarios(docDTO.getUsuarios());
+	    // Salva o DocumentoModel atualizado com todas as relações
+	    newDocumento = documentoRepository.save(docMod);
 
-		// Salvando os usuários e garantindo o relacionamento bidirecional
-		for (UsuarioModel usuario : docMod.getUsuarios()) {
-
-			if (usuario.getUsId() == null) {
-
-				usuario = usuarioRepository.save(usuario);
-
-			}
-			usuario.getDocumentos().add(savedDocumento);
-			usuarios.add(usuario);
-		}
-
-		savedDocumento.setUsuarios(usuarios);
-
-		// Save the DocumentoModel
-		savedDocumento = documentoRepository.save(docMod);
-
-		return savedDocumento;
+	    return newDocumento;
 	}
+
+
 
 }

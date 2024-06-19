@@ -1,67 +1,73 @@
 package com.api.main.services;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.main.models.AnexoModel;
+import com.api.main.models.ProcessoModel;
 import com.api.main.repositories.AnexoRepository;
+import com.api.main.repositories.ProcessoRepository;
 
 @Service
 public class AnexoService {
-	
-	
-	final AnexoRepository repository;
 
-	public AnexoService(AnexoRepository repository) {
-		this.repository = repository;
+	@Autowired
+	private AnexoRepository anexoRepository;
+	@Autowired
+	private ProcessoRepository processoRepository;
+
+	public AnexoService(AnexoRepository anexoRepository) {
+		this.anexoRepository = anexoRepository;
 	}
 
 	@Transactional
-	public AnexoModel save(AnexoModel procMod) {
-		return repository.save(procMod);
-	}
+	public AnexoModel save(AnexoModel anexo) {
 
-	@Transactional
-	public AnexoModel update(Long id, AnexoModel updateProcesso) {
-		AnexoModel responseDocumento = repository.findById(id).map((AnexoModel record) -> {
-			record.setAnNumero(updateProcesso.getAnNumero());
-			record.setAnPrincipal(updateProcesso.getAnPrincipal());
+		// Inicializa um novo AnexoModel
+		AnexoModel newAnexo = new AnexoModel();
+		newAnexo.setNumero(anexo.getNumero());
 
-			return repository.save(record);
-		}).orElse(null);
+		Set<ProcessoModel> processos = new HashSet<>();
 
-		if (responseDocumento == null) {
-			throw new NoSuchElementException("Não foi encontrado documento com o id: " + id);
+		// Itera sobre os processos para garantir que eles estão corretamente salvos e
+		// relacionados
+		for (ProcessoModel processo : anexo.getProcessos()) {
+			if (processo.getProcId() == null) {
+				processo.setAnexo(newAnexo);
+				processo = processoRepository.save(processo);
+			}
+			processos.add(processo);
 		}
 
-		return responseDocumento;
+		newAnexo.setProcessos(processos);
+		return anexoRepository.save(newAnexo);
 	}
 
 	@Transactional
-	public List<AnexoModel> list(String keyword) {
-		return repository.list(keyword);
+	public List<AnexoModel> getAll() {
+		return anexoRepository.findAll();
 	}
 
 	@Transactional
-	public List<AnexoModel> listAnexos(Long proc_processo_principal) {
-		return repository.listAnexos(proc_processo_principal);
+	public AnexoModel getById(Long id) {
+		return anexoRepository.findById(id).orElse(null);
 	}
 
 	@Transactional
-	public AnexoModel deleteById(Long id) {
-		AnexoModel deleteResponse = repository.findById(id)
-				.orElseThrow(() -> new NoSuchElementException("Não foi anexo com id: " + id));
-
-		repository.deleteById(id);
-		return deleteResponse;
+	public void deleteById(Long id) {
+		anexoRepository.deleteById(id);
 	}
+	
 	@Transactional
-	public void delete() {
-		repository.deleteAll();
+	public List<AnexoModel> listByKeyword (String keyword) {
+		return anexoRepository.listByKeyword(keyword);
 	}
+
 
 }

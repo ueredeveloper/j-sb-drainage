@@ -1,5 +1,6 @@
 package com.api.main.services;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -29,25 +30,18 @@ public class EnderecoService {
 	
 	@Transactional
 	public EnderecoModel save(EnderecoModel endereco) {
-		
-		EnderecoModel response =  new EnderecoModel();
-	
-		if (endereco.getEndInterferencias()!= null) {
-			
-			List<InterferenciaModel> inter = interRepo.saveAll(endereco.getEndInterferencias());
-			
-			response.setEndInterferencias(inter);
-		}
-		
-		response.setEndLogradouro(endereco.getEndLogradouro());
-		response.setEndCidade(endereco.getEndCidade());
-		response.setEndBairro(endereco.getEndBairro());
-		response.setEndCep(endereco.getEndCep());
-		response.setEndEstado(endereco.getEndEstado());
-		
-		endRepo.save(response);
-		
-		return response;
+	    // Salva as interferências, se houver
+	    if (endereco.getEndInterferencias() != null && !endereco.getEndInterferencias().isEmpty()) {
+	        // Salva todas as interferências associadas ao endereço
+	        List<InterferenciaModel> interferencias = interRepo.saveAll(endereco.getEndInterferencias());
+	        // Atualiza o conjunto de interferências no endereço
+	        endereco.setEndInterferencias(new HashSet<>(interferencias));
+	    }
+
+	    // Salva o endereço com as interferências atualizadas
+	    EnderecoModel savedEndereco = endRepo.save(endereco);
+
+	    return savedEndereco;
 	}
 
 	

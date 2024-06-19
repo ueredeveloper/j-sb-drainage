@@ -1,38 +1,38 @@
 package com.api.main.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.api.main.models.ProcessoModel;
 
 public class AnexoDTO {
-	
 
-	private long anId;
-	// @NotBlank
-	private String anNumero;
+	private Long id;
+	private String numero;
+	private List<ProcessoModel> processos = new ArrayList<>();
 
-	private ProcessoModel anPrincipal;
-
-	public long getAnId() {
-		return anId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setAnId(long anId) {
-		this.anId = anId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getAnNumero() {
-		return anNumero;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setAnNumero(String anNumero) {
-		this.anNumero = anNumero;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
-	public ProcessoModel getAnPrincipal() {
-		return anPrincipal;
+	public List<ProcessoModel> getProcessos() {
+		return processos;
 	}
 
-	public void setAnPrincipal(ProcessoModel anPrincipal) {
-		this.anPrincipal = anPrincipal;
+	public void setProcessos(List<ProcessoModel> processos) {
+		this.processos = processos;
 	}
 
 }

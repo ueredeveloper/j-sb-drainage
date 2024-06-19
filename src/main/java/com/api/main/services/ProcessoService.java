@@ -7,36 +7,42 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.main.models.AnexoModel;
 import com.api.main.models.ProcessoModel;
+import com.api.main.repositories.AnexoRepository;
 import com.api.main.repositories.ProcessoRepository;
 
 @Service
 public class ProcessoService {
 
-	
-	final ProcessoRepository repository;
+	@Autowired
+    private ProcessoRepository processoRepository;
 
-	public ProcessoService(ProcessoRepository repository) {
-		super();
-		this.repository = repository;
-	}
+    @Autowired
+    private AnexoRepository anexoRepository;
 
 	@Transactional
-	public ProcessoModel save(ProcessoModel procMod) {
-		return repository.save(procMod);
-	}
+	 public ProcessoModel save(ProcessoModel procMod) {
+        // Verifica se o anexo não tem ID (precisa ser salvo primeiro)
+        if (procMod.getAnexo() != null && procMod.getAnexo().getId() == null) {
+            AnexoModel anexo = procMod.getAnexo();
+            anexo = anexoRepository.save(anexo); // Salva o anexo
+            procMod.setAnexo(anexo); // Atualiza a referência do anexo no processo
+        }
+        return processoRepository.save(procMod); // Salva o processo
+    }
 
 	@Transactional
 	public ProcessoModel update(Long id, ProcessoModel updateProcesso) {
-		Optional<ProcessoModel> optionalProcesso = repository.findById(id);
+		Optional<ProcessoModel> optionalProcesso = processoRepository.findById(id);
 
 		if (optionalProcesso.isPresent()) {
 			ProcessoModel processo = optionalProcesso.get();
 			processo.setProcNumero(updateProcesso.getProcNumero());
-			return repository.save(processo);
+			return processoRepository.save(processo);
 		} else {
 			throw new EntityNotFoundException("ProcessoPrincipalModel with ID " + id + " not found.");
 		}
@@ -44,26 +50,21 @@ public class ProcessoService {
 
 	@Transactional
 	public List<ProcessoModel> list(String keyword) {
-		return repository.list(keyword);
-	}
-
-	@Transactional
-	public List<AnexoModel> listChildrens(Long proc_processo_principal) {
-		return repository.listChildrens(proc_processo_principal);
+		return processoRepository.list(keyword);
 	}
 
 	@Transactional
 	public ProcessoModel deleteById(Long id) {
-		ProcessoModel deleteResponse = repository.findById(id)
+		ProcessoModel deleteResponse = processoRepository.findById(id)
 				.orElseThrow(() -> new NoSuchElementException("Não foi encontrado processo com o id: " + id));
 
-		repository.deleteById(id);
+		processoRepository.deleteById(id);
 		return deleteResponse;
 	}
 
 	@Transactional
 	public void delete() {
-		repository.deleteAll();
+		processoRepository.deleteAll();
 	}
 
 };

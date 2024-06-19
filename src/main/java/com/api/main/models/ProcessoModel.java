@@ -8,44 +8,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "processo")
 public class ProcessoModel {
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long procId;
+
 	@Column(nullable = true, unique = false, length = 40)
 	String procNumero;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "anPrincipal")
-	private List<AnexoModel> procAnexos = new ArrayList<>();
-	
+	@ManyToOne
+	@JoinColumn(name = "anexo_id", referencedColumnName = "id")
+	@JsonBackReference
+	private AnexoModel anexo;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "docProcesso")
 	private List<DocumentoModel> anDocumentos = new ArrayList<>();
-	
+
 	public ProcessoModel() {
 		super();
-	}
-
-	public ProcessoModel(Long procId, String procNumero, List<AnexoModel> procAnexos) {
-		super();
-		this.procId = procId;
-		this.procNumero = procNumero;
-		this.procAnexos = procAnexos;
-	}
-
-	public ProcessoModel(String procNumero) {
-		super();
-		this.procNumero = procNumero;
 	}
 
 	public Long getProcId() {
@@ -64,12 +56,12 @@ public class ProcessoModel {
 		this.procNumero = procNumero;
 	}
 
-	public List<AnexoModel> getProcAnexos() {
-		return procAnexos;
+	public AnexoModel getAnexo() {
+		return anexo;
 	}
 
-	public void setProcAnexos(List<AnexoModel> procAnexos) {
-		this.procAnexos = procAnexos;
+	public void setAnexo(AnexoModel anexo) {
+		this.anexo = anexo;
 	}
 
 	public List<DocumentoModel> getAnDocumentos() {
