@@ -134,7 +134,7 @@ public class DocumentoService {
 			ProcessoModel processo = new ProcessoModel();
 			processo.setProcId(docMod.getDocProcesso().getProcId());
 			processo.setProcNumero(docMod.getDocProcesso().getProcNumero());
-
+			
 			// Save the ProcessoModel
 			processo = processoRepository.save(processo);
 
@@ -156,6 +156,8 @@ public class DocumentoService {
 			// Set the saved EnderecoModel in DocumentoModel
 			docMod.setDocEndereco(endereco);
 		}
+		
+		
 
 		Set<UsuarioModel> usuarios = new HashSet<>();
 
