@@ -3,6 +3,7 @@ package com.api.main.dto;
 public class FinalidadeAutorizadaDTO {
 	
 
+	
 	private Long finId;
 	private String finFinalidade;
 	private String finSubfinalidade;

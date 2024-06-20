@@ -25,6 +25,7 @@ import com.api.main.services.FinalidadeRequeridaService;
 public class FinalidadeRequeridaController {
 	
 
+	
 	final FinalidadeRequeridaService finService;
 
 	public FinalidadeRequeridaController(FinalidadeRequeridaService finService) {

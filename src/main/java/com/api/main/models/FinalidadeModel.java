@@ -14,6 +14,7 @@ import javax.persistence.Table;
 public class FinalidadeModel {
 	
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long finId;

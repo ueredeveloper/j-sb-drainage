@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/document-type")
 public class DocumentoTipoController {
-	
 
-	
   final DocumentoTipoService docTipoService;
 
   public DocumentoTipoController(DocumentoTipoService docTipoService) {

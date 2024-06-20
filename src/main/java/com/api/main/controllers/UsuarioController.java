@@ -21,6 +21,7 @@ import com.api.main.services.UsuarioService;
 @RequestMapping("/user")
 public class UsuarioController {
 
+	
 	@Autowired
 	private UsuarioService usuarioService;
 

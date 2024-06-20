@@ -25,6 +25,7 @@ import com.api.main.services.FinalidadeAutorizadaService;
 public class FinalidadeAutorizadaController {
 	
 
+	
 	final FinalidadeAutorizadaService finService;
 
 	public FinalidadeAutorizadaController(FinalidadeAutorizadaService finService) {

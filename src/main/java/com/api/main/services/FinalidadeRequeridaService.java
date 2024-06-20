@@ -15,6 +15,7 @@ import com.api.main.repositories.FinalidadeRequeridaRepository;
 public class FinalidadeRequeridaService {
 	
 	
+	
 	@Autowired
 	FinalidadeRequeridaRepository finRepo;
 

@@ -10,6 +10,7 @@ public class DocumentoTipoDTO {
 	
 	
 
+	
 	private Long dtId;
 
 	private String dtDescricao;

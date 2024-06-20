@@ -3,6 +3,7 @@ package com.api.main.dto;
 public class DemandaDTO {
 	
 
+	
 	private Double demId;
 	private Double demVazao; // litros/dia
 	private int demTempo; // horas/dia

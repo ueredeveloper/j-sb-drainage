@@ -17,6 +17,7 @@ import com.api.main.repositories.InterferenciaRepository;
 public class InterferenciaService {
 	
 
+	
 	@Autowired
 	private InterferenciaRepository interferenciaRepository;
 

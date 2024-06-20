@@ -9,6 +9,7 @@ import javax.persistence.Table;
 public class SubterraneaModel extends InterferenciaModel {
 	
 
+	
 	private static final long serialVersionUID = 1L;
 
 	@Column ()

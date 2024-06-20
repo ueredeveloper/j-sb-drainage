@@ -8,6 +8,7 @@ import com.api.main.models.DocumentoModel;
 
 public class ProcessoDTO {
 
+	
 	Long procId;
 
 	String procNumero;
