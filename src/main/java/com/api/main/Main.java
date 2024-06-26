@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.models.EnderecoModel;
+import com.api.main.models.TipoInterferenciaModel;
 import com.api.main.repositories.DocumentoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
 import com.api.main.repositories.EnderecoRepository;
+import com.api.main.repositories.TipoInterferenciaRepository;
 
 @SpringBootApplication
 @RestController
@@ -34,6 +36,18 @@ public class Main {
 			tdr.save(new DocumentoTipoModel("Requerimento"));
 			tdr.save(new DocumentoTipoModel("Ofício"));
 			tdr.save(new DocumentoTipoModel("Despacho"));
+
+		};
+	}
+
+	@Bean
+	public CommandLineRunner insertTipoInterferencia(TipoInterferenciaRepository repository) {
+
+		return (args) -> {
+
+			repository.save(new TipoInterferenciaModel("Subterrânea"));
+			repository.save(new TipoInterferenciaModel("Superficial"));
+			repository.save(new TipoInterferenciaModel("Lançamento"));
 
 		};
 	}

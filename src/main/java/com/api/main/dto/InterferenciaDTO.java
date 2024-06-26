@@ -1,12 +1,11 @@
 package com.api.main.dto;
 
 import com.api.main.models.EnderecoModel;
+import com.api.main.models.TipoInterferenciaModel;
 import com.vividsolutions.jts.geom.Geometry;
 
 public class InterferenciaDTO {
-	
 
-	
 	private Double interLatitude;
 
 	private Double interLongitude;
@@ -14,16 +13,14 @@ public class InterferenciaDTO {
 	private Geometry intGeometry;
 
 	private EnderecoModel interEndereco;
-	
-	// 
+
 	private String interLogradouro;
-	
-	
+
+	private TipoInterferenciaModel tipoInterferencia;
+
 	public InterferenciaDTO() {
 		super();
 	}
-
-	
 
 	public InterferenciaDTO(Double interLatitude, Double interLongitude, String interLogradouro) {
 		super();
@@ -32,18 +29,13 @@ public class InterferenciaDTO {
 		this.interLogradouro = interLogradouro;
 	}
 
-
 	public String getInterLogradouro() {
 		return interLogradouro;
 	}
 
-
-
 	public void setInterLogradouro(String interLogradouro) {
 		this.interLogradouro = interLogradouro;
 	}
-
-
 
 	public Double getInterLatitude() {
 		return interLatitude;
@@ -75,6 +67,14 @@ public class InterferenciaDTO {
 
 	public void setInterEndereco(EnderecoModel interEndereco) {
 		this.interEndereco = interEndereco;
+	}
+
+	public TipoInterferenciaModel getTipoInterferencia() {
+		return tipoInterferencia;
+	}
+
+	public void setTipoInterferencia(TipoInterferenciaModel tipoInterferencia) {
+		this.tipoInterferencia = tipoInterferencia;
 	}
 
 }
