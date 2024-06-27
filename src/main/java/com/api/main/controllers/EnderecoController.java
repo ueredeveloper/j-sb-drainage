@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,44 +26,39 @@ import com.api.main.services.EnderecoService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/address")
 public class EnderecoController {
-	
 
-	
-	final EnderecoService endService;
+	@Autowired
+	private EnderecoService enderecoService;
 
-	public EnderecoController(EnderecoService endService) {
-		super();
-		this.endService = endService;
-	}
-	
+
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid EnderecoDTO endDTO) {
 		EnderecoModel endMod = new EnderecoModel();
 		BeanUtils.copyProperties(endDTO, endMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(endService.save(endMod));
+		return ResponseEntity.status(HttpStatus.CREATED).body(enderecoService.save(endMod));
 	}
-	
+
 	@PutMapping("/update")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody EnderecoModel updateRequest) {
-		EnderecoModel updated = endService.update(id, updateRequest);
+		EnderecoModel updated = enderecoService.update(id, updateRequest);
 		if (updated != null) {
 			return ResponseEntity.ok().body(updated);
 		} else {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
+
 	@GetMapping("/list")
 	public ResponseEntity<List<EnderecoModel>> list(@RequestParam(required = false) String keyword) {
-		List<EnderecoModel> resultList = endService.list(keyword);
+		List<EnderecoModel> resultList = enderecoService.list(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
-	
+
 	@DeleteMapping("/delete")
 	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
-			EnderecoModel response = endService.deleteById(id);
+			EnderecoModel response = enderecoService.deleteById(id);
 			if (response != null) {
 				return ResponseEntity.ok(response);
 			} else {
@@ -70,9 +66,9 @@ public class EnderecoController {
 			}
 		} else {
 			// Delete all objects
-			endService.delete();
+			enderecoService.delete();
 			return ResponseEntity.ok("Todos os endereços deletados!!!");
 		}
 	}
-	
+
 }

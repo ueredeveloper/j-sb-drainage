@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,13 +27,8 @@ import com.api.main.services.ProcessoService;
 @RequestMapping("/process")
 public class ProcessoController {
 
-	
-	final ProcessoService service;
-
-	public ProcessoController(ProcessoService service) {
-		super();
-		this.service = service;
-	}
+	@Autowired
+	private ProcessoService service;
 
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid ProcessoDTO procDTO) {

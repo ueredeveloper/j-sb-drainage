@@ -15,7 +15,7 @@ import com.api.main.repositories.SubterraneaRepository;
 
 @Service
 public class SubterraneaService {
-	
+
 	@Autowired
 	private SubterraneaRepository subterraneaRepository;
 	@Autowired
@@ -28,17 +28,14 @@ public class SubterraneaService {
 
 	@Transactional
 	public SubterraneaModel save(SubterraneaDTO subDTO, SubterraneaModel subMod) {
-		
-		System.out.println(subMod.getTipoInterferenciaId().getId());
-	
+
 		if (subDTO.getInterEndereco() != null) {
-			
-			
+
 			EnderecoModel endereco = new EnderecoModel();
 			endereco.setEndLogradouro(subDTO.getInterEndereco().getEndLogradouro());
 
 			endereco = enderecoRepository.save(endereco);
-			
+
 			subMod.setInterEndereco(endereco);
 
 		}

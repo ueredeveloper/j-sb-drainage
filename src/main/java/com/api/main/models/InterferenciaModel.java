@@ -13,19 +13,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vividsolutions.jts.geom.Geometry;
 
 @Entity
 @Table(name = "interferencia")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class InterferenciaModel implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long interId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long interId;
 
 	@Column(nullable = true, unique = false)
 	private Double interLatitude;
@@ -35,17 +34,15 @@ public class InterferenciaModel implements Serializable {
 
 	@Column(nullable = true, unique = false)
 	private Geometry interGeometry;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "interEndereco")
 	private EnderecoModel interEndereco;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "tipoInterferencia", referencedColumnName = "id")
-	@JsonBackReference
+	@JoinColumn(name = "tipoInterferencia")
 	private TipoInterferenciaModel tipoInterferencia;
-	
-	
+
 	public Long getInterId() {
 		return interId;
 	}
@@ -97,6 +94,5 @@ public class InterferenciaModel implements Serializable {
 	public void setTipoInterferencia(TipoInterferenciaModel tipoInterferencia) {
 		this.tipoInterferencia = tipoInterferencia;
 	}
-	
-	
+
 }

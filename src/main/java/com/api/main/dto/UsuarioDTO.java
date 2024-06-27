@@ -6,8 +6,7 @@ import java.util.Set;
 import com.api.main.models.DocumentoModel;
 
 public class UsuarioDTO {
-	
-	
+
 	private Long usId;
 
 	private String usNome;
@@ -47,5 +46,5 @@ public class UsuarioDTO {
 	public void setDocumentos(Set<DocumentoModel> documentos) {
 		this.documentos = documentos;
 	}
-	
+
 }

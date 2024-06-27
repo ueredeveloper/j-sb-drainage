@@ -12,7 +12,6 @@ import com.api.main.models.UsuarioModel;
 //@JsonSerialize(using = CustomDocTipoSerializer.class)
 public class DocumentoDTO {
 
-	
 	private Long docId;
 	// @NotBlank
 	private String docNumero;
@@ -39,7 +38,7 @@ public class DocumentoDTO {
 	}
 
 	public DocumentoDTO(Long docId, String docNumero, ProcessoModel docProcesso, String docSei,
-			DocumentoTipoModel docTipo, EnderecoModel docEndereco) {
+			DocumentoTipoModel docTipo, EnderecoModel docEndereco, Set<UsuarioModel> usuarios) {
 		super();
 		this.docId = docId;
 		this.docNumero = docNumero;
@@ -47,6 +46,7 @@ public class DocumentoDTO {
 		this.docSei = docSei;
 		this.docTipo = docTipo;
 		this.docEndereco = docEndereco;
+		this.usuarios = usuarios;
 	}
 
 	public Long getDocId() {

@@ -23,9 +23,6 @@ public class AnexoService {
 	@Autowired
 	private ProcessoRepository processoRepository;
 
-	public AnexoService(AnexoRepository anexoRepository) {
-		this.anexoRepository = anexoRepository;
-	}
 
 	@Transactional
 	public AnexoModel save(AnexoModel anexo) {

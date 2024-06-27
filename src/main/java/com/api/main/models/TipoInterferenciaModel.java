@@ -4,19 +4,19 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "tipo_interferencia")
+@Table(name = "tipoInterferencia")
 public class TipoInterferenciaModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -25,9 +25,11 @@ public class TipoInterferenciaModel implements Serializable {
 	Long id;
 	@Column(nullable = true, unique = false, length = 40)
 	String descricao;
-	
-	@OneToMany(mappedBy = "tipoInterferencia", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonBackReference
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "tipoInterferencia", fetch = FetchType.EAGER)
+	// private List<InterferenciaModel> endInterferencias = new
+	// ArrayList<InterferenciaModel>();
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
 	public TipoInterferenciaModel() {
@@ -67,5 +69,4 @@ public class TipoInterferenciaModel implements Serializable {
 		this.interferencias = interferencias;
 	}
 
-	
 }

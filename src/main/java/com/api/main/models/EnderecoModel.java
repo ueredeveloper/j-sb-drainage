@@ -20,8 +20,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "endereco")
 public class EnderecoModel {
 	
-
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

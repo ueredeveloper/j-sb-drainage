@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.main.models.EnderecoModel;
@@ -16,37 +17,28 @@ import com.api.main.repositories.InterferenciaRepository;
 
 @Service
 public class EnderecoService {
-	
-	
-	
-	
-	final EnderecoRepository endRepo;
-	final InterferenciaRepository interRepo;
 
-	public EnderecoService(EnderecoRepository endRepo, InterferenciaRepository interRepo) {
-		super();
-		this.endRepo = endRepo;
-		this.interRepo = interRepo;
-	};
-	
-	
+	@Autowired
+	private EnderecoRepository endRepo;
+	@Autowired
+	private InterferenciaRepository interRepo;
+
 	@Transactional
 	public EnderecoModel save(EnderecoModel endereco) {
-	    // Salva as interferências, se houver
-	    if (endereco.getEndInterferencias() != null && !endereco.getEndInterferencias().isEmpty()) {
-	        // Salva todas as interferências associadas ao endereço
-	        List<InterferenciaModel> interferencias = interRepo.saveAll(endereco.getEndInterferencias());
-	        // Atualiza o conjunto de interferências no endereço
-	        endereco.setEndInterferencias(new HashSet<>(interferencias));
-	    }
+		// Salva as interferências, se houver
+		if (endereco.getEndInterferencias() != null && !endereco.getEndInterferencias().isEmpty()) {
+			// Salva todas as interferências associadas ao endereço
+			List<InterferenciaModel> interferencias = interRepo.saveAll(endereco.getEndInterferencias());
+			// Atualiza o conjunto de interferências no endereço
+			endereco.setEndInterferencias(new HashSet<>(interferencias));
+		}
 
-	    // Salva o endereço com as interferências atualizadas
-	    EnderecoModel savedEndereco = endRepo.save(endereco);
+		// Salva o endereço com as interferências atualizadas
+		EnderecoModel savedEndereco = endRepo.save(endereco);
 
-	    return savedEndereco;
+		return savedEndereco;
 	}
 
-	
 	@Transactional
 	public List<EnderecoModel> list(String keyword) {
 		return endRepo.list(keyword);
@@ -78,7 +70,7 @@ public class EnderecoService {
 			record.setEndCep(endereco.getEndCep());
 			record.setEndBairro(endereco.getEndBairro());
 			record.setEndEstado(endereco.getEndEstado());
-			
+
 			return endRepo.save(record);
 		}).orElse(null);
 
@@ -88,5 +80,5 @@ public class EnderecoService {
 
 		return response;
 	}
-	
+
 }

@@ -23,8 +23,6 @@ import com.api.main.services.SubterraneaService;
 @RequestMapping("/well")
 public class SubterraneaController {
 	
-
-	
 	@Autowired
 	private SubterraneaService subterraneaService;
 

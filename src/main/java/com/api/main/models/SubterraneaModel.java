@@ -7,19 +7,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "subterranea")
 public class SubterraneaModel extends InterferenciaModel {
-	
 
-	
 	private static final long serialVersionUID = 1L;
 
-	@Column ()
-	private Boolean subCaesb;  // tem caesb () sim () não
+	@Column()
+	private Boolean subCaesb; // tem caesb () sim () não
 
-	@Column (columnDefinition="varchar(20)")
-	private String subNivelEstatico;  // em metros
+	@Column(columnDefinition = "varchar(20)")
+	private String subNivelEstatico; // em metros
 
-	@Column (columnDefinition="varchar(20)")
-	private String subDinamico;  // em metros
+	@Column(columnDefinition = "varchar(20)")
+	private String subDinamico; // em metros
 
 	public Boolean getSubCaesb() {
 		return subCaesb;
@@ -48,7 +46,5 @@ public class SubterraneaModel extends InterferenciaModel {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-
 
 }

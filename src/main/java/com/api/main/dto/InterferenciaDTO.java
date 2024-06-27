@@ -29,14 +29,6 @@ public class InterferenciaDTO {
 		this.interLogradouro = interLogradouro;
 	}
 
-	public String getInterLogradouro() {
-		return interLogradouro;
-	}
-
-	public void setInterLogradouro(String interLogradouro) {
-		this.interLogradouro = interLogradouro;
-	}
-
 	public Double getInterLatitude() {
 		return interLatitude;
 	}
@@ -67,6 +59,14 @@ public class InterferenciaDTO {
 
 	public void setInterEndereco(EnderecoModel interEndereco) {
 		this.interEndereco = interEndereco;
+	}
+
+	public String getInterLogradouro() {
+		return interLogradouro;
+	}
+
+	public void setInterLogradouro(String interLogradouro) {
+		this.interLogradouro = interLogradouro;
 	}
 
 	public TipoInterferenciaModel getTipoInterferencia() {

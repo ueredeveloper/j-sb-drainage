@@ -7,10 +7,7 @@ import com.api.main.models.DocumentoModel;
 //import javax.validation.constraints.NotBlank;
 
 public class DocumentoTipoDTO {
-	
-	
 
-	
 	private Long dtId;
 
 	private String dtDescricao;
@@ -40,6 +37,5 @@ public class DocumentoTipoDTO {
 	public void setDtDocumentos(List<DocumentoModel> dtDocumentos) {
 		this.dtDocumentos = dtDocumentos;
 	}
-
 
 }

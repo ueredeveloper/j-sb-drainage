@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,36 +26,30 @@ import com.api.main.services.InterferenciaService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/interference")
 public class InterferenciaController {
-	
-	
-	
-	final InterferenciaService interService;
 
-	public InterferenciaController(InterferenciaService interService) {
-		super();
-		this.interService = interService;
-	}
-	
+	@Autowired
+	private InterferenciaService interferenciaService;
+
+
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid InterferenciaDTO interDTO) {
 		InterferenciaModel interMod = new InterferenciaModel();
 		BeanUtils.copyProperties(interDTO, interMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(interService.save(interDTO, interMod));
-		
+		return ResponseEntity.status(HttpStatus.CREATED).body(interferenciaService.save(interDTO, interMod));
+
 	}
-	
+
 	@PostMapping("/create/subterranean")
 	public ResponseEntity<Object> save(@RequestBody @Valid SubterraneaDTO subDTO) {
-		SubterraneaModel subMod = new SubterraneaModel();
-		
-		System.out.println(subDTO.getInterEndereco().getEndLogradouro());
-		BeanUtils.copyProperties(subDTO, subMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(interService.save(subMod));
+		SubterraneaModel subterraneaModel = new SubterraneaModel();
+		// System.out.println(subterraneaModel.getTipoInterferencia().getId());
+		BeanUtils.copyProperties(subDTO, subterraneaModel);
+		return ResponseEntity.status(HttpStatus.CREATED).body(interferenciaService.save(subterraneaModel));
 	}
 
 	@GetMapping("/list")
 	public ResponseEntity<List<InterferenciaDTO>> list(@RequestParam(required = false) String keyword) {
-		List<InterferenciaDTO> resultList = interService.searchInterferenciasByLogradouro(keyword);
+		List<InterferenciaDTO> resultList = interferenciaService.searchInterferenciasByLogradouro(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 }

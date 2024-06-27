@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,24 +27,21 @@ import com.api.main.services.FinalidadeService;
 public class FinalidadeController {
 	
 
-	
-	final FinalidadeService finService;
+	@Autowired
+	private FinalidadeService finalidadeService;
 
-	public FinalidadeController(FinalidadeService finService) {
-		this.finService = finService;
-	}
 
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid FinalidadeDTO finalidadeDTO) {
 		FinalidadeModel finalidadeModel = new FinalidadeModel();
 		BeanUtils.copyProperties(finalidadeDTO, finalidadeModel);
-		return ResponseEntity.status(HttpStatus.CREATED).body(finService.save(finalidadeModel));
+		return ResponseEntity.status(HttpStatus.CREATED).body(finalidadeService.save(finalidadeModel));
 	}
 
 	/*
 	 * @PutMapping("/update") public ResponseEntity<Object>
 	 * update(@RequestParam("id") long id, @RequestBody FinalidadeModel
-	 * updateFinalidade) { FinalidadeModel updated = finService.update(id,
+	 * updateFinalidade) { FinalidadeModel updated = finalidadeService.update(id,
 	 * updateFinalidade); if (updated != null) { return
 	 * ResponseEntity.ok().body(updated); } else { return
 	 * ResponseEntity.notFound().build(); } }
@@ -51,21 +49,21 @@ public class FinalidadeController {
 
 	@GetMapping("/list")
 	public ResponseEntity<List<FinalidadeModel>> list(@RequestParam(required = false) String keyword) {
-		List<FinalidadeModel> resultList = finService.list(keyword);
+		List<FinalidadeModel> resultList = finalidadeService.list(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
 	@DeleteMapping("/delete")
 	public ResponseEntity<Object> deleteFinalidade(@RequestParam(required = false) Long id) {
 		if (id != null) {
-			FinalidadeModel deleteResponse = finService.deleteById(id);
+			FinalidadeModel deleteResponse = finalidadeService.deleteById(id);
 			if (deleteResponse != null) {
 				return ResponseEntity.ok(deleteResponse);
 			} else {
 				return ResponseEntity.notFound().build();
 			}
 		} else {
-			finService.delete();
+			finalidadeService.delete();
 			return ResponseEntity.ok("Todos os objetos deletados!!!");
 		}
 	}
