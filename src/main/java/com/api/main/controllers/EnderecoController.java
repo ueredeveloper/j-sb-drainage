@@ -27,6 +27,7 @@ import com.api.main.services.EnderecoService;
 @RequestMapping("/address")
 public class EnderecoController {
 
+	
 	@Autowired
 	private EnderecoService enderecoService;
 

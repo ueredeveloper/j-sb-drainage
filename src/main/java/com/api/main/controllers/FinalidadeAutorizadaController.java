@@ -25,6 +25,7 @@ import com.api.main.services.FinalidadeAutorizadaService;
 @RequestMapping("/purpose_authorized")
 public class FinalidadeAutorizadaController {
 
+	
 	@Autowired
 	private FinalidadeAutorizadaService finalidadeService;
 

@@ -13,6 +13,7 @@ import com.api.main.repositories.UsuarioRepository;
 public class UsuarioService {
 
 	
+	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 

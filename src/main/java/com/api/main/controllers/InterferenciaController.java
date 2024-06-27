@@ -31,6 +31,7 @@ public class InterferenciaController {
 	private InterferenciaService interferenciaService;
 
 
+	
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid InterferenciaDTO interDTO) {
 		InterferenciaModel interMod = new InterferenciaModel();

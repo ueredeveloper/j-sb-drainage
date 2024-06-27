@@ -15,6 +15,7 @@ public class FinalidadeAutorizadaService {
 	
 
 	
+	
 	@Autowired
 	FinalidadeAutorizadaRepository finRepo;
 

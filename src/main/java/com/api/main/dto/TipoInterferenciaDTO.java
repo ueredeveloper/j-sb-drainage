@@ -9,6 +9,7 @@ import com.api.main.models.InterferenciaModel;
 
 public class TipoInterferenciaDTO {
 
+	
 	Long id;
 
 	String descricao;

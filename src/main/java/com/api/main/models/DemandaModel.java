@@ -12,7 +12,6 @@ import javax.persistence.Table;
 public class DemandaModel {
 	
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Double demId;

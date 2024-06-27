@@ -7,6 +7,7 @@ import com.api.main.models.DocumentoModel;
 
 public class UsuarioDTO {
 
+	
 	private Long usId;
 
 	private String usNome;

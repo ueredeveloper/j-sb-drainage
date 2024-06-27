@@ -6,6 +6,7 @@ import com.vividsolutions.jts.geom.Geometry;
 
 public class InterferenciaDTO {
 
+	
 	private Double interLatitude;
 
 	private Double interLongitude;

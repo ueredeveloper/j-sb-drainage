@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.models.AnexoModel;
-import com.api.main.models.AnexoModel;
 import com.api.main.services.AnexoService;
 
 @RestController
@@ -22,17 +21,16 @@ import com.api.main.services.AnexoService;
 @RequestMapping("/attachment")
 public class AnexoController {
 
-	
 	@Autowired
 	private AnexoService anexoService;
 
 	@PostMapping("/create")
-	public AnexoModel create (@RequestBody AnexoModel anexo) {
+	public AnexoModel create(@RequestBody AnexoModel anexo) {
 		return anexoService.save(anexo);
 	}
-	
+
 	@GetMapping("/list-by-keyword")
-	public ResponseEntity<List<AnexoModel>> listByKeyword (@RequestParam(required = false) String keyword) {
+	public ResponseEntity<List<AnexoModel>> listByKeyword(@RequestParam(required = false) String keyword) {
 		List<AnexoModel> resultList = anexoService.listByKeyword(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}

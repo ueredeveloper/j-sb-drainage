@@ -18,6 +18,7 @@ import com.api.main.repositories.InterferenciaRepository;
 @Service
 public class EnderecoService {
 
+	
 	@Autowired
 	private EnderecoRepository endRepo;
 	@Autowired

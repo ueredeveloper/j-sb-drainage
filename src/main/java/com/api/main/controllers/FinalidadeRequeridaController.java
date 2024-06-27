@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,11 +27,8 @@ public class FinalidadeRequeridaController {
 	
 
 	
-	final FinalidadeRequeridaService finService;
-
-	public FinalidadeRequeridaController(FinalidadeRequeridaService finService) {
-		this.finService = finService;
-	}
+	@Autowired
+	private FinalidadeRequeridaService finService;
 
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid FinalidadeRequeridaDTO finDTO) {

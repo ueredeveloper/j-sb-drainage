@@ -4,6 +4,7 @@ public class FinalidadeAutorizadaDTO {
 	
 
 	
+	
 	private Long finId;
 	private String finFinalidade;
 	private String finSubfinalidade;

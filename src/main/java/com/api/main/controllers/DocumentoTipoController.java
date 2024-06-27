@@ -25,6 +25,8 @@ import com.api.main.services.DocumentoTipoService;
 @RequestMapping("/document-type")
 public class DocumentoTipoController {
 
+	
+	
 	@Autowired
 	private DocumentoTipoService documentoTipoService;
 

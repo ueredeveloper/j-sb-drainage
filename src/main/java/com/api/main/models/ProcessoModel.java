@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class ProcessoModel {
 
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long procId;
