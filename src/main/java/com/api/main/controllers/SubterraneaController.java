@@ -17,22 +17,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.SubterraneaDTO;
 import com.api.main.models.SubterraneaModel;
+import com.api.main.services.InterferenciaService;
 import com.api.main.services.SubterraneaService;
 
 @RestController
-@RequestMapping("/well")
+@RequestMapping("/interference/subterranean")
 public class SubterraneaController {
 	
 	@Autowired
 	private SubterraneaService subterraneaService;
+	@Autowired
+	private InterferenciaService interferenciaService;
 
 	
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid SubterraneaDTO subDTO) {
-		SubterraneaModel subMod = new SubterraneaModel();
-		BeanUtils.copyProperties(subDTO, subMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(subterraneaService.save(subDTO, subMod));
-
+		SubterraneaModel subterraneaModel = new SubterraneaModel();
+		// System.out.println(subterraneaModel.getTipoInterferencia().getId());
+		BeanUtils.copyProperties(subDTO, subterraneaModel);
+		return ResponseEntity.status(HttpStatus.CREATED).body(interferenciaService.save(subterraneaModel));
 	}
 
 	@GetMapping("/list")

@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.InterferenciaDTO;
-import com.api.main.dto.SubterraneaDTO;
 import com.api.main.models.InterferenciaModel;
-import com.api.main.models.SubterraneaModel;
 import com.api.main.services.InterferenciaService;
 
 @RestController
@@ -30,8 +28,6 @@ public class InterferenciaController {
 	@Autowired
 	private InterferenciaService interferenciaService;
 
-
-	
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid InterferenciaDTO interDTO) {
 		InterferenciaModel interMod = new InterferenciaModel();
@@ -40,17 +36,9 @@ public class InterferenciaController {
 
 	}
 
-	@PostMapping("/create/subterranean")
-	public ResponseEntity<Object> save(@RequestBody @Valid SubterraneaDTO subDTO) {
-		SubterraneaModel subterraneaModel = new SubterraneaModel();
-		// System.out.println(subterraneaModel.getTipoInterferencia().getId());
-		BeanUtils.copyProperties(subDTO, subterraneaModel);
-		return ResponseEntity.status(HttpStatus.CREATED).body(interferenciaService.save(subterraneaModel));
-	}
-
 	@GetMapping("/list")
-	public ResponseEntity<List<InterferenciaDTO>> list(@RequestParam(required = false) String keyword) {
-		List<InterferenciaDTO> resultList = interferenciaService.searchInterferenciasByLogradouro(keyword);
+	public ResponseEntity<List<InterferenciaModel>> list(@RequestParam(required = false) String keyword) {
+		List<InterferenciaModel> resultList = interferenciaService.searchInterferenciasByLogradouro(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 }

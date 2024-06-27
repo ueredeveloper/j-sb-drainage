@@ -16,7 +16,6 @@ import com.api.main.repositories.InterferenciaRepository;
 @Service
 public class InterferenciaService {
 
-	
 	@Autowired
 	private InterferenciaRepository interferenciaRepository;
 
@@ -56,7 +55,7 @@ public class InterferenciaService {
 	}
 
 	@Transactional
-	public List<InterferenciaDTO> searchInterferenciasByLogradouro(String keyword) {
+	public List<InterferenciaModel> searchInterferenciasByLogradouro(String keyword) {
 		return interferenciaRepository.searchInterferenciasByLogradouro(keyword);
 	}
 

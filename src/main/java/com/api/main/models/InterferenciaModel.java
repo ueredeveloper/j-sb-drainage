@@ -22,7 +22,6 @@ public class InterferenciaModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long interId;
@@ -41,8 +40,8 @@ public class InterferenciaModel implements Serializable {
 	private EnderecoModel interEndereco;
 
 	@ManyToOne
-	@JoinColumn(name = "tipoInterferencia")
-	private TipoInterferenciaModel tipoInterferencia;
+	@JoinColumn(name = "interferenciaTipo")
+	private InterferenciaTipoModel interferenciaTipo;
 
 	public Long getInterId() {
 		return interId;
@@ -88,12 +87,13 @@ public class InterferenciaModel implements Serializable {
 		this.interEndereco = interEndereco;
 	}
 
-	public TipoInterferenciaModel getTipoInterferencia() {
-		return tipoInterferencia;
+	public InterferenciaTipoModel getInterferenciaTipo() {
+		return interferenciaTipo;
 	}
 
-	public void setTipoInterferencia(TipoInterferenciaModel tipoInterferencia) {
-		this.tipoInterferencia = tipoInterferencia;
+	public void setInterferenciaTipo(InterferenciaTipoModel interferenciaTipo) {
+		this.interferenciaTipo = interferenciaTipo;
 	}
 
+	
 }

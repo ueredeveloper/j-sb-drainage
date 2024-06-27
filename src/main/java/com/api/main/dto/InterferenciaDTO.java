@@ -1,12 +1,13 @@
 package com.api.main.dto;
 
 import com.api.main.models.EnderecoModel;
-import com.api.main.models.TipoInterferenciaModel;
+import com.api.main.models.InterferenciaTipoModel;
 import com.vividsolutions.jts.geom.Geometry;
 
 public class InterferenciaDTO {
 
-	
+	private Long interId;
+
 	private Double interLatitude;
 
 	private Double interLongitude;
@@ -15,19 +16,28 @@ public class InterferenciaDTO {
 
 	private EnderecoModel interEndereco;
 
-	private String interLogradouro;
-
-	private TipoInterferenciaModel tipoInterferencia;
+	private InterferenciaTipoModel interferenciaTipo;
 
 	public InterferenciaDTO() {
 		super();
 	}
 
-	public InterferenciaDTO(Double interLatitude, Double interLongitude, String interLogradouro) {
+	public InterferenciaDTO(Double interLatitude, Double interLongitude, Geometry intGeometry,
+			EnderecoModel interEndereco, InterferenciaTipoModel interferenciaTipo) {
 		super();
 		this.interLatitude = interLatitude;
 		this.interLongitude = interLongitude;
-		this.interLogradouro = interLogradouro;
+		this.intGeometry = intGeometry;
+		this.interEndereco = interEndereco;
+		this.interferenciaTipo = interferenciaTipo;
+	}
+
+	public Long getInterId() {
+		return interId;
+	}
+
+	public void setInterId(Long interId) {
+		this.interId = interId;
 	}
 
 	public Double getInterLatitude() {
@@ -62,20 +72,12 @@ public class InterferenciaDTO {
 		this.interEndereco = interEndereco;
 	}
 
-	public String getInterLogradouro() {
-		return interLogradouro;
+	public InterferenciaTipoModel getInterferenciaTipo() {
+		return interferenciaTipo;
 	}
 
-	public void setInterLogradouro(String interLogradouro) {
-		this.interLogradouro = interLogradouro;
-	}
-
-	public TipoInterferenciaModel getTipoInterferencia() {
-		return tipoInterferencia;
-	}
-
-	public void setTipoInterferencia(TipoInterferenciaModel tipoInterferencia) {
-		this.tipoInterferencia = tipoInterferencia;
+	public void setInterferenciaTipo(InterferenciaTipoModel interferenciaTipo) {
+		this.interferenciaTipo = interferenciaTipo;
 	}
 
 }

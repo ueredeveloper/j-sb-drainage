@@ -16,8 +16,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "tipoInterferencia")
-public class TipoInterferenciaModel implements Serializable {
+@Table(name = "interferenciaTipo")
+public class InterferenciaTipoModel implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -29,16 +29,18 @@ public class TipoInterferenciaModel implements Serializable {
 	String descricao;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "tipoInterferencia", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "interferenciaTipo", fetch = FetchType.EAGER)
 	// private List<InterferenciaModel> endInterferencias = new
 	// ArrayList<InterferenciaModel>();
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
-	public TipoInterferenciaModel() {
+	public InterferenciaTipoModel() {
 		super();
 	}
+	
+	
 
-	public TipoInterferenciaModel(String descricao) {
+	public InterferenciaTipoModel(String descricao) {
 		super();
 		this.descricao = descricao;
 	}

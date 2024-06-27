@@ -3,20 +3,17 @@ package com.api.main.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.print.attribute.standard.PrinterMoreInfo;
-
 import com.api.main.models.InterferenciaModel;
 
-public class TipoInterferenciaDTO {
+public class InterferenciaTipoDTO {
 
-	
 	Long id;
 
 	String descricao;
 
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
-	public TipoInterferenciaDTO() {
+	public InterferenciaTipoDTO() {
 		super();
 	}
 
@@ -43,7 +40,5 @@ public class TipoInterferenciaDTO {
 	public void setInterferencias(Set<InterferenciaModel> interferencias) {
 		this.interferencias = interferencias;
 	}
-
-
 
 }

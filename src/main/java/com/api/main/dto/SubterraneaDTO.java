@@ -1,15 +1,13 @@
 package com.api.main.dto;
 
 public class SubterraneaDTO extends InterferenciaDTO {
-	
-	
-	private Boolean subCaesb;  // tem caesb () sim () não
 
-	private String subNivelEstatico;  // em metros
+	private Boolean subCaesb; // tem caesb () sim () não
 
-	private String subDinamico;  // em metros
-	
-	
+	private String subNivelEstatico; // em metros
+
+	private String subDinamico; // em metros
+
 	public SubterraneaDTO() {
 	}
 
