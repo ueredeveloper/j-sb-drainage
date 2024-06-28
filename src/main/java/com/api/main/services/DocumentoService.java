@@ -31,8 +31,6 @@ import com.api.main.repositories.UsuarioRepository;
 public class DocumentoService {
 
 	
-	
-	
 	@Autowired
 	private DocumentoRepository documentoRepository;
 	@Autowired
