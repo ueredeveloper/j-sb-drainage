@@ -64,6 +64,7 @@ public class SubterraneaService {
 									// Editar attributos como Cidade e Cep.
 									EnderecoModel existingEndereco = endereco;
 									existingEndereco.setEndLogradouro(requestedObject.getInterEndereco().getEndLogradouro());
+									existingEndereco.setEndBairro(requestedObject.getInterEndereco().getEndBairro());
 									existingEndereco.setEndCidade(requestedObject.getInterEndereco().getEndCidade());
 									existingEndereco.setEndCep(requestedObject.getInterEndereco().getEndCep());
 									

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,5 +41,26 @@ public class InterferenciaController {
 	public ResponseEntity<List<InterferenciaModel>> list(@RequestParam(required = false) String keyword) {
 		List<InterferenciaModel> resultList = interferenciaService.searchInterferenciasByLogradouro(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+	}
+
+	@DeleteMapping("/delete")
+	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
+		if (id != null) {
+			// Delete a specific object by ID
+			InterferenciaModel deleteResponse = interferenciaService.deleteById(id);
+			if (deleteResponse != null) {
+				return ResponseEntity.ok(deleteResponse);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+
+		} else {
+			// ERROR: Não faz sentido deletar tudo se não há id
+			// Delete all objects
+			// interferenciaService.delete();
+			// return ResponseEntity.ok("Todos os objetos deletados!!!");
+			return ResponseEntity.ok("Id da interferência não informado!!!");
+
+		}
 	}
 }

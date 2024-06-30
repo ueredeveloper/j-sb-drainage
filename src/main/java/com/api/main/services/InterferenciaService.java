@@ -1,6 +1,7 @@
 package com.api.main.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
@@ -57,6 +58,14 @@ public class InterferenciaService {
 	@Transactional
 	public List<InterferenciaModel> searchInterferenciasByLogradouro(String keyword) {
 		return interferenciaRepository.searchInterferenciasByLogradouro(keyword);
+	}
+
+	@Transactional
+	public InterferenciaModel deleteById(Long id) {
+		InterferenciaModel response = interferenciaRepository.findById(id)
+				.orElseThrow(() -> new NoSuchElementException("Não encontrado, id: " + id));
+		interferenciaRepository.deleteById(id);
+		return response;
 	}
 
 }

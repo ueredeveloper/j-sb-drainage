@@ -16,7 +16,11 @@ public interface InterferenciaRepository extends JpaRepository<InterferenciaMode
 	List<InterferenciaModel> list(@Param("keyword") String keyword);
 
 	// Consulta para buscar interferências pelo logradouro do endereço
-	@Query("SELECT i " + "FROM InterferenciaModel i " + "LEFT JOIN i.interEndereco e "
-			+ "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(i.interEndereco) LIKE %:keyword%)")
-	List<InterferenciaModel> searchInterferenciasByLogradouro(@Param("keyword") String keyword);
+	// O h2 não tem uma função de pesquisar com ou sem acento, o postgress sim, fazer no banco postgress ou adicionar função no h2
+    @Query("SELECT i FROM InterferenciaModel i " + 
+           "LEFT JOIN i.interEndereco e " +
+           "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(e.endLogradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+    List<InterferenciaModel> searchInterferenciasByLogradouro(@Param("keyword") String keyword);
+
+
 }
