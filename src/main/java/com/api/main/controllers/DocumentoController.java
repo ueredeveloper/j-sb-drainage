@@ -51,8 +51,8 @@ public class DocumentoController {
 	}
 
 	@GetMapping("/list")
-	public ResponseEntity<List<DocumentoModel>> list(@RequestParam(required = false) String keyword) {
-		List<DocumentoModel> resultList = documentoService.list(keyword);
+	public ResponseEntity<List<DocumentoModel>> listByKeyword(@RequestParam(required = false) String keyword) {
+		List<DocumentoModel> resultList = documentoService.listByKeyword(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 

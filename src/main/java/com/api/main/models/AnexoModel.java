@@ -12,14 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table(name = "anexo")
 public class AnexoModel {
 
-	
-	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -30,7 +26,7 @@ public class AnexoModel {
 	private String numero;
 
 	@OneToMany(mappedBy = "anexo", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonBackReference
+	// @JsonBackReference
 	private Set<ProcessoModel> processos = new HashSet<>();
 
 	public AnexoModel() {

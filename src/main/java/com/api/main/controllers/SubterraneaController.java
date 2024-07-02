@@ -35,7 +35,7 @@ public class SubterraneaController {
 		SubterraneaModel subterraneaModel = new SubterraneaModel();
 		// System.out.println(subterraneaModel.getTipoInterferencia().getId());
 		BeanUtils.copyProperties(subDTO, subterraneaModel);
-		return ResponseEntity.status(HttpStatus.CREATED).body(interferenciaService.save(subterraneaModel));
+		return ResponseEntity.status(HttpStatus.CREATED).body(subterraneaService.save(subterraneaModel));
 	}
 
 	@GetMapping("/list")

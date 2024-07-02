@@ -10,16 +10,9 @@ import com.api.main.models.AnexoModel;
 
 @Repository
 public interface AnexoRepository extends JpaRepository<AnexoModel, Long> {
-	
-	
-	@Query("SELECT obj FROM AnexoModel obj WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(obj.numero) LIKE %:keyword%)")
-	List<AnexoModel> listByKeyword (String keyword);
 
-	/*@Query("SELECT a FROM AnexoModel a WHERE a.anPrincipal.procId = :id")
-	List<AnexoModel> listAnexos(@Param("id") Long id);
-	//docSEI
+	@Query("SELECT DISTINCT a FROM AnexoModel a LEFT JOIN a.processos p WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(a.numero) LIKE %:keyword%)")
+	List<AnexoModel> listByKeyword(String keyword);
 
-	@Query("SELECT a FROM AnexoModel a WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(a.anNumero) LIKE %:keyword%)")
-	List<AnexoModel> list(String keyword);*/
 
 }

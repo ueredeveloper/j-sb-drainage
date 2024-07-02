@@ -33,7 +33,7 @@ public class InterferenciaController {
 	public ResponseEntity<Object> save(@RequestBody @Valid InterferenciaDTO interDTO) {
 		InterferenciaModel interMod = new InterferenciaModel();
 		BeanUtils.copyProperties(interDTO, interMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(interferenciaService.save(interDTO, interMod));
+		return ResponseEntity.status(HttpStatus.CREATED).body(interferenciaService.save(interMod));
 
 	}
 

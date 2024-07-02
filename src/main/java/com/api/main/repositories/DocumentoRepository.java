@@ -14,15 +14,18 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 	
 	
 
-		@Query("SELECT d FROM DocumentoModel d "
-			+ "LEFT JOIN ProcessoModel p ON p.procId = d.docProcesso "
-			+ "LEFT JOIN EnderecoModel e ON e.endId = d.docEndereco "
-			+ "WHERE "
-			+ "LOWER (d.docNumero) LIKE LOWER(concat('%', :keyword, '%')) "
-			+ "OR LOWER (d.docSei) LIKE LOWER(concat('%', :keyword, '%')) "
-			+ "OR LOWER (p.procNumero) LIKE LOWER(concat('%', :keyword, '%')) "
-			+ "OR LOWER(e.endLogradouro) LIKE LOWER(concat('%', :keyword, '%'))")
-		List<DocumentoModel> list(@Param("keyword") String keyword);
+	@Query("SELECT d FROM DocumentoModel d "
+		    + "LEFT JOIN d.docProcesso p "
+		    + "LEFT JOIN d.docEndereco e "
+		    + "LEFT JOIN p.anexo a "
+		    + "WHERE "
+		    + "LOWER(d.docNumero) LIKE LOWER(CONCAT('%', :keyword, '%')) "
+		    + "OR LOWER(d.docSei) LIKE LOWER(CONCAT('%', :keyword, '%')) "
+		    + "OR LOWER(p.procNumero) LIKE LOWER(CONCAT('%', :keyword, '%')) "
+		    + "OR LOWER(e.endLogradouro) LIKE LOWER(CONCAT('%', :keyword, '%')) "
+		    + "OR LOWER(a.numero) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+		List<DocumentoModel> listByKeyword (@Param("keyword") String keyword);
+
 	
 		
 }

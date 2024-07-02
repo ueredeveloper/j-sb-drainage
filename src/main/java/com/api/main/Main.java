@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.models.EnderecoModel;
+import com.api.main.models.EstadoModel;
 import com.api.main.models.InterferenciaTipoModel;
 import com.api.main.repositories.DocumentoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
 import com.api.main.repositories.EnderecoRepository;
+import com.api.main.repositories.EstadoRepository;
 import com.api.main.repositories.InterferenciaTipoRepository;
 
 @SpringBootApplication
@@ -29,25 +31,37 @@ public class Main {
 	}
 
 	@Bean
-	public CommandLineRunner insertDocumentosTipos(DocumentoTipoRepository tdr) {
+	public CommandLineRunner insertDocumentosTipos(DocumentoTipoRepository r) {
 
 		return (args) -> {
 
-			tdr.save(new DocumentoTipoModel("Requerimento"));
-			tdr.save(new DocumentoTipoModel("Ofício"));
-			tdr.save(new DocumentoTipoModel("Despacho"));
+			r.save(new DocumentoTipoModel("Requerimento"));
+			r.save(new DocumentoTipoModel("Ofício"));
+			r.save(new DocumentoTipoModel("Despacho"));
+
+		};
+	}
+	
+	@Bean
+	public CommandLineRunner insertEstados(EstadoRepository r) {
+
+		return (args) -> {
+
+			r.save(new EstadoModel("DF"));
+			r.save(new EstadoModel("SP"));
+			r.save(new EstadoModel("BA"));
 
 		};
 	}
 
 	@Bean
-	public CommandLineRunner insertTipoInterferencia(InterferenciaTipoRepository repository) {
+	public CommandLineRunner insertTipoInterferencia(InterferenciaTipoRepository r) {
 
 		return (args) -> {
 
-			repository.save(new InterferenciaTipoModel("Superficial"));
-			repository.save(new InterferenciaTipoModel("Subterrânea"));
-			repository.save(new InterferenciaTipoModel("Lançamento"));
+			r.save(new InterferenciaTipoModel("Superficial"));
+			r.save(new InterferenciaTipoModel("Subterrânea"));
+			r.save(new InterferenciaTipoModel("Lançamento"));
 
 		};
 	}
@@ -75,24 +89,23 @@ public class Main {
 	 */
 
 	@Bean
-	public CommandLineRunner insertEndereco(EnderecoRepository repo) {
+	public CommandLineRunner insertEndereco(EnderecoRepository r) {
 		return (args) -> {
 
-			repo.save(new EnderecoModel("Rua Novaes Terceiro, Casa 12"));
-			repo.save(new EnderecoModel("Avenida Principal, Bloco A"));
-			repo.save(new EnderecoModel("Rua das Flores, Apartamento 5"));
-			repo.save(new EnderecoModel("Praça Central, Lote 30"));
-			repo.save(new EnderecoModel("Alameda dos Sonhos, Casa 8"));
+			r.save(new EnderecoModel("Rua Novaes Terceiro, Casa 12"));
+			r.save(new EnderecoModel("Avenida Principal, Bloco A"));
+			r.save(new EnderecoModel("Rua das Flores, Apartamento 5"));
+
 		};
 	}
 
 	@Bean
-	public CommandLineRunner insertDocumentos(DocumentoRepository dr) {
+	public CommandLineRunner insertDocumentos(DocumentoRepository r) {
 
 		return (args) -> {
 
-			dr.save(new DocumentoModel("12/2015", new EnderecoModel(1L)));
-			dr.save(new DocumentoModel("13/2015"));
+			r.save(new DocumentoModel("12/2015", new EnderecoModel(1L)));
+			r.save(new DocumentoModel("13/2015"));
 
 		};
 

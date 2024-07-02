@@ -1,22 +1,20 @@
 package com.api.main.dto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.api.main.models.AnexoModel;
 import com.api.main.models.DocumentoModel;
+import com.api.main.models.InterferenciaModel;
 
 public class ProcessoDTO {
 
-	
-	
 	Long procId;
-
 	String procNumero;
-
 	private AnexoModel anexo;
-
-	private List<DocumentoModel> anDocumentos = new ArrayList<>();
+	private Set<DocumentoModel> anDocumentos = new HashSet<>();
 
 	public Long getProcId() {
 		return procId;
@@ -42,14 +40,13 @@ public class ProcessoDTO {
 		this.anexo = anexo;
 	}
 
-	public List<DocumentoModel> getAnDocumentos() {
+	public Set<DocumentoModel> getAnDocumentos() {
 		return anDocumentos;
 	}
 
-	public void setAnDocumentos(List<DocumentoModel> anDocumentos) {
+	public void setAnDocumentos(Set<DocumentoModel> anDocumentos) {
 		this.anDocumentos = anDocumentos;
 	}
 
-	
 
 }

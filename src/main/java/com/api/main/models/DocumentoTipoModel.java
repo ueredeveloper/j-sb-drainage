@@ -1,8 +1,8 @@
 package com.api.main.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +29,7 @@ public class DocumentoTipoModel implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "docTipo")
-	private List<DocumentoModel> dtDocumentos = new ArrayList<DocumentoModel>();
+	private Set<DocumentoModel> dtDocumentos = new HashSet<>();
 
 	// constructors
 	public DocumentoTipoModel() {
@@ -61,11 +61,11 @@ public class DocumentoTipoModel implements Serializable {
 		return serialVersionUID;
 	}
 
-	public List<DocumentoModel> getDtDocumentos() {
+	public Set<DocumentoModel> getDtDocumentos() {
 		return dtDocumentos;
 	}
 
-	public void setDtDocumentos(List<DocumentoModel> dtDocumentos) {
+	public void setDtDocumentos(Set<DocumentoModel> dtDocumentos) {
 		this.dtDocumentos = dtDocumentos;
 	}
 

@@ -1,47 +1,45 @@
 package com.api.main.models;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "interferenciaTipo")
-public class InterferenciaTipoModel implements Serializable {
+@Table(name = "estado")
+public class EstadoModel {
 
-	
-	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
+
 	@Column(nullable = true, unique = false, length = 40)
 	String descricao;
 
+	@OneToMany(mappedBy = "endEstado", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
-	@OneToMany(mappedBy = "interferenciaTipo", fetch = FetchType.EAGER)
-	private Set<InterferenciaModel> interferencias = new HashSet<>();
+	private Set<EnderecoModel> enderecos = new HashSet<>();
 
-	public InterferenciaTipoModel() {
+	public EstadoModel() {
 		super();
 	}
 	
-	
 
-	public InterferenciaTipoModel(String descricao) {
+	public EstadoModel(String descricao) {
 		super();
 		this.descricao = descricao;
 	}
+
 
 	public Long getId() {
 		return id;
@@ -59,16 +57,15 @@ public class InterferenciaTipoModel implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Set<EnderecoModel> getEnderecos() {
+		return enderecos;
 	}
 
-	public Set<InterferenciaModel> getInterferencias() {
-		return interferencias;
+	public void setEnderecos(Set<EnderecoModel> enderecos) {
+		this.enderecos = enderecos;
 	}
-
-	public void setInterferencias(Set<InterferenciaModel> interferencias) {
-		this.interferencias = interferencias;
-	}
+	
+	
+	
 
 }

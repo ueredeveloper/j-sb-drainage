@@ -1,7 +1,7 @@
 package com.api.main.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,8 +20,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "processo")
 public class ProcessoModel {
 
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long procId;
@@ -31,12 +29,14 @@ public class ProcessoModel {
 
 	@ManyToOne
 	@JoinColumn(name = "anexo_id", referencedColumnName = "id")
+	// Ao pequisar processo não vir anexo com os processos relacionados dentro,
+	// gerando loop de json.
 	@JsonBackReference
 	private AnexoModel anexo;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "docProcesso")
-	private List<DocumentoModel> anDocumentos = new ArrayList<>();
+	private Set<DocumentoModel> anDocumentos = new HashSet<>();
 
 	public ProcessoModel() {
 		super();
@@ -66,11 +66,11 @@ public class ProcessoModel {
 		this.anexo = anexo;
 	}
 
-	public List<DocumentoModel> getAnDocumentos() {
+	public Set<DocumentoModel> getAnDocumentos() {
 		return anDocumentos;
 	}
 
-	public void setAnDocumentos(List<DocumentoModel> anDocumentos) {
+	public void setAnDocumentos(Set<DocumentoModel> anDocumentos) {
 		this.anDocumentos = anDocumentos;
 	}
 

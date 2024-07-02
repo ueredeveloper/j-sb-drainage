@@ -2,6 +2,7 @@ package com.api.main.services;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -17,13 +18,10 @@ import com.api.main.repositories.ProcessoRepository;
 @Service
 public class AnexoService {
 
-	
-	
 	@Autowired
 	private AnexoRepository anexoRepository;
 	@Autowired
 	private ProcessoRepository processoRepository;
-
 
 	@Transactional
 	public AnexoModel save(AnexoModel anexo) {
@@ -62,11 +60,29 @@ public class AnexoService {
 	public void deleteById(Long id) {
 		anexoRepository.deleteById(id);
 	}
-	
+
 	@Transactional
-	public List<AnexoModel> listByKeyword (String keyword) {
+	public List<AnexoModel> listByKeyword(String keyword) {
 		return anexoRepository.listByKeyword(keyword);
 	}
 
+	public List<AnexoModel> findAll() {
+		// TODO Auto-generated method stub
+		return anexoRepository.findAll();
+	}
 
+	@Transactional
+	public AnexoModel update(Long id, AnexoModel object) {
+		AnexoModel response = anexoRepository.findById(id).map((AnexoModel record) -> {
+			record.setNumero(object.getNumero());
+
+			return anexoRepository.save(record);
+		}).orElse(null);
+
+		if (response == null) {
+			throw new NoSuchElementException("Não foi encontrado documento com o id: " + id);
+		}
+
+		return response;
+	}
 }

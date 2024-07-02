@@ -2,6 +2,7 @@ package com.api.main.services;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.api.main.dto.InterferenciaDTO;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.InterferenciaModel;
+import com.api.main.models.SubterraneaModel;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.InterferenciaRepository;
 
@@ -29,30 +31,40 @@ public class InterferenciaService {
 	}
 
 	@Transactional
-	public InterferenciaModel save(InterferenciaDTO interDTO, InterferenciaModel interMod) {
-		InterferenciaModel interferenciaModel = interferenciaRepository.save(interMod);
-		return interferenciaModel;
-	}
+	public InterferenciaModel save(InterferenciaModel requestedObject) {
+	    // Se houver endereço preenchido
+	    if (requestedObject.getInterEndereco() != null) {
+	        EnderecoModel endereco = requestedObject.getInterEndereco();
 
-	@Transactional
-	public InterferenciaModel save(InterferenciaModel interModel) {
+	        // Verificar se há ID e buscar endereço existente
+	        if (endereco.getEndId() != null) {
+	            Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(endereco.getEndId());
+	            enderecoOptional.ifPresent(existingEndereco -> {
+	            	
+	            	System.out.println(existingEndereco.getEndId());
+	            	
+	                // Atualizar atributos como Cidade e Cep
+	                existingEndereco.setEndLogradouro(endereco.getEndLogradouro());
+	                existingEndereco.setEndBairro(endereco.getEndBairro());
+	                existingEndereco.setEndCidade(endereco.getEndCidade());
+	                existingEndereco.setEndCep(endereco.getEndCep());
 
-		if (interModel.getInterEndereco() != null) {
+	                enderecoRepository.save(existingEndereco);
+	                requestedObject.setInterEndereco(existingEndereco);
+	            });
+	        } else {
+	            // Salvar novo endereço
+	            EnderecoModel newEndereco = new EnderecoModel();
+	            newEndereco.setEndLogradouro(endereco.getEndLogradouro());
+	            newEndereco.setEndCidade(endereco.getEndCidade());
+	            newEndereco.setEndCep(endereco.getEndCep());
 
-			EnderecoModel endereco = new EnderecoModel();
-			endereco.setEndLogradouro(interModel.getInterEndereco().getEndLogradouro());
-			endereco.setEndCidade(interModel.getInterEndereco().getEndCidade());
-			endereco.setEndBairro(interModel.getInterEndereco().getEndBairro());
-			endereco.setEndCep(interModel.getInterEndereco().getEndCep());
-			endereco.setEndEstado(interModel.getInterEndereco().getEndEstado());
+	            EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
+	            requestedObject.setInterEndereco(savedEndereco);
+	        }
+	    }
 
-			endereco = enderecoRepository.save(endereco);
-
-			interModel.setInterEndereco(endereco);
-
-		}
-
-		return interferenciaRepository.save(interModel);
+	    return interferenciaRepository.save(requestedObject);
 	}
 
 	@Transactional

@@ -1,6 +1,7 @@
 package com.api.main.dto;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.api.main.models.DocumentoModel;
 
@@ -8,12 +9,11 @@ import com.api.main.models.DocumentoModel;
 
 public class DocumentoTipoDTO {
 
-	
 	private Long dtId;
 
 	private String dtDescricao;
 
-	private List<DocumentoModel> dtDocumentos;
+	private Set<DocumentoModel> dtDocumentos = new HashSet<>();
 
 	public Long getDtId() {
 		return dtId;
@@ -31,11 +31,11 @@ public class DocumentoTipoDTO {
 		this.dtDescricao = dtDescricao;
 	}
 
-	public List<DocumentoModel> getDtDocumentos() {
+	public Set<DocumentoModel> getDtDocumentos() {
 		return dtDocumentos;
 	}
 
-	public void setDtDocumentos(List<DocumentoModel> dtDocumentos) {
+	public void setDtDocumentos(Set<DocumentoModel> dtDocumentos) {
 		this.dtDocumentos = dtDocumentos;
 	}
 

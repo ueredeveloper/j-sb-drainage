@@ -1,15 +1,14 @@
 package com.api.main.dto;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.api.main.models.DocumentoModel;
+import com.api.main.models.EstadoModel;
 import com.api.main.models.InterferenciaModel;
 
 public class EnderecoDTO {
 
-	
 	private Long endId;
 
 	private String endLogradouro;
@@ -20,9 +19,8 @@ public class EnderecoDTO {
 
 	private String endBairro;
 
-	private String endEstado;
-
-	private List<DocumentoModel> endDocumentos;
+	private EstadoModel endEstado;;
+	private Set<DocumentoModel> endDocumentos = new HashSet<>();
 
 	private Set<InterferenciaModel> endInterferencias = new HashSet<>();
 
@@ -75,19 +73,11 @@ public class EnderecoDTO {
 		this.endBairro = endBairro;
 	}
 
-	public String getEndEstado() {
-		return endEstado;
-	}
-
-	public void setEndEstado(String endEstado) {
-		this.endEstado = endEstado;
-	}
-
-	public List<DocumentoModel> getEndDocumentos() {
+	public Set<DocumentoModel> getEndDocumentos() {
 		return endDocumentos;
 	}
 
-	public void setEndDocumentos(List<DocumentoModel> endDocumentos) {
+	public void setEndDocumentos(Set<DocumentoModel> endDocumentos) {
 		this.endDocumentos = endDocumentos;
 	}
 
@@ -97,6 +87,14 @@ public class EnderecoDTO {
 
 	public void setEndInterferencias(Set<InterferenciaModel> endInterferencias) {
 		this.endInterferencias = endInterferencias;
+	}
+
+	public EstadoModel getEndEstado() {
+		return endEstado;
+	}
+
+	public void setEndEstado(EstadoModel endEstado) {
+		this.endEstado = endEstado;
 	}
 
 }

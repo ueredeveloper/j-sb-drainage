@@ -29,21 +29,39 @@ public class SubterraneaService {
 	}
 
 	@Transactional
-	public SubterraneaModel save(SubterraneaDTO subDTO, SubterraneaModel subMod) {
+	public SubterraneaModel save(SubterraneaModel requestedObject) {
+	    // Se houver endereço preenchido
+	    if (requestedObject.getInterEndereco() != null) {
+	        EnderecoModel endereco = requestedObject.getInterEndereco();
 
-		if (subDTO.getInterEndereco() != null) {
+	        // Verificar se há ID e buscar endereço existente
+	        if (endereco.getEndId() != null) {
+	            Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(endereco.getEndId());
+	            enderecoOptional.ifPresent(existingEndereco -> {
+	                // Atualizar atributos como Cidade e Cep
+	                existingEndereco.setEndLogradouro(endereco.getEndLogradouro());
+	                existingEndereco.setEndBairro(endereco.getEndBairro());
+	                existingEndereco.setEndCidade(endereco.getEndCidade());
+	                existingEndereco.setEndCep(endereco.getEndCep());
 
-			EnderecoModel endereco = new EnderecoModel();
-			endereco.setEndLogradouro(subDTO.getInterEndereco().getEndLogradouro());
+	                enderecoRepository.save(existingEndereco);
+	                requestedObject.setInterEndereco(existingEndereco);
+	            });
+	        } else {
+	            // Salvar novo endereço
+	            EnderecoModel newEndereco = new EnderecoModel();
+	            newEndereco.setEndLogradouro(endereco.getEndLogradouro());
+	            newEndereco.setEndCidade(endereco.getEndCidade());
+	            newEndereco.setEndCep(endereco.getEndCep());
 
-			endereco = enderecoRepository.save(endereco);
+	            EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
+	            requestedObject.setInterEndereco(savedEndereco);
+	        }
+	    }
 
-			subMod.setInterEndereco(endereco);
-
-		}
-
-		return subterraneaRepository.save(subMod);
+	    return subterraneaRepository.save(requestedObject);
 	}
+
 
 	@Transactional
 	public SubterraneaModel update(Long id, SubterraneaModel requestedObject) {

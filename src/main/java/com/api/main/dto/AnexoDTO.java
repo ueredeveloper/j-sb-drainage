@@ -1,17 +1,15 @@
 package com.api.main.dto;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.api.main.models.ProcessoModel;
 
 public class AnexoDTO {
 
-	
-	
 	private Long id;
 	private String numero;
-	private List<ProcessoModel> processos = new ArrayList<>();
+	private Set<ProcessoModel> processos = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -29,11 +27,11 @@ public class AnexoDTO {
 		this.numero = numero;
 	}
 
-	public List<ProcessoModel> getProcessos() {
+	public Set<ProcessoModel> getProcessos() {
 		return processos;
 	}
 
-	public void setProcessos(List<ProcessoModel> processos) {
+	public void setProcessos(Set<ProcessoModel> processos) {
 		this.processos = processos;
 	}
 

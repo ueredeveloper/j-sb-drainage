@@ -1,7 +1,11 @@
 package com.api.main.controllers;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -27,10 +31,8 @@ import com.api.main.services.EnderecoService;
 @RequestMapping("/address")
 public class EnderecoController {
 
-	
 	@Autowired
 	private EnderecoService enderecoService;
-
 
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid EnderecoDTO endDTO) {
@@ -56,20 +58,44 @@ public class EnderecoController {
 	}
 
 	@DeleteMapping("/delete")
-	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
-		if (id != null) {
-			// Delete a specific object by ID
-			EnderecoModel response = enderecoService.deleteById(id);
-			if (response != null) {
-				return ResponseEntity.ok(response);
-			} else {
-				return ResponseEntity.notFound().build();
-			}
-		} else {
-			// Delete all objects
-			enderecoService.delete();
-			return ResponseEntity.ok("Todos os endereços deletados!!!");
-		}
+	public ResponseEntity<Object> delete (@RequestParam(required = false) Long id) {
+	    try {
+	        if (id != null) {
+	            // Delete a specific object by ID
+	            EnderecoModel response = enderecoService.deleteById(id);
+	            if (response != null) {
+	                return ResponseEntity.ok(response);
+	            } else {
+	                return ResponseEntity.notFound().build();
+	            }
+	        } else {
+	            // Delete all objects
+	            enderecoService.delete();
+	            return ResponseEntity.ok("Todos os endereços deletados!!!");
+	        }
+	    } catch (Exception ex) {
+	        Throwable cause = ex;
+	        while (cause != null && !(cause instanceof org.hibernate.exception.ConstraintViolationException)) {
+	            cause = cause.getCause();
+	        }
+	        if (cause instanceof org.hibernate.exception.ConstraintViolationException) {
+	            org.hibernate.exception.ConstraintViolationException constraintViolationException = (org.hibernate.exception.ConstraintViolationException) cause;
+	            // Return detailed error message
+	            Map<String, Object> errorDetails = new HashMap<>();
+	            errorDetails.put("timestamp", LocalDateTime.now());
+	            errorDetails.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+	            errorDetails.put("error", "Internal Server Error");
+	            errorDetails.put("message", constraintViolationException.getSQLException().getMessage());
+	            errorDetails.put("path", "/address/delete");
+
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
+	        } else {
+	            // Handle other exceptions
+	            ex.printStackTrace();
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred: " + ex.getMessage());
+	        }
+	    }
 	}
+
 
 }

@@ -11,18 +11,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "endereco")
 public class EnderecoModel {
-	
-	
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long endId;
@@ -32,24 +32,26 @@ public class EnderecoModel {
 
 	@Column(nullable = true, unique = false, length = 80)
 	private String endCidade;
-	
+
 	@Column(nullable = true, unique = false, length = 80)
 	private String endBairro;
 
 	@Column(nullable = true, unique = false, length = 10)
 	private String endCep;
-	
-	@Column(nullable = true, unique = false, length = 2)
-	private String endEstado;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "docEndereco")
 	private List<DocumentoModel> endDocumentos = new ArrayList<DocumentoModel>();
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "interEndereco", fetch = FetchType.EAGER)
-	//private List<InterferenciaModel> endInterferencias = new ArrayList<InterferenciaModel>();
+	// private List<InterferenciaModel> endInterferencias = new
+	// ArrayList<InterferenciaModel>();
 	private Set<InterferenciaModel> endInterferencias = new HashSet<>();
+
+	@ManyToOne
+	@JoinColumn(name = "estado_id", referencedColumnName = "id")
+	private EstadoModel endEstado;
 
 	public EnderecoModel() {
 		super();
@@ -115,14 +117,6 @@ public class EnderecoModel {
 		this.endCep = endCep;
 	}
 
-	public String getEndEstado() {
-		return endEstado;
-	}
-
-	public void setEndEstado(String endEstado) {
-		this.endEstado = endEstado;
-	}
-
 	public List<DocumentoModel> getEndDocumentos() {
 		return endDocumentos;
 	}
@@ -139,6 +133,12 @@ public class EnderecoModel {
 		this.endInterferencias = endInterferencias;
 	}
 
-	
+	public EstadoModel getEndEstado() {
+		return endEstado;
+	}
+
+	public void setEndEstado(EstadoModel endEstado) {
+		this.endEstado = endEstado;
+	}
 
 }
