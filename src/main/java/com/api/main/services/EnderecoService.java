@@ -25,32 +25,32 @@ public class EnderecoService {
 	private InterferenciaRepository interRepo;
 
 	@Transactional
-	public EnderecoModel save(EnderecoModel endereco) {
-	    Long id = endereco.getEndId();
+	public EnderecoModel save(EnderecoModel requestedEndereco) {
+	    Long id = requestedEndereco.getEndId();
 	    EnderecoModel response = null;
 
 	    if (id != null && endRepo.existsById(id)) {
 	        response = endRepo.findById(id).map((EnderecoModel record) -> {
-	            record.setEndLogradouro(endereco.getEndLogradouro());
-	            record.setEndCidade(endereco.getEndCidade());
-	            record.setEndCep(endereco.getEndCep());
-	            record.setEndBairro(endereco.getEndBairro());
-	            record.setEndEstado(endereco.getEndEstado());
+	            record.setEndLogradouro(requestedEndereco.getEndLogradouro());
+	            record.setEndCidade(requestedEndereco.getEndCidade());
+	            record.setEndCep(requestedEndereco.getEndCep());
+	            record.setEndBairro(requestedEndereco.getEndBairro());
+	            record.setEndEstado(requestedEndereco.getEndEstado());
 	            return endRepo.save(record);
 	        }).orElse(null);
 	    }
 
 	    if (response == null) {
 	        // Salva as interferências, se houver
-	        if (endereco.getEndInterferencias() != null && !endereco.getEndInterferencias().isEmpty()) {
+	        if (requestedEndereco.getEndInterferencias() != null && !requestedEndereco.getEndInterferencias().isEmpty()) {
 	            // Salva todas as interferências associadas ao endereço
-	            List<InterferenciaModel> interferencias = interRepo.saveAll(endereco.getEndInterferencias());
+	            List<InterferenciaModel> interferencias = interRepo.saveAll(requestedEndereco.getEndInterferencias());
 	            // Atualiza o conjunto de interferências no endereço
-	            endereco.setEndInterferencias(new HashSet<>(interferencias));
+	            requestedEndereco.setEndInterferencias(new HashSet<>(interferencias));
 	        }
 
 	        // Salva o endereço com as interferências atualizadas
-	        response = endRepo.save(endereco);
+	        response = endRepo.save(requestedEndereco);
 	    }
 
 	    return response;
@@ -81,13 +81,13 @@ public class EnderecoService {
 	}
 
 	@Transactional
-	public EnderecoModel update(Long id, EnderecoModel endereco) {
+	public EnderecoModel update(Long id, EnderecoModel requestedEndereco) {
 		EnderecoModel response = endRepo.findById(id).map((EnderecoModel record) -> {
-			record.setEndLogradouro(endereco.getEndLogradouro());
-			record.setEndCidade(endereco.getEndCidade());
-			record.setEndCep(endereco.getEndCep());
-			record.setEndBairro(endereco.getEndBairro());
-			record.setEndEstado(endereco.getEndEstado());
+			record.setEndLogradouro(requestedEndereco.getEndLogradouro());
+			record.setEndCidade(requestedEndereco.getEndCidade());
+			record.setEndCep(requestedEndereco.getEndCep());
+			record.setEndBairro(requestedEndereco.getEndBairro());
+			record.setEndEstado(requestedEndereco.getEndEstado());
 
 			return endRepo.save(record);
 		}).orElse(null);

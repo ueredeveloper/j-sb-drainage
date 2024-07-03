@@ -19,7 +19,8 @@ public class EnderecoDTO {
 
 	private String endBairro;
 
-	private EstadoModel endEstado;;
+	private EstadoModel endEstado;
+
 	private Set<DocumentoModel> endDocumentos = new HashSet<>();
 
 	private Set<InterferenciaModel> endInterferencias = new HashSet<>();

@@ -12,8 +12,8 @@ import com.api.main.models.SubterraneaModel;
 @Repository
 public interface SubterraneaRepository extends JpaRepository<SubterraneaModel, Long> {
 	
-
+	// O método não está pronto, verificar InterferenciaRepository
 	@Query("SELECT s FROM SubterraneaModel s")
-	List<SubterraneaModel> list(@Param("keyword") String keyword);
+	List<SubterraneaModel> listByKeword(@Param("keyword") String keyword);
 
 }

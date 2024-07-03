@@ -40,7 +40,7 @@ public class SubterraneaController {
 
 	@GetMapping("/list")
 	public ResponseEntity<List<SubterraneaModel>> list(@RequestParam(required = false) String keyword) {
-		List<SubterraneaModel> resultList = subterraneaService.list(keyword);
+		List<SubterraneaModel> resultList = subterraneaService.listByKeyword(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 

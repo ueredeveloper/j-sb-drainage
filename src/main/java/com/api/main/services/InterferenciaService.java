@@ -9,10 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.api.main.dto.InterferenciaDTO;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.InterferenciaModel;
-import com.api.main.models.SubterraneaModel;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.InterferenciaRepository;
 
@@ -26,50 +24,91 @@ public class InterferenciaService {
 	private EnderecoRepository enderecoRepository;
 
 	@Transactional
-	public List<InterferenciaModel> list(String keyword) {
-		return interferenciaRepository.list(keyword);
+	public List<InterferenciaModel> listByKeword(String keyword) {
+		return interferenciaRepository.listByKeword(keyword);
 	}
 
 	@Transactional
 	public InterferenciaModel save(InterferenciaModel requestedObject) {
-	    // Se houver endereço preenchido
-	    if (requestedObject.getInterEndereco() != null) {
-	        EnderecoModel endereco = requestedObject.getInterEndereco();
+		InterferenciaModel savedInterferencia;
 
-	        // Verificar se há ID e buscar endereço existente
-	        if (endereco.getEndId() != null) {
-	            Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(endereco.getEndId());
-	            enderecoOptional.ifPresent(existingEndereco -> {
-	            	
-	            	System.out.println(existingEndereco.getEndId());
-	            	
-	                // Atualizar atributos como Cidade e Cep
-	                existingEndereco.setEndLogradouro(endereco.getEndLogradouro());
-	                existingEndereco.setEndBairro(endereco.getEndBairro());
-	                existingEndereco.setEndCidade(endereco.getEndCidade());
-	                existingEndereco.setEndCep(endereco.getEndCep());
+		// Verificar se há interId no objeto de interferência solicitado
+		if (requestedObject.getInterId() != null) {
+			Optional<InterferenciaModel> interferenciaOptional = interferenciaRepository
+					.findById(requestedObject.getInterId());
+			if (interferenciaOptional.isPresent()) {
+				InterferenciaModel existingInterferencia = interferenciaOptional.get();
 
-	                enderecoRepository.save(existingEndereco);
-	                requestedObject.setInterEndereco(existingEndereco);
-	            });
-	        } else {
-	            // Salvar novo endereço
-	            EnderecoModel newEndereco = new EnderecoModel();
-	            newEndereco.setEndLogradouro(endereco.getEndLogradouro());
-	            newEndereco.setEndCidade(endereco.getEndCidade());
-	            newEndereco.setEndCep(endereco.getEndCep());
+				// Atualizar atributos da interferência, exceto interId
+				existingInterferencia.setInterLatitude(requestedObject.getInterLatitude());
+				existingInterferencia.setInterLongitude(requestedObject.getInterLongitude());
+				existingInterferencia.setInterGeometry(requestedObject.getInterGeometry());
+				existingInterferencia.setInterferenciaTipo(requestedObject.getInterferenciaTipo());
 
-	            EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
-	            requestedObject.setInterEndereco(savedEndereco);
-	        }
-	    }
+				// Atualizar ou criar endereço conforme necessário
+				EnderecoModel endereco = requestedObject.getInterEndereco();
+				if (endereco != null) {
+					if (endereco.getEndId() != null) {
+						Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(endereco.getEndId());
+						if (enderecoOptional.isPresent()) {
+							EnderecoModel existingEndereco = enderecoOptional.get();
 
-	    return interferenciaRepository.save(requestedObject);
+							// Atualizar atributos do endereço
+							existingEndereco.setEndLogradouro(endereco.getEndLogradouro());
+							existingEndereco.setEndBairro(endereco.getEndBairro());
+							existingEndereco.setEndCidade(endereco.getEndCidade());
+							existingEndereco.setEndCep(endereco.getEndCep());
+							existingEndereco.setEndEstado(endereco.getEndEstado());
+							enderecoRepository.save(existingEndereco);
+							existingInterferencia.setInterEndereco(existingEndereco);
+						}
+					} else {
+						// Criar novo endereço
+						EnderecoModel newEndereco = new EnderecoModel();
+						newEndereco.setEndLogradouro(endereco.getEndLogradouro());
+						newEndereco.setEndBairro(endereco.getEndBairro());
+						newEndereco.setEndCidade(endereco.getEndCidade());
+						newEndereco.setEndCep(endereco.getEndCep());
+						newEndereco.setEndEstado(endereco.getEndEstado());
+
+						EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
+						existingInterferencia.setInterEndereco(savedEndereco);
+					}
+				}
+
+				savedInterferencia = interferenciaRepository.save(existingInterferencia);
+			} else {
+				savedInterferencia = createNewInterferencia(requestedObject);
+			}
+		} else {
+			savedInterferencia = createNewInterferencia(requestedObject);
+		}
+
+		return savedInterferencia;
+	}
+
+	private InterferenciaModel createNewInterferencia(InterferenciaModel requestedObject) {
+		// Criar novo endereço se necessário
+		if (requestedObject.getInterEndereco() != null) {
+			EnderecoModel endereco = requestedObject.getInterEndereco();
+			if (endereco.getEndId() == null) {
+				EnderecoModel newEndereco = new EnderecoModel();
+				newEndereco.setEndLogradouro(endereco.getEndLogradouro());
+				newEndereco.setEndBairro(endereco.getEndBairro());
+				newEndereco.setEndCidade(endereco.getEndCidade());
+				newEndereco.setEndCep(endereco.getEndCep());
+				newEndereco.setEndEstado(endereco.getEndEstado());
+				EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
+				requestedObject.setInterEndereco(savedEndereco);
+			}
+		}
+
+		return interferenciaRepository.save(requestedObject);
 	}
 
 	@Transactional
-	public List<InterferenciaModel> searchInterferenciasByLogradouro(String keyword) {
-		return interferenciaRepository.searchInterferenciasByLogradouro(keyword);
+	public List<InterferenciaModel> listByLogradouro(String keyword) {
+		return interferenciaRepository.listByLogradouro(keyword);
 	}
 
 	@Transactional
