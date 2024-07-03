@@ -26,23 +26,40 @@ public class EnderecoService {
 
 	@Transactional
 	public EnderecoModel save(EnderecoModel endereco) {
-		// Salva as interferências, se houver
-		if (endereco.getEndInterferencias() != null && !endereco.getEndInterferencias().isEmpty()) {
-			// Salva todas as interferências associadas ao endereço
-			List<InterferenciaModel> interferencias = interRepo.saveAll(endereco.getEndInterferencias());
-			// Atualiza o conjunto de interferências no endereço
-			endereco.setEndInterferencias(new HashSet<>(interferencias));
-		}
+	    Long id = endereco.getEndId();
+	    EnderecoModel response = null;
 
-		// Salva o endereço com as interferências atualizadas
-		EnderecoModel savedEndereco = endRepo.save(endereco);
+	    if (id != null && endRepo.existsById(id)) {
+	        response = endRepo.findById(id).map((EnderecoModel record) -> {
+	            record.setEndLogradouro(endereco.getEndLogradouro());
+	            record.setEndCidade(endereco.getEndCidade());
+	            record.setEndCep(endereco.getEndCep());
+	            record.setEndBairro(endereco.getEndBairro());
+	            record.setEndEstado(endereco.getEndEstado());
+	            return endRepo.save(record);
+	        }).orElse(null);
+	    }
 
-		return savedEndereco;
+	    if (response == null) {
+	        // Salva as interferências, se houver
+	        if (endereco.getEndInterferencias() != null && !endereco.getEndInterferencias().isEmpty()) {
+	            // Salva todas as interferências associadas ao endereço
+	            List<InterferenciaModel> interferencias = interRepo.saveAll(endereco.getEndInterferencias());
+	            // Atualiza o conjunto de interferências no endereço
+	            endereco.setEndInterferencias(new HashSet<>(interferencias));
+	        }
+
+	        // Salva o endereço com as interferências atualizadas
+	        response = endRepo.save(endereco);
+	    }
+
+	    return response;
 	}
 
+
 	@Transactional
-	public List<EnderecoModel> list(String keyword) {
-		return endRepo.list(keyword);
+	public List<EnderecoModel> listByKeyword(String keyword) {
+		return endRepo.listByKeyword(keyword);
 	}
 
 	@Transactional

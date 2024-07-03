@@ -14,6 +14,6 @@ public interface EnderecoRepository extends JpaRepository<EnderecoModel, Long> {
 	
 
 	@Query("SELECT e FROM EnderecoModel e WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(e.endLogradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
-	List<EnderecoModel> list(@Param("keyword") String keyword);
+	List<EnderecoModel> listByKeyword(@Param("keyword") String keyword);
 
 }

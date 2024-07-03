@@ -45,8 +45,6 @@ public class EnderecoModel {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "interEndereco", fetch = FetchType.EAGER)
-	// private List<InterferenciaModel> endInterferencias = new
-	// ArrayList<InterferenciaModel>();
 	private Set<InterferenciaModel> endInterferencias = new HashSet<>();
 
 	@ManyToOne
