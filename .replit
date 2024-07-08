@@ -1,5 +1,6 @@
-compile = "javac -classpath .:target/dependency/* -d . $(find . -type f -name '*.java')"
-run = "mvn package && java -jar target/j-sb-drainage-1.7.0.jar"
+#compile = "javac -classpath .:target/dependency/* -d . $(find . -type f -name '*.java')"
+run = "mvn clean package && java -jar target/j-sb-drainage-1.7.0.jar"
+#run = "mvn spring-boot:run"
 
 entrypoint = "Main.java"
 hidden = ["**/*.class"]
