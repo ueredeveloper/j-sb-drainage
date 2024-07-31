@@ -141,3 +141,59 @@ INSERT INTO DemandaIndustrialProduto (produto, consumo, unidade) VALUES
  		É preciso decidir se faz a busca por coordenadas convertendo para string estas coordenadas ou criando um círculo no sql e buscar as  coordenadas contidas neste círculo, assim busca-se por proximidade com o ponto solicitado.
  		
  		
+## 31 de Julho de 2024
+* ** [] Tabelas Acessórias da Interferência	
+ 			TIPO_INTERFERENCIA
+ 				(1, N'Superficial')
+				(2, N'Subterrânea')
+				(3, N'Lançamento de Águas Pluviais')
+				(4, N'Canal')
+				(5, N'Caminhão Pipa')
+				(6, N'Lançamento de Efluentes')
+				(7, N'Barragem')
+			Tipo_Outorga
+				(1, N'Outorga')
+				(2, N'Outorga Prévia')
+				(3, N'Registro')
+			Subtipo_Outorga
+				(1, N'Renovação')
+				(2, N'Modificação')
+				(3, N'Transferência')
+				(4, N'Suspensão/Revogação')
+				(5, N'')
+			Situacao_Processo
+				(1, N'Arquivado')
+				(2, N'Em Análise')
+				(3, N'Outorgado')
+				(4, N'Vencida')
+				(5, N'Arquivado (CNRH 16)')
+				(6, N'Pendência')
+				(7, N'Indeferido')
+				(8, N'Revogado')
+			Tipo_Ato
+				 (1, N'Despacho')
+				 (2, N'Portaria')
+				 (3, N'Registro')
+				 (4, N'Resolução')
+				 (5, N'Resolução ANA')
+				 (6, N'Portaria DNAEE')
+			Bacia Hidrográfica
+			UNIDADE_HIDROGRAFICA
+		
+* ** [] Tabelas Acessórias Subterrâneo
+			SubSistema
+			Tipo Poço
+				(1, N'Manual')
+				(2, N'Tubular')
+			Forma_Captacao
+				(1, N'Bombeamento')
+				(2, N'Gravidade')
+			Local_Captacao
+				(1, N'Nascente')
+				(2, N'Rio')
+				(3, N'Reservatório')
+				(4, N'Canal')
+				(5, N'Lago Natural')
+				
+ 		
+ 		

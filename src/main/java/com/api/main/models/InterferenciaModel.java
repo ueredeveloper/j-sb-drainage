@@ -42,6 +42,11 @@ public class InterferenciaModel implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "interferenciaTipo")
 	private InterferenciaTipoModel interferenciaTipo;
+	
+	@ManyToOne
+	@JoinColumn(name = "tipoOutorga")
+	private TipoOutorgaModel tipoOutorga;
+	
 
 	public Long getInterId() {
 		return interId;

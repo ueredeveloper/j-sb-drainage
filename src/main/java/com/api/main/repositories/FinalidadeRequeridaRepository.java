@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.api.main.models.FinalidadeRequeridaModel;
-import com.api.main.models.FinalidadeRequeridaModel;
 
 @Repository
 public interface FinalidadeRequeridaRepository extends JpaRepository<FinalidadeRequeridaModel, Long> {

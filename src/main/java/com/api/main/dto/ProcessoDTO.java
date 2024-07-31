@@ -1,13 +1,10 @@
 package com.api.main.dto;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.api.main.models.AnexoModel;
 import com.api.main.models.DocumentoModel;
-import com.api.main.models.InterferenciaModel;
 
 public class ProcessoDTO {
 
