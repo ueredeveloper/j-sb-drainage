@@ -47,6 +47,26 @@ public class InterferenciaModel implements Serializable {
 	@JoinColumn(name = "tipoOutorga")
 	private TipoOutorgaModel tipoOutorga;
 	
+	@ManyToOne
+	@JoinColumn(name = "subtipoOutorga")
+	private SubtipoOutorgaModel subtipoOutorga;
+	
+	@ManyToOne
+	@JoinColumn(name = "situacao")
+	private SituacaoModel situacao;
+	
+	@ManyToOne
+	@JoinColumn(name = "tipoAto")
+	private TipoAtoModel tipoAto;
+	
+	@ManyToOne
+	@JoinColumn(name = "baciaHidrografica")
+	private BaciaHidrograficaModel baciaHidrografica;
+	
+	@ManyToOne
+	@JoinColumn(name = "unidadeHidrografica")
+	private UnidadeHidrograficaModel unidadeHidrografica;
+	
 
 	public Long getInterId() {
 		return interId;

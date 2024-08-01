@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "metodo_irrigacao")
-public class MetodoIrricacaoModel {
+public class MetodoIrrigacaoModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +17,13 @@ public class MetodoIrricacaoModel {
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
+
+	public MetodoIrrigacaoModel(String descricao) {
+		super();
+		this.descricao = descricao;
+	}
+	
+	
+	
 
 }
