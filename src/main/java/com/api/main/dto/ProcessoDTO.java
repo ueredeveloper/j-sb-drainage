@@ -8,41 +8,33 @@ import com.api.main.models.DocumentoModel;
 
 public class ProcessoDTO {
 
-	Long procId;
-	String procNumero;
+	Long id;
+	String numero;
 	private AnexoModel anexo;
-	private Set<DocumentoModel> anDocumentos = new HashSet<>();
-
-	public Long getProcId() {
-		return procId;
+	private Set<DocumentoModel> documentos = new HashSet<>();
+	public Long getId() {
+		return id;
 	}
-
-	public void setProcId(Long procId) {
-		this.procId = procId;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-	public String getProcNumero() {
-		return procNumero;
+	public String getNumero() {
+		return numero;
 	}
-
-	public void setProcNumero(String procNumero) {
-		this.procNumero = procNumero;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
-
 	public AnexoModel getAnexo() {
 		return anexo;
 	}
-
 	public void setAnexo(AnexoModel anexo) {
 		this.anexo = anexo;
 	}
-
-	public Set<DocumentoModel> getAnDocumentos() {
-		return anDocumentos;
+	public Set<DocumentoModel> getDocumentos() {
+		return documentos;
 	}
-
-	public void setAnDocumentos(Set<DocumentoModel> anDocumentos) {
-		this.anDocumentos = anDocumentos;
+	public void setDocumentos(Set<DocumentoModel> documentos) {
+		this.documentos = documentos;
 	}
 
 

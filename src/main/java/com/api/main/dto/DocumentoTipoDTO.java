@@ -5,38 +5,36 @@ import java.util.Set;
 
 import com.api.main.models.DocumentoModel;
 
-//import javax.validation.constraints.NotBlank;
-
 public class DocumentoTipoDTO {
 
-	private Long dtId;
+	private Long id;
 
-	private String dtDescricao;
+	private String descricao;
 
-	private Set<DocumentoModel> dtDocumentos = new HashSet<>();
+	private Set<DocumentoModel> documentos = new HashSet<>();
 
-	public Long getDtId() {
-		return dtId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setDtId(Long dtId) {
-		this.dtId = dtId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDtDescricao() {
-		return dtDescricao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDtDescricao(String dtDescricao) {
-		this.dtDescricao = dtDescricao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public Set<DocumentoModel> getDtDocumentos() {
-		return dtDocumentos;
+	public Set<DocumentoModel> getDocumentos() {
+		return documentos;
 	}
 
-	public void setDtDocumentos(Set<DocumentoModel> dtDocumentos) {
-		this.dtDocumentos = dtDocumentos;
+	public void setDocumentos(Set<DocumentoModel> documentos) {
+		this.documentos = documentos;
 	}
 
 }

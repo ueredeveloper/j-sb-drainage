@@ -9,93 +9,88 @@ import com.api.main.models.InterferenciaModel;
 
 public class EnderecoDTO {
 
-	private Long endId;
+	private Long id;
 
-	private String endLogradouro;
+	private String logradouro;
 
-	private String endCidade;
+	private String cidade;
 
-	private String endCep;
+	private String cep;
 
-	private String endBairro;
+	private String bairro;
 
-	private EstadoModel endEstado;
+	private EstadoModel estado;
 
-	private Set<DocumentoModel> endDocumentos = new HashSet<>();
+	private Set<DocumentoModel> documentos = new HashSet<>();
 
-	private Set<InterferenciaModel> endInterferencias = new HashSet<>();
+	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
 	public EnderecoDTO() {
 		super();
 	}
 
-	public EnderecoDTO(String endLogradouro) {
-		super();
-		this.endLogradouro = endLogradouro;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public Long getEndId() {
-		return endId;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
-	public void setEndId(Long endId) {
-		this.endId = endId;
+	public Long getId() {
+		return id;
 	}
 
-	public String getEndLogradouro() {
-		return endLogradouro;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setEndLogradouro(String endLogradouro) {
-		this.endLogradouro = endLogradouro;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public String getEndCidade() {
-		return endCidade;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
-	public void setEndCidade(String endCidade) {
-		this.endCidade = endCidade;
+	public String getCep() {
+		return cep;
 	}
 
-	public String getEndCep() {
-		return endCep;
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
-	public void setEndCep(String endCep) {
-		this.endCep = endCep;
+	public String getBairro() {
+		return bairro;
 	}
 
-	public String getEndBairro() {
-		return endBairro;
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
 	}
 
-	public void setEndBairro(String endBairro) {
-		this.endBairro = endBairro;
+	public EstadoModel getEstado() {
+		return estado;
 	}
 
-	public Set<DocumentoModel> getEndDocumentos() {
-		return endDocumentos;
+	public void setEstado(EstadoModel estado) {
+		this.estado = estado;
 	}
 
-	public void setEndDocumentos(Set<DocumentoModel> endDocumentos) {
-		this.endDocumentos = endDocumentos;
+	public Set<DocumentoModel> getDocumentos() {
+		return documentos;
 	}
 
-	public Set<InterferenciaModel> getEndInterferencias() {
-		return endInterferencias;
+	public void setDocumentos(Set<DocumentoModel> documentos) {
+		this.documentos = documentos;
 	}
 
-	public void setEndInterferencias(Set<InterferenciaModel> endInterferencias) {
-		this.endInterferencias = endInterferencias;
+	public Set<InterferenciaModel> getInterferencias() {
+		return interferencias;
 	}
 
-	public EstadoModel getEndEstado() {
-		return endEstado;
+	public void setInterferencias(Set<InterferenciaModel> interferencias) {
+		this.interferencias = interferencias;
 	}
-
-	public void setEndEstado(EstadoModel endEstado) {
-		this.endEstado = endEstado;
-	}
-
+	
 }

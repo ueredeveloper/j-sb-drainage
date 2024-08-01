@@ -1,83 +1,89 @@
 package com.api.main.dto;
 
 import com.api.main.models.EnderecoModel;
-import com.api.main.models.InterferenciaTipoModel;
+import com.api.main.models.TipoInterferenciaModel;
 import com.vividsolutions.jts.geom.Geometry;
 
 public class InterferenciaDTO {
 
-	private Long interId;
+	private Long id;
 
-	private Double interLatitude;
+	private Double latitude;
 
-	private Double interLongitude;
+	private Double longitude;
 
-	private Geometry intGeometry;
+	private Geometry geometry;
 
-	private EnderecoModel interEndereco;
+	private EnderecoModel endereco;
 
-	private InterferenciaTipoModel interferenciaTipo;
+	private TipoInterferenciaModel tipoInterferencia;
 
 	public InterferenciaDTO() {
 		super();
 	}
 
-	public InterferenciaDTO(Double interLatitude, Double interLongitude, Geometry intGeometry,
-			EnderecoModel interEndereco, InterferenciaTipoModel interferenciaTipo) {
+
+	public InterferenciaDTO(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia) {
 		super();
-		this.interLatitude = interLatitude;
-		this.interLongitude = interLongitude;
-		this.intGeometry = intGeometry;
-		this.interEndereco = interEndereco;
-		this.interferenciaTipo = interferenciaTipo;
+		this.id = id;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.geometry = geometry;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
 	}
 
-	public Long getInterId() {
-		return interId;
+
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setInterId(Long interId) {
-		this.interId = interId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Double getInterLatitude() {
-		return interLatitude;
+	public Double getLatitude() {
+		return latitude;
 	}
 
-	public void setInterLatitude(Double interLatitude) {
-		this.interLatitude = interLatitude;
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
 	}
 
-	public Double getInterLongitude() {
-		return interLongitude;
+	public Double getLongitude() {
+		return longitude;
 	}
 
-	public void setInterLongitude(Double interLongitude) {
-		this.interLongitude = interLongitude;
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
-	public Geometry getIntGeometry() {
-		return intGeometry;
+	public Geometry getGeometry() {
+		return geometry;
 	}
 
-	public void setIntGeometry(Geometry intGeometry) {
-		this.intGeometry = intGeometry;
+	public void setGeometry(Geometry geometry) {
+		this.geometry = geometry;
 	}
 
-	public EnderecoModel getInterEndereco() {
-		return interEndereco;
+	public EnderecoModel getEndereco() {
+		return endereco;
 	}
 
-	public void setInterEndereco(EnderecoModel interEndereco) {
-		this.interEndereco = interEndereco;
+	public void setEndereco(EnderecoModel endereco) {
+		this.endereco = endereco;
 	}
 
-	public InterferenciaTipoModel getInterferenciaTipo() {
-		return interferenciaTipo;
+	public TipoInterferenciaModel getTipoInterferencia() {
+		return tipoInterferencia;
 	}
 
-	public void setInterferenciaTipo(InterferenciaTipoModel interferenciaTipo) {
-		this.interferenciaTipo = interferenciaTipo;
+	public void setTipoInterferencia(TipoInterferenciaModel tipoInterferencia) {
+		this.tipoInterferencia = tipoInterferencia;
 	}
+
+	
 
 }

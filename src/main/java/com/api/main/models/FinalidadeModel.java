@@ -15,14 +15,15 @@ public class FinalidadeModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long finId;
+	private Long id;
 
-	public Long getFinId() {
-		return finId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setFinId(Long finId) {
-		this.finId = finId;
+	public void setId(Long id) {
+		this.id = id;
 	}
+
 
 }

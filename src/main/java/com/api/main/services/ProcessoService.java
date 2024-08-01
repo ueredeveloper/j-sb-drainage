@@ -43,7 +43,7 @@ public class ProcessoService {
 
 		if (optionalProcesso.isPresent()) {
 			ProcessoModel processo = optionalProcesso.get();
-			processo.setProcNumero(updateProcesso.getProcNumero());
+			processo.setNumero(updateProcesso.getNumero());
 			return processoRepository.save(processo);
 		} else {
 			throw new EntityNotFoundException("ProcessoPrincipalModel with ID " + id + " not found.");

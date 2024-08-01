@@ -13,19 +13,19 @@ import com.api.main.models.UsuarioModel;
 public class DocumentoDTO {
 
 	
-	private Long docId;
+	private Long id;
 	// @NotBlank
-	private String docNumero;
+	private String numero;
 	// @NotBlank
-	private ProcessoModel docProcesso;
+	private ProcessoModel processo;
 
 	// @NotBlank
-	private String docSei;
+	private String numeroSei;
 
 	// @JsonInclude(Include.NON_NULL)
-	private DocumentoTipoModel docTipo;
+	private DocumentoTipoModel tipo;
 
-	private EnderecoModel docEndereco;
+	private EnderecoModel endereco;
 
 	private Set<UsuarioModel> usuarios = new HashSet<>();
 
@@ -33,69 +33,52 @@ public class DocumentoDTO {
 		super();
 	}
 
-	public DocumentoDTO(String docNumero) {
-		super();
-		this.docNumero = docNumero;
+	public Long getId() {
+		return id;
 	}
 
-	public DocumentoDTO(Long docId, String docNumero, ProcessoModel docProcesso, String docSei,
-			DocumentoTipoModel docTipo, EnderecoModel docEndereco, Set<UsuarioModel> usuarios) {
-		super();
-		this.docId = docId;
-		this.docNumero = docNumero;
-		this.docProcesso = docProcesso;
-		this.docSei = docSei;
-		this.docTipo = docTipo;
-		this.docEndereco = docEndereco;
-		this.usuarios = usuarios;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Long getDocId() {
-		return docId;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setDocId(Long docId) {
-		this.docId = docId;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
-	public String getDocNumero() {
-		return docNumero;
+	public ProcessoModel getProcesso() {
+		return processo;
 	}
 
-	public void setDocNumero(String docNumero) {
-		this.docNumero = docNumero;
+	public void setProcesso(ProcessoModel processo) {
+		this.processo = processo;
 	}
 
-	public ProcessoModel getDocProcesso() {
-		return docProcesso;
+	public String getNumeroSei() {
+		return numeroSei;
 	}
 
-	public void setDocProcesso(ProcessoModel docProcesso) {
-		this.docProcesso = docProcesso;
+	public void setNumeroSei(String numeroSei) {
+		this.numeroSei = numeroSei;
 	}
 
-	public String getDocSei() {
-		return docSei;
+	public DocumentoTipoModel getTipo() {
+		return tipo;
 	}
 
-	public void setDocSei(String docSei) {
-		this.docSei = docSei;
+	public void setTipo(DocumentoTipoModel tipo) {
+		this.tipo = tipo;
 	}
 
-	public DocumentoTipoModel getDocTipo() {
-		return docTipo;
+	public EnderecoModel getEndereco() {
+		return endereco;
 	}
 
-	public void setDocTipo(DocumentoTipoModel docTipo) {
-		this.docTipo = docTipo;
-	}
-
-	public EnderecoModel getDocEndereco() {
-		return docEndereco;
-	}
-
-	public void setDocEndereco(EnderecoModel docEndereco) {
-		this.docEndereco = docEndereco;
+	public void setEndereco(EnderecoModel endereco) {
+		this.endereco = endereco;
 	}
 
 	public Set<UsuarioModel> getUsuarios() {

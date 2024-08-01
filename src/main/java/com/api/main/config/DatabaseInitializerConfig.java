@@ -9,17 +9,17 @@ import com.api.main.models.DocumentoModel;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.EstadoModel;
-import com.api.main.models.InterferenciaTipoModel;
 import com.api.main.models.SubtipoOutorgaModel;
 import com.api.main.models.TemplateModel;
+import com.api.main.models.TipoInterferenciaModel;
 import com.api.main.models.TipoOutorgaModel;
 import com.api.main.repositories.DocumentoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.EstadoRepository;
-import com.api.main.repositories.InterferenciaTipoRepository;
 import com.api.main.repositories.SubtipoOutorgaRepository;
 import com.api.main.repositories.TemplateRepository;
+import com.api.main.repositories.TipoInterferenciaRepository;
 import com.api.main.repositories.TipoOutorgaRepository;
 import com.google.gson.Gson;
 
@@ -52,13 +52,17 @@ public class DatabaseInitializerConfig {
 	}
 
 	@Bean
-	public CommandLineRunner insertTipoInterferencia(InterferenciaTipoRepository r) {
+	public CommandLineRunner insertTipoInterferencia(TipoInterferenciaRepository r) {
 
 		return (args) -> {
 
-			r.save(new InterferenciaTipoModel("Superficial"));
-			r.save(new InterferenciaTipoModel("Subterrânea"));
-			r.save(new InterferenciaTipoModel("Lançamento"));
+			r.save(new TipoInterferenciaModel("Superficial"));
+			r.save(new TipoInterferenciaModel("Subterrânea"));
+			r.save(new TipoInterferenciaModel("Lançamento de Águas Pluviais"));
+			r.save(new TipoInterferenciaModel("Canal"));
+			r.save(new TipoInterferenciaModel("Caminhão Pipa"));
+			r.save(new TipoInterferenciaModel("Lançamento de Efluentes"));
+			r.save(new TipoInterferenciaModel("Barragem"));
 
 		};
 	}
@@ -144,11 +148,8 @@ public class DatabaseInitializerConfig {
 	public CommandLineRunner insertSubtiposOutorgas(SubtipoOutorgaRepository r) {
 
 		/*
-		 * Subtipo_Outorga (1, N'Renovação') 
-		 * (2, N'Modificação') 
-		 * (3, N'Transferência')
-		 * (4, N'Suspensão/Revogação') 
-		 * (5, N'')
+		 * Subtipo_Outorga (1, N'Renovação') (2, N'Modificação') (3, N'Transferência')
+		 * (4, N'Suspensão/Revogação') (5, N'')
 		 */
 
 		return (args) -> {
@@ -159,7 +160,6 @@ public class DatabaseInitializerConfig {
 			r.save(new SubtipoOutorgaModel("Transferência"));
 			r.save(new SubtipoOutorgaModel("Suspensão/Revogação"));
 			r.save(new SubtipoOutorgaModel(""));
-			
 
 		};
 

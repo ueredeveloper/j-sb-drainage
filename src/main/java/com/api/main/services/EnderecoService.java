@@ -26,27 +26,27 @@ public class EnderecoService {
 
 	@Transactional
 	public EnderecoModel save(EnderecoModel requestedEndereco) {
-	    Long id = requestedEndereco.getEndId();
+	    Long id = requestedEndereco.getId();
 	    EnderecoModel response = null;
 
 	    if (id != null && endRepo.existsById(id)) {
 	        response = endRepo.findById(id).map((EnderecoModel record) -> {
-	            record.setEndLogradouro(requestedEndereco.getEndLogradouro());
-	            record.setEndCidade(requestedEndereco.getEndCidade());
-	            record.setEndCep(requestedEndereco.getEndCep());
-	            record.setEndBairro(requestedEndereco.getEndBairro());
-	            record.setEndEstado(requestedEndereco.getEndEstado());
+	            record.setLogradouro(requestedEndereco.getLogradouro());
+	            record.setCidade(requestedEndereco.getCidade());
+	            record.setCep(requestedEndereco.getCep());
+	            record.setBairro(requestedEndereco.getBairro());
+	            record.setEstado(requestedEndereco.getEstado());
 	            return endRepo.save(record);
 	        }).orElse(null);
 	    }
 
 	    if (response == null) {
 	        // Salva as interferências, se houver
-	        if (requestedEndereco.getEndInterferencias() != null && !requestedEndereco.getEndInterferencias().isEmpty()) {
+	        if (requestedEndereco.getInterferencias() != null && !requestedEndereco.getInterferencias().isEmpty()) {
 	            // Salva todas as interferências associadas ao endereço
-	            List<InterferenciaModel> interferencias = interRepo.saveAll(requestedEndereco.getEndInterferencias());
+	            List<InterferenciaModel> interferencias = interRepo.saveAll(requestedEndereco.getInterferencias());
 	            // Atualiza o conjunto de interferências no endereço
-	            requestedEndereco.setEndInterferencias(new HashSet<>(interferencias));
+	            requestedEndereco.setInterferencias(new HashSet<>(interferencias));
 	        }
 
 	        // Salva o endereço com as interferências atualizadas
@@ -83,11 +83,11 @@ public class EnderecoService {
 	@Transactional
 	public EnderecoModel update(Long id, EnderecoModel requestedEndereco) {
 		EnderecoModel response = endRepo.findById(id).map((EnderecoModel record) -> {
-			record.setEndLogradouro(requestedEndereco.getEndLogradouro());
-			record.setEndCidade(requestedEndereco.getEndCidade());
-			record.setEndCep(requestedEndereco.getEndCep());
-			record.setEndBairro(requestedEndereco.getEndBairro());
-			record.setEndEstado(requestedEndereco.getEndEstado());
+			record.setLogradouro(requestedEndereco.getLogradouro());
+			record.setCidade(requestedEndereco.getCidade());
+			record.setCep(requestedEndereco.getCep());
+			record.setBairro(requestedEndereco.getBairro());
+			record.setEstado(requestedEndereco.getEstado());
 
 			return endRepo.save(record);
 		}).orElse(null);

@@ -24,24 +24,24 @@ public class InterferenciaModel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long interId;
+	private Long id;
 
 	@Column(nullable = true, unique = false)
-	private Double interLatitude;
+	private Double latitude;
 
 	@Column(nullable = true, unique = false)
-	private Double interLongitude;
+	private Double longitude;
 
 	@Column(nullable = true, unique = false)
-	private Geometry interGeometry;
+	private Geometry geometry;
 
 	@ManyToOne
-	@JoinColumn(name = "interEndereco")
-	private EnderecoModel interEndereco;
+	@JoinColumn(name = "endereco")
+	private EnderecoModel endereco;
 
 	@ManyToOne
-	@JoinColumn(name = "interferenciaTipo")
-	private InterferenciaTipoModel interferenciaTipo;
+	@JoinColumn(name = "tipoInterferencia")
+	private TipoInterferenciaModel tipoInterferencia;
 	
 	@ManyToOne
 	@JoinColumn(name = "tipoOutorga")
@@ -66,59 +66,106 @@ public class InterferenciaModel implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "unidadeHidrografica")
 	private UnidadeHidrograficaModel unidadeHidrografica;
-	
 
-	public Long getInterId() {
-		return interId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setInterId(Long interId) {
-		this.interId = interId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Double getInterLatitude() {
-		return interLatitude;
+	public Double getLatitude() {
+		return latitude;
 	}
 
-	public void setInterLatitude(Double interLatitude) {
-		this.interLatitude = interLatitude;
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
 	}
 
-	public Double getInterLongitude() {
-		return interLongitude;
+	public Double getLongitude() {
+		return longitude;
 	}
 
-	public void setInterLongitude(Double interLongitude) {
-		this.interLongitude = interLongitude;
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
-	public Geometry getInterGeometry() {
-		return interGeometry;
+	public Geometry getGeometry() {
+		return geometry;
 	}
 
-	public void setInterGeometry(Geometry interGeometry) {
-		this.interGeometry = interGeometry;
+	public void setGeometry(Geometry geometry) {
+		this.geometry = geometry;
+	}
+
+	public EnderecoModel getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(EnderecoModel endereco) {
+		this.endereco = endereco;
+	}
+
+	public TipoOutorgaModel getTipoOutorga() {
+		return tipoOutorga;
+	}
+
+	public void setTipoOutorga(TipoOutorgaModel tipoOutorga) {
+		this.tipoOutorga = tipoOutorga;
+	}
+
+	public SubtipoOutorgaModel getSubtipoOutorga() {
+		return subtipoOutorga;
+	}
+
+	public void setSubtipoOutorga(SubtipoOutorgaModel subtipoOutorga) {
+		this.subtipoOutorga = subtipoOutorga;
+	}
+
+	public SituacaoModel getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(SituacaoModel situacao) {
+		this.situacao = situacao;
+	}
+
+	public TipoAtoModel getTipoAto() {
+		return tipoAto;
+	}
+
+	public void setTipoAto(TipoAtoModel tipoAto) {
+		this.tipoAto = tipoAto;
+	}
+
+	public BaciaHidrograficaModel getBaciaHidrografica() {
+		return baciaHidrografica;
+	}
+
+	public void setBaciaHidrografica(BaciaHidrograficaModel baciaHidrografica) {
+		this.baciaHidrografica = baciaHidrografica;
+	}
+
+	public UnidadeHidrograficaModel getUnidadeHidrografica() {
+		return unidadeHidrografica;
+	}
+
+	public void setUnidadeHidrografica(UnidadeHidrograficaModel unidadeHidrografica) {
+		this.unidadeHidrografica = unidadeHidrografica;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public EnderecoModel getInterEndereco() {
-		return interEndereco;
+	public TipoInterferenciaModel getTipoInterferencia() {
+		return tipoInterferencia;
 	}
 
-	public void setInterEndereco(EnderecoModel interEndereco) {
-		this.interEndereco = interEndereco;
+	public void setTipoInterferencia(TipoInterferenciaModel tipoInterferencia) {
+		this.tipoInterferencia = tipoInterferencia;
 	}
-
-	public InterferenciaTipoModel getInterferenciaTipo() {
-		return interferenciaTipo;
-	}
-
-	public void setInterferenciaTipo(InterferenciaTipoModel interferenciaTipo) {
-		this.interferenciaTipo = interferenciaTipo;
-	}
-
 	
+
 }

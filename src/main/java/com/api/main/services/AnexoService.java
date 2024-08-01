@@ -35,7 +35,7 @@ public class AnexoService {
 		// Itera sobre os processos para garantir que eles estão corretamente salvos e
 		// relacionados
 		for (ProcessoModel processo : anexo.getProcessos()) {
-			if (processo.getProcId() == null) {
+			if (processo.getId() == null) {
 				processo.setAnexo(newAnexo);
 				processo = processoRepository.save(processo);
 			}

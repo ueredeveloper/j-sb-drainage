@@ -33,46 +33,46 @@ public class InterferenciaService {
 		InterferenciaModel savedInterferencia;
 
 		// Verificar se há interId no objeto de interferência solicitado
-		if (requestedObject.getInterId() != null) {
+		if (requestedObject.getId() != null) {
 			Optional<InterferenciaModel> interferenciaOptional = interferenciaRepository
-					.findById(requestedObject.getInterId());
+					.findById(requestedObject.getId());
 			if (interferenciaOptional.isPresent()) {
 				InterferenciaModel existingInterferencia = interferenciaOptional.get();
 
 				// Atualizar atributos da interferência, exceto interId
-				existingInterferencia.setInterLatitude(requestedObject.getInterLatitude());
-				existingInterferencia.setInterLongitude(requestedObject.getInterLongitude());
-				existingInterferencia.setInterGeometry(requestedObject.getInterGeometry());
-				existingInterferencia.setInterferenciaTipo(requestedObject.getInterferenciaTipo());
+				existingInterferencia.setLatitude(requestedObject.getLatitude());
+				existingInterferencia.setLongitude(requestedObject.getLongitude());
+				existingInterferencia.setGeometry(requestedObject.getGeometry());
+				existingInterferencia.setTipoInterferencia(requestedObject.getTipoInterferencia());
 
 				// Atualizar ou criar endereço conforme necessário
-				EnderecoModel endereco = requestedObject.getInterEndereco();
+				EnderecoModel endereco = requestedObject.getEndereco();
 				if (endereco != null) {
-					if (endereco.getEndId() != null) {
-						Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(endereco.getEndId());
+					if (endereco.getId() != null) {
+						Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(endereco.getId());
 						if (enderecoOptional.isPresent()) {
 							EnderecoModel existingEndereco = enderecoOptional.get();
 
 							// Atualizar atributos do endereço
-							existingEndereco.setEndLogradouro(endereco.getEndLogradouro());
-							existingEndereco.setEndBairro(endereco.getEndBairro());
-							existingEndereco.setEndCidade(endereco.getEndCidade());
-							existingEndereco.setEndCep(endereco.getEndCep());
-							existingEndereco.setEndEstado(endereco.getEndEstado());
+							existingEndereco.setLogradouro(endereco.getLogradouro());
+							existingEndereco.setBairro(endereco.getBairro());
+							existingEndereco.setCidade(endereco.getCidade());
+							existingEndereco.setCep(endereco.getCep());
+							existingEndereco.setEstado(endereco.getEstado());
 							enderecoRepository.save(existingEndereco);
-							existingInterferencia.setInterEndereco(existingEndereco);
+							existingInterferencia.setEndereco(existingEndereco);
 						}
 					} else {
 						// Criar novo endereço
 						EnderecoModel newEndereco = new EnderecoModel();
-						newEndereco.setEndLogradouro(endereco.getEndLogradouro());
-						newEndereco.setEndBairro(endereco.getEndBairro());
-						newEndereco.setEndCidade(endereco.getEndCidade());
-						newEndereco.setEndCep(endereco.getEndCep());
-						newEndereco.setEndEstado(endereco.getEndEstado());
+						newEndereco.setLogradouro(endereco.getLogradouro());
+						newEndereco.setBairro(endereco.getBairro());
+						newEndereco.setCidade(endereco.getCidade());
+						newEndereco.setCep(endereco.getCep());
+						newEndereco.setEstado(endereco.getEstado());
 
 						EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
-						existingInterferencia.setInterEndereco(savedEndereco);
+						existingInterferencia.setEndereco(savedEndereco);
 					}
 				}
 
@@ -89,17 +89,17 @@ public class InterferenciaService {
 
 	private InterferenciaModel createNewInterferencia(InterferenciaModel requestedObject) {
 		// Criar novo endereço se necessário
-		if (requestedObject.getInterEndereco() != null) {
-			EnderecoModel endereco = requestedObject.getInterEndereco();
-			if (endereco.getEndId() == null) {
+		if (requestedObject.getEndereco() != null) {
+			EnderecoModel endereco = requestedObject.getEndereco();
+			if (endereco.getId() == null) {
 				EnderecoModel newEndereco = new EnderecoModel();
-				newEndereco.setEndLogradouro(endereco.getEndLogradouro());
-				newEndereco.setEndBairro(endereco.getEndBairro());
-				newEndereco.setEndCidade(endereco.getEndCidade());
-				newEndereco.setEndCep(endereco.getEndCep());
-				newEndereco.setEndEstado(endereco.getEndEstado());
+				newEndereco.setLogradouro(endereco.getLogradouro());
+				newEndereco.setBairro(endereco.getBairro());
+				newEndereco.setCidade(endereco.getCidade());
+				newEndereco.setCep(endereco.getCep());
+				newEndereco.setEstado(endereco.getEstado());
 				EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
-				requestedObject.setInterEndereco(savedEndereco);
+				requestedObject.setEndereco(savedEndereco);
 			}
 		}
 

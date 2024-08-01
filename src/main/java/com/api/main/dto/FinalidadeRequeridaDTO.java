@@ -2,62 +2,55 @@ package com.api.main.dto;
 
 public class FinalidadeRequeridaDTO {
 	
-	private Long finId;
-	private String finFinalidade;
-	private String finSubfinalidade;
-	private Double finQuantidade;
-	private Double finConsumo;
+	private Long id;
+	private String finalidade;
+	private String subfinalidade;
+	private Double quantidade;
+	private Double consumo;
 
 	public FinalidadeRequeridaDTO() {
 		super();
 
 	}
 
-	public FinalidadeRequeridaDTO(Long finId, String finFinalidade, String finSubfinalidade) {
-		super();
-		this.finId = finId;
-		this.finFinalidade = finFinalidade;
-		this.finSubfinalidade = finSubfinalidade;
+	public Long getId() {
+		return id;
 	}
 
-	public Long getFinId() {
-		return finId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setFinId(Long finId) {
-		this.finId = finId;
+	public String getFinalidade() {
+		return finalidade;
 	}
 
-	public String getFinFinalidade() {
-		return finFinalidade;
+	public void setFinalidade(String finalidade) {
+		this.finalidade = finalidade;
 	}
 
-	public void setFinFinalidade(String finFinalidade) {
-		this.finFinalidade = finFinalidade;
+	public String getSubfinalidade() {
+		return subfinalidade;
 	}
 
-	public String getFinSubfinalidade() {
-		return finSubfinalidade;
+	public void setSubfinalidade(String subfinalidade) {
+		this.subfinalidade = subfinalidade;
 	}
 
-	public void setFinSubfinalidade(String finSubfinalidade) {
-		this.finSubfinalidade = finSubfinalidade;
+	public Double getQuantidade() {
+		return quantidade;
 	}
 
-	public Double getFinQuantidade() {
-		return finQuantidade;
+	public void setQuantidade(Double quantidade) {
+		this.quantidade = quantidade;
 	}
 
-	public void setFinQuantidade(Double finQuantidade) {
-		this.finQuantidade = finQuantidade;
+	public Double getConsumo() {
+		return consumo;
 	}
 
-	public Double getFinConsumo() {
-		return finConsumo;
-	}
-
-	public void setFinConsumo(Double finConsumo) {
-		this.finConsumo = finConsumo;
+	public void setConsumo(Double consumo) {
+		this.consumo = consumo;
 	}
 
 }

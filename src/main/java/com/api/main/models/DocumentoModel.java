@@ -23,29 +23,31 @@ public class DocumentoModel implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long docId;
+	private Long id;
 
 	@Column(nullable = true, unique = false, length = 40)
-	private String docNumero;
+	private String numero;
+	
+
+	@Column(nullable = true, unique = false, length = 40)
+	private String numeroSei;
 
 	@ManyToOne
-	@JoinColumn(name = "docProcesso")
-	private ProcessoModel docProcesso;
+	@JoinColumn(name = "processo")
+	private ProcessoModel processo;
 
-	@Column(nullable = true, unique = false, length = 40)
-	private String docSei;
 
 	// está retirando o tipo de documento relacionado, trazendo só o id. Ex:
 	// documento: {doc_tipo:{dt_id: 1}} => documento: {doc_tipo: 1}
 	// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
 	// property = "dt_id", scope = DocumentoTipoModel.class)
 	@ManyToOne
-	@JoinColumn(name = "docTipo")
-	private DocumentoTipoModel docTipo;
+	@JoinColumn(name = "tipo")
+	private DocumentoTipoModel tipo;
 
 	@ManyToOne
-	@JoinColumn(name = "docEndereco")
-	private EnderecoModel docEndereco;
+	@JoinColumn(name = "endereco")
+	private EnderecoModel endereco;
 
 	@ManyToMany(mappedBy = "documentos")
 	private Set<UsuarioModel> usuarios = new HashSet<>();
@@ -54,84 +56,63 @@ public class DocumentoModel implements Serializable {
 		super();
 	}
 
-	public DocumentoModel(String docNumero) {
+	public DocumentoModel(String numero) {
 		super();
-		this.docNumero = docNumero;
+		this.numero = numero;
 	}
 
-	public DocumentoModel(String docNumero, String docSei) {
+	public DocumentoModel(String numero, EnderecoModel endereco) {
 		super();
-		this.docNumero = docNumero;
-		this.docSei = docSei;
+		this.numero = numero;
+		this.endereco = endereco;
 	}
 
-	public DocumentoModel(Long docId, String docNumero, ProcessoModel docProcesso, String docSei,
-			DocumentoTipoModel docTipo, EnderecoModel docEndereco) {
-		super();
-		this.docId = docId;
-		this.docNumero = docNumero;
-		this.docProcesso = docProcesso;
-		this.docSei = docSei;
-		this.docTipo = docTipo;
-		this.docEndereco = docEndereco;
+	public Long getId() {
+		return id;
 	}
 
-	public DocumentoModel(String docNumero, EnderecoModel docEndereco) {
-		super();
-		this.docNumero = docNumero;
-		this.docEndereco = docEndereco;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Long getDocId() {
-		return docId;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setDocId(Long docId) {
-		this.docId = docId;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
-	public String getDocNumero() {
-		return docNumero;
+	public String getNumeroSei() {
+		return numeroSei;
 	}
 
-	public void setDocNumero(String docNumero) {
-		this.docNumero = docNumero;
+	public void setNumeroSei(String numeroSei) {
+		this.numeroSei = numeroSei;
 	}
 
-	public DocumentoTipoModel getDocTipo() {
-		return docTipo;
+	public ProcessoModel getProcesso() {
+		return processo;
 	}
 
-	public void setDocTipo(DocumentoTipoModel docTipo) {
-		this.docTipo = docTipo;
+	public void setProcesso(ProcessoModel processo) {
+		this.processo = processo;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public DocumentoTipoModel getTipo() {
+		return tipo;
 	}
 
-	public ProcessoModel getDocProcesso() {
-		return docProcesso;
+	public void setTipo(DocumentoTipoModel tipo) {
+		this.tipo = tipo;
 	}
 
-	public void setDocProcesso(ProcessoModel docProcesso) {
-		this.docProcesso = docProcesso;
+	public EnderecoModel getEndereco() {
+		return endereco;
 	}
 
-	public EnderecoModel getDocEndereco() {
-		return docEndereco;
-	}
-
-	public void setDocEndereco(EnderecoModel docEndereco) {
-		this.docEndereco = docEndereco;
-	}
-
-	public String getDocSei() {
-		return docSei;
-	}
-
-	public void setDocSei(String docSei) {
-		this.docSei = docSei;
+	public void setEndereco(EnderecoModel endereco) {
+		this.endereco = endereco;
 	}
 
 	public Set<UsuarioModel> getUsuarios() {
@@ -141,5 +122,13 @@ public class DocumentoModel implements Serializable {
 	public void setUsuarios(Set<UsuarioModel> usuarios) {
 		this.usuarios = usuarios;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
+
+	
 
 }

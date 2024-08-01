@@ -24,118 +24,110 @@ public class EnderecoModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long endId;
+	private Long id;
 
 	@Column(nullable = true, unique = false, length = 500)
-	private String endLogradouro;
+	private String logradouro;
 
 	@Column(nullable = true, unique = false, length = 80)
-	private String endCidade;
+	private String cidade;
 
 	@Column(nullable = true, unique = false, length = 80)
-	private String endBairro;
+	private String bairro;
 
 	@Column(nullable = true, unique = false, length = 10)
-	private String endCep;
+	private String cep;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "docEndereco")
-	private List<DocumentoModel> endDocumentos = new ArrayList<DocumentoModel>();
+	@OneToMany(mappedBy = "endereco")
+	private List<DocumentoModel> documentos = new ArrayList<DocumentoModel>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "interEndereco", fetch = FetchType.EAGER)
-	private Set<InterferenciaModel> endInterferencias = new HashSet<>();
+	@OneToMany(mappedBy = "endereco", fetch = FetchType.EAGER)
+	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
 	@ManyToOne
-	@JoinColumn(name = "estado_id", referencedColumnName = "id")
-	private EstadoModel endEstado;
+	@JoinColumn(name = "estado", referencedColumnName = "id")
+	private EstadoModel estado;
 
 	public EnderecoModel() {
 		super();
 	}
-
-	public EnderecoModel(String endLogradouro) {
+	
+	public EnderecoModel(String logradouro) {
 		super();
-		this.endLogradouro = endLogradouro;
+		this.logradouro = logradouro;
 	}
-
-	public EnderecoModel(Long endId) {
+	
+	public EnderecoModel(Long id) {
 		super();
-		this.endId = endId;
+		this.id = id;
 	}
 
-	public EnderecoModel(Long endId, String endLogradouro, String endCidade, String endCep,
-			List<DocumentoModel> endDocumentos) {
-		super();
-		this.endId = endId;
-		this.endLogradouro = endLogradouro;
-		this.endCidade = endCidade;
-		this.endCep = endCep;
-		this.endDocumentos = endDocumentos;
+	public Long getId() {
+		return id;
 	}
 
-	public Long getEndId() {
-		return endId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setEndId(Long endId) {
-		this.endId = endId;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public String getEndLogradouro() {
-		return endLogradouro;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
-	public void setEndLogradouro(String endLogradouro) {
-		this.endLogradouro = endLogradouro;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public String getEndCidade() {
-		return endCidade;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
-	public void setEndCidade(String endCidade) {
-		this.endCidade = endCidade;
+	public String getBairro() {
+		return bairro;
 	}
 
-	public String getEndBairro() {
-		return endBairro;
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
 	}
 
-	public void setEndBairro(String endBairro) {
-		this.endBairro = endBairro;
+	public String getCep() {
+		return cep;
 	}
 
-	public String getEndCep() {
-		return endCep;
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
-	public void setEndCep(String endCep) {
-		this.endCep = endCep;
+	public List<DocumentoModel> getDocumentos() {
+		return documentos;
 	}
 
-	public List<DocumentoModel> getEndDocumentos() {
-		return endDocumentos;
+	public void setDocumentos(List<DocumentoModel> documentos) {
+		this.documentos = documentos;
 	}
 
-	public void setEndDocumentos(List<DocumentoModel> endDocumentos) {
-		this.endDocumentos = endDocumentos;
+	public Set<InterferenciaModel> getInterferencias() {
+		return interferencias;
 	}
 
-	public Set<InterferenciaModel> getEndInterferencias() {
-		return endInterferencias;
+	public void setInterferencias(Set<InterferenciaModel> interferencias) {
+		this.interferencias = interferencias;
 	}
 
-	public void setEndInterferencias(Set<InterferenciaModel> endInterferencias) {
-		this.endInterferencias = endInterferencias;
+	public EstadoModel getEstado() {
+		return estado;
 	}
 
-	public EstadoModel getEndEstado() {
-		return endEstado;
+	public void setEstado(EstadoModel estado) {
+		this.estado = estado;
 	}
 
-	public void setEndEstado(EstadoModel endEstado) {
-		this.endEstado = endEstado;
-	}
 
+	
 }

@@ -8,36 +8,36 @@ import com.api.main.models.DocumentoModel;
 public class UsuarioDTO {
 
 	
-	private Long usId;
+	private Long id;
 
-	private String usNome;
+	private String nome;
 
-	private Integer usCpfCnpj;
+	private Integer cpfCnpj;
 
 	private Set<DocumentoModel> documentos = new HashSet<>();
 
-	public Long getUsId() {
-		return usId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setUsId(Long usId) {
-		this.usId = usId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getUsNome() {
-		return usNome;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setUsNome(String usNome) {
-		this.usNome = usNome;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public Integer getUsCpfCnpj() {
-		return usCpfCnpj;
+	public Integer getCpfCnpj() {
+		return cpfCnpj;
 	}
 
-	public void setUsCpfCnpj(Integer usCpfCnpj) {
-		this.usCpfCnpj = usCpfCnpj;
+	public void setCpfCnpj(Integer cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
 	}
 
 	public Set<DocumentoModel> getDocumentos() {

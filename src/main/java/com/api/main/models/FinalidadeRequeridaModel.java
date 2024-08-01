@@ -10,58 +10,57 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "finalidade_requerida")
 public class FinalidadeRequeridaModel extends FinalidadeModel {
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long finId;
+	private Long id;
 	@Column(nullable = true, unique = false, length = 80)
-	private String finFinalidade;
+	private String finalidade;
 	@Column(nullable = true, unique = false, length = 80)
-	private String finSubfinalidade;
+	private String subfinalidade;
 	@Column(nullable = true, unique = false)
-	private Double finQuantidade;
+	private Double quantidade;
 	@Column(nullable = true, unique = false)
-	private Double finConsumo;
+	private Double consumo;
 
-	public Long getFinId() {
-		return finId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setFinId(Long finId) {
-		this.finId = finId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getFinFinalidade() {
-		return finFinalidade;
+	public String getFinalidade() {
+		return finalidade;
 	}
 
-	public void setFinFinalidade(String finFinalidade) {
-		this.finFinalidade = finFinalidade;
+	public void setFinalidade(String finalidade) {
+		this.finalidade = finalidade;
 	}
 
-	public String getFinSubfinalidade() {
-		return finSubfinalidade;
+	public String getSubfinalidade() {
+		return subfinalidade;
 	}
 
-	public void setFinSubfinalidade(String finSubfinalidade) {
-		this.finSubfinalidade = finSubfinalidade;
+	public void setSubfinalidade(String subfinalidade) {
+		this.subfinalidade = subfinalidade;
 	}
 
-	public Double getFinQuantidade() {
-		return finQuantidade;
+	public Double getQuantidade() {
+		return quantidade;
 	}
 
-	public void setFinQuantidade(Double finQuantidade) {
-		this.finQuantidade = finQuantidade;
+	public void setQuantidade(Double quantidade) {
+		this.quantidade = quantidade;
 	}
 
-	public Double getFinConsumo() {
-		return finConsumo;
+	public Double getConsumo() {
+		return consumo;
 	}
 
-	public void setFinConsumo(Double finConsumo) {
-		this.finConsumo = finConsumo;
+	public void setConsumo(Double consumo) {
+		this.consumo = consumo;
 	}
 
 }

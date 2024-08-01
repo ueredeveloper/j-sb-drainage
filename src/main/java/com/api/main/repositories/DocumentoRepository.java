@@ -15,14 +15,14 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 	
 
 	@Query("SELECT d FROM DocumentoModel d "
-		    + "LEFT JOIN d.docProcesso p "
-		    + "LEFT JOIN d.docEndereco e "
+		    + "LEFT JOIN d.processo p "
+		    + "LEFT JOIN d.endereco e "
 		    + "LEFT JOIN p.anexo a "
 		    + "WHERE "
-		    + "LOWER(d.docNumero) LIKE LOWER(CONCAT('%', :keyword, '%')) "
-		    + "OR LOWER(d.docSei) LIKE LOWER(CONCAT('%', :keyword, '%')) "
-		    + "OR LOWER(p.procNumero) LIKE LOWER(CONCAT('%', :keyword, '%')) "
-		    + "OR LOWER(e.endLogradouro) LIKE LOWER(CONCAT('%', :keyword, '%')) "
+		    + "LOWER(d.numero) LIKE LOWER(CONCAT('%', :keyword, '%')) "
+		    + "OR LOWER(d.numeroSei) LIKE LOWER(CONCAT('%', :keyword, '%')) "
+		    + "OR LOWER(p.numero) LIKE LOWER(CONCAT('%', :keyword, '%')) "
+		    + "OR LOWER(e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')) "
 		    + "OR LOWER(a.numero) LIKE LOWER(CONCAT('%', :keyword, '%'))")
 		List<DocumentoModel> listByKeyword (@Param("keyword") String keyword);
 

@@ -32,51 +32,50 @@ public class SubterraneaService {
 		SubterraneaModel savedSubterranea;
 
 		// Verificar se há interId no objeto solicitado
-		if (requestedObject.getInterId() != null) {
-			Optional<SubterraneaModel> subterraneaOptional = subterraneaRepository
-					.findById(requestedObject.getInterId());
+		if (requestedObject.getId() != null) {
+			Optional<SubterraneaModel> subterraneaOptional = subterraneaRepository.findById(requestedObject.getId());
 			if (subterraneaOptional.isPresent()) {
 				SubterraneaModel existingSubterranea = subterraneaOptional.get();
 
 				// Atualizar atributos da interferência, exceto interId
-				existingSubterranea.setInterLatitude(requestedObject.getInterLatitude());
-				existingSubterranea.setInterLongitude(requestedObject.getInterLongitude());
-				existingSubterranea.setInterGeometry(requestedObject.getInterGeometry());
-				existingSubterranea.setInterferenciaTipo(requestedObject.getInterferenciaTipo());
+				existingSubterranea.setLatitude(requestedObject.getLatitude());
+				existingSubterranea.setLongitude(requestedObject.getLongitude());
+				existingSubterranea.setGeometry(requestedObject.getGeometry());
+				existingSubterranea.setTipoInterferencia(requestedObject.getTipoInterferencia());
 				existingSubterranea.setSubCaesb(requestedObject.getSubCaesb());
 				existingSubterranea.setSubNivelEstatico(requestedObject.getSubNivelEstatico());
 				existingSubterranea.setSubDinamico(requestedObject.getSubDinamico());
 
 				// Atualizar ou criar endereço conforme necessário
-				EnderecoModel endereco = requestedObject.getInterEndereco();
+				EnderecoModel endereco = requestedObject.getEndereco();
 				if (endereco != null) {
-					if (endereco.getEndId() != null) {
-						Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(endereco.getEndId());
+					if (endereco.getId() != null) {
+						Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(endereco.getId());
 						if (enderecoOptional.isPresent()) {
 							EnderecoModel existingEndereco = enderecoOptional.get();
 
 							// Atualizar atributos do endereço
-							existingEndereco.setEndLogradouro(endereco.getEndLogradouro());
-							existingEndereco.setEndBairro(endereco.getEndBairro());
-							existingEndereco.setEndCidade(endereco.getEndCidade());
-							existingEndereco.setEndCep(endereco.getEndCep());
-							existingEndereco.setEndEstado(endereco.getEndEstado());
+							existingEndereco.setLogradouro(endereco.getLogradouro());
+							existingEndereco.setBairro(endereco.getBairro());
+							existingEndereco.setCidade(endereco.getCidade());
+							existingEndereco.setCep(endereco.getCep());
+							existingEndereco.setEstado(endereco.getEstado());
 
 							enderecoRepository.save(existingEndereco);
-							existingSubterranea.setInterEndereco(existingEndereco);
+							existingSubterranea.setEndereco(existingEndereco);
 						}
 					} else {
 						// Criar novo endereço
 						EnderecoModel newEndereco = new EnderecoModel();
 
-						newEndereco.setEndLogradouro(endereco.getEndLogradouro());
-						newEndereco.setEndBairro(endereco.getEndBairro());
-						newEndereco.setEndCidade(endereco.getEndCidade());
-						newEndereco.setEndCep(endereco.getEndCep());
-						newEndereco.setEndEstado(endereco.getEndEstado());
+						newEndereco.setLogradouro(endereco.getLogradouro());
+						newEndereco.setBairro(endereco.getBairro());
+						newEndereco.setCidade(endereco.getCidade());
+						newEndereco.setCep(endereco.getCep());
+						newEndereco.setEstado(endereco.getEstado());
 
 						EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
-						existingSubterranea.setInterEndereco(savedEndereco);
+						existingSubterranea.setEndereco(savedEndereco);
 					}
 				}
 
@@ -93,18 +92,18 @@ public class SubterraneaService {
 
 	private SubterraneaModel createNewSubterranea(SubterraneaModel requestedObject) {
 		// Criar novo endereço se necessário
-		if (requestedObject.getInterEndereco() != null) {
-			EnderecoModel endereco = requestedObject.getInterEndereco();
-			if (endereco.getEndId() == null) {
+		if (requestedObject.getEndereco() != null) {
+			EnderecoModel endereco = requestedObject.getEndereco();
+			if (endereco.getId() == null) {
 				EnderecoModel newEndereco = new EnderecoModel();
-				newEndereco.setEndLogradouro(endereco.getEndLogradouro());
-				newEndereco.setEndBairro(endereco.getEndBairro());
-				newEndereco.setEndCidade(endereco.getEndCidade());
-				newEndereco.setEndCep(endereco.getEndCep());
-				newEndereco.setEndEstado(endereco.getEndEstado());
+				newEndereco.setLogradouro(endereco.getLogradouro());
+				newEndereco.setBairro(endereco.getBairro());
+				newEndereco.setCidade(endereco.getCidade());
+				newEndereco.setCep(endereco.getCep());
+				newEndereco.setEstado(endereco.getEstado());
 
 				EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
-				requestedObject.setInterEndereco(savedEndereco);
+				requestedObject.setEndereco(savedEndereco);
 			}
 		}
 
@@ -115,28 +114,28 @@ public class SubterraneaService {
 	public SubterraneaModel update(Long id, SubterraneaModel requestedObject) {
 		SubterraneaModel response = subterraneaRepository.findById(id).map((SubterraneaModel record) -> {
 
-			record.setInterLatitude(requestedObject.getInterLatitude());
-			record.setInterLongitude(requestedObject.getInterLongitude());
-			record.setInterferenciaTipo(requestedObject.getInterferenciaTipo());
+			record.setLatitude(requestedObject.getLatitude());
+			record.setLongitude(requestedObject.getLongitude());
+			record.setTipoInterferencia(requestedObject.getTipoInterferencia());
 
 			// Se houver endereço preenchido
-			if (requestedObject.getInterEndereco() != null) {
+			if (requestedObject.getEndereco() != null) {
 
 				// Se houver id, editar.
-				if (requestedObject.getInterEndereco().getEndId() != null) {
+				if (requestedObject.getEndereco().getId() != null) {
 					Optional<EnderecoModel> enderecoOptional = enderecoRepository
-							.findById(requestedObject.getInterEndereco().getEndId());
+							.findById(requestedObject.getEndereco().getId());
 					enderecoOptional.ifPresent(endereco -> {
 						// Editar attributos como Cidade e Cep.
 						EnderecoModel existingEndereco = endereco;
-						existingEndereco.setEndLogradouro(requestedObject.getInterEndereco().getEndLogradouro());
-						existingEndereco.setEndBairro(requestedObject.getInterEndereco().getEndBairro());
-						existingEndereco.setEndCidade(requestedObject.getInterEndereco().getEndCidade());
-						existingEndereco.setEndCep(requestedObject.getInterEndereco().getEndCep());
+						existingEndereco.setLogradouro(requestedObject.getEndereco().getLogradouro());
+						existingEndereco.setBairro(requestedObject.getEndereco().getBairro());
+						existingEndereco.setCidade(requestedObject.getEndereco().getCidade());
+						existingEndereco.setCep(requestedObject.getEndereco().getCep());
 
 						EnderecoModel updatedEndereco = enderecoRepository.save(existingEndereco);
 
-						record.setInterEndereco(updatedEndereco);
+						record.setEndereco(updatedEndereco);
 					});
 
 					// Se não houver id, salvar.
@@ -144,13 +143,13 @@ public class SubterraneaService {
 
 					EnderecoModel newEndereco = new EnderecoModel();
 
-					newEndereco.setEndLogradouro(requestedObject.getInterEndereco().getEndLogradouro());
-					newEndereco.setEndCidade(requestedObject.getInterEndereco().getEndCidade());
-					newEndereco.setEndCep(requestedObject.getInterEndereco().getEndCep());
+					newEndereco.setLogradouro(requestedObject.getEndereco().getLogradouro());
+					newEndereco.setCidade(requestedObject.getEndereco().getCidade());
+					newEndereco.setCep(requestedObject.getEndereco().getCep());
 
 					enderecoRepository.save(newEndereco);
 
-					record.setInterEndereco(newEndereco);
+					record.setEndereco(newEndereco);
 				}
 
 			}

@@ -25,7 +25,7 @@ public class EstadoModel {
 	@Column(nullable = true, unique = false, length = 40)
 	String descricao;
 
-	@OneToMany(mappedBy = "endEstado", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "estado", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<EnderecoModel> enderecos = new HashSet<>();
 

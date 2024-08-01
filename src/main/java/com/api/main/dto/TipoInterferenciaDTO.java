@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.api.main.models.InterferenciaModel;
 
-public class InterferenciaTipoDTO {
+public class TipoInterferenciaDTO {
 
 	Long id;
 
@@ -13,7 +13,7 @@ public class InterferenciaTipoDTO {
 
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
-	public InterferenciaTipoDTO() {
+	public TipoInterferenciaDTO() {
 		super();
 	}
 

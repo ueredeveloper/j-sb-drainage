@@ -3,41 +3,46 @@ package com.api.main.dto;
 public class DemandaDTO {
 
 	
-	private Double demId;
-	private Double demVazao; // litros/dia
-	private int demTempo; // horas/dia
-	private int demPeriodo; // dias/mês
-
-	public Double getDemId() {
-		return demId;
+	private Double id;
+	private Double vazao; // litros/dia
+	private int tempo; // horas/dia
+	private int periodo; // dias/mês
+	
+	public DemandaDTO() {
+		super();
 	}
 
-	public void setDemId(Double demId) {
-		this.demId = demId;
+	public Double getId() {
+		return id;
 	}
 
-	public Double getDemVazao() {
-		return demVazao;
+	public void setId(Double id) {
+		this.id = id;
 	}
 
-	public void setDemVazao(Double demVazao) {
-		this.demVazao = demVazao;
+	public Double getVazao() {
+		return vazao;
 	}
 
-	public int getDemTempo() {
-		return demTempo;
+	public void setVazao(Double vazao) {
+		this.vazao = vazao;
 	}
 
-	public void setDemTempo(int demTempo) {
-		this.demTempo = demTempo;
+	public int getTempo() {
+		return tempo;
 	}
 
-	public int getDemPeriodo() {
-		return demPeriodo;
+	public void setTempo(int tempo) {
+		this.tempo = tempo;
 	}
 
-	public void setDemPeriodo(int demPeriodo) {
-		this.demPeriodo = demPeriodo;
+	public int getPeriodo() {
+		return periodo;
 	}
 
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
+	}
+	
+	
 }
