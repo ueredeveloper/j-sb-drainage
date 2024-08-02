@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Table(name = "local_captacao")
 public class LocalCaptacaoModel {
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -8,4 +8,5 @@ import com.api.main.models.EstadoModel;
 @Repository
 public interface EstadoRepository extends JpaRepository<EstadoModel, Long> {
 	
+	
 }

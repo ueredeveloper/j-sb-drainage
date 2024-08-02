@@ -7,6 +7,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "subterranea")
 public class SubterraneaModel extends InterferenciaModel {
+	
 
 	private static final long serialVersionUID = 1L;
 

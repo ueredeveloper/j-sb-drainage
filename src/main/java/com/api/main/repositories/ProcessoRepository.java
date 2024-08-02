@@ -13,6 +13,7 @@ import com.api.main.models.ProcessoModel;
 public interface ProcessoRepository extends JpaRepository<ProcessoModel, Long> {
 	
 	
+	
 	@Query("SELECT p FROM ProcessoModel p WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(p.numero) LIKE %:keyword%)")
 	List<ProcessoModel> list(String keyword);
 

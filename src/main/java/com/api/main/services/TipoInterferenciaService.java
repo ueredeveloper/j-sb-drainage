@@ -12,6 +12,7 @@ import com.api.main.repositories.TipoInterferenciaRepository;
 
 @Service
 public class TipoInterferenciaService {
+	
 
 	@Autowired
 	TipoInterferenciaRepository tipoInterferenciaRepository;

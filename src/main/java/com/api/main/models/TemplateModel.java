@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "template")
 public class TemplateModel {
+	
 
 	
 	@Id
