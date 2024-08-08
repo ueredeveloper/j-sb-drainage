@@ -21,7 +21,6 @@ public class DocumentoModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -61,11 +60,53 @@ public class DocumentoModel implements Serializable {
 		super();
 		this.numero = numero;
 	}
+	
+
+	public DocumentoModel(String numero, String numeroSei, EnderecoModel endereco) {
+		super();
+		this.numero = numero;
+		this.numeroSei = numeroSei;
+		this.endereco = endereco;
+	}
+
+	public DocumentoModel(String numero, String numeroSei, DocumentoTipoModel tipo) {
+		super();
+		this.numero = numero;
+		this.numeroSei = numeroSei;
+		this.tipo = tipo;
+	}
+	
+	
+	public DocumentoModel(String numero, String numeroSei, ProcessoModel processo) {
+		super();
+		this.numero = numero;
+		this.numeroSei = numeroSei;
+		this.processo = processo;
+	}
 
 	public DocumentoModel(String numero, EnderecoModel endereco) {
 		super();
 		this.numero = numero;
 		this.endereco = endereco;
+	}
+	
+	public DocumentoModel(String numero, String numeroSei, ProcessoModel processo, DocumentoTipoModel tipo) {
+		super();
+		this.numero = numero;
+		this.numeroSei = numeroSei;
+		this.processo = processo;
+		this.tipo = tipo;
+	}
+
+	public DocumentoModel(String numero, String numeroSei, ProcessoModel processo, DocumentoTipoModel tipo,
+			EnderecoModel endereco, Set<UsuarioModel> usuarios) {
+		super();
+		this.numero = numero;
+		this.numeroSei = numeroSei;
+		this.processo = processo;
+		this.tipo = tipo;
+		this.endereco = endereco;
+		this.usuarios = usuarios;
 	}
 
 	public Long getId() {

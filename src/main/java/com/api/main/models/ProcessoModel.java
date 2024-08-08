@@ -50,6 +50,18 @@ public class ProcessoModel {
 		this.anexo = anexo;
 		this.documentos = documentos;
 	}
+	
+	
+	public ProcessoModel(String numero) {
+		super();
+		this.numero = numero;
+	}
+
+	public ProcessoModel(String numero, AnexoModel anexo) {
+		super();
+		this.numero = numero;
+		this.anexo = anexo;
+	}
 
 	public Long getId() {
 		return id;

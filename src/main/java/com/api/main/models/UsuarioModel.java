@@ -37,6 +37,14 @@ public class UsuarioModel implements Serializable {
 	@JoinTable(name = "usuario_documento", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "documento_id"))
 	@JsonIgnore
 	private Set<DocumentoModel> documentos = new HashSet<>();
+	
+	
+	
+
+	public UsuarioModel(String nome) {
+		super();
+		this.nome = nome;
+	}
 
 	public Long getId() {
 		return id;

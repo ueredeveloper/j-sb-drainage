@@ -21,7 +21,22 @@ public class InterferenciaDTO {
 	public InterferenciaDTO() {
 		super();
 	}
-
+	
+	public InterferenciaDTO(Double latitude, Double longitude, EnderecoModel endereco) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.endereco = endereco;
+	}
+	
+	public InterferenciaDTO(Double latitude, Double longitude, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
+	}
 
 	public InterferenciaDTO(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
 			TipoInterferenciaModel tipoInterferencia) {
@@ -33,8 +48,6 @@ public class InterferenciaDTO {
 		this.endereco = endereco;
 		this.tipoInterferencia = tipoInterferencia;
 	}
-
-
 
 	public Long getId() {
 		return id;

@@ -28,6 +28,14 @@ public class EnderecoDTO {
 	public EnderecoDTO() {
 		super();
 	}
+	
+	public EnderecoDTO(String logradouro, Set<InterferenciaModel> interferencias) {
+		super();
+		this.logradouro = logradouro;
+		this.interferencias = interferencias;
+	}
+
+
 
 	public String getLogradouro() {
 		return logradouro;

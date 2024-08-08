@@ -32,6 +32,46 @@ public class DocumentoDTO {
 	public DocumentoDTO() {
 		super();
 	}
+	
+	public DocumentoDTO(String numero, String numeroSei, EnderecoModel endereco) {
+		super();
+		this.numero = numero;
+		this.numeroSei = numeroSei;
+		this.endereco = endereco;
+	}
+
+	public DocumentoDTO(String numero, ProcessoModel processo, String numeroSei, DocumentoTipoModel tipo,
+			EnderecoModel endereco, Set<UsuarioModel> usuarios) {
+		super();
+		this.numero = numero;
+		this.processo = processo;
+		this.numeroSei = numeroSei;
+		this.tipo = tipo;
+		this.endereco = endereco;
+		this.usuarios = usuarios;
+	}
+
+	public DocumentoDTO(Long id, String numero, ProcessoModel processo, String numeroSei, DocumentoTipoModel tipo,
+			EnderecoModel endereco, Set<UsuarioModel> usuarios) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.processo = processo;
+		this.numeroSei = numeroSei;
+		this.tipo = tipo;
+		this.endereco = endereco;
+		this.usuarios = usuarios;
+	}
+	
+	public DocumentoDTO(String numero, String numeroSei, DocumentoTipoModel tipo, EnderecoModel endereco,
+			Set<UsuarioModel> usuarios) {
+		super();
+		this.numero = numero;
+		this.numeroSei = numeroSei;
+		this.tipo = tipo;
+		this.endereco = endereco;
+		this.usuarios = usuarios;
+	}
 
 	public Long getId() {
 		return id;

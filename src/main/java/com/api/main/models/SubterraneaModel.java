@@ -20,6 +20,18 @@ public class SubterraneaModel extends InterferenciaModel {
 	@Column(columnDefinition = "varchar(20)")
 	private String subDinamico; // em metros
 
+	public SubterraneaModel() {
+		super();
+	}
+
+	public SubterraneaModel(Double latitude, Double longitude, Boolean subCaesb, String subNivelEstatico,
+			String subDinamico) {
+		super(latitude, longitude);
+		this.subCaesb = subCaesb;
+		this.subNivelEstatico = subNivelEstatico;
+		this.subDinamico = subDinamico;
+	}
+
 	public Boolean getSubCaesb() {
 		return subCaesb;
 	}

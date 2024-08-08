@@ -33,6 +33,11 @@ public class AnexoModel {
 	public AnexoModel() {
 		super();
 	}
+	
+	public AnexoModel(String numero) {
+		super();
+		this.numero = numero;
+	}
 
 	public Long getId() {
 		return id;

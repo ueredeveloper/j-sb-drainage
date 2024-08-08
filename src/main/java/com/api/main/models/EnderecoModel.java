@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "endereco")
@@ -41,10 +43,11 @@ public class EnderecoModel {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "endereco")
-	private List<DocumentoModel> documentos = new ArrayList<DocumentoModel>();
+	private Set<DocumentoModel> documentos = new HashSet<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "endereco", fetch = FetchType.EAGER)
+	
+	@OneToMany(mappedBy = "endereco", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
 	@ManyToOne
@@ -63,6 +66,12 @@ public class EnderecoModel {
 	public EnderecoModel(Long id) {
 		super();
 		this.id = id;
+	}
+	
+	public EnderecoModel(String logradouro, Set<InterferenciaModel> interferencias) {
+		super();
+		this.logradouro = logradouro;
+		this.interferencias = interferencias;
 	}
 
 	public Long getId() {
@@ -105,11 +114,11 @@ public class EnderecoModel {
 		this.cep = cep;
 	}
 
-	public List<DocumentoModel> getDocumentos() {
+	public Set<DocumentoModel> getDocumentos() {
 		return documentos;
 	}
 
-	public void setDocumentos(List<DocumentoModel> documentos) {
+	public void setDocumentos(Set<DocumentoModel> documentos) {
 		this.documentos = documentos;
 	}
 

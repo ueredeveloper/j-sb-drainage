@@ -16,6 +16,7 @@ import com.api.main.models.AnexoModel;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.models.EnderecoModel;
+import com.api.main.models.InterferenciaModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.models.UsuarioModel;
 import com.api.main.repositories.AnexoRepository;
@@ -28,7 +29,6 @@ import com.api.main.repositories.UsuarioRepository;
 
 @Service
 public class DocumentoService {
-	
 
 	@Autowired
 	private DocumentoRepository documentoRepository;
@@ -76,8 +76,7 @@ public class DocumentoService {
 
 			// Verifies and saves DocumentoTipoModel (must not be null)
 			if (updateDocumento.getTipo() != null && updateDocumento.getTipo().getId() != null) {
-				Optional<DocumentoTipoModel> documentoTipo = docTipoRepo
-						.findById(updateDocumento.getTipo().getId());
+				Optional<DocumentoTipoModel> documentoTipo = docTipoRepo.findById(updateDocumento.getTipo().getId());
 				documentoTipo.ifPresent(record::setTipo);
 			} else {
 				throw new IllegalArgumentException("É requerido o Tipo de Documento.");
@@ -165,14 +164,14 @@ public class DocumentoService {
 		return responseDocumento;
 	}
 
-	@Transactional
-	public DocumentoModel save(DocumentoDTO docDTO, DocumentoModel docMod) {
-		DocumentoModel newDocumento = documentoRepository.save(docMod);
+	/*@Transactional
+	public DocumentoModel save(DocumentoDTO objDTO, DocumentoModel objMod) {
+		DocumentoModel newObject = documentoRepository.save(objMod);
 
 		// Verifica se docProcesso está presente no DTO
-		if (docMod.getProcesso() != null) {
+		if (objMod.getProcesso() != null) {
 
-			ProcessoModel processo = docMod.getProcesso();
+			ProcessoModel processo = objMod.getProcesso();
 
 			// Verifica se o anexo associado ao processo precisa ser salvo primeiro
 			if (processo.getAnexo() != null && processo.getAnexo().getId() == null) {
@@ -183,35 +182,124 @@ public class DocumentoService {
 
 			// Salva o ProcessoModel
 			processo = processoRepository.save(processo);
-			docMod.setProcesso(processo);
+			objMod.setProcesso(processo);
 		}
 
-		// Verifica se docEndereco está presente no DTO
-		if (docMod.getEndereco() != null) {
-			EnderecoModel endereco = docMod.getEndereco();
-			System.out.println("endereco model");
-			System.out.println(docMod.getEndereco().getInterferencias().size());
-			endereco = enderecoRepository.save(endereco);
-			docMod.setEndereco(endereco);
+		// Saves or updates EnderecoModel (can be null or have an existing ID)
+		if (objMod.getEndereco() != null) {
+			if (objMod.getEndereco().getId() != null) {
+				Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(objMod.getEndereco().getId());
+				enderecoOptional.ifPresent(endereco -> {
+					// Editar attributos como Cidade e Cep.
+					EnderecoModel existingEndereco = endereco;
+					existingEndereco.setLogradouro(objMod.getEndereco().getLogradouro());
+					existingEndereco.setCidade(objMod.getEndereco().getCidade());
+					existingEndereco.setCep(objMod.getEndereco().getCep());
+
+					EnderecoModel updatedEndereco = enderecoRepository.save(existingEndereco);
+					newObject.setEndereco(updatedEndereco);
+				});
+
+				// endereco.ifPresent(record::setEndereco);
+			} else {
+				// Create a new EnderecoModel if the ID is null
+				EnderecoModel newEndereco = enderecoRepository.save(objMod.getEndereco());
+				newObject.setEndereco(newEndereco);
+			}
 		}
 
 		Set<UsuarioModel> usuarios = new HashSet<>();
 
 		// Salvando os usuários e garantindo o relacionamento bidirecional
-		for (UsuarioModel usuario : docMod.getUsuarios()) {
+		for (UsuarioModel usuario : objMod.getUsuarios()) {
 			if (usuario.getId() == null) {
 				usuario = usuarioRepository.save(usuario);
 			}
-			usuario.getDocumentos().add(newDocumento);
+			usuario.getDocumentos().add(newObject);
 			usuarios.add(usuario);
 		}
 
-		newDocumento.setUsuarios(usuarios);
+		newObject.setUsuarios(usuarios);
 
 		// Salva o DocumentoModel atualizado com todas as relações
-		newDocumento = documentoRepository.save(docMod);
+		newObject = documentoRepository.save(objMod);
 
-		return newDocumento;
+		return newObject;
+	}*/
+	
+	@Transactional
+	public DocumentoModel save(DocumentoDTO objDTO, DocumentoModel objMod) {
+		
+	  // Processa o EnderecoModel antes de salvar o DocumentoModel
+	    if (objMod.getEndereco() != null) {
+	    	
+	    	
+	        EnderecoModel savedEndereco = saveEndereco(objMod.getEndereco());
+	        objMod.setEndereco(savedEndereco); // Atualiza o DocumentoModel com o endereço salvo
+	        
+	        // Salva as Interferencias associadas ao EnderecoModel
+	        if (savedEndereco.getInterferencias() != null) {
+	        	
+	            for (InterferenciaModel interferencia : savedEndereco.getInterferencias()) {
+	                interferencia.setEndereco(savedEndereco);
+	                interferenciaRepository.save(interferencia);
+	            }
+	        }
+	        
+	    }
+	    
+	    //08/08/2024 - Não está  salvando usuários nem processo
+
+	    // Processa o ProcessoModel se presente
+	    if (objMod.getProcesso() != null) {
+	        ProcessoModel savedProcesso = saveProcesso(objMod.getProcesso());
+	        objMod.setProcesso(savedProcesso); // Atualiza o DocumentoModel com o processo salvo
+	    }
+
+	    // Agora que o Endereco e Processo foram salvos, salva o DocumentoModel
+	    DocumentoModel newObject = documentoRepository.save(objMod);
+	    
+	    // Processa os Usuários associados
+	    Set<UsuarioModel> usuarios = saveUsuarios(objMod.getUsuarios(), newObject);
+	    newObject.setUsuarios(usuarios);
+
+	    // Salva o DocumentoModel atualizado com todas as relações
+	    return documentoRepository.save(newObject);
+		
 	}
+
+
+	private EnderecoModel saveEndereco(EnderecoModel endereco) {
+	    if (endereco.getId() == null) {
+	        // Se o endereço não tem ID, ele ainda não foi salvo, então salvamos
+	        return enderecoRepository.save(endereco);
+	    } else {
+	        // Se já tem ID, verificamos se o endereço já está salvo e retornamos o existente
+	        return enderecoRepository.findById(endereco.getId()).orElseGet(() -> enderecoRepository.save(endereco));
+	    }
+	}
+
+	private ProcessoModel saveProcesso(ProcessoModel processo) {
+	    if (processo.getAnexo() != null && processo.getAnexo().getId() == null) {
+	        AnexoModel anexo = processo.getAnexo();
+	        anexo = anexoRepository.save(anexo);
+	        processo.setAnexo(anexo);
+	    }
+	    return processoRepository.save(processo);
+	}
+
+	private Set<UsuarioModel> saveUsuarios(Set<UsuarioModel> usuarios, DocumentoModel newObject) {
+	    Set<UsuarioModel> savedUsuarios = new HashSet<>();
+	    for (UsuarioModel usuario : usuarios) {
+	        if (usuario.getId() == null) {
+	            usuario = usuarioRepository.save(usuario);
+	        }
+	        usuario.getDocumentos().add(newObject);
+	        savedUsuarios.add(usuario);
+	    }
+	    return savedUsuarios;
+	}
+
+
 
 }

@@ -1,22 +1,32 @@
 package com.api.main.config;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.main.models.AnexoModel;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.EstadoModel;
+import com.api.main.models.InterferenciaModel;
+import com.api.main.models.ProcessoModel;
 import com.api.main.models.SubtipoOutorgaModel;
 import com.api.main.models.TemplateModel;
 import com.api.main.models.TipoInterferenciaModel;
 import com.api.main.models.TipoOutorgaModel;
+import com.api.main.models.UsuarioModel;
+import com.api.main.repositories.AnexoRepository;
 import com.api.main.repositories.DocumentoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.EstadoRepository;
+import com.api.main.repositories.ProcessoRepository;
 import com.api.main.repositories.SubtipoOutorgaRepository;
 import com.api.main.repositories.TemplateRepository;
 import com.api.main.repositories.TipoInterferenciaRepository;
@@ -38,7 +48,7 @@ public class DatabaseInitializerConfig {
 
 		};
 	}
-
+	
 	@Bean
 	public CommandLineRunner insertEstados(EstadoRepository r) {
 
@@ -82,27 +92,27 @@ public class DatabaseInitializerConfig {
 		};
 	}
 
-	/*
-	 * @Bean public CommandLineRunner insertAnexos(AnexoRepository procRepo) {
-	 * 
-	 * return (args) -> {
-	 * 
-	 * procRepo.save(new AnexoModel("197.123.456/2013")); procRepo.save(new
-	 * AnexoModel("197.456.789/2015"));
-	 * 
-	 * }; };
-	 */
+	@Bean
+	public CommandLineRunner insertAnexos(AnexoRepository procRepo) {
 
-	/*
-	 * @Bean public CommandLineRunner isertProcessos(ProcessoRepository repo) {
-	 * 
-	 * return (args) -> {
-	 * 
-	 * repo.save(new ProcessoModel("123/2015")); repo.save(new
-	 * ProcessoModel("456/2015"));
-	 * 
-	 * }; }
-	 */
+		return (args) -> {
+
+			procRepo.save(new AnexoModel("197.123.456/2013"));
+			procRepo.save(new AnexoModel("197.456.789/2015"));
+
+		};
+	};
+/*
+	@Bean
+	public CommandLineRunner isertProcessos(ProcessoRepository repo) {
+
+		return (args) -> {
+
+			repo.save(new ProcessoModel("123/2015", new AnexoModel("197.444.444/2013")));
+			repo.save(new ProcessoModel("890/2088", new AnexoModel("197.444.444/2013")));
+
+		};
+	}*/
 
 	@Bean
 	public CommandLineRunner insertEndereco(EnderecoRepository r) {
@@ -115,17 +125,35 @@ public class DatabaseInitializerConfig {
 		};
 	}
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner insertDocumentos(DocumentoRepository r) {
+		
+		Set<InterferenciaModel> interferencias = new HashSet<>(Collections.singleton(new InterferenciaModel(4.456, 5.456)));
+		Set<UsuarioModel> usuarios = new HashSet<>(Collections.singleton(new UsuarioModel("Carlos Teixeira Vasco")));
 
 		return (args) -> {
 
 			r.save(new DocumentoModel("12/2015", new EnderecoModel(1L)));
 			r.save(new DocumentoModel("13/2015"));
+			r.save(
+					new DocumentoModel(
+							"123", 
+							"456",
+							new ProcessoModel("123")
+							new DocumentoTipoModel(1L)
+							
+							new EnderecoModel("Rua dos Jardins, 123"),
+							
+							usuarios
+							
+							
+					)
+					);
+					
 
 		};
 
-	}
+	}*/
 
 	@Bean
 	public CommandLineRunner insetTiposOutorgas(TipoOutorgaRepository r) {

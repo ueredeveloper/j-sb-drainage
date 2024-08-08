@@ -41,6 +41,11 @@ public class DocumentoTipoModel implements Serializable {
 		super();
 		this.descricao = descricao;
 	}
+	
+	public DocumentoTipoModel(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public DocumentoTipoModel(Long id, String descricao, Set<DocumentoModel> documentos) {
 		super();

@@ -13,13 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vividsolutions.jts.geom.Geometry;
 
 @Entity
 @Table(name = "interferencia")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class InterferenciaModel implements Serializable {
-	
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,35 +38,69 @@ public class InterferenciaModel implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "endereco")
+	@JsonBackReference
 	private EnderecoModel endereco;
 
 	@ManyToOne
 	@JoinColumn(name = "tipoInterferencia")
 	private TipoInterferenciaModel tipoInterferencia;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "tipoOutorga")
 	private TipoOutorgaModel tipoOutorga;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "subtipoOutorga")
 	private SubtipoOutorgaModel subtipoOutorga;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "situacao")
 	private SituacaoModel situacao;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "tipoAto")
 	private TipoAtoModel tipoAto;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "baciaHidrografica")
 	private BaciaHidrograficaModel baciaHidrografica;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "unidadeHidrografica")
 	private UnidadeHidrograficaModel unidadeHidrografica;
+
+	public InterferenciaModel() {
+		super();
+	}
+
+	public InterferenciaModel(Double latitude, Double longitude) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
+	public InterferenciaModel(Double latitude, Double longitude, EnderecoModel endereco) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.endereco = endereco;
+	}
+
+	public InterferenciaModel(Double latitude, Double longitude, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
+	}
+
+	public InterferenciaModel(Double latitude, Double longitude, TipoInterferenciaModel tipoInterferencia) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.tipoInterferencia = tipoInterferencia;
+	}
 
 	public Long getId() {
 		return id;
@@ -167,6 +201,5 @@ public class InterferenciaModel implements Serializable {
 	public void setTipoInterferencia(TipoInterferenciaModel tipoInterferencia) {
 		this.tipoInterferencia = tipoInterferencia;
 	}
-	
 
 }
