@@ -3,19 +3,20 @@ package com.api.main.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.api.main.models.EnderecoModel;
+import com.api.main.models.DocumentoModel;
 
-public class EstadoDTO {
+public class FormaCaptacaoDTO {
 
-	Long id;
-	String descricao;
-	private Set<EnderecoModel> enderecos = new HashSet<>();
+	private Long id;
 
-	public EstadoDTO() {
+	private String descricao;
+	
+	
+	public FormaCaptacaoDTO() {
 		super();
 	}
-	
-	public EstadoDTO(Long id, String descricao) {
+
+	public FormaCaptacaoDTO(Long id, String descricao) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
@@ -35,14 +36,6 @@ public class EstadoDTO {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public Set<EnderecoModel> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(Set<EnderecoModel> enderecos) {
-		this.enderecos = enderecos;
 	}
 
 }

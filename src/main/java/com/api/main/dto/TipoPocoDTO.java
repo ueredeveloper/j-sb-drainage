@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.api.main.models.DocumentoModel;
 
-public class DocumentoTipoDTO {
+public class TipoPocoDTO {
 
 	private Long id;
 
@@ -14,16 +14,17 @@ public class DocumentoTipoDTO {
 	private Set<DocumentoModel> documentos = new HashSet<>();
 	
 	
-
-	public DocumentoTipoDTO() {
+	public TipoPocoDTO() {
 		super();
 	}
 	
-	public DocumentoTipoDTO(Long id, String descricao) {
+	public TipoPocoDTO(Long id, String descricao) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 	}
+
+
 
 	public Long getId() {
 		return id;

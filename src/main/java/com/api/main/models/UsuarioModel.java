@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "usuario")
 public class UsuarioModel implements Serializable {
-	
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,18 +31,30 @@ public class UsuarioModel implements Serializable {
 
 	@Column(nullable = true, unique = false)
 	private Integer cpfCnpj;
-	
+
 	@ManyToMany
 	@JoinTable(name = "usuario_documento", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "documento_id"))
 	@JsonIgnore
 	private Set<DocumentoModel> documentos = new HashSet<>();
-	
-	
-	
+
+	public UsuarioModel() {
+		super();
+	}
 
 	public UsuarioModel(String nome) {
 		super();
 		this.nome = nome;
+	}
+
+	public UsuarioModel(String nome, Set<DocumentoModel> documentos) {
+		super();
+		this.nome = nome;
+		this.documentos = documentos;
+	}
+
+	public UsuarioModel(Set<DocumentoModel> documentos) {
+		super();
+		this.documentos = documentos;
 	}
 
 	public Long getId() {

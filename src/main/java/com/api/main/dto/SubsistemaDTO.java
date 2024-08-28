@@ -1,16 +1,18 @@
 package com.api.main.dto;
 
-public class TipoInterferenciaDTO {
+public class SubsistemaDTO {
 
-	Long id;
+	private Long id;
 
-	String descricao;
+	private String descricao;
+	
+	
 
-	public TipoInterferenciaDTO() {
+	public SubsistemaDTO() {
 		super();
 	}
-
-	public TipoInterferenciaDTO(Long id, String descricao) {
+	
+	public SubsistemaDTO(Long id, String descricao) {
 		super();
 		this.id = id;
 		this.descricao = descricao;

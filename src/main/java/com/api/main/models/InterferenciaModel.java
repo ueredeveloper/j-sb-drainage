@@ -55,7 +55,7 @@ public class InterferenciaModel implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "situacao")
-	private SituacaoModel situacao;
+	private SituacaoProcessoModel situacao;
 
 	@ManyToOne
 	@JoinColumn(name = "tipoAto")
@@ -158,11 +158,11 @@ public class InterferenciaModel implements Serializable {
 		this.subtipoOutorga = subtipoOutorga;
 	}
 
-	public SituacaoModel getSituacao() {
+	public SituacaoProcessoModel getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(SituacaoModel situacao) {
+	public void setSituacao(SituacaoProcessoModel situacao) {
 		this.situacao = situacao;
 	}
 

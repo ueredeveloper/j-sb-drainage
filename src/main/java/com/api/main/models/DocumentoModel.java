@@ -51,6 +51,7 @@ public class DocumentoModel implements Serializable {
 
 	@ManyToMany(mappedBy = "documentos")
 	private Set<UsuarioModel> usuarios = new HashSet<>();
+	
 
 	public DocumentoModel() {
 		super();

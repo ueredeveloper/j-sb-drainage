@@ -1,16 +1,15 @@
 package com.api.main.dto;
 
-public class TipoInterferenciaDTO {
-
-	Long id;
-
-	String descricao;
-
-	public TipoInterferenciaDTO() {
+public class SituacaoProcessoDTO {
+	
+	private Long id;
+	private String descricao;
+	
+	public SituacaoProcessoDTO() {
 		super();
 	}
-
-	public TipoInterferenciaDTO(Long id, String descricao) {
+	
+	public SituacaoProcessoDTO(Long id, String descricao) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
@@ -31,5 +30,6 @@ public class TipoInterferenciaDTO {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 
 }

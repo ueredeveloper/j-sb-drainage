@@ -15,6 +15,29 @@ public class UsuarioDTO {
 	private Integer cpfCnpj;
 
 	private Set<DocumentoModel> documentos = new HashSet<>();
+	
+	
+
+	public UsuarioDTO() {
+		super();
+	}
+
+	public UsuarioDTO(String nome) {
+		super();
+		this.nome = nome;
+	}
+	
+	
+	public UsuarioDTO(String nome, Set<DocumentoModel> documentos) {
+		super();
+		this.nome = nome;
+		this.documentos = documentos;
+	}
+
+	public UsuarioDTO(Set<DocumentoModel> documentos) {
+		super();
+		this.documentos = documentos;
+	}
 
 	public Long getId() {
 		return id;

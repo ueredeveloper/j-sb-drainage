@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "situacao")
-public class SituacaoModel {
+@Table(name = "situacao_processo")
+public class SituacaoProcessoModel {
 	
 	
 	@Id
@@ -30,11 +30,33 @@ public class SituacaoModel {
 	@OneToMany(mappedBy = "situacao", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
-	public SituacaoModel(String descricao) {
+	public SituacaoProcessoModel(String descricao) {
 		super();
 		this.descricao = descricao;
 	}
-	
-	
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Set<InterferenciaModel> getInterferencias() {
+		return interferencias;
+	}
+
+	public void setInterferencias(Set<InterferenciaModel> interferencias) {
+		this.interferencias = interferencias;
+	}
+	
 }

@@ -291,6 +291,7 @@ public class DocumentoService {
 	private Set<UsuarioModel> saveUsuarios(Set<UsuarioModel> usuarios, DocumentoModel newObject) {
 	    Set<UsuarioModel> savedUsuarios = new HashSet<>();
 	    for (UsuarioModel usuario : usuarios) {
+	    	System.out.println(usuario.getNome());
 	        if (usuario.getId() == null) {
 	            usuario = usuarioRepository.save(usuario);
 	        }

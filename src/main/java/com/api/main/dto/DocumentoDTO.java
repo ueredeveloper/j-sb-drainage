@@ -12,15 +12,13 @@ import com.api.main.models.UsuarioModel;
 //@JsonSerialize(using = CustomDocTipoSerializer.class)
 public class DocumentoDTO {
 
-	
 	private Long id;
-	// @NotBlank
-	private String numero;
-	// @NotBlank
-	private ProcessoModel processo;
 
-	// @NotBlank
+	private String numero;
+
 	private String numeroSei;
+
+	private ProcessoModel processo;
 
 	// @JsonInclude(Include.NON_NULL)
 	private DocumentoTipoModel tipo;
