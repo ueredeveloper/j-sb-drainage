@@ -11,13 +11,13 @@ import com.api.main.models.EnderecoModel;
 import com.api.main.models.EstadoModel;
 import com.api.main.models.FormaCaptacaoModel;
 import com.api.main.models.LocalCaptacaoModel;
-import com.api.main.models.ProcessoModel;
 import com.api.main.models.SituacaoProcessoModel;
 import com.api.main.models.SubtipoOutorgaModel;
 import com.api.main.models.TemplateModel;
 import com.api.main.models.TipoAtoModel;
 import com.api.main.models.TipoInterferenciaModel;
 import com.api.main.models.TipoOutorgaModel;
+import com.api.main.models.TipoPocoModel;
 import com.api.main.repositories.AnexoRepository;
 import com.api.main.repositories.DocumentoTipoRepository;
 import com.api.main.repositories.EnderecoRepository;
@@ -31,6 +31,7 @@ import com.api.main.repositories.TemplateRepository;
 import com.api.main.repositories.TipoAtoRepository;
 import com.api.main.repositories.TipoInterferenciaRepository;
 import com.api.main.repositories.TipoOutorgaRepository;
+import com.api.main.repositories.TipoPocoRepository;
 import com.google.gson.Gson;
 
 @Configuration
@@ -108,8 +109,8 @@ public class DatabaseInitializerConfig {
 
 		return (args) -> {
 
-			//repo.save(new ProcessoModel("123/2015", new AnexoModel("197.444.444/2013")));
-			//repo.save(new ProcessoModel("890/2088", new AnexoModel("197.444.444/2013")));
+			// repo.save(new ProcessoModel("123/2015", new AnexoModel("197.444.444/2013")));
+			// repo.save(new ProcessoModel("890/2088", new AnexoModel("197.444.444/2013")));
 
 		};
 	}
@@ -202,6 +203,16 @@ public class DatabaseInitializerConfig {
 			r.save(new LocalCaptacaoModel("Reservatório"));
 			r.save(new LocalCaptacaoModel("Canal"));
 			r.save(new LocalCaptacaoModel(" Lago Natural"));
+		};
+	}
+
+	@Bean
+	CommandLineRunner insertTipoPoco(TipoPocoRepository r) {
+		return (args) -> {
+			r.save(new TipoPocoModel("Manual"));
+			r.save(new TipoPocoModel("Tubular Raso"));
+			r.save(new TipoPocoModel("Tubular Profundo"));
+
 		};
 	}
 
