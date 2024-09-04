@@ -13,15 +13,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.vividsolutions.jts.geom.Geometry;
 
 @Entity
 @Table(name = "interferencia")
 @Inheritance(strategy = InheritanceType.JOINED)
+// @JsonIdentityInfo - Para não gerar loop infinito dentro do json
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class InterferenciaModel implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -39,7 +41,7 @@ public class InterferenciaModel implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "endereco")
-	@JsonBackReference
+	// @JsonBackReference
 	private EnderecoModel endereco;
 
 	@ManyToOne
@@ -95,7 +97,6 @@ public class InterferenciaModel implements Serializable {
 		this.endereco = endereco;
 		this.tipoInterferencia = tipoInterferencia;
 	}
-	
 
 	public InterferenciaModel(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
 			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
@@ -119,9 +120,6 @@ public class InterferenciaModel implements Serializable {
 		this.longitude = longitude;
 		this.tipoInterferencia = tipoInterferencia;
 	}
-	
-	
-	
 
 	public InterferenciaModel(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
 			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,

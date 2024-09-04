@@ -15,14 +15,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "endereco")
+// @JsonIdentityInfo - Para não gerar loop infinito dentro do json
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class EnderecoModel {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -44,7 +46,7 @@ public class EnderecoModel {
 	private Set<DocumentoModel> documentos = new HashSet<>();
 
 	@OneToMany(mappedBy = "endereco", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
+	// @JsonManagedReference
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
 	@ManyToOne
