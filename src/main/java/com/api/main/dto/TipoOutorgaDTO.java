@@ -30,6 +30,11 @@ public class TipoOutorgaDTO {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
+	@Override
+	public String toString() {
+		return "TipoOutorgaDTO [id=" + id + ", descricao=" + descricao + "]";
+	}
 	
 	
 	

@@ -15,6 +15,11 @@ public class SituacaoProcessoDTO {
 		this.descricao = descricao;
 	}
 
+	public SituacaoProcessoDTO(String descricao) {
+		super();
+		this.descricao = descricao;
+	}
+
 	public Long getId() {
 		return id;
 	}

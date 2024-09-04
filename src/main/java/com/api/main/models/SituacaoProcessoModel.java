@@ -27,8 +27,13 @@ public class SituacaoProcessoModel {
 	private String descricao;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "situacao", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "situacaoProcesso", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
+	
+	
+	public SituacaoProcessoModel() {
+		super();
+	}
 
 	public SituacaoProcessoModel(String descricao) {
 		super();
@@ -58,5 +63,6 @@ public class SituacaoProcessoModel {
 	public void setInterferencias(Set<InterferenciaModel> interferencias) {
 		this.interferencias = interferencias;
 	}
+	
 	
 }

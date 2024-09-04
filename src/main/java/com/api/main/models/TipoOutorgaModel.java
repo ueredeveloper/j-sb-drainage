@@ -34,14 +34,10 @@ public class TipoOutorgaModel {
 		super();
 	}
 
-	
-	
 	public TipoOutorgaModel(String descricao) {
 		super();
 		this.descricao = descricao;
 	}
-
-
 
 	public Long getId() {
 		return id;

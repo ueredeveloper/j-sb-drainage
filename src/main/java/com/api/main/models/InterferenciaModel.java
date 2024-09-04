@@ -54,8 +54,8 @@ public class InterferenciaModel implements Serializable {
 	private SubtipoOutorgaModel subtipoOutorga;
 
 	@ManyToOne
-	@JoinColumn(name = "situacao")
-	private SituacaoProcessoModel situacao;
+	@JoinColumn(name = "situacaoProcesso")
+	private SituacaoProcessoModel situacaoProcesso;
 
 	@ManyToOne
 	@JoinColumn(name = "tipoAto")
@@ -94,12 +94,47 @@ public class InterferenciaModel implements Serializable {
 		this.endereco = endereco;
 		this.tipoInterferencia = tipoInterferencia;
 	}
+	
+
+	public InterferenciaModel(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
+			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
+		super();
+		this.id = id;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.geometry = geometry;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
+		this.tipoOutorga = tipoOutorga;
+		this.subtipoOutorga = subtipoOutorga;
+		this.situacaoProcesso = situacaoProcesso;
+		this.tipoAto = tipoAto;
+	}
 
 	public InterferenciaModel(Double latitude, Double longitude, TipoInterferenciaModel tipoInterferencia) {
 		super();
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.tipoInterferencia = tipoInterferencia;
+	}
+	
+	
+	
+
+	public InterferenciaModel(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
+			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.geometry = geometry;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
+		this.tipoOutorga = tipoOutorga;
+		this.subtipoOutorga = subtipoOutorga;
+		this.situacaoProcesso = situacaoProcesso;
+		this.tipoAto = tipoAto;
 	}
 
 	public Long getId() {
@@ -158,12 +193,12 @@ public class InterferenciaModel implements Serializable {
 		this.subtipoOutorga = subtipoOutorga;
 	}
 
-	public SituacaoProcessoModel getSituacao() {
-		return situacao;
+	public SituacaoProcessoModel getSituacaoProcesso() {
+		return situacaoProcesso;
 	}
 
-	public void setSituacao(SituacaoProcessoModel situacao) {
-		this.situacao = situacao;
+	public void setSituacaoProcesso(SituacaoProcessoModel situacaoProcesso) {
+		this.situacaoProcesso = situacaoProcesso;
 	}
 
 	public TipoAtoModel getTipoAto() {

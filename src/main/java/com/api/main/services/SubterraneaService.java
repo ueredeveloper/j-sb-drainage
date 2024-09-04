@@ -34,8 +34,11 @@ public class SubterraneaService {
 
 		// Verificar se há interId no objeto solicitado
 		if (requestedObject.getId() != null) {
+			
 			Optional<SubterraneaModel> subterraneaOptional = subterraneaRepository.findById(requestedObject.getId());
+			
 			if (subterraneaOptional.isPresent()) {
+				
 				SubterraneaModel existingSubterranea = subterraneaOptional.get();
 
 				// Atualizar atributos da interferência, exceto interId
@@ -43,6 +46,10 @@ public class SubterraneaService {
 				existingSubterranea.setLongitude(requestedObject.getLongitude());
 				existingSubterranea.setGeometry(requestedObject.getGeometry());
 				existingSubterranea.setTipoInterferencia(requestedObject.getTipoInterferencia());
+				existingSubterranea.setTipoOutorga(requestedObject.getTipoOutorga());
+				existingSubterranea.setSubtipoOutorga(requestedObject.getSubtipoOutorga());
+				existingSubterranea.setSituacaoProcesso(requestedObject.getSituacaoProcesso());
+				existingSubterranea.setTipoAto(requestedObject.getTipoAto());
 				existingSubterranea.setSubCaesb(requestedObject.getSubCaesb());
 				existingSubterranea.setSubNivelEstatico(requestedObject.getSubNivelEstatico());
 				existingSubterranea.setSubDinamico(requestedObject.getSubDinamico());

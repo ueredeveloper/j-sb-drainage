@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.vividsolutions.jts.geom.Geometry;
+
 @Entity
 @Table(name = "subterranea")
 public class SubterraneaModel extends InterferenciaModel {
@@ -30,6 +32,42 @@ public class SubterraneaModel extends InterferenciaModel {
 		this.subCaesb = subCaesb;
 		this.subNivelEstatico = subNivelEstatico;
 		this.subDinamico = subDinamico;
+	}
+	
+
+	public SubterraneaModel(Double latitude, Double longitude, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia) {
+		super(latitude, longitude, endereco, tipoInterferencia);
+		// TODO Auto-generated constructor stub
+	}
+
+	public SubterraneaModel(Double latitude, Double longitude, EnderecoModel endereco) {
+		super(latitude, longitude, endereco);
+		// TODO Auto-generated constructor stub
+	}
+
+	public SubterraneaModel(Double latitude, Double longitude, TipoInterferenciaModel tipoInterferencia) {
+		super(latitude, longitude, tipoInterferencia);
+		// TODO Auto-generated constructor stub
+	}
+
+	public SubterraneaModel(Double latitude, Double longitude) {
+		super(latitude, longitude);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public SubterraneaModel(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
+			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
+		super(latitude, longitude, geometry, endereco, tipoInterferencia, tipoOutorga, subtipoOutorga, situacaoProcesso, tipoAto);
+		// TODO Auto-generated constructor stub
+	}
+
+	public SubterraneaModel(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
+			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
+		super(id, latitude, longitude, geometry, endereco, tipoInterferencia, tipoOutorga, subtipoOutorga, situacaoProcesso, tipoAto);
+		// TODO Auto-generated constructor stub
 	}
 
 	public Boolean getSubCaesb() {
@@ -59,5 +97,7 @@ public class SubterraneaModel extends InterferenciaModel {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	
 
 }

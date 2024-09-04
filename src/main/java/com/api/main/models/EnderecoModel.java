@@ -1,8 +1,6 @@
 package com.api.main.models;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -23,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "endereco")
 public class EnderecoModel {
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +42,6 @@ public class EnderecoModel {
 	@OneToMany(mappedBy = "endereco")
 	private Set<DocumentoModel> documentos = new HashSet<>();
 
-	
 	@OneToMany(mappedBy = "endereco", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
@@ -57,17 +53,17 @@ public class EnderecoModel {
 	public EnderecoModel() {
 		super();
 	}
-	
+
 	public EnderecoModel(String logradouro) {
 		super();
 		this.logradouro = logradouro;
 	}
-	
+
 	public EnderecoModel(Long id) {
 		super();
 		this.id = id;
 	}
-	
+
 	public EnderecoModel(String logradouro, Set<InterferenciaModel> interferencias) {
 		super();
 		this.logradouro = logradouro;
@@ -138,6 +134,4 @@ public class EnderecoModel {
 		this.estado = estado;
 	}
 
-
-	
 }
