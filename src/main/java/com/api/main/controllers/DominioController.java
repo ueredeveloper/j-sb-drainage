@@ -17,6 +17,7 @@ import com.api.main.services.DominioService;
 @RequestMapping("/domain")
 public class DominioController {
 
+	
 	@Autowired
 	private DominioService dominioService;
 

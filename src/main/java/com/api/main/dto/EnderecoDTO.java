@@ -9,6 +9,7 @@ import com.api.main.models.InterferenciaModel;
 
 public class EnderecoDTO {
 
+	
 	private Long id;
 
 	private String logradouro;

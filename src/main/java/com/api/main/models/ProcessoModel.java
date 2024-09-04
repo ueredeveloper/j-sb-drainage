@@ -1,3 +1,4 @@
+
 package com.api.main.models;
 
 import java.util.HashSet;
@@ -21,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class ProcessoModel {
 	
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;

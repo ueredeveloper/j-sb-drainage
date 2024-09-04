@@ -7,6 +7,7 @@ import com.api.main.models.EnderecoModel;
 
 public class EstadoDTO {
 
+	
 	Long id;
 	String descricao;
 	private Set<EnderecoModel> enderecos = new HashSet<>();

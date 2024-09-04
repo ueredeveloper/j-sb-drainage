@@ -1,17 +1,11 @@
 package com.api.main.dto;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.api.main.models.DocumentoModel;
-
 public class FormaCaptacaoDTO {
 
 	private Long id;
 
 	private String descricao;
-	
-	
+
 	public FormaCaptacaoDTO() {
 		super();
 	}

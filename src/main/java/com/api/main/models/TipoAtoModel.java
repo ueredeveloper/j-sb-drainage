@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "tipo_ato")
 public class TipoAtoModel {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

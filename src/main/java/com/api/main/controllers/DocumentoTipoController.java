@@ -26,6 +26,7 @@ import com.api.main.services.DocumentoTipoService;
 public class DocumentoTipoController {
 
 	
+	
 	@Autowired
 	private DocumentoTipoService documentoTipoService;
 

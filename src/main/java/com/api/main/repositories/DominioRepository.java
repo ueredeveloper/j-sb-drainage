@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.api.main.models.TipoInterferenciaModel;
 
 public interface DominioRepository extends JpaRepository<TipoInterferenciaModel, Long> {
+	
 
 	/*
 	 * @Query(value =

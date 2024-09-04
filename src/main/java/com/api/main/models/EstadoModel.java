@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class EstadoModel {
 	
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;

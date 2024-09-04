@@ -12,6 +12,7 @@ import javax.persistence.Table;
 public class MetodoIrrigacaoModel {
 	
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

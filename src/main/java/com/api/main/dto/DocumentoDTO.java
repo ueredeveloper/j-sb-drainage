@@ -12,6 +12,7 @@ import com.api.main.models.UsuarioModel;
 //@JsonSerialize(using = CustomDocTipoSerializer.class)
 public class DocumentoDTO {
 
+	
 	private Long id;
 
 	private String numero;

@@ -2,6 +2,7 @@ package com.api.main.dto;
 
 public class FinalidadeRequeridaDTO {
 	
+	
 	private Long id;
 	private String finalidade;
 	private String subfinalidade;

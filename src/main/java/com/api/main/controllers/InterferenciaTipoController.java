@@ -18,6 +18,7 @@ import com.api.main.services.TipoInterferenciaService;
 @RequestMapping("/interference-type")
 public class InterferenciaTipoController {
 
+	
 	@Autowired
 	private TipoInterferenciaService tipoInterferenciaService;
 

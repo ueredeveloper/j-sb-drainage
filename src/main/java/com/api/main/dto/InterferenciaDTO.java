@@ -12,6 +12,7 @@ import com.vividsolutions.jts.geom.Geometry;
 
 public class InterferenciaDTO {
 
+	
 	private Long id;
 
 	private Double latitude;

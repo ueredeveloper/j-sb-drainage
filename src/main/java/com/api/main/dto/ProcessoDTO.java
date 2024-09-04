@@ -8,6 +8,7 @@ import com.api.main.models.DocumentoModel;
 
 public class ProcessoDTO {
 
+	
 	Long id;
 	String numero;
 	private AnexoModel anexo;

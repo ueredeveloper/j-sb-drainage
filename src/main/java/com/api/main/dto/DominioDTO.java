@@ -6,6 +6,7 @@ import net.bytebuddy.asm.Advice.Local;
 
 public class DominioDTO {
 
+	
 	private Map<Long, TipoInterferenciaDTO> tipoInterferencia;
 	private Map<Long, TipoAtoDTO> tipoAto;
 	private Map<Long, TipoOutorgaDTO> tipoOutorga;

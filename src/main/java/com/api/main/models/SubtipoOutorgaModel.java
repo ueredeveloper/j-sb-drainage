@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class SubtipoOutorgaModel {
 	
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

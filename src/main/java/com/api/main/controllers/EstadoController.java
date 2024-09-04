@@ -17,6 +17,7 @@ import com.api.main.services.EstadoService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/state")
 public class EstadoController {
+	
 	@Autowired
 	EstadoService estadoService;
 

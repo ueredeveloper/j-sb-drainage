@@ -2,6 +2,7 @@ package com.api.main.dto;
 
 public class SubtipoOutorgaDTO {
 	
+	
 	private Long id;
 	private String descricao;
 	
