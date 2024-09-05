@@ -51,9 +51,10 @@ public class EnderecoController {
 		}
 	}
 
+	// mudar Object[] para EnderecoModel
 	@GetMapping("/list-by-keyword")
-	public ResponseEntity<List<EnderecoModel>> list(@RequestParam(required = false) String keyword) {
-		List<EnderecoModel> resultList = enderecoService.listByKeyword(keyword);
+	public ResponseEntity<List<Object[]>> list(@RequestParam(required = false) String keyword) {
+		List<Object[]> resultList = enderecoService.listByKeyword(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 

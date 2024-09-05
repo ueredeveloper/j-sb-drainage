@@ -11,17 +11,19 @@ import com.api.main.models.InterferenciaModel;
 
 @Repository
 public interface InterferenciaRepository extends JpaRepository<InterferenciaModel, Long> {
-	
 
-	@Query("SELECT i FROM InterferenciaModel i")
-	List<InterferenciaModel> listByKeword(@Param("keyword") String keyword);
-
-	// Consulta para buscar interferências pelo logradouro do endereço
-	// O h2 não tem uma função de pesquisar com ou sem acento, o postgress sim, fazer no banco postgress ou adicionar função no h2
-    @Query("SELECT i FROM InterferenciaModel i " + 
-           "LEFT JOIN i.endereco e " +
-           "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
-    List<InterferenciaModel> listByLogradouro(@Param("keyword") String keyword);
-
+	@Query("SELECT "
+			+ "CONCAT('{\"interferencia\": {\"id\": ', i.id, ', \"latitude\": \"', i.latitude, '\", \"longitude\": \"', i.longitude, '\"}}'), "
+			+ "CONCAT('{\"tipoInterferencia\": {\"id\": ', ti.id, ', \"descricao\": \"', ti.descricao,'\"}}'), "
+			+ "CONCAT('{\"tipoOutorga\": {\"id\": ', to.id, ', \"descricao\": \"', to.descricao,'\"}}'), "
+			+ "CONCAT('{\"subtipoOutorga\": {\"id\": ', so.id, ', \"descricao\": \"', so.descricao,'\"}}'), "
+			+ "CONCAT('{\"situacaoProcesso\": {\"id\": ', sp.id, ', \"descricao\": \"', sp.descricao,'\"}}'), "
+			+ "CONCAT('{\"tipoAto\": {\"id\": ', ta.id, ', \"descricao\": \"', ta.descricao,'\"}}'), "
+			+ "CONCAT('{\"endereco\": {\"id\": ', e.id, ', \"logradouro\": \"', e.logradouro,'\"}}') "
+			+ "FROM InterferenciaModel i " + "LEFT JOIN i.tipoInterferencia ti " + "LEFT JOIN i.tipoOutorga to "
+			+ "LEFT JOIN i.subtipoOutorga so " + "LEFT JOIN i.situacaoProcesso sp " + "LEFT JOIN i.tipoAto ta "
+			+ "LEFT JOIN i.endereco e "
+			+ "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+	List<Object[]> listByLogradouro(@Param("keyword") String keyword);
 
 }

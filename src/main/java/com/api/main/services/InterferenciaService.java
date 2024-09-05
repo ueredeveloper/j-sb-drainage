@@ -25,11 +25,6 @@ public class InterferenciaService {
 	private EnderecoRepository enderecoRepository;
 
 	@Transactional
-	public List<InterferenciaModel> listByKeword(String keyword) {
-		return interferenciaRepository.listByKeword(keyword);
-	}
-
-	@Transactional
 	public InterferenciaModel save(InterferenciaModel requestedObject) {
 		InterferenciaModel savedInterferencia;
 
@@ -108,7 +103,7 @@ public class InterferenciaService {
 	}
 
 	@Transactional
-	public List<InterferenciaModel> listByLogradouro(String keyword) {
+	public List<Object[]> listByLogradouro(String keyword) {
 		return interferenciaRepository.listByLogradouro(keyword);
 	}
 

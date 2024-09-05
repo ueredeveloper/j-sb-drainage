@@ -44,6 +44,10 @@ public class EnderecoService {
 	    if (response == null) {
 	        // Salva as interferências, se houver
 	        if (requestedEndereco.getInterferencias() != null && !requestedEndereco.getInterferencias().isEmpty()) {
+	            for (InterferenciaModel interferencia : requestedEndereco.getInterferencias()) {
+	                interferencia.setEndereco(requestedEndereco);  // Relaciona a interferência com o endereço
+	            }
+
 	            // Salva todas as interferências associadas ao endereço
 	            List<InterferenciaModel> interferencias = interRepo.saveAll(requestedEndereco.getInterferencias());
 	            // Atualiza o conjunto de interferências no endereço
@@ -57,10 +61,16 @@ public class EnderecoService {
 	    return response;
 	}
 
-
+/*
 	@Transactional
 	public List<EnderecoModel> listByKeyword(String keyword) {
 		return endRepo.listByKeyword(keyword);
+	}*/
+	
+	
+	@Transactional
+	public List<Object[]> listByKeyword(String keyword){
+		return endRepo.findLogradouroAndCoordinates(keyword);
 	}
 
 	@Transactional
