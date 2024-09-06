@@ -17,9 +17,7 @@ import com.api.main.repositories.InterferenciaRepository;
 
 @Service
 public class EnderecoService {
-	
 
-	
 	@Autowired
 	private EnderecoRepository endRepo;
 	@Autowired
@@ -27,50 +25,48 @@ public class EnderecoService {
 
 	@Transactional
 	public EnderecoModel save(EnderecoModel requestedEndereco) {
-	    Long id = requestedEndereco.getId();
-	    EnderecoModel response = null;
+		Long id = requestedEndereco.getId();
+		EnderecoModel response = null;
 
-	    if (id != null && endRepo.existsById(id)) {
-	        response = endRepo.findById(id).map((EnderecoModel record) -> {
-	            record.setLogradouro(requestedEndereco.getLogradouro());
-	            record.setCidade(requestedEndereco.getCidade());
-	            record.setCep(requestedEndereco.getCep());
-	            record.setBairro(requestedEndereco.getBairro());
-	            record.setEstado(requestedEndereco.getEstado());
-	            return endRepo.save(record);
-	        }).orElse(null);
-	    }
+		if (id != null && endRepo.existsById(id)) {
+			response = endRepo.findById(id).map((EnderecoModel record) -> {
+				record.setLogradouro(requestedEndereco.getLogradouro());
+				record.setCidade(requestedEndereco.getCidade());
+				record.setCep(requestedEndereco.getCep());
+				record.setBairro(requestedEndereco.getBairro());
+				record.setEstado(requestedEndereco.getEstado());
+				return endRepo.save(record);
+			}).orElse(null);
+		}
 
-	    if (response == null) {
-	        // Salva as interferências, se houver
-	        if (requestedEndereco.getInterferencias() != null && !requestedEndereco.getInterferencias().isEmpty()) {
-	            for (InterferenciaModel interferencia : requestedEndereco.getInterferencias()) {
-	                interferencia.setEndereco(requestedEndereco);  // Relaciona a interferência com o endereço
-	            }
+		if (response == null) {
+			// Salva as interferências, se houver
+			if (requestedEndereco.getInterferencias() != null && !requestedEndereco.getInterferencias().isEmpty()) {
+				for (InterferenciaModel interferencia : requestedEndereco.getInterferencias()) {
+					interferencia.setEndereco(requestedEndereco); // Relaciona a interferência com o endereço
+				}
 
-	            // Salva todas as interferências associadas ao endereço
-	            List<InterferenciaModel> interferencias = interRepo.saveAll(requestedEndereco.getInterferencias());
-	            // Atualiza o conjunto de interferências no endereço
-	            requestedEndereco.setInterferencias(new HashSet<>(interferencias));
-	        }
+				// Salva todas as interferências associadas ao endereço
+				List<InterferenciaModel> interferencias = interRepo.saveAll(requestedEndereco.getInterferencias());
+				// Atualiza o conjunto de interferências no endereço
+				requestedEndereco.setInterferencias(new HashSet<>(interferencias));
+			}
 
-	        // Salva o endereço com as interferências atualizadas
-	        response = endRepo.save(requestedEndereco);
-	    }
+			// Salva o endereço com as interferências atualizadas
+			response = endRepo.save(requestedEndereco);
+		}
 
-	    return response;
+		return response;
 	}
 
-/*
+	/*
+	 * @Transactional public List<EnderecoModel> listByKeyword(String keyword) {
+	 * return endRepo.listByKeyword(keyword); }
+	 */
+
 	@Transactional
 	public List<EnderecoModel> listByKeyword(String keyword) {
 		return endRepo.listByKeyword(keyword);
-	}*/
-	
-	
-	@Transactional
-	public List<Object[]> listByKeyword(String keyword){
-		return endRepo.findLogradouroAndCoordinates(keyword);
 	}
 
 	@Transactional

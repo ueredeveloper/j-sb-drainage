@@ -26,7 +26,6 @@ import com.api.main.services.InterferenciaService;
 @RequestMapping("/interference")
 public class InterferenciaController {
 
-	
 	@Autowired
 	private InterferenciaService interferenciaService;
 
@@ -39,8 +38,8 @@ public class InterferenciaController {
 	}
 
 	@GetMapping("/list-by-keyword")
-	public ResponseEntity<List<Object[]>> list(@RequestParam(required = false) String keyword) {
-		List<Object[]> resultList = interferenciaService.listByLogradouro(keyword);
+	public ResponseEntity<List<InterferenciaModel>> list(@RequestParam(required = false) String keyword) {
+		List<InterferenciaModel> resultList = interferenciaService.listByLogradouro(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
