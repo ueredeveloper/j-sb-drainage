@@ -12,8 +12,10 @@ import com.api.main.models.EnderecoModel;
 @Repository
 public interface EnderecoRepository extends JpaRepository<EnderecoModel, Long> {
 
-	@Query("SELECT e FROM EnderecoModel e WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
-	List<EnderecoModel> listByKeyword(@Param("keyword") String keyword);
+	@Query("SELECT "
+			+ "CONCAT('{\"endereco\": {\"id\": ', e.id, ', \"logradouro\": \"', e.logradouro,'\"}}') "
+			+ "FROM EnderecoModel e WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+	List<Object> listByKeyword(@Param("keyword") String keyword);
 
 	@Query("SELECT e.logradouro, i.latitude, i.longitude, "
 			+ "CONCAT('{\"tipoAto\": {\"id\": ', ta.id, ', \"descricao\": \"', ta.descricao, '\"}}') "

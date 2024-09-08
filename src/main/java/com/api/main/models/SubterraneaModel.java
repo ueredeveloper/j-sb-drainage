@@ -10,29 +10,27 @@ import com.vividsolutions.jts.geom.Geometry;
 @Table(name = "subterranea")
 public class SubterraneaModel extends InterferenciaModel {
 	
-
-	
 	private static final long serialVersionUID = 1L;
 
 	@Column()
-	private Boolean subCaesb; // tem caesb () sim () não
+	private Boolean caesb; // tem caesb () sim () não
 
 	@Column(columnDefinition = "varchar(20)")
-	private String subNivelEstatico; // em metros
+	private String nivelEstatico; // em metros
 
 	@Column(columnDefinition = "varchar(20)")
-	private String subDinamico; // em metros
+	private String nivelDinamico; // em metros
 
 	public SubterraneaModel() {
 		super();
 	}
 
-	public SubterraneaModel(Double latitude, Double longitude, Boolean subCaesb, String subNivelEstatico,
-			String subDinamico) {
+	public SubterraneaModel(Double latitude, Double longitude, Boolean caesb, String nivelEstatico,
+			String nivelDinamico) {
 		super(latitude, longitude);
-		this.subCaesb = subCaesb;
-		this.subNivelEstatico = subNivelEstatico;
-		this.subDinamico = subDinamico;
+		this.caesb = caesb;
+		this.nivelEstatico = nivelEstatico;
+		this.nivelDinamico = nivelDinamico;
 	}
 	
 
@@ -71,34 +69,33 @@ public class SubterraneaModel extends InterferenciaModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Boolean getSubCaesb() {
-		return subCaesb;
+	public Boolean getCaesb() {
+		return caesb;
 	}
 
-	public void setSubCaesb(Boolean subCaesb) {
-		this.subCaesb = subCaesb;
+	public void setCaesb(Boolean caesb) {
+		this.caesb = caesb;
 	}
 
-	public String getSubNivelEstatico() {
-		return subNivelEstatico;
+	public String getNivelEstatico() {
+		return nivelEstatico;
 	}
 
-	public void setSubNivelEstatico(String subNivelEstatico) {
-		this.subNivelEstatico = subNivelEstatico;
+	public void setNivelEstatico(String nivelEstatico) {
+		this.nivelEstatico = nivelEstatico;
 	}
 
-	public String getSubDinamico() {
-		return subDinamico;
+	public String getNivelDinamico() {
+		return nivelDinamico;
 	}
 
-	public void setSubDinamico(String subDinamico) {
-		this.subDinamico = subDinamico;
+	public void setNivelDinamico(String nivelDinamico) {
+		this.nivelDinamico = nivelDinamico;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
 
+	
 }

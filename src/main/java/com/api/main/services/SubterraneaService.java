@@ -16,9 +16,6 @@ import com.api.main.repositories.SubterraneaRepository;
 
 @Service
 public class SubterraneaService {
-	
-	
-	
 
 	@Autowired
 	private SubterraneaRepository subterraneaRepository;
@@ -36,11 +33,11 @@ public class SubterraneaService {
 
 		// Verificar se há interId no objeto solicitado
 		if (requestedObject.getId() != null) {
-			
+
 			Optional<SubterraneaModel> subterraneaOptional = subterraneaRepository.findById(requestedObject.getId());
-			
+
 			if (subterraneaOptional.isPresent()) {
-				
+
 				SubterraneaModel existingSubterranea = subterraneaOptional.get();
 
 				// Atualizar atributos da interferência, exceto interId
@@ -52,9 +49,9 @@ public class SubterraneaService {
 				existingSubterranea.setSubtipoOutorga(requestedObject.getSubtipoOutorga());
 				existingSubterranea.setSituacaoProcesso(requestedObject.getSituacaoProcesso());
 				existingSubterranea.setTipoAto(requestedObject.getTipoAto());
-				existingSubterranea.setSubCaesb(requestedObject.getSubCaesb());
-				existingSubterranea.setSubNivelEstatico(requestedObject.getSubNivelEstatico());
-				existingSubterranea.setSubDinamico(requestedObject.getSubDinamico());
+				existingSubterranea.setCaesb(requestedObject.getCaesb());
+				existingSubterranea.setNivelEstatico(requestedObject.getNivelEstatico());
+				existingSubterranea.setNivelDinamico(requestedObject.getNivelDinamico());
 
 				// Atualizar ou criar endereço conforme necessário
 				EnderecoModel endereco = requestedObject.getEndereco();
@@ -101,6 +98,8 @@ public class SubterraneaService {
 	}
 
 	private SubterraneaModel createNewSubterranea(SubterraneaModel requestedObject) {
+
+		System.out.println("sub caesb " + requestedObject.getCaesb());
 		// Criar novo endereço se necessário
 		if (requestedObject.getEndereco() != null) {
 			EnderecoModel endereco = requestedObject.getEndereco();
@@ -172,5 +171,14 @@ public class SubterraneaService {
 		}
 
 		return response;
+	}
+
+	@Transactional
+	public SubterraneaModel deleteById(Long id) {
+		SubterraneaModel deleteResponse = subterraneaRepository.findById(id)
+				.orElseThrow(() -> new NoSuchElementException("Não foi encontrado o id: " + id));
+
+		subterraneaRepository.deleteById(id);
+		return deleteResponse;
 	}
 }

@@ -110,11 +110,7 @@ public class InterferenciaService {
 		return interferenciaRepository.save(requestedObject);
 	}
 
-	/*
-	 * @Transactional public List<Object[]> listByLogradouro(String keyword) {
-	 * return interferenciaRepository.listByLogradouro(keyword); }
-	 */
-
+	@Transactional
 	public List<InterferenciaModel> listByLogradouro(String keyword) {
 		List<Object[]> results = interferenciaRepository.listByLogradouro(keyword);
 		List<InterferenciaModel> response = new ArrayList<>();
@@ -123,8 +119,6 @@ public class InterferenciaService {
 			System.out.println("No results found for the keyword: " + keyword);
 			return response; // Return an empty list if no results
 		}
-
-		System.out.println("Total results: " + results.size());
 
 		for (Object[] result : results) {
 			if (result == null) {
@@ -215,8 +209,8 @@ public class InterferenciaService {
 
 	@Transactional
 	public InterferenciaModel deleteById(Long id) {
-		InterferenciaModel response = interferenciaRepository.findById(id)
-				.orElseThrow(() -> new NoSuchElementException("Não encontrado, id: " + id));
+		InterferenciaModel response = interferenciaRepository.findById(id).orElseThrow(
+				() -> new NoSuchElementException("{\"info\": \"interferência não encontrada\", \"id\": " + id + "}"));
 		interferenciaRepository.deleteById(id);
 		return response;
 	}
