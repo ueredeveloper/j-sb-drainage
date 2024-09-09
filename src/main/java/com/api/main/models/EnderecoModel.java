@@ -72,6 +72,28 @@ public class EnderecoModel {
 		this.logradouro = logradouro;
 		this.interferencias = interferencias;
 	}
+	
+	
+
+	public EnderecoModel(String logradouro, String cidade, String bairro, String cep) {
+		super();
+		this.logradouro = logradouro;
+		this.cidade = cidade;
+		this.bairro = bairro;
+		this.cep = cep;
+	}
+	
+	
+
+	public EnderecoModel(Long id, String logradouro, String cidade, String bairro, String cep, EstadoModel estado) {
+		super();
+		this.id = id;
+		this.logradouro = logradouro;
+		this.cidade = cidade;
+		this.bairro = bairro;
+		this.cep = cep;
+		this.estado = estado;
+	}
 
 	public Long getId() {
 		return id;

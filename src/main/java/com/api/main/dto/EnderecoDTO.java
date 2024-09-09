@@ -9,7 +9,6 @@ import com.api.main.models.InterferenciaModel;
 
 public class EnderecoDTO {
 
-	
 	private Long id;
 
 	private String logradouro;
@@ -29,14 +28,22 @@ public class EnderecoDTO {
 	public EnderecoDTO() {
 		super();
 	}
-	
+
 	public EnderecoDTO(String logradouro, Set<InterferenciaModel> interferencias) {
 		super();
 		this.logradouro = logradouro;
 		this.interferencias = interferencias;
 	}
 
-
+	public EnderecoDTO(Long id, String logradouro, String cidade, String cep, String bairro, EstadoModel estado) {
+		super();
+		this.id = id;
+		this.logradouro = logradouro;
+		this.cidade = cidade;
+		this.cep = cep;
+		this.bairro = bairro;
+		this.estado = estado;
+	}
 
 	public String getLogradouro() {
 		return logradouro;
@@ -101,5 +108,5 @@ public class EnderecoDTO {
 	public void setInterferencias(Set<InterferenciaModel> interferencias) {
 		this.interferencias = interferencias;
 	}
-	
+
 }

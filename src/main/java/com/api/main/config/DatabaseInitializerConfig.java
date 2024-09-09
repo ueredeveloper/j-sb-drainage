@@ -119,9 +119,9 @@ public class DatabaseInitializerConfig {
 	public CommandLineRunner insertEndereco(EnderecoRepository r) {
 		return (args) -> {
 
-			r.save(new EnderecoModel("Rua Novaes Terceiro, Casa 12"));
-			r.save(new EnderecoModel("Avenida Principal, Bloco A"));
-			r.save(new EnderecoModel("Rua das Flores, Apartamento 5"));
+			r.save(new EnderecoModel("Rua Novaes Terceiro, Casa 12", "a", "b", "c"));
+			r.save(new EnderecoModel("Avenida Principal, Bloco A", "e", "f", "g"));
+			r.save(new EnderecoModel("Rua das Flores, Apartamento 5", "h", "i", "j"));
 
 		};
 	}

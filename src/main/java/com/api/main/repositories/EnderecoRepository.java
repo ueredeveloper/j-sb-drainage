@@ -11,11 +11,31 @@ import com.api.main.models.EnderecoModel;
 
 @Repository
 public interface EnderecoRepository extends JpaRepository<EnderecoModel, Long> {
+	
+	/**
+	 * Cria uma string em formato JSON. Também verifica de o Estado está relacionado, se não seta null no atributo estado.
+	 * @param keyword
+	 * @return
+	 */
 
-	@Query("SELECT "
-			+ "CONCAT('{\"endereco\": {\"id\": ', e.id, ', \"logradouro\": \"', e.logradouro,'\"}}') "
-			+ "FROM EnderecoModel e WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
-	List<Object> listByKeyword(@Param("keyword") String keyword);
+	@Query("SELECT " +
+		       "CONCAT('{', '\"endereco\"', ':', '{', " +
+		       "'\"id\"', ':', e.id, ',', " +
+		       "'\"logradouro\"', ':','\"', COALESCE(e.logradouro, ''),'\"', ',', " +
+		       "'\"cidade\"', ':','\"', COALESCE(e.cidade, ''),'\"', ',', " +
+		       "'\"bairro\"', ':','\"', COALESCE(e.bairro, ''),'\"', ',', " +
+		       "'\"cep\"', ':','\"', COALESCE(e.cep, ''),'\"', ',', " +
+		       "'\"estado\"', ':', " +
+		       "CASE WHEN es.id IS NOT NULL " +
+		       "THEN CONCAT('{', '\"id\"', ':', es.id, ',', '\"descricao\"', ':', '\"', es.descricao, '\"', '}') " +
+		       "ELSE 'null' " +
+		       "END " +
+		       ",'}}') " +
+		       "FROM EnderecoModel e " +
+		       "LEFT JOIN e.estado es " +
+		       "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+		List<Object> listByKeyword(@Param("keyword") String keyword);
+
 
 	@Query("SELECT e.logradouro, i.latitude, i.longitude, "
 			+ "CONCAT('{\"tipoAto\": {\"id\": ', ta.id, ', \"descricao\": \"', ta.descricao, '\"}}') "

@@ -140,6 +140,8 @@ public class EnderecoService {
 		String endJson = result != null ? result.toString() : null;
 		
 		if (endJson != null) {
+			
+			System.out.println("string " + endJson);
 	        // Since the structure is a list of objects containing 'endereco', extract them
 	        List<Map<String, EnderecoModel>> tempList = new Gson().fromJson(endJson,
 	                new TypeToken<List<Map<String, EnderecoModel>>>() {}.getType());
