@@ -15,6 +15,7 @@ import com.api.main.models.SituacaoProcessoModel;
 import com.api.main.models.SubtipoOutorgaModel;
 import com.api.main.models.TemplateModel;
 import com.api.main.models.TipoAtoModel;
+import com.api.main.models.TipoFinalidadeModel;
 import com.api.main.models.TipoInterferenciaModel;
 import com.api.main.models.TipoOutorgaModel;
 import com.api.main.models.TipoPocoModel;
@@ -29,6 +30,7 @@ import com.api.main.repositories.SituacaoProcessoRepository;
 import com.api.main.repositories.SubtipoOutorgaRepository;
 import com.api.main.repositories.TemplateRepository;
 import com.api.main.repositories.TipoAtoRepository;
+import com.api.main.repositories.TipoFinalidadeRepository;
 import com.api.main.repositories.TipoInterferenciaRepository;
 import com.api.main.repositories.TipoOutorgaRepository;
 import com.api.main.repositories.TipoPocoRepository;
@@ -212,6 +214,15 @@ public class DatabaseInitializerConfig {
 			r.save(new TipoPocoModel("Manual"));
 			r.save(new TipoPocoModel("Tubular Raso"));
 			r.save(new TipoPocoModel("Tubular Profundo"));
+
+		};
+	}
+
+	@Bean
+	CommandLineRunner insertTipoFinalidade(TipoFinalidadeRepository r) {
+		return (args) -> {
+			r.save(new TipoFinalidadeModel("Requerida"));
+			r.save(new TipoFinalidadeModel("Autorizada"));
 
 		};
 	}

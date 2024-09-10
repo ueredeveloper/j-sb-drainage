@@ -1,7 +1,11 @@
 package com.api.main.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.api.main.models.BaciaHidrograficaModel;
 import com.api.main.models.EnderecoModel;
+import com.api.main.models.FinalidadeModel;
 import com.api.main.models.SituacaoProcessoModel;
 import com.api.main.models.SubtipoOutorgaModel;
 import com.api.main.models.TipoAtoModel;
@@ -12,7 +16,6 @@ import com.vividsolutions.jts.geom.Geometry;
 
 public class InterferenciaDTO {
 
-	
 	private Long id;
 
 	private Double latitude;
@@ -36,6 +39,8 @@ public class InterferenciaDTO {
 	private BaciaHidrograficaModel baciaHidrografica;
 
 	private UnidadeHidrograficaModel unidadeHidrografica;
+
+	private Set<FinalidadeModel> finalidades = new HashSet<>();
 
 	public InterferenciaDTO() {
 		super();
@@ -97,6 +102,32 @@ public class InterferenciaDTO {
 		this.subtipoOutorga = subtipoOutorga;
 		this.situacaoProcesso = situacaoProcesso;
 		this.tipoAto = tipoAto;
+	}
+
+	public InterferenciaDTO(Double latitude, Double longitude, Set<FinalidadeModel> finalidades) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.finalidades = finalidades;
+	}
+
+	public InterferenciaDTO(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
+			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto, BaciaHidrograficaModel baciaHidrografica,
+			UnidadeHidrograficaModel unidadeHidrografica, Set<FinalidadeModel> finalidades) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.geometry = geometry;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
+		this.tipoOutorga = tipoOutorga;
+		this.subtipoOutorga = subtipoOutorga;
+		this.situacaoProcesso = situacaoProcesso;
+		this.tipoAto = tipoAto;
+		this.baciaHidrografica = baciaHidrografica;
+		this.unidadeHidrografica = unidadeHidrografica;
+		this.finalidades = finalidades;
 	}
 
 	public Long getId() {
@@ -195,5 +226,12 @@ public class InterferenciaDTO {
 		this.unidadeHidrografica = unidadeHidrografica;
 	}
 
-	
+	public Set<FinalidadeModel> getFinalidades() {
+		return finalidades;
+	}
+
+	public void setFinalidades(Set<FinalidadeModel> finalidades) {
+		this.finalidades = finalidades;
+	}
+
 }

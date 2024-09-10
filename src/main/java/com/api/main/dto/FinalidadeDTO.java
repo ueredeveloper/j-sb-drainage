@@ -1,10 +1,50 @@
 package com.api.main.dto;
 
-public class FinalidadeDTO {
-	
+import com.api.main.models.InterferenciaModel;
+import com.api.main.models.TipoFinalidadeModel;
 
-	
+public class FinalidadeDTO {
+
 	private Long id;
+
+	private String finalidade;
+
+	private String subfinalidade;
+
+	private Double quantidade;
+
+	private Double consumo;
+
+	private InterferenciaModel interferencia;
+
+	private TipoFinalidadeModel tipoFinalidade;
+
+	public FinalidadeDTO() {
+		super();
+	}
+
+	public FinalidadeDTO(Long id, String finalidade, String subfinalidade, Double quantidade, Double consumo,
+			InterferenciaModel interferencia, TipoFinalidadeModel tipoFinalidade) {
+		super();
+		this.id = id;
+		this.finalidade = finalidade;
+		this.subfinalidade = subfinalidade;
+		this.quantidade = quantidade;
+		this.consumo = consumo;
+		this.interferencia = interferencia;
+		this.tipoFinalidade = tipoFinalidade;
+	}
+
+	public FinalidadeDTO(String finalidade, String subfinalidade, Double quantidade, Double consumo,
+			InterferenciaModel interferencia, TipoFinalidadeModel tipoFinalidade) {
+		super();
+		this.finalidade = finalidade;
+		this.subfinalidade = subfinalidade;
+		this.quantidade = quantidade;
+		this.consumo = consumo;
+		this.interferencia = interferencia;
+		this.tipoFinalidade = tipoFinalidade;
+	}
 
 	public Long getId() {
 		return id;
@@ -14,5 +54,52 @@ public class FinalidadeDTO {
 		this.id = id;
 	}
 
-	
+	public String getFinalidade() {
+		return finalidade;
+	}
+
+	public void setFinalidade(String finalidade) {
+		this.finalidade = finalidade;
+	}
+
+	public String getSubfinalidade() {
+		return subfinalidade;
+	}
+
+	public void setSubfinalidade(String subfinalidade) {
+		this.subfinalidade = subfinalidade;
+	}
+
+	public Double getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Double quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public Double getConsumo() {
+		return consumo;
+	}
+
+	public void setConsumo(Double consumo) {
+		this.consumo = consumo;
+	}
+
+	public InterferenciaModel getInterferencia() {
+		return interferencia;
+	}
+
+	public void setInterferencia(InterferenciaModel interferencia) {
+		this.interferencia = interferencia;
+	}
+
+	public TipoFinalidadeModel getTipoFinalidade() {
+		return tipoFinalidade;
+	}
+
+	public void setTipoFinalidade(TipoFinalidadeModel tipoFinalidade) {
+		this.tipoFinalidade = tipoFinalidade;
+	}
+
 }

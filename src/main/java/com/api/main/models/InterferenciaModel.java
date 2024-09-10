@@ -1,7 +1,10 @@
 package com.api.main.models;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +14,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -72,8 +76,16 @@ public class InterferenciaModel implements Serializable {
 	@JoinColumn(name = "unidadeHidrografica")
 	private UnidadeHidrograficaModel unidadeHidrografica;
 
+	@OneToMany(mappedBy = "interferencia", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<FinalidadeModel> finalidades = new HashSet<>();
+
 	public InterferenciaModel() {
 		super();
+	}
+	
+	public InterferenciaModel(Long id) {
+		super();
+		this.id = id;
 	}
 
 	public InterferenciaModel(Double latitude, Double longitude) {
@@ -134,6 +146,33 @@ public class InterferenciaModel implements Serializable {
 		this.subtipoOutorga = subtipoOutorga;
 		this.situacaoProcesso = situacaoProcesso;
 		this.tipoAto = tipoAto;
+	}
+	
+	
+	public InterferenciaModel(Double latitude, Double longitude, Set<FinalidadeModel> finalidades) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.finalidades = finalidades;
+	}
+	
+	public InterferenciaModel(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
+			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto, BaciaHidrograficaModel baciaHidrografica,
+			UnidadeHidrograficaModel unidadeHidrografica, Set<FinalidadeModel> finalidades) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.geometry = geometry;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
+		this.tipoOutorga = tipoOutorga;
+		this.subtipoOutorga = subtipoOutorga;
+		this.situacaoProcesso = situacaoProcesso;
+		this.tipoAto = tipoAto;
+		this.baciaHidrografica = baciaHidrografica;
+		this.unidadeHidrografica = unidadeHidrografica;
+		this.finalidades = finalidades;
 	}
 
 	public Long getId() {
@@ -234,6 +273,14 @@ public class InterferenciaModel implements Serializable {
 
 	public void setTipoInterferencia(TipoInterferenciaModel tipoInterferencia) {
 		this.tipoInterferencia = tipoInterferencia;
+	}
+
+	public Set<FinalidadeModel> getFinalidades() {
+		return finalidades;
+	}
+
+	public void setFinalidades(Set<FinalidadeModel> finalidades) {
+		this.finalidades = finalidades;
 	}
 
 }

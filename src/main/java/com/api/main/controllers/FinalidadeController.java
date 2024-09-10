@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,33 +26,36 @@ import com.api.main.services.FinalidadeService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/purpose")
 public class FinalidadeController {
-	
-	
 
-	
 	@Autowired
 	private FinalidadeService finalidadeService;
 
-
 	@PostMapping("/create")
-	public ResponseEntity<Object> save(@RequestBody @Valid FinalidadeDTO finalidadeDTO) {
-		FinalidadeModel finalidadeModel = new FinalidadeModel();
-		BeanUtils.copyProperties(finalidadeDTO, finalidadeModel);
-		return ResponseEntity.status(HttpStatus.CREATED).body(finalidadeService.save(finalidadeModel));
+	public ResponseEntity<Object> save(@RequestBody @Valid FinalidadeDTO toSaveDTO) {
+		FinalidadeModel toSaveModel = new FinalidadeModel();
+		BeanUtils.copyProperties(toSaveDTO, toSaveModel);
+		return ResponseEntity.status(HttpStatus.CREATED).body(finalidadeService.save(toSaveModel));
 	}
 
-	/*
-	 * @PutMapping("/update") public ResponseEntity<Object>
-	 * update(@RequestParam("id") long id, @RequestBody FinalidadeModel
-	 * updateFinalidade) { FinalidadeModel updated = finalidadeService.update(id,
-	 * updateFinalidade); if (updated != null) { return
-	 * ResponseEntity.ok().body(updated); } else { return
-	 * ResponseEntity.notFound().build(); } }
-	 */
+	@PutMapping("/update")
+	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody FinalidadeModel toUpdateObject) {
+		FinalidadeModel updated = finalidadeService.update(id, toUpdateObject);
+		if (updated != null) {
+			return ResponseEntity.ok().body(updated);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
 	@GetMapping("/list")
 	public ResponseEntity<List<FinalidadeModel>> list(@RequestParam(required = false) String keyword) {
 		List<FinalidadeModel> resultList = finalidadeService.list(keyword);
+		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+	}
+
+	@GetMapping("/list-by-inter-id")
+	public ResponseEntity<List<FinalidadeModel>> listByInterferenciaId(@RequestParam(required = false) Long id) {
+		List<FinalidadeModel> resultList = finalidadeService.listByInterferenciaId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 

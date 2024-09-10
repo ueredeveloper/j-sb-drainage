@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.main.models.EnderecoModel;
+import com.api.main.models.FinalidadeModel;
 import com.api.main.models.InterferenciaModel;
 import com.api.main.models.SituacaoProcessoModel;
 import com.api.main.models.SubtipoOutorgaModel;
@@ -19,6 +21,7 @@ import com.api.main.models.TipoAtoModel;
 import com.api.main.models.TipoInterferenciaModel;
 import com.api.main.models.TipoOutorgaModel;
 import com.api.main.repositories.EnderecoRepository;
+import com.api.main.repositories.FinalidadeRepository;
 import com.api.main.repositories.InterferenciaRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -31,6 +34,9 @@ public class InterferenciaService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+
+	@Autowired
+	private FinalidadeRepository finalidadeRepository;
 
 	@Transactional
 	public InterferenciaModel save(InterferenciaModel requestedObject) {
@@ -80,11 +86,27 @@ public class InterferenciaService {
 					}
 				}
 
+				// Atualizar ou criar finalidades
+				Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
+				if (finalidades != null && !finalidades.isEmpty()) {
+					existingInterferencia.getFinalidades().clear(); // Remove finalidades antigas
+
+					finalidades.forEach(finalidade -> {
+						finalidade.setInterferencia(existingInterferencia); // Associa a interferência
+						finalidadeRepository.save(finalidade); // Salva ou atualiza a finalidade
+					});
+
+					existingInterferencia.getFinalidades().addAll(finalidades); // Adiciona as novas finalidades
+				}
+
 				savedInterferencia = interferenciaRepository.save(existingInterferencia);
 			} else {
+
+				// Se a interferência não existir, cria uma nova com finalidades
 				savedInterferencia = createNewInterferencia(requestedObject);
 			}
 		} else {
+			// Criação de uma nova interferência com finalidades
 			savedInterferencia = createNewInterferencia(requestedObject);
 		}
 
@@ -92,22 +114,34 @@ public class InterferenciaService {
 	}
 
 	private InterferenciaModel createNewInterferencia(InterferenciaModel requestedObject) {
-		// Criar novo endereço se necessário
-		if (requestedObject.getEndereco() != null) {
-			EnderecoModel endereco = requestedObject.getEndereco();
-			if (endereco.getId() == null) {
-				EnderecoModel newEnderecoModel = new EnderecoModel();
-				newEnderecoModel.setLogradouro(endereco.getLogradouro());
-				newEnderecoModel.setBairro(endereco.getBairro());
-				newEnderecoModel.setCidade(endereco.getCidade());
-				newEnderecoModel.setCep(endereco.getCep());
-				newEnderecoModel.setEstado(endereco.getEstado());
-				EnderecoModel savedEnderecoModel = enderecoRepository.save(newEnderecoModel);
-				requestedObject.setEndereco(savedEnderecoModel);
-			}
+
+		// Salvar o endereço, se necessário
+		EnderecoModel endereco = requestedObject.getEndereco();
+		if (endereco != null && endereco.getId() == null) {
+			EnderecoModel savedEndereco = enderecoRepository.save(endereco);
+			requestedObject.setEndereco(savedEndereco);
 		}
 
-		return interferenciaRepository.save(requestedObject);
+		Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
+		// Remove as finalidades da interferência para poder salvá-la.
+		// Não é possível salvar com as finalidades, pois o id da interferência na
+		// finalidade neste momento ainda está vazio.
+		requestedObject.setFinalidades(null);
+
+		// Salvar a interferência antes de associar as finalidades
+		InterferenciaModel savedInterferencia = interferenciaRepository.save(requestedObject);
+
+		// Aqui já se tem o id da interferência salva e então salva as finalidades
+		if (finalidades != null && !finalidades.isEmpty()) {
+			finalidades.forEach(finalidade -> {
+				System.out.println("save finalidades inter id " + savedInterferencia.getId());
+				// Associar a interferência à finalidade
+				finalidade.setInterferencia(savedInterferencia);
+				finalidadeRepository.save(finalidade); // Salvar ou atualizar a finalidade
+			});
+		}
+
+		return savedInterferencia;
 	}
 
 	@Transactional
