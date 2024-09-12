@@ -21,8 +21,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "processo")
 public class ProcessoModel {
 	
-
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
@@ -32,9 +30,6 @@ public class ProcessoModel {
 
 	@ManyToOne
 	@JoinColumn(name = "anexo_id", referencedColumnName = "id")
-	// Ao pequisar processo não vir anexo com os processos relacionados dentro,
-	// gerando loop de json.
-	@JsonBackReference
 	private AnexoModel anexo;
 
 	@JsonIgnore
@@ -44,6 +39,15 @@ public class ProcessoModel {
 	public ProcessoModel() {
 		super();
 	}
+	
+	public ProcessoModel(Long id, String numero, AnexoModel anexo) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.anexo = anexo;
+	}
+
+
 
 	public ProcessoModel(Long id, String numero, AnexoModel anexo, Set<DocumentoModel> documentos) {
 		super();

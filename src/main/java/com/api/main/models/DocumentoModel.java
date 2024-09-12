@@ -19,7 +19,6 @@ import javax.persistence.Table;
 public class DocumentoModel implements Serializable {
 	
 
-	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -36,7 +35,6 @@ public class DocumentoModel implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "processo")
 	private ProcessoModel processo;
-
 
 	// está retirando o tipo de documento relacionado, trazendo só o id. Ex:
 	// documento: {doc_tipo:{dt_id: 1}} => documento: {doc_tipo: 1}

@@ -14,7 +14,6 @@ public class DocumentoTipoDTO {
 
 	private Set<DocumentoModel> documentos = new HashSet<>();
 	
-	
 
 	public DocumentoTipoDTO() {
 		super();

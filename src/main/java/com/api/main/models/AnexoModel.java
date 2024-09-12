@@ -16,8 +16,6 @@ import javax.persistence.Table;
 @Table(name = "anexo")
 public class AnexoModel {
 	
-	
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,7 +26,7 @@ public class AnexoModel {
 	private String numero;
 
 	@OneToMany(mappedBy = "anexo", cascade = CascadeType.ALL, orphanRemoval = true)
-	// @JsonBackReference
+
 	private Set<ProcessoModel> processos = new HashSet<>();
 
 	public AnexoModel() {
@@ -37,6 +35,13 @@ public class AnexoModel {
 	
 	public AnexoModel(String numero) {
 		super();
+		this.numero = numero;
+	}
+	
+
+	public AnexoModel(Long id, String numero) {
+		super();
+		this.id = id;
 		this.numero = numero;
 	}
 

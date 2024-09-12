@@ -57,14 +57,29 @@ public class EnderecoModel {
 		super();
 	}
 
+	
+	public EnderecoModel(Long id) {
+		super();
+		this.id = id;
+	}
+
+	public EnderecoModel(Long id, String logradouro) {
+		super();
+		this.id = id;
+		this.logradouro = logradouro;
+	}
+	
 	public EnderecoModel(String logradouro) {
 		super();
 		this.logradouro = logradouro;
 	}
-
-	public EnderecoModel(Long id) {
+	
+	public EnderecoModel(String logradouro, String cidade, String bairro, String cep) {
 		super();
-		this.id = id;
+		this.logradouro = logradouro;
+		this.cidade = cidade;
+		this.bairro = bairro;
+		this.cep = cep;
 	}
 
 	public EnderecoModel(String logradouro, Set<InterferenciaModel> interferencias) {
@@ -73,18 +88,6 @@ public class EnderecoModel {
 		this.interferencias = interferencias;
 	}
 	
-	
-
-	public EnderecoModel(String logradouro, String cidade, String bairro, String cep) {
-		super();
-		this.logradouro = logradouro;
-		this.cidade = cidade;
-		this.bairro = bairro;
-		this.cep = cep;
-	}
-	
-	
-
 	public EnderecoModel(Long id, String logradouro, String cidade, String bairro, String cep, EstadoModel estado) {
 		super();
 		this.id = id;
@@ -94,7 +97,7 @@ public class EnderecoModel {
 		this.cep = cep;
 		this.estado = estado;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

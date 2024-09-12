@@ -10,9 +10,27 @@ public class ProcessoDTO {
 
 	
 	Long id;
+	
 	String numero;
+	
 	private AnexoModel anexo;
+	
 	private Set<DocumentoModel> documentos = new HashSet<>();
+	
+	
+	public ProcessoDTO() {
+		super();
+	}
+	
+	public ProcessoDTO(Long id, String numero, AnexoModel anexo) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.anexo = anexo;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}
