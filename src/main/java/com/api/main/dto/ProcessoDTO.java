@@ -22,14 +22,23 @@ public class ProcessoDTO {
 		super();
 	}
 	
+	public ProcessoDTO(Long id) {
+		super();
+		this.id = id;
+	}
+
+	public ProcessoDTO(Long id, String numero) {
+		super();
+		this.id = id;
+		this.numero = numero;
+	}
+
 	public ProcessoDTO(Long id, String numero, AnexoModel anexo) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.anexo = anexo;
 	}
-
-
 
 	public Long getId() {
 		return id;

@@ -14,13 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "processo")
 public class ProcessoModel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
@@ -29,25 +26,22 @@ public class ProcessoModel {
 	String numero;
 
 	@ManyToOne
-	@JoinColumn(name = "anexo_id", referencedColumnName = "id")
+	@JoinColumn(name = "anexo", referencedColumnName = "id")
 	private AnexoModel anexo;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "processo")
 	private Set<DocumentoModel> documentos = new HashSet<>();
 
 	public ProcessoModel() {
 		super();
 	}
-	
+
 	public ProcessoModel(Long id, String numero, AnexoModel anexo) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.anexo = anexo;
 	}
-
-
 
 	public ProcessoModel(Long id, String numero, AnexoModel anexo, Set<DocumentoModel> documentos) {
 		super();
@@ -56,8 +50,7 @@ public class ProcessoModel {
 		this.anexo = anexo;
 		this.documentos = documentos;
 	}
-	
-	
+
 	public ProcessoModel(String numero) {
 		super();
 		this.numero = numero;
@@ -100,7 +93,5 @@ public class ProcessoModel {
 	public void setDocumentos(Set<DocumentoModel> documentos) {
 		this.documentos = documentos;
 	}
-	
-	
 
 }

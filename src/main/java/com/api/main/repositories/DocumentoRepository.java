@@ -12,18 +12,6 @@ import com.api.main.models.DocumentoModel;
 @Repository
 public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long> {
 	
-	/*@Query("SELECT d FROM DocumentoModel d "
-		    + "LEFT JOIN d.processo p "
-		    + "LEFT JOIN d.endereco e "
-		    + "LEFT JOIN p.anexo a "
-		    + "WHERE "
-		    + "LOWER(d.numero) LIKE LOWER(CONCAT('%', :keyword, '%')) "
-		    + "OR LOWER(d.numeroSei) LIKE LOWER(CONCAT('%', :keyword, '%')) "
-		    + "OR LOWER(p.numero) LIKE LOWER(CONCAT('%', :keyword, '%')) "
-		    + "OR LOWER(e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')) "
-		    + "OR LOWER(a.numero) LIKE LOWER(CONCAT('%', :keyword, '%'))")
-		List<DocumentoModel> listByKeyword (@Param("keyword") String keyword);*/
-	
 	@Query("SELECT " +
 		       "CONCAT('{', '\"documento\"', ':', '{', " +
 		       "'\"id\"', ':', d.id, ',', " +
@@ -55,6 +43,8 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 		       "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
 
 		List<Object> listByKeyword(@Param("keyword") String keyword);
+	
+
 
 
 	

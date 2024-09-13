@@ -37,12 +37,6 @@ public class AnexoController {
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
-	@GetMapping("/list-all")
-	public ResponseEntity<List<AnexoModel>> findAll() {
-		List<AnexoModel> resultList = anexoService.findAll();
-		return ResponseEntity.status(HttpStatus.OK).body(resultList);
-	}
-
 	@PutMapping("/update")
 	public ResponseEntity<Object> update(@RequestParam("id") Long id, @RequestBody AnexoModel object) {
 		AnexoModel updated = anexoService.update(id, object);

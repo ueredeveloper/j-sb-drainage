@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "anexo")
 public class AnexoModel {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -26,23 +26,33 @@ public class AnexoModel {
 	private String numero;
 
 	@OneToMany(mappedBy = "anexo", cascade = CascadeType.ALL, orphanRemoval = true)
-
 	private Set<ProcessoModel> processos = new HashSet<>();
 
 	public AnexoModel() {
 		super();
 	}
 	
+	public AnexoModel(Long id) {
+		super();
+		this.id = id;
+	}
+
 	public AnexoModel(String numero) {
 		super();
 		this.numero = numero;
 	}
-	
 
 	public AnexoModel(Long id, String numero) {
 		super();
 		this.id = id;
 		this.numero = numero;
+	}
+
+	public AnexoModel(Long id, String numero, Set<ProcessoModel> processos) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.processos = processos;
 	}
 
 	public Long getId() {
