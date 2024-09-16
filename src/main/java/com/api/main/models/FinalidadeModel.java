@@ -28,6 +28,8 @@ public class FinalidadeModel {
 	private Double quantidade;
 	@Column(nullable = true, unique = false)
 	private Double consumo;
+	@Column(nullable = true, unique = false)
+	private Double total;
 
 	@ManyToOne
 	@JoinColumn(name = "interferencia", referencedColumnName = "id", nullable = false)
@@ -104,6 +106,14 @@ public class FinalidadeModel {
 		this.consumo = consumo;
 	}
 
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
 	public InterferenciaModel getInterferencia() {
 		return interferencia;
 	}
@@ -119,5 +129,7 @@ public class FinalidadeModel {
 	public void setTipoFinalidade(TipoFinalidadeModel tipoFinalidade) {
 		this.tipoFinalidade = tipoFinalidade;
 	}
+
+	
 
 }

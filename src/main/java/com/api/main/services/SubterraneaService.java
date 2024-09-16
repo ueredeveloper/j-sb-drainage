@@ -3,6 +3,7 @@ package com.api.main.services;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.main.models.EnderecoModel;
+import com.api.main.models.FinalidadeModel;
 import com.api.main.models.SubterraneaModel;
 import com.api.main.repositories.EnderecoRepository;
+import com.api.main.repositories.FinalidadeRepository;
 import com.api.main.repositories.SubterraneaRepository;
 
 @Service
@@ -21,6 +24,9 @@ public class SubterraneaService {
 	private SubterraneaRepository subterraneaRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+
+	@Autowired
+	private FinalidadeRepository finalidadeRepository;
 
 	@Transactional
 	public List<SubterraneaModel> listByKeyword(String keyword) {
@@ -99,24 +105,33 @@ public class SubterraneaService {
 
 	private SubterraneaModel createNewSubterranea(SubterraneaModel requestedObject) {
 
-		System.out.println("sub caesb " + requestedObject.getCaesb());
-		// Criar novo endereço se necessário
-		if (requestedObject.getEndereco() != null) {
-			EnderecoModel endereco = requestedObject.getEndereco();
-			if (endereco.getId() == null) {
-				EnderecoModel newEndereco = new EnderecoModel();
-				newEndereco.setLogradouro(endereco.getLogradouro());
-				newEndereco.setBairro(endereco.getBairro());
-				newEndereco.setCidade(endereco.getCidade());
-				newEndereco.setCep(endereco.getCep());
-				newEndereco.setEstado(endereco.getEstado());
-
-				EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
-				requestedObject.setEndereco(savedEndereco);
-			}
+		// Salvar o endereço, se necessário
+		EnderecoModel endereco = requestedObject.getEndereco();
+		if (endereco != null && endereco.getId() == null) {
+			EnderecoModel savedEndereco = enderecoRepository.save(endereco);
+			requestedObject.setEndereco(savedEndereco);
 		}
 
-		return subterraneaRepository.save(requestedObject);
+		Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
+		// Remove as finalidades da interferência para poder salvá-la.
+		// Não é possível salvar com as finalidades, pois o id da interferência na
+		// finalidade neste momento ainda está vazio.
+		requestedObject.setFinalidades(null);
+
+		// Salvar a interferência antes de associar as finalidades
+		SubterraneaModel savedInterferencia = subterraneaRepository.save(requestedObject);
+
+		// Aqui já se tem o id da interferência salva e então salva as finalidades
+		if (finalidades != null && !finalidades.isEmpty()) {
+			finalidades.forEach(finalidade -> {
+				System.out.println("save finalidades inter id " + savedInterferencia.getId());
+				// Associar a interferência à finalidade
+				finalidade.setInterferencia(savedInterferencia);
+				finalidadeRepository.save(finalidade); // Salvar ou atualizar a finalidade
+			});
+		}
+
+		return savedInterferencia;
 	}
 
 	@Transactional

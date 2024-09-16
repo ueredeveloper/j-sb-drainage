@@ -1,23 +1,28 @@
 package com.api.main.dto;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import com.api.main.models.InterferenciaModel;
 import com.api.main.models.TipoFinalidadeModel;
 
 public class FinalidadeDTO {
 
 	private Long id;
-
 	private String finalidade;
-
 	private String subfinalidade;
-
 	private Double quantidade;
-
 	private Double consumo;
-
+	private Double total;
+	
 	private InterferenciaModel interferencia;
 
 	private TipoFinalidadeModel tipoFinalidade;
+
 
 	public FinalidadeDTO() {
 		super();
@@ -84,6 +89,14 @@ public class FinalidadeDTO {
 
 	public void setConsumo(Double consumo) {
 		this.consumo = consumo;
+	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 
 	public InterferenciaModel getInterferencia() {
