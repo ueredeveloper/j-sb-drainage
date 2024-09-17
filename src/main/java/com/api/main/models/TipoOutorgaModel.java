@@ -18,8 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "tipo_outorga")
 public class TipoOutorgaModel {
 	
-
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -27,16 +25,21 @@ public class TipoOutorgaModel {
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "tipoOutorga", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
 	public TipoOutorgaModel() {
 		super();
 	}
-
+	
 	public TipoOutorgaModel(String descricao) {
 		super();
+		this.descricao = descricao;
+	}
+
+	public TipoOutorgaModel(Long id, String descricao) {
+		super();
+		this.id = id;
 		this.descricao = descricao;
 	}
 

@@ -1,6 +1,6 @@
 package com.api.main.services;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
@@ -12,7 +12,12 @@ import org.springframework.stereotype.Service;
 
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.FinalidadeModel;
+import com.api.main.models.SituacaoProcessoModel;
 import com.api.main.models.SubterraneaModel;
+import com.api.main.models.SubtipoOutorgaModel;
+import com.api.main.models.TipoAtoModel;
+import com.api.main.models.TipoFinalidadeModel;
+import com.api.main.models.TipoOutorgaModel;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.FinalidadeRepository;
 import com.api.main.repositories.SubterraneaRepository;
@@ -27,11 +32,6 @@ public class SubterraneaService {
 
 	@Autowired
 	private FinalidadeRepository finalidadeRepository;
-
-	@Transactional
-	public List<SubterraneaModel> listByKeyword(String keyword) {
-		return subterraneaRepository.listByKeword(keyword);
-	}
 
 	@Transactional
 	public SubterraneaModel save(SubterraneaModel requestedObject) {
@@ -100,43 +100,63 @@ public class SubterraneaService {
 			savedSubterranea = createNewSubterranea(requestedObject);
 		}
 
-		return savedSubterranea;
+		return createSafeResponse(savedSubterranea);
 	}
 
+	@Transactional
 	private SubterraneaModel createNewSubterranea(SubterraneaModel requestedObject) {
 
 		// Salvar o endereço, se necessário
-		EnderecoModel endereco = requestedObject.getEndereco();
-		if (endereco != null && endereco.getId() == null) {
-			EnderecoModel savedEndereco = enderecoRepository.save(endereco);
-			requestedObject.setEndereco(savedEndereco);
-		}
+		saveEnderecoIfNeeded(requestedObject);
 
+		// Guardar finalidades temporariamente e limpar no objeto para salvar
+		// interferência
 		Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
-		// Remove as finalidades da interferência para poder salvá-la.
-		// Não é possível salvar com as finalidades, pois o id da interferência na
-		// finalidade neste momento ainda está vazio.
-		requestedObject.setFinalidades(null);
+		requestedObject.setFinalidades(null); // Limpa as finalidades temporariamente
 
-		// Salvar a interferência antes de associar as finalidades
+		// Salvar a interferência primeiro
 		SubterraneaModel savedInterferencia = subterraneaRepository.save(requestedObject);
 
-		// Aqui já se tem o id da interferência salva e então salva as finalidades
-		if (finalidades != null && !finalidades.isEmpty()) {
-			finalidades.forEach(finalidade -> {
-				System.out.println("save finalidades inter id " + savedInterferencia.getId());
-				// Associar a interferência à finalidade
-				finalidade.setInterferencia(savedInterferencia);
-				finalidadeRepository.save(finalidade); // Salvar ou atualizar a finalidade
-			});
-		}
+		// Salvar finalidades associadas
+		saveFinalidades(finalidades, savedInterferencia);
 
 		return savedInterferencia;
 	}
 
+	private void saveEnderecoIfNeeded(SubterraneaModel requestedObject) {
+		EnderecoModel endereco = requestedObject.getEndereco();
+		if (endereco != null && endereco.getId() == null) {
+			EnderecoModel savedEndereco = enderecoRepository.save(endereco);
+			requestedObject.setEndereco(savedEndereco); // Atualizar o endereço salvo
+		}
+	}
+
+	private void saveFinalidades(Set<FinalidadeModel> finalidades, SubterraneaModel savedInterferencia) {
+		if (finalidades != null && !finalidades.isEmpty()) {
+
+			// Cria um novo Set para armazenar as finalidades salvas
+			Set<FinalidadeModel> savedFinalidades = new HashSet<>();
+
+			finalidades.forEach(finalidade -> {
+				// Associar a interferência à finalidade
+				finalidade.setInterferencia(savedInterferencia);
+
+				// Salvar a finalidade e adicionar ao Set de finalidades salvas
+				FinalidadeModel savedFinalidade = finalidadeRepository.save(finalidade);
+				savedFinalidades.add(savedFinalidade);
+			});
+
+			// Adicionar todas as finalidades salvas ao objeto SubterraneaModel
+			savedInterferencia.setFinalidades(savedFinalidades);
+
+			// Atualiza a interferência com as finalidades associadas
+			subterraneaRepository.save(savedInterferencia);
+		}
+	}
+
 	@Transactional
 	public SubterraneaModel update(Long id, SubterraneaModel requestedObject) {
-		SubterraneaModel response = subterraneaRepository.findById(id).map((SubterraneaModel record) -> {
+		SubterraneaModel originalResponse = subterraneaRepository.findById(id).map((SubterraneaModel record) -> {
 
 			record.setLatitude(requestedObject.getLatitude());
 			record.setLongitude(requestedObject.getLongitude());
@@ -181,11 +201,48 @@ public class SubterraneaService {
 			return subterraneaRepository.save(record);
 		}).orElse(null);
 
-		if (response == null) {
+		if (originalResponse == null) {
 			throw new NoSuchElementException("Não foi encontrado interferência com o id: " + id);
 		}
 
-		return response;
+		return createSafeResponse(originalResponse);
+	}
+
+	public SubterraneaModel createSafeResponse(SubterraneaModel originalResponse) {
+
+		SubterraneaModel safeResponse = new SubterraneaModel();
+
+		safeResponse.setId(originalResponse.getId());
+		safeResponse.setLatitude(originalResponse.getLatitude());
+		safeResponse.setLongitude(originalResponse.getLongitude());
+
+		// Não permite referências cíclicas, que geram loop na criaçaõ do json
+		safeResponse.setEndereco(new EnderecoModel(originalResponse.getEndereco().getId(),
+				originalResponse.getEndereco().getLogradouro()));
+
+		safeResponse.setTipoInterferencia(originalResponse.getTipoInterferencia());
+		safeResponse.setTipoOutorga(new TipoOutorgaModel(originalResponse.getTipoOutorga().getId(),
+				originalResponse.getTipoOutorga().getDescricao()));
+
+		safeResponse.setSubtipoOutorga(
+				new SubtipoOutorgaModel(originalResponse.getId(), originalResponse.getSubtipoOutorga().getDescricao()));
+
+		safeResponse.setSituacaoProcesso(new SituacaoProcessoModel(originalResponse.getSituacaoProcesso().getId(),
+				originalResponse.getSituacaoProcesso().getDescricao()));
+
+		safeResponse.setTipoAto(
+				new TipoAtoModel(originalResponse.getTipoAto().getId(), originalResponse.getTipoAto().getDescricao()));
+
+		Set<FinalidadeModel> finalidades = originalResponse.getFinalidades();
+
+		finalidades.forEach(f -> {
+
+			safeResponse.getFinalidades().add(new FinalidadeModel(f.getId(), f.getFinalidade(), f.getSubfinalidade(),
+					f.getQuantidade(), f.getConsumo(), f.getTotal(),
+					new TipoFinalidadeModel(f.getTipoFinalidade().getId(), f.getTipoFinalidade().getDescricao())));
+		});
+
+		return safeResponse;
 	}
 
 	@Transactional

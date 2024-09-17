@@ -27,7 +27,6 @@ public class SituacaoProcessoModel {
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "situacaoProcesso", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 	
@@ -38,6 +37,12 @@ public class SituacaoProcessoModel {
 
 	public SituacaoProcessoModel(String descricao) {
 		super();
+		this.descricao = descricao;
+	}
+	
+	public SituacaoProcessoModel(Long id, String descricao) {
+		super();
+		this.id = id;
 		this.descricao = descricao;
 	}
 

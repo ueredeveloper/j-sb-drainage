@@ -19,9 +19,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "tipoInterferencia")
 public class TipoInterferenciaModel implements Serializable {
 	
-
-	
-	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -31,7 +28,6 @@ public class TipoInterferenciaModel implements Serializable {
 	@Column(nullable = true, unique = false, length = 40)
 	String descricao;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "tipoInterferencia", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 

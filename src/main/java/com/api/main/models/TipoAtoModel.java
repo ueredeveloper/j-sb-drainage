@@ -26,7 +26,6 @@ public class TipoAtoModel {
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "tipoAto", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 	
@@ -34,7 +33,13 @@ public class TipoAtoModel {
 	public TipoAtoModel() {
 		super();
 	}
-
+	
+	public TipoAtoModel(Long id, String descricao) {
+		super();
+		this.id = id;
+		this.descricao = descricao;
+	}
+	
 	public TipoAtoModel(String descricao) {
 		super();
 		this.descricao = descricao;

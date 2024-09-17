@@ -18,8 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "unidade_hidrografica")
 public class UnidadeHidrograficaModel {
 	
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -27,7 +25,6 @@ public class UnidadeHidrograficaModel {
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "unidadeHidrografica", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 	

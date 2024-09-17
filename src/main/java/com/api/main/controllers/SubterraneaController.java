@@ -37,12 +37,6 @@ public class SubterraneaController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(subterraneaService.save(objMod));
 	}
 
-	@GetMapping("/list")
-	public ResponseEntity<List<SubterraneaModel>> list(@RequestParam(required = false) String keyword) {
-		List<SubterraneaModel> resultList = subterraneaService.listByKeyword(keyword);
-		return ResponseEntity.status(HttpStatus.OK).body(resultList);
-	}
-
 	@PutMapping("/update")
 	public ResponseEntity<Object> update(@RequestParam("id") long id, @RequestBody SubterraneaModel objMod) {
 		SubterraneaModel toUpdate = subterraneaService.update(id, objMod);

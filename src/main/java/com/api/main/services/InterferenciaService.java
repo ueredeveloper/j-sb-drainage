@@ -15,11 +15,6 @@ import org.springframework.stereotype.Service;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.FinalidadeModel;
 import com.api.main.models.InterferenciaModel;
-import com.api.main.models.SituacaoProcessoModel;
-import com.api.main.models.SubtipoOutorgaModel;
-import com.api.main.models.TipoAtoModel;
-import com.api.main.models.TipoInterferenciaModel;
-import com.api.main.models.TipoOutorgaModel;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.FinalidadeRepository;
 import com.api.main.repositories.InterferenciaRepository;
@@ -146,99 +141,116 @@ public class InterferenciaService {
 
 	@Transactional
 	public List<InterferenciaModel> listByLogradouro(String keyword) {
-		List<Object[]> results = interferenciaRepository.listByLogradouro(keyword);
+
+		List<InterferenciaModel> response = readJsonStringAndConvert(keyword);
+		return response;
+
+		/*
+		 * List<Object[]> results = interferenciaRepository.listByLogradouro(keyword);
+		 * List<InterferenciaModel> response = new ArrayList<>();
+		 * 
+		 * if (results == null) {
+		 * System.out.println("No results found for the keyword: " + keyword); return
+		 * response; // Return an empty list if no results }
+		 * 
+		 * for (Object[] result : results) { if (result == null) {
+		 * System.out.println("Encountered a null result in the list, skipping...");
+		 * continue; // Skip null results }
+		 * 
+		 * InterferenciaModel interferencia = new InterferenciaModel();
+		 * 
+		 * System.out.println(result[7].toString());
+		 * 
+		 * // Check for null and process each field String interferenciaJson = result[0]
+		 * != null ? result[0].toString() : null; String tipoInterferenciaJson =
+		 * result[1] != null ? result[1].toString() : null; String tipoOutorgaJson =
+		 * result[2] != null ? result[2].toString() : null; String subtipoOutorgaJson =
+		 * result[3] != null ? result[3].toString() : null; String situacaoProcessoJson
+		 * = result[4] != null ? result[4].toString() : null; String tipoAtoJson =
+		 * result[5] != null ? result[5].toString() : null; String enderecoJson =
+		 * result[6] != null ? result[6].toString() : null;
+		 * 
+		 * // Deserialize each part into its respective model, checking for null values
+		 * if (interferenciaJson != null) { Map<String, InterferenciaModel> intMap = new
+		 * Gson().fromJson(interferenciaJson, new TypeToken<Map<String,
+		 * InterferenciaModel>>() { }.getType()); if
+		 * (intMap.containsKey("interferencia")) { interferencia =
+		 * intMap.get("interferencia"); } }
+		 * 
+		 * if (tipoInterferenciaJson != null) { Map<String, TipoInterferenciaModel>
+		 * tpMap = new Gson().fromJson(tipoInterferenciaJson, new TypeToken<Map<String,
+		 * TipoInterferenciaModel>>() { }.getType()); if
+		 * (tpMap.containsKey("tipoInterferencia")) {
+		 * interferencia.setTipoInterferencia(tpMap.get("tipoInterferencia")); } }
+		 * 
+		 * if (tipoOutorgaJson != null) { Map<String, TipoOutorgaModel> toMap = new
+		 * Gson().fromJson(tipoOutorgaJson, new TypeToken<Map<String,
+		 * TipoOutorgaModel>>() { }.getType()); if (toMap.containsKey("tipoOutorga")) {
+		 * interferencia.setTipoOutorga(toMap.get("tipoOutorga")); } }
+		 * 
+		 * if (subtipoOutorgaJson != null) { Map<String, SubtipoOutorgaModel> soMap =
+		 * new Gson().fromJson(subtipoOutorgaJson, new TypeToken<Map<String,
+		 * SubtipoOutorgaModel>>() { }.getType()); if
+		 * (soMap.containsKey("subtipoOutorga")) {
+		 * interferencia.setSubtipoOutorga(soMap.get("subtipoOutorga")); } }
+		 * 
+		 * if (situacaoProcessoJson != null) { Map<String, SituacaoProcessoModel> spMap
+		 * = new Gson().fromJson(situacaoProcessoJson, new TypeToken<Map<String,
+		 * SituacaoProcessoModel>>() { }.getType()); if
+		 * (spMap.containsKey("situacaoProcesso")) {
+		 * interferencia.setSituacaoProcesso(spMap.get("situacaoProcesso")); } }
+		 * 
+		 * if (tipoAtoJson != null) { Map<String, TipoAtoModel> taMap = new
+		 * Gson().fromJson(tipoAtoJson, new TypeToken<Map<String, TipoAtoModel>>() {
+		 * }.getType()); if (taMap.containsKey("tipoAto")) {
+		 * interferencia.setTipoAto(taMap.get("tipoAto")); } }
+		 * 
+		 * if (enderecoJson != null) { Map<String, EnderecoModel> endMap = new
+		 * Gson().fromJson(enderecoJson, new TypeToken<Map<String, EnderecoModel>>() {
+		 * }.getType()); if (endMap.containsKey("endereco")) {
+		 * interferencia.setEndereco(endMap.get("endereco")); } }
+		 * 
+		 * response.add(interferencia); }
+		 * 
+		 * return response;
+		 */
+	}
+
+	public List<InterferenciaModel> readJsonStringAndConvert(String keyword) {
+
+		List<Object> result = interferenciaRepository.listByLogradouro(keyword);
 		List<InterferenciaModel> response = new ArrayList<>();
 
-		if (results == null) {
+		if (result == null) {
 			System.out.println("No results found for the keyword: " + keyword);
 			return response; // Return an empty list if no results
 		}
 
-		for (Object[] result : results) {
-			if (result == null) {
-				System.out.println("Encountered a null result in the list, skipping...");
-				continue; // Skip null results
-			}
+		// example of result [{"endereco": {"id": 1, "logradouro": "Rua Novaes Terceiro,
+		// Casa 12"}}, {"endereco": {"id": 2, "logradouro": "Avenida Principal, Bloco
+		// A"}}, {"endereco": {"id": 3, "logradouro": "Rua das Flores, Apartamento 5"}}]
 
-			InterferenciaModel interferencia = new InterferenciaModel();
+		String json = result != null ? result.toString() : null;
 
-			// Check for null and process each field
-			String interferenciaJson = result[0] != null ? result[0].toString() : null;
-			String tipoInterferenciaJson = result[1] != null ? result[1].toString() : null;
-			String tipoOutorgaJson = result[2] != null ? result[2].toString() : null;
-			String subtipoOutorgaJson = result[3] != null ? result[3].toString() : null;
-			String situacaoProcessoJson = result[4] != null ? result[4].toString() : null;
-			String tipoAtoJson = result[5] != null ? result[5].toString() : null;
-			String enderecoJson = result[6] != null ? result[6].toString() : null;
+		if (json != null) {
 
-			// Deserialize each part into its respective model, checking for null values
-			if (interferenciaJson != null) {
-				Map<String, InterferenciaModel> intMap = new Gson().fromJson(interferenciaJson,
-						new TypeToken<Map<String, InterferenciaModel>>() {
-						}.getType());
-				if (intMap.containsKey("interferencia")) {
-					interferencia = intMap.get("interferencia");
+			System.out.println("list interferencia by key " + json.toString());
+			// Since the structure is a list of objects containing 'endereco', extract them
+			List<Map<String, InterferenciaModel>> tempList = new Gson().fromJson(json,
+					new TypeToken<List<Map<String, InterferenciaModel>>>() {
+					}.getType());
+
+			// Iterate over the list and extract 'endereco' object from each map
+			for (Map<String, InterferenciaModel> map : tempList) {
+				InterferenciaModel obj = map.get("interferencia");
+				if (obj != null) {
+					response.add(obj);
 				}
 			}
-
-			if (tipoInterferenciaJson != null) {
-				Map<String, TipoInterferenciaModel> tpMap = new Gson().fromJson(tipoInterferenciaJson,
-						new TypeToken<Map<String, TipoInterferenciaModel>>() {
-						}.getType());
-				if (tpMap.containsKey("tipoInterferencia")) {
-					interferencia.setTipoInterferencia(tpMap.get("tipoInterferencia"));
-				}
-			}
-
-			if (tipoOutorgaJson != null) {
-				Map<String, TipoOutorgaModel> toMap = new Gson().fromJson(tipoOutorgaJson,
-						new TypeToken<Map<String, TipoOutorgaModel>>() {
-						}.getType());
-				if (toMap.containsKey("tipoOutorga")) {
-					interferencia.setTipoOutorga(toMap.get("tipoOutorga"));
-				}
-			}
-
-			if (subtipoOutorgaJson != null) {
-				Map<String, SubtipoOutorgaModel> soMap = new Gson().fromJson(subtipoOutorgaJson,
-						new TypeToken<Map<String, SubtipoOutorgaModel>>() {
-						}.getType());
-				if (soMap.containsKey("subtipoOutorga")) {
-					interferencia.setSubtipoOutorga(soMap.get("subtipoOutorga"));
-				}
-			}
-
-			if (situacaoProcessoJson != null) {
-				Map<String, SituacaoProcessoModel> spMap = new Gson().fromJson(situacaoProcessoJson,
-						new TypeToken<Map<String, SituacaoProcessoModel>>() {
-						}.getType());
-				if (spMap.containsKey("situacaoProcesso")) {
-					interferencia.setSituacaoProcesso(spMap.get("situacaoProcesso"));
-				}
-			}
-
-			if (tipoAtoJson != null) {
-				Map<String, TipoAtoModel> taMap = new Gson().fromJson(tipoAtoJson,
-						new TypeToken<Map<String, TipoAtoModel>>() {
-						}.getType());
-				if (taMap.containsKey("tipoAto")) {
-					interferencia.setTipoAto(taMap.get("tipoAto"));
-				}
-			}
-
-			if (enderecoJson != null) {
-				Map<String, EnderecoModel> endMap = new Gson().fromJson(enderecoJson,
-						new TypeToken<Map<String, EnderecoModel>>() {
-						}.getType());
-				if (endMap.containsKey("endereco")) {
-					interferencia.setEndereco(endMap.get("endereco"));
-				}
-			}
-
-			response.add(interferencia);
 		}
 
 		return response;
+
 	}
 
 	@Transactional

@@ -25,7 +25,6 @@ public class TipoFinalidadeModel {
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "tipoFinalidade", fetch = FetchType.EAGER)
 	private Set<FinalidadeModel> finalidades = new HashSet<>();
 
@@ -35,6 +34,12 @@ public class TipoFinalidadeModel {
 
 	public TipoFinalidadeModel(String descricao) {
 		super();
+		this.descricao = descricao;
+	}
+	
+	public TipoFinalidadeModel(Long id, String descricao) {
+		super();
+		this.id = id;
 		this.descricao = descricao;
 	}
 

@@ -174,6 +174,7 @@ public class InterferenciaModel implements Serializable {
 		this.unidadeHidrografica = unidadeHidrografica;
 		this.finalidades = finalidades;
 	}
+	
 
 	public Long getId() {
 		return id;

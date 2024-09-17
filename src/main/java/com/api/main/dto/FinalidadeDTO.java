@@ -50,6 +50,18 @@ public class FinalidadeDTO {
 		this.interferencia = interferencia;
 		this.tipoFinalidade = tipoFinalidade;
 	}
+	
+	public FinalidadeDTO(Long id, String finalidade, String subfinalidade, Double quantidade, Double consumo,
+			Double total, TipoFinalidadeModel tipoFinalidade) {
+		super();
+		this.id = id;
+		this.finalidade = finalidade;
+		this.subfinalidade = subfinalidade;
+		this.quantidade = quantidade;
+		this.consumo = consumo;
+		this.total = total;
+		this.tipoFinalidade = tipoFinalidade;
+	}
 
 	public Long getId() {
 		return id;

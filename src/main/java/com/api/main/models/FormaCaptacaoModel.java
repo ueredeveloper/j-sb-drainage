@@ -11,8 +11,6 @@ import javax.persistence.Table;
 @Table(name = "forma_captacao")
 public class FormaCaptacaoModel {
 	
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

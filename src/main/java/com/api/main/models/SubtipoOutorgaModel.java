@@ -27,8 +27,6 @@ public class SubtipoOutorgaModel {
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
 	
-	
-	@JsonIgnore
 	@OneToMany(mappedBy = "subtipoOutorga", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
@@ -38,6 +36,12 @@ public class SubtipoOutorgaModel {
 
 	public SubtipoOutorgaModel(String descricao) {
 		super();
+		this.descricao = descricao;
+	}
+	
+	public SubtipoOutorgaModel(Long id, String descricao) {
+		super();
+		this.id = id;
 		this.descricao = descricao;
 	}
 

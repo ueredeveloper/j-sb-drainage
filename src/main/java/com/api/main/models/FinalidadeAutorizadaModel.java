@@ -11,7 +11,6 @@ import javax.persistence.Table;
 @Table(name = "finalidade_autorizada")
 public class FinalidadeAutorizadaModel extends FinalidadeModel {
 	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
