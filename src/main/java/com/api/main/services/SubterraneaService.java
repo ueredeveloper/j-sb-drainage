@@ -235,13 +235,16 @@ public class SubterraneaService {
 
 		Set<FinalidadeModel> finalidades = originalResponse.getFinalidades();
 
-		finalidades.forEach(f -> {
+		if (finalidades!= null) {
+			finalidades.forEach(f -> {
 
-			safeResponse.getFinalidades().add(new FinalidadeModel(f.getId(), f.getFinalidade(), f.getSubfinalidade(),
-					f.getQuantidade(), f.getConsumo(), f.getTotal(),
-					new TipoFinalidadeModel(f.getTipoFinalidade().getId(), f.getTipoFinalidade().getDescricao())));
-		});
+				safeResponse.getFinalidades().add(new FinalidadeModel(f.getId(), f.getFinalidade(), f.getSubfinalidade(),
+						f.getQuantidade(), f.getConsumo(), f.getTotal(),
+						new TipoFinalidadeModel(f.getTipoFinalidade().getId(), f.getTipoFinalidade().getDescricao())));
+			});
 
+		}
+		
 		return safeResponse;
 	}
 
