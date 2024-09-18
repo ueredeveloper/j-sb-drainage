@@ -35,6 +35,7 @@ public class SubterraneaService {
 
 	@Transactional
 	public SubterraneaModel save(SubterraneaModel requestedObject) {
+
 		SubterraneaModel savedSubterranea;
 
 		// Verificar se há interId no objeto solicitado
@@ -47,50 +48,10 @@ public class SubterraneaService {
 				SubterraneaModel existingSubterranea = subterraneaOptional.get();
 
 				// Atualizar atributos da interferência, exceto interId
-				existingSubterranea.setLatitude(requestedObject.getLatitude());
-				existingSubterranea.setLongitude(requestedObject.getLongitude());
-				existingSubterranea.setGeometry(requestedObject.getGeometry());
-				existingSubterranea.setTipoInterferencia(requestedObject.getTipoInterferencia());
-				existingSubterranea.setTipoOutorga(requestedObject.getTipoOutorga());
-				existingSubterranea.setSubtipoOutorga(requestedObject.getSubtipoOutorga());
-				existingSubterranea.setSituacaoProcesso(requestedObject.getSituacaoProcesso());
-				existingSubterranea.setTipoAto(requestedObject.getTipoAto());
-				existingSubterranea.setCaesb(requestedObject.getCaesb());
-				existingSubterranea.setNivelEstatico(requestedObject.getNivelEstatico());
-				existingSubterranea.setNivelDinamico(requestedObject.getNivelDinamico());
+				updateSubterraneaAttributes(existingSubterranea, requestedObject);
 
 				// Atualizar ou criar endereço conforme necessário
-				EnderecoModel endereco = requestedObject.getEndereco();
-				if (endereco != null) {
-					if (endereco.getId() != null) {
-						Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(endereco.getId());
-						if (enderecoOptional.isPresent()) {
-							EnderecoModel existingEndereco = enderecoOptional.get();
-
-							// Atualizar atributos do endereço
-							existingEndereco.setLogradouro(endereco.getLogradouro());
-							existingEndereco.setBairro(endereco.getBairro());
-							existingEndereco.setCidade(endereco.getCidade());
-							existingEndereco.setCep(endereco.getCep());
-							existingEndereco.setEstado(endereco.getEstado());
-
-							enderecoRepository.save(existingEndereco);
-							existingSubterranea.setEndereco(existingEndereco);
-						}
-					} else {
-						// Criar novo endereço
-						EnderecoModel newEndereco = new EnderecoModel();
-
-						newEndereco.setLogradouro(endereco.getLogradouro());
-						newEndereco.setBairro(endereco.getBairro());
-						newEndereco.setCidade(endereco.getCidade());
-						newEndereco.setCep(endereco.getCep());
-						newEndereco.setEstado(endereco.getEstado());
-
-						EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
-						existingSubterranea.setEndereco(savedEndereco);
-					}
-				}
+				saveOrUpdateEndereco(requestedObject);
 
 				savedSubterranea = subterraneaRepository.save(existingSubterranea);
 			} else {
@@ -103,11 +64,30 @@ public class SubterraneaService {
 		return createSafeResponse(savedSubterranea);
 	}
 
+	private void updateSubterraneaAttributes(SubterraneaModel existingSubterranea, SubterraneaModel requestedObject) {
+		existingSubterranea.setLatitude(requestedObject.getLatitude());
+		existingSubterranea.setLongitude(requestedObject.getLongitude());
+		existingSubterranea.setCaesb(requestedObject.getCaesb());
+		existingSubterranea.setNivelEstatico(requestedObject.getNivelEstatico());
+		existingSubterranea.setNivelDinamico(requestedObject.getNivelDinamico());
+		existingSubterranea.setGeometry(requestedObject.getGeometry());
+		existingSubterranea.setTipoInterferencia(requestedObject.getTipoInterferencia());
+		existingSubterranea.setTipoOutorga(requestedObject.getTipoOutorga());
+		existingSubterranea.setSubtipoOutorga(requestedObject.getSubtipoOutorga());
+		existingSubterranea.setSituacaoProcesso(requestedObject.getSituacaoProcesso());
+		existingSubterranea.setTipoAto(requestedObject.getTipoAto());
+		existingSubterranea.setCaesb(requestedObject.getCaesb());
+		existingSubterranea.setNivelEstatico(requestedObject.getNivelEstatico());
+		existingSubterranea.setNivelDinamico(requestedObject.getNivelDinamico());
+	}
+
 	@Transactional
 	private SubterraneaModel createNewSubterranea(SubterraneaModel requestedObject) {
 
 		// Salvar o endereço, se necessário
-		saveEnderecoIfNeeded(requestedObject);
+		saveOrUpdateEndereco(requestedObject);
+
+		System.out.println("create new sub " + requestedObject.getSubtipoOutorga().getId());
 
 		// Guardar finalidades temporariamente e limpar no objeto para salvar
 		// interferência
@@ -123,12 +103,37 @@ public class SubterraneaService {
 		return savedInterferencia;
 	}
 
-	private void saveEnderecoIfNeeded(SubterraneaModel requestedObject) {
+	private void saveOrUpdateEndereco(SubterraneaModel requestedObject) {
 		EnderecoModel endereco = requestedObject.getEndereco();
-		if (endereco != null && endereco.getId() == null) {
-			EnderecoModel savedEndereco = enderecoRepository.save(endereco);
-			requestedObject.setEndereco(savedEndereco); // Atualizar o endereço salvo
+
+		if (endereco == null)
+			return;
+
+		if (endereco.getId() == null) {
+			saveNewEndereco(requestedObject, endereco);
+		} else {
+			updateExistingEndereco(requestedObject, endereco);
 		}
+	}
+
+	private void saveNewEndereco(SubterraneaModel requestedObject, EnderecoModel endereco) {
+		EnderecoModel savedEndereco = enderecoRepository.save(endereco);
+		requestedObject.setEndereco(savedEndereco); // Atualizar o endereço salvo
+	}
+
+	private void updateExistingEndereco(SubterraneaModel requestedObject, EnderecoModel endereco) {
+		enderecoRepository.findById(endereco.getId()).ifPresent(existingEndereco -> {
+			updateEnderecoAttributes(existingEndereco, endereco);
+			EnderecoModel updatedEndereco = enderecoRepository.save(existingEndereco);
+			requestedObject.setEndereco(updatedEndereco);
+		});
+	}
+
+	private void updateEnderecoAttributes(EnderecoModel existingEndereco, EnderecoModel newEndereco) {
+		existingEndereco.setLogradouro(newEndereco.getLogradouro());
+		existingEndereco.setBairro(newEndereco.getBairro());
+		existingEndereco.setCidade(newEndereco.getCidade());
+		existingEndereco.setCep(newEndereco.getCep());
 	}
 
 	private void saveFinalidades(Set<FinalidadeModel> finalidades, SubterraneaModel savedInterferencia) {
@@ -156,11 +161,11 @@ public class SubterraneaService {
 
 	@Transactional
 	public SubterraneaModel update(Long id, SubterraneaModel requestedObject) {
+
 		SubterraneaModel originalResponse = subterraneaRepository.findById(id).map((SubterraneaModel record) -> {
 
-			record.setLatitude(requestedObject.getLatitude());
-			record.setLongitude(requestedObject.getLongitude());
-			record.setTipoInterferencia(requestedObject.getTipoInterferencia());
+			// Atualizar atributos da interferência
+			updateSubterraneaAttributes(record, requestedObject);
 
 			// Se houver endereço preenchido
 			if (requestedObject.getEndereco() != null) {
@@ -198,11 +203,12 @@ public class SubterraneaService {
 
 			}
 
+			// Salvar as mudanças no banco de dados
 			return subterraneaRepository.save(record);
 		}).orElse(null);
 
 		if (originalResponse == null) {
-			throw new NoSuchElementException("Não foi encontrado interferência com o id: " + id);
+			throw new NoSuchElementException("Não foi encontrada interferência com o id: " + id);
 		}
 
 		return createSafeResponse(originalResponse);
@@ -215,6 +221,9 @@ public class SubterraneaService {
 		safeResponse.setId(originalResponse.getId());
 		safeResponse.setLatitude(originalResponse.getLatitude());
 		safeResponse.setLongitude(originalResponse.getLongitude());
+		safeResponse.setCaesb(originalResponse.getCaesb());
+		safeResponse.setNivelEstatico(originalResponse.getNivelEstatico());
+		safeResponse.setNivelDinamico(originalResponse.getNivelDinamico());
 
 		// Não permite referências cíclicas, que geram loop na criaçaõ do json
 		safeResponse.setEndereco(new EnderecoModel(originalResponse.getEndereco().getId(),
@@ -224,8 +233,8 @@ public class SubterraneaService {
 		safeResponse.setTipoOutorga(new TipoOutorgaModel(originalResponse.getTipoOutorga().getId(),
 				originalResponse.getTipoOutorga().getDescricao()));
 
-		safeResponse.setSubtipoOutorga(
-				new SubtipoOutorgaModel(originalResponse.getId(), originalResponse.getSubtipoOutorga().getDescricao()));
+		safeResponse.setSubtipoOutorga(new SubtipoOutorgaModel(originalResponse.getSubtipoOutorga().getId(),
+				originalResponse.getSubtipoOutorga().getDescricao()));
 
 		safeResponse.setSituacaoProcesso(new SituacaoProcessoModel(originalResponse.getSituacaoProcesso().getId(),
 				originalResponse.getSituacaoProcesso().getDescricao()));
@@ -235,16 +244,16 @@ public class SubterraneaService {
 
 		Set<FinalidadeModel> finalidades = originalResponse.getFinalidades();
 
-		if (finalidades!= null) {
+		if (finalidades != null) {
 			finalidades.forEach(f -> {
 
-				safeResponse.getFinalidades().add(new FinalidadeModel(f.getId(), f.getFinalidade(), f.getSubfinalidade(),
-						f.getQuantidade(), f.getConsumo(), f.getTotal(),
+				safeResponse.getFinalidades().add(new FinalidadeModel(f.getId(), f.getFinalidade(),
+						f.getSubfinalidade(), f.getQuantidade(), f.getConsumo(), f.getTotal(),
 						new TipoFinalidadeModel(f.getTipoFinalidade().getId(), f.getTipoFinalidade().getDescricao())));
 			});
 
 		}
-		
+
 		return safeResponse;
 	}
 
