@@ -87,8 +87,6 @@ public class SubterraneaService {
 		// Salvar o endereço, se necessário
 		saveOrUpdateEndereco(requestedObject);
 
-		System.out.println("create new sub " + requestedObject.getSubtipoOutorga().getId());
-
 		// Guardar finalidades temporariamente e limpar no objeto para salvar
 		// interferência
 		Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
@@ -201,10 +199,35 @@ public class SubterraneaService {
 					record.setEndereco(newEndereco);
 				}
 
+				
+
+			}
+			
+			SubterraneaModel persistedSubterranea = subterraneaRepository.save(record);
+			
+			Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
+			if (finalidades != null && !finalidades.isEmpty()) {
+
+				finalidades.forEach(f -> {
+					// finalidadeRepository.save(f);
+
+					// Finalidade sem id, salva e relaciona com a interferência
+					if (f.getId() == null) {
+						f.setInterferencia(persistedSubterranea);
+						FinalidadeModel savedFinalidade = finalidadeRepository.save(f);
+						record.getFinalidades().add(savedFinalidade);
+
+						// Se tem id, apenas edita
+					} else {
+						f.setInterferencia(record);
+						finalidadeRepository.save(f);
+					}
+				});
+
 			}
 
 			// Salvar as mudanças no banco de dados
-			return subterraneaRepository.save(record);
+			return persistedSubterranea;
 		}).orElse(null);
 
 		if (originalResponse == null) {
