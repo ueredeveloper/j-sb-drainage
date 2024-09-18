@@ -16,6 +16,7 @@ public interface InterferenciaRepository extends JpaRepository<InterferenciaMode
 		    + "CONCAT('{', '\"interferencia\"', ':', '{', " 
 		    +  "'\"id\"', ':', i.id, ',', " 
 		    +  "'\"latitude\"', ':', '\"', COALESCE(i.latitude, ''), '\"', ',', " 
+		    +  "'\"longitude\"', ':', '\"', COALESCE(i.longitude, ''), '\"', ',', " 
 		    +  "'\"endereco\"', ':', "
 		    +  "CASE WHEN e.id IS NOT NULL " 
 		    +  "THEN CONCAT('{', '\"id\"', ':', e.id, ',', '\"logradouro\"', ':', '\"', e.logradouro, '\"', '}') " 
