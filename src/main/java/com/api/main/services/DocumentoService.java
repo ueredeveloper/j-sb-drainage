@@ -213,7 +213,6 @@ public class DocumentoService {
 
 		DocumentoModel safeResponse = new DocumentoModel();
 		
-		System.out.println(originalResponse.getTipo().getDescricao());
 		safeResponse.setId(originalResponse.getId());
 		safeResponse.setNumero(originalResponse.getNumero());
 		safeResponse.setNumeroSei(originalResponse.getNumeroSei());
