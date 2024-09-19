@@ -1,8 +1,11 @@
 package com.api.main.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -10,9 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.main.models.EnderecoModel;
+import com.api.main.models.FinalidadeModel;
 import com.api.main.models.InterferenciaModel;
 import com.api.main.repositories.EnderecoRepository;
+import com.api.main.repositories.FinalidadeRepository;
 import com.api.main.repositories.InterferenciaRepository;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 @Service
 public class InterferenciaService {
@@ -23,64 +30,78 @@ public class InterferenciaService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 
-	@Transactional
-	public List<InterferenciaModel> listByKeword(String keyword) {
-		return interferenciaRepository.listByKeword(keyword);
-	}
+	@Autowired
+	private FinalidadeRepository finalidadeRepository;
 
 	@Transactional
 	public InterferenciaModel save(InterferenciaModel requestedObject) {
 		InterferenciaModel savedInterferencia;
 
 		// Verificar se há interId no objeto de interferência solicitado
-		if (requestedObject.getInterId() != null) {
+		if (requestedObject.getId() != null) {
 			Optional<InterferenciaModel> interferenciaOptional = interferenciaRepository
-					.findById(requestedObject.getInterId());
+					.findById(requestedObject.getId());
 			if (interferenciaOptional.isPresent()) {
 				InterferenciaModel existingInterferencia = interferenciaOptional.get();
 
 				// Atualizar atributos da interferência, exceto interId
-				existingInterferencia.setInterLatitude(requestedObject.getInterLatitude());
-				existingInterferencia.setInterLongitude(requestedObject.getInterLongitude());
-				existingInterferencia.setInterGeometry(requestedObject.getInterGeometry());
-				existingInterferencia.setInterferenciaTipo(requestedObject.getInterferenciaTipo());
+				existingInterferencia.setLatitude(requestedObject.getLatitude());
+				existingInterferencia.setLongitude(requestedObject.getLongitude());
+				existingInterferencia.setGeometry(requestedObject.getGeometry());
+				existingInterferencia.setTipoInterferencia(requestedObject.getTipoInterferencia());
 
 				// Atualizar ou criar endereço conforme necessário
-				EnderecoModel endereco = requestedObject.getInterEndereco();
+				EnderecoModel endereco = requestedObject.getEndereco();
 				if (endereco != null) {
-					if (endereco.getEndId() != null) {
-						Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(endereco.getEndId());
+					if (endereco.getId() != null) {
+						Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(endereco.getId());
 						if (enderecoOptional.isPresent()) {
-							EnderecoModel existingEndereco = enderecoOptional.get();
+							EnderecoModel existingEnderecoModel = enderecoOptional.get();
 
 							// Atualizar atributos do endereço
-							existingEndereco.setEndLogradouro(endereco.getEndLogradouro());
-							existingEndereco.setEndBairro(endereco.getEndBairro());
-							existingEndereco.setEndCidade(endereco.getEndCidade());
-							existingEndereco.setEndCep(endereco.getEndCep());
-							existingEndereco.setEndEstado(endereco.getEndEstado());
-							enderecoRepository.save(existingEndereco);
-							existingInterferencia.setInterEndereco(existingEndereco);
+							existingEnderecoModel.setLogradouro(endereco.getLogradouro());
+							existingEnderecoModel.setBairro(endereco.getBairro());
+							existingEnderecoModel.setCidade(endereco.getCidade());
+							existingEnderecoModel.setCep(endereco.getCep());
+							existingEnderecoModel.setEstado(endereco.getEstado());
+							enderecoRepository.save(existingEnderecoModel);
+							existingInterferencia.setEndereco(existingEnderecoModel);
 						}
 					} else {
 						// Criar novo endereço
-						EnderecoModel newEndereco = new EnderecoModel();
-						newEndereco.setEndLogradouro(endereco.getEndLogradouro());
-						newEndereco.setEndBairro(endereco.getEndBairro());
-						newEndereco.setEndCidade(endereco.getEndCidade());
-						newEndereco.setEndCep(endereco.getEndCep());
-						newEndereco.setEndEstado(endereco.getEndEstado());
+						EnderecoModel newEnderecoModel = new EnderecoModel();
+						newEnderecoModel.setLogradouro(endereco.getLogradouro());
+						newEnderecoModel.setBairro(endereco.getBairro());
+						newEnderecoModel.setCidade(endereco.getCidade());
+						newEnderecoModel.setCep(endereco.getCep());
+						newEnderecoModel.setEstado(endereco.getEstado());
 
-						EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
-						existingInterferencia.setInterEndereco(savedEndereco);
+						EnderecoModel savedEnderecoModel = enderecoRepository.save(newEnderecoModel);
+						existingInterferencia.setEndereco(savedEnderecoModel);
 					}
+				}
+
+				// Atualizar ou criar finalidades
+				Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
+				if (finalidades != null && !finalidades.isEmpty()) {
+					existingInterferencia.getFinalidades().clear(); // Remove finalidades antigas
+
+					finalidades.forEach(finalidade -> {
+						finalidade.setInterferencia(existingInterferencia); // Associa a interferência
+						finalidadeRepository.save(finalidade); // Salva ou atualiza a finalidade
+					});
+
+					existingInterferencia.getFinalidades().addAll(finalidades); // Adiciona as novas finalidades
 				}
 
 				savedInterferencia = interferenciaRepository.save(existingInterferencia);
 			} else {
+
+				// Se a interferência não existir, cria uma nova com finalidades
 				savedInterferencia = createNewInterferencia(requestedObject);
 			}
 		} else {
+			// Criação de uma nova interferência com finalidades
 			savedInterferencia = createNewInterferencia(requestedObject);
 		}
 
@@ -88,33 +109,154 @@ public class InterferenciaService {
 	}
 
 	private InterferenciaModel createNewInterferencia(InterferenciaModel requestedObject) {
-		// Criar novo endereço se necessário
-		if (requestedObject.getInterEndereco() != null) {
-			EnderecoModel endereco = requestedObject.getInterEndereco();
-			if (endereco.getEndId() == null) {
-				EnderecoModel newEndereco = new EnderecoModel();
-				newEndereco.setEndLogradouro(endereco.getEndLogradouro());
-				newEndereco.setEndBairro(endereco.getEndBairro());
-				newEndereco.setEndCidade(endereco.getEndCidade());
-				newEndereco.setEndCep(endereco.getEndCep());
-				newEndereco.setEndEstado(endereco.getEndEstado());
-				EnderecoModel savedEndereco = enderecoRepository.save(newEndereco);
-				requestedObject.setInterEndereco(savedEndereco);
-			}
+
+		// Salvar o endereço, se necessário
+		EnderecoModel endereco = requestedObject.getEndereco();
+		if (endereco != null && endereco.getId() == null) {
+			EnderecoModel savedEndereco = enderecoRepository.save(endereco);
+			requestedObject.setEndereco(savedEndereco);
 		}
 
-		return interferenciaRepository.save(requestedObject);
+		Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
+		// Remove as finalidades da interferência para poder salvá-la.
+		// Não é possível salvar com as finalidades, pois o id da interferência na
+		// finalidade neste momento ainda está vazio.
+		requestedObject.setFinalidades(null);
+
+		// Salvar a interferência antes de associar as finalidades
+		InterferenciaModel savedInterferencia = interferenciaRepository.save(requestedObject);
+
+		// Aqui já se tem o id da interferência salva e então salva as finalidades
+		if (finalidades != null && !finalidades.isEmpty()) {
+			finalidades.forEach(finalidade -> {
+				System.out.println("save finalidades inter id " + savedInterferencia.getId());
+				// Associar a interferência à finalidade
+				finalidade.setInterferencia(savedInterferencia);
+				finalidadeRepository.save(finalidade); // Salvar ou atualizar a finalidade
+			});
+		}
+
+		return savedInterferencia;
 	}
 
 	@Transactional
 	public List<InterferenciaModel> listByLogradouro(String keyword) {
-		return interferenciaRepository.listByLogradouro(keyword);
+
+		List<InterferenciaModel> response = readJsonStringAndConvert(keyword);
+		return response;
+
+		/*
+		 * List<Object[]> results = interferenciaRepository.listByLogradouro(keyword);
+		 * List<InterferenciaModel> response = new ArrayList<>();
+		 * 
+		 * if (results == null) {
+		 * System.out.println("No results found for the keyword: " + keyword); return
+		 * response; // Return an empty list if no results }
+		 * 
+		 * for (Object[] result : results) { if (result == null) {
+		 * System.out.println("Encountered a null result in the list, skipping...");
+		 * continue; // Skip null results }
+		 * 
+		 * InterferenciaModel interferencia = new InterferenciaModel();
+		 * 
+		 * System.out.println(result[7].toString());
+		 * 
+		 * // Check for null and process each field String interferenciaJson = result[0]
+		 * != null ? result[0].toString() : null; String tipoInterferenciaJson =
+		 * result[1] != null ? result[1].toString() : null; String tipoOutorgaJson =
+		 * result[2] != null ? result[2].toString() : null; String subtipoOutorgaJson =
+		 * result[3] != null ? result[3].toString() : null; String situacaoProcessoJson
+		 * = result[4] != null ? result[4].toString() : null; String tipoAtoJson =
+		 * result[5] != null ? result[5].toString() : null; String enderecoJson =
+		 * result[6] != null ? result[6].toString() : null;
+		 * 
+		 * // Deserialize each part into its respective model, checking for null values
+		 * if (interferenciaJson != null) { Map<String, InterferenciaModel> intMap = new
+		 * Gson().fromJson(interferenciaJson, new TypeToken<Map<String,
+		 * InterferenciaModel>>() { }.getType()); if
+		 * (intMap.containsKey("interferencia")) { interferencia =
+		 * intMap.get("interferencia"); } }
+		 * 
+		 * if (tipoInterferenciaJson != null) { Map<String, TipoInterferenciaModel>
+		 * tpMap = new Gson().fromJson(tipoInterferenciaJson, new TypeToken<Map<String,
+		 * TipoInterferenciaModel>>() { }.getType()); if
+		 * (tpMap.containsKey("tipoInterferencia")) {
+		 * interferencia.setTipoInterferencia(tpMap.get("tipoInterferencia")); } }
+		 * 
+		 * if (tipoOutorgaJson != null) { Map<String, TipoOutorgaModel> toMap = new
+		 * Gson().fromJson(tipoOutorgaJson, new TypeToken<Map<String,
+		 * TipoOutorgaModel>>() { }.getType()); if (toMap.containsKey("tipoOutorga")) {
+		 * interferencia.setTipoOutorga(toMap.get("tipoOutorga")); } }
+		 * 
+		 * if (subtipoOutorgaJson != null) { Map<String, SubtipoOutorgaModel> soMap =
+		 * new Gson().fromJson(subtipoOutorgaJson, new TypeToken<Map<String,
+		 * SubtipoOutorgaModel>>() { }.getType()); if
+		 * (soMap.containsKey("subtipoOutorga")) {
+		 * interferencia.setSubtipoOutorga(soMap.get("subtipoOutorga")); } }
+		 * 
+		 * if (situacaoProcessoJson != null) { Map<String, SituacaoProcessoModel> spMap
+		 * = new Gson().fromJson(situacaoProcessoJson, new TypeToken<Map<String,
+		 * SituacaoProcessoModel>>() { }.getType()); if
+		 * (spMap.containsKey("situacaoProcesso")) {
+		 * interferencia.setSituacaoProcesso(spMap.get("situacaoProcesso")); } }
+		 * 
+		 * if (tipoAtoJson != null) { Map<String, TipoAtoModel> taMap = new
+		 * Gson().fromJson(tipoAtoJson, new TypeToken<Map<String, TipoAtoModel>>() {
+		 * }.getType()); if (taMap.containsKey("tipoAto")) {
+		 * interferencia.setTipoAto(taMap.get("tipoAto")); } }
+		 * 
+		 * if (enderecoJson != null) { Map<String, EnderecoModel> endMap = new
+		 * Gson().fromJson(enderecoJson, new TypeToken<Map<String, EnderecoModel>>() {
+		 * }.getType()); if (endMap.containsKey("endereco")) {
+		 * interferencia.setEndereco(endMap.get("endereco")); } }
+		 * 
+		 * response.add(interferencia); }
+		 * 
+		 * return response;
+		 */
+	}
+
+	public List<InterferenciaModel> readJsonStringAndConvert(String keyword) {
+
+		List<Object> result = interferenciaRepository.listByLogradouro(keyword);
+		List<InterferenciaModel> response = new ArrayList<>();
+
+		if (result == null) {
+			System.out.println("No results found for the keyword: " + keyword);
+			return response; // Return an empty list if no results
+		}
+
+		// example of result [{"endereco": {"id": 1, "logradouro": "Rua Novaes Terceiro,
+		// Casa 12"}}, {"endereco": {"id": 2, "logradouro": "Avenida Principal, Bloco
+		// A"}}, {"endereco": {"id": 3, "logradouro": "Rua das Flores, Apartamento 5"}}]
+
+		String json = result != null ? result.toString() : null;
+
+		if (json != null) {
+
+			System.out.println("list interferencia by key " + json.toString());
+			// Since the structure is a list of objects containing 'endereco', extract them
+			List<Map<String, InterferenciaModel>> tempList = new Gson().fromJson(json,
+					new TypeToken<List<Map<String, InterferenciaModel>>>() {
+					}.getType());
+
+			// Iterate over the list and extract 'endereco' object from each map
+			for (Map<String, InterferenciaModel> map : tempList) {
+				InterferenciaModel obj = map.get("interferencia");
+				if (obj != null) {
+					response.add(obj);
+				}
+			}
+		}
+
+		return response;
+
 	}
 
 	@Transactional
 	public InterferenciaModel deleteById(Long id) {
-		InterferenciaModel response = interferenciaRepository.findById(id)
-				.orElseThrow(() -> new NoSuchElementException("Não encontrado, id: " + id));
+		InterferenciaModel response = interferenciaRepository.findById(id).orElseThrow(
+				() -> new NoSuchElementException("{\"info\": \"interferência não encontrada\", \"id\": " + id + "}"));
 		interferenciaRepository.deleteById(id);
 		return response;
 	}

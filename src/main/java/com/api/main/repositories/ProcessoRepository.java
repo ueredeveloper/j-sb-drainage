@@ -7,18 +7,23 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.api.main.models.AnexoModel;
 import com.api.main.models.ProcessoModel;
-
 
 @Repository
 public interface ProcessoRepository extends JpaRepository<ProcessoModel, Long> {
-	
-	
-	@Query("SELECT p FROM ProcessoModel p WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(p.procNumero) LIKE %:keyword%)")
-	List<ProcessoModel> list(String keyword);
 
-	/*@Query("SELECT a FROM AnexoModel a WHERE a.anPrincipal.procId = :id")
-	List<AnexoModel> listChildrens(@Param("id") Long id);*/
+	@Query("SELECT CONCAT('{', " +
+		       "'\"processo\"', ':', '{', " +
+		       "'\"id\"', ':', p.id, ',', " +
+		       "'\"numero\"', ':', '\"', COALESCE(p.numero, ''), '\"', ',', " +
+		       "'\"anexo\"', ':', " +
+		       "CASE WHEN p.anexo.id IS NOT NULL " +
+		       "THEN CONCAT('{', '\"id\"', ':', p.anexo.id, ',', '\"numero\"', ':', '\"', COALESCE(p.anexo.numero, ''), '\"', '}') " +
+		       "ELSE 'null' " +
+		       "END, '}', '}') " +
+		       "FROM ProcessoModel p " +
+		       "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(p.numero) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+		List<Object> listByKeyword(@Param("keyword") String keyword);
+
+
 }
-

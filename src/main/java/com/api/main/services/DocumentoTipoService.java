@@ -12,6 +12,7 @@ import com.api.main.repositories.DocumentoTipoRepository;
 
 @Service
 public class DocumentoTipoService {
+	
 
 	
 	@Autowired

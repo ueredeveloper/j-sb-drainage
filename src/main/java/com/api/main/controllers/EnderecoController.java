@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.EnderecoDTO;
 import com.api.main.models.EnderecoModel;
+import com.api.main.models.InterferenciaModel;
 import com.api.main.services.EnderecoService;
 
 @RestController
@@ -51,6 +51,7 @@ public class EnderecoController {
 		}
 	}
 
+	// mudar Object[] para EnderecoModel
 	@GetMapping("/list-by-keyword")
 	public ResponseEntity<List<EnderecoModel>> list(@RequestParam(required = false) String keyword) {
 		List<EnderecoModel> resultList = enderecoService.listByKeyword(keyword);
@@ -58,44 +59,44 @@ public class EnderecoController {
 	}
 
 	@DeleteMapping("/delete")
-	public ResponseEntity<Object> delete (@RequestParam(required = false) Long id) {
-	    try {
-	        if (id != null) {
-	            // Delete a specific object by ID
-	            EnderecoModel response = enderecoService.deleteById(id);
-	            if (response != null) {
-	                return ResponseEntity.ok(response);
-	            } else {
-	                return ResponseEntity.notFound().build();
-	            }
-	        } else {
-	            // Delete all objects
-	            enderecoService.delete();
-	            return ResponseEntity.ok("Todos os endereços deletados!!!");
-	        }
-	    } catch (Exception ex) {
-	        Throwable cause = ex;
-	        while (cause != null && !(cause instanceof org.hibernate.exception.ConstraintViolationException)) {
-	            cause = cause.getCause();
-	        }
-	        if (cause instanceof org.hibernate.exception.ConstraintViolationException) {
-	            org.hibernate.exception.ConstraintViolationException constraintViolationException = (org.hibernate.exception.ConstraintViolationException) cause;
-	            // Return detailed error message
-	            Map<String, Object> errorDetails = new HashMap<>();
-	            errorDetails.put("timestamp", LocalDateTime.now());
-	            errorDetails.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-	            errorDetails.put("error", "Internal Server Error");
-	            errorDetails.put("message", constraintViolationException.getSQLException().getMessage());
-	            errorDetails.put("path", "/address/delete");
+	public ResponseEntity<Object> delete(@RequestParam(required = false) Long id) {
+		try {
+			if (id != null) {
+				// Delete a specific object by ID
+				EnderecoModel response = enderecoService.deleteById(id);
+				if (response != null) {
+					return ResponseEntity.ok(response);
+				} else {
+					return ResponseEntity.notFound().build();
+				}
+			} else {
+				// Delete all objects
+				enderecoService.delete();
+				return ResponseEntity.ok("Todos os endereços deletados!!!");
+			}
+		} catch (Exception ex) {
+			Throwable cause = ex;
+			while (cause != null && !(cause instanceof org.hibernate.exception.ConstraintViolationException)) {
+				cause = cause.getCause();
+			}
+			if (cause instanceof org.hibernate.exception.ConstraintViolationException) {
+				org.hibernate.exception.ConstraintViolationException constraintViolationException = (org.hibernate.exception.ConstraintViolationException) cause;
+				// Return detailed error message
+				Map<String, Object> errorDetails = new HashMap<>();
+				errorDetails.put("timestamp", LocalDateTime.now());
+				errorDetails.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+				errorDetails.put("error", "Internal Server Error");
+				errorDetails.put("message", constraintViolationException.getSQLException().getMessage());
+				errorDetails.put("path", "/address/delete");
 
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
-	        } else {
-	            // Handle other exceptions
-	            ex.printStackTrace();
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred: " + ex.getMessage());
-	        }
-	    }
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
+			} else {
+				// Handle other exceptions
+				ex.printStackTrace();
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+						.body("An unexpected error occurred: " + ex.getMessage());
+			}
+		}
 	}
-
 
 }

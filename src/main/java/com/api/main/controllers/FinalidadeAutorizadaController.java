@@ -26,6 +26,7 @@ import com.api.main.services.FinalidadeAutorizadaService;
 public class FinalidadeAutorizadaController {
 
 	
+	
 	@Autowired
 	private FinalidadeAutorizadaService finalidadeService;
 

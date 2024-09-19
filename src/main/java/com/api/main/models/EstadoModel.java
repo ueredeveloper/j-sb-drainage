@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.api.main.models;
 
 import java.util.HashSet;
@@ -14,10 +15,28 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+=======
+package com.api.main.models;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+>>>>>>> v1.11.1
 @Entity
 @Table(name = "estado")
 public class EstadoModel {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
@@ -25,7 +44,7 @@ public class EstadoModel {
 	@Column(nullable = true, unique = false, length = 40)
 	String descricao;
 
-	@OneToMany(mappedBy = "endEstado", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "estado", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<EnderecoModel> enderecos = new HashSet<>();
 

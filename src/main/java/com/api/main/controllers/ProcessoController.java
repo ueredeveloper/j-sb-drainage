@@ -30,7 +30,6 @@ public class ProcessoController {
 	@Autowired
 	private ProcessoService service;
 
-	
 	@PostMapping("/create")
 	public ResponseEntity<Object> save(@RequestBody @Valid ProcessoDTO procDTO) {
 
@@ -50,9 +49,9 @@ public class ProcessoController {
 		}
 	}
 
-	@GetMapping("/list")
+	@GetMapping("/list-by-keyword")
 	public ResponseEntity<List<ProcessoModel>> list(@RequestParam(required = false) String keyword) {
-		List<ProcessoModel> resultList = service.list(keyword);
+		List<ProcessoModel> resultList = service.listByKeyword(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 

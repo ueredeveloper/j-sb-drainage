@@ -11,6 +11,7 @@ import com.api.main.models.TemplateModel;
 
 @Repository
 public interface TemplateRepository extends JpaRepository<TemplateModel, Long> {
+	
 	@Query("SELECT i FROM TemplateModel i "
 			+ "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :keyword, '%')))")
 	List<TemplateModel> listByKeyword(@Param("keyword") String keyword);

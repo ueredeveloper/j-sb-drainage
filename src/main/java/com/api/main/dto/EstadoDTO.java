@@ -7,12 +7,19 @@ import com.api.main.models.EnderecoModel;
 
 public class EstadoDTO {
 
+	
 	Long id;
 	String descricao;
 	private Set<EnderecoModel> enderecos = new HashSet<>();
 
 	public EstadoDTO() {
 		super();
+	}
+	
+	public EstadoDTO(Long id, String descricao) {
+		super();
+		this.id = id;
+		this.descricao = descricao;
 	}
 
 	public Long getId() {

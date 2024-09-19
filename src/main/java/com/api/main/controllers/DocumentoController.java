@@ -28,15 +28,18 @@ import com.api.main.services.DocumentoService;
 public class DocumentoController {
 
 	
-	
 	@Autowired
 	private DocumentoService documentoService;
 
 	@PostMapping("/create")
-	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO docDTO) {
-		DocumentoModel docMod = new DocumentoModel();
-		BeanUtils.copyProperties(docDTO, docMod);
-		return ResponseEntity.status(HttpStatus.CREATED).body(documentoService.save(docDTO, docMod));
+	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO objDTO) {
+		DocumentoModel objMod = new DocumentoModel();
+		BeanUtils.copyProperties(objDTO, objMod);
+		
+		System.out.println("interferencias size ------------- " + objMod.getEndereco().getInterferencias().size());
+		
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(documentoService.save(objDTO, objMod));
 
 	}
 

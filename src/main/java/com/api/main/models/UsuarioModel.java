@@ -20,49 +20,66 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "usuario")
 public class UsuarioModel implements Serializable {
 
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long usId;
+	private Long id;
 
 	@Column(nullable = true, unique = false, length = 500)
-	private String usNome;
+	private String nome;
 
 	@Column(nullable = true, unique = false)
-	private Integer usCpfCnpj;
+	private Integer cpfCnpj;
 
 	@ManyToMany
 	@JoinTable(name = "usuario_documento", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "documento_id"))
 	@JsonIgnore
 	private Set<DocumentoModel> documentos = new HashSet<>();
 
-	public Long getUsId() {
-		return usId;
+	public UsuarioModel() {
+		super();
 	}
 
-	public void setUsId(Long usId) {
-		this.usId = usId;
+	public UsuarioModel(String nome) {
+		super();
+		this.nome = nome;
 	}
 
-	public String getUsNome() {
-		return usNome;
+	public UsuarioModel(String nome, Set<DocumentoModel> documentos) {
+		super();
+		this.nome = nome;
+		this.documentos = documentos;
 	}
 
-	public void setUsNome(String usNome) {
-		this.usNome = usNome;
+	public UsuarioModel(Set<DocumentoModel> documentos) {
+		super();
+		this.documentos = documentos;
 	}
 
-	public Integer getUsCpfCnpj() {
-		return usCpfCnpj;
+	public Long getId() {
+		return id;
 	}
 
-	public void setUsCpfCnpj(Integer usCpfCnpj) {
-		this.usCpfCnpj = usCpfCnpj;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Integer getCpfCnpj() {
+		return cpfCnpj;
+	}
+
+	public void setCpfCnpj(Integer cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
 	}
 
 	public Set<DocumentoModel> getDocumentos() {
@@ -72,6 +89,9 @@ public class UsuarioModel implements Serializable {
 	public void setDocumentos(Set<DocumentoModel> documentos) {
 		this.documentos = documentos;
 	}
-	
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

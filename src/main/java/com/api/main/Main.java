@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.api.main;
 
 import com.api.main.models.DocumentoModel;
@@ -127,3 +128,23 @@ public class Main {
 
 	}
 }
+=======
+package com.api.main;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@SpringBootApplication
+public class Main {
+	public static void main(String... args) {
+		SpringApplication.run(Main.class, args);
+	}
+
+	@GetMapping("/")
+	public String index() {
+		return "Hello World!";
+	}
+
+}
+>>>>>>> v1.11.1

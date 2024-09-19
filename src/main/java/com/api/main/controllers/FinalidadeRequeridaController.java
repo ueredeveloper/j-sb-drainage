@@ -27,6 +27,7 @@ public class FinalidadeRequeridaController {
 	
 
 	
+	
 	@Autowired
 	private FinalidadeRequeridaService finService;
 
@@ -51,6 +52,13 @@ public class FinalidadeRequeridaController {
 		List<FinalidadeRequeridaModel> resultList = finService.list(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
+	
+	@GetMapping("/list-by-id")
+	public ResponseEntity<List<FinalidadeRequeridaModel>> listById(@RequestParam(required = false) String keyword) {
+		List<FinalidadeRequeridaModel> resultList = finService.list(keyword);
+		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+	}
+
 
 	/*
 	 * @DeleteMapping("/delete") public ResponseEntity<Object>

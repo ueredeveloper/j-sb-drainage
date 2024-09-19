@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.api.main.models;
 
 import java.util.ArrayList;
@@ -19,124 +20,170 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
+=======
+package com.api.main.models;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+>>>>>>> v1.11.1
 @Entity
 @Table(name = "endereco")
+// @JsonIdentityInfo - Para não gerar loop infinito dentro do json
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class EnderecoModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long endId;
+	private Long id;
 
 	@Column(nullable = true, unique = false, length = 500)
-	private String endLogradouro;
+	private String logradouro;
 
 	@Column(nullable = true, unique = false, length = 80)
-	private String endCidade;
+	private String cidade;
 
 	@Column(nullable = true, unique = false, length = 80)
-	private String endBairro;
+	private String bairro;
 
 	@Column(nullable = true, unique = false, length = 10)
-	private String endCep;
+	private String cep;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "docEndereco")
-	private List<DocumentoModel> endDocumentos = new ArrayList<DocumentoModel>();
+	@OneToMany(mappedBy = "endereco")
+	private Set<DocumentoModel> documentos = new HashSet<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "interEndereco", fetch = FetchType.EAGER)
-	private Set<InterferenciaModel> endInterferencias = new HashSet<>();
+	@OneToMany(mappedBy = "endereco", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	// @JsonManagedReference
+	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
 	@ManyToOne
-	@JoinColumn(name = "estado_id", referencedColumnName = "id")
-	private EstadoModel endEstado;
+	@JoinColumn(name = "estado", referencedColumnName = "id")
+	private EstadoModel estado;
 
 	public EnderecoModel() {
 		super();
 	}
 
-	public EnderecoModel(String endLogradouro) {
+	
+	public EnderecoModel(Long id) {
 		super();
-		this.endLogradouro = endLogradouro;
+		this.id = id;
 	}
 
-	public EnderecoModel(Long endId) {
+	public EnderecoModel(Long id, String logradouro) {
 		super();
-		this.endId = endId;
+		this.id = id;
+		this.logradouro = logradouro;
 	}
-
-	public EnderecoModel(Long endId, String endLogradouro, String endCidade, String endCep,
-			List<DocumentoModel> endDocumentos) {
+	
+	public EnderecoModel(String logradouro) {
 		super();
-		this.endId = endId;
-		this.endLogradouro = endLogradouro;
-		this.endCidade = endCidade;
-		this.endCep = endCep;
-		this.endDocumentos = endDocumentos;
+		this.logradouro = logradouro;
+	}
+	
+	public EnderecoModel(String logradouro, String cidade, String bairro, String cep) {
+		super();
+		this.logradouro = logradouro;
+		this.cidade = cidade;
+		this.bairro = bairro;
+		this.cep = cep;
 	}
 
-	public Long getEndId() {
-		return endId;
+	public EnderecoModel(String logradouro, Set<InterferenciaModel> interferencias) {
+		super();
+		this.logradouro = logradouro;
+		this.interferencias = interferencias;
+	}
+	
+	public EnderecoModel(Long id, String logradouro, String cidade, String bairro, String cep, EstadoModel estado) {
+		super();
+		this.id = id;
+		this.logradouro = logradouro;
+		this.cidade = cidade;
+		this.bairro = bairro;
+		this.cep = cep;
+		this.estado = estado;
+	}
+	
+	public Long getId() {
+		return id;
 	}
 
-	public void setEndId(Long endId) {
-		this.endId = endId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getEndLogradouro() {
-		return endLogradouro;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setEndLogradouro(String endLogradouro) {
-		this.endLogradouro = endLogradouro;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
-	public String getEndCidade() {
-		return endCidade;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public void setEndCidade(String endCidade) {
-		this.endCidade = endCidade;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
-	public String getEndBairro() {
-		return endBairro;
+	public String getBairro() {
+		return bairro;
 	}
 
-	public void setEndBairro(String endBairro) {
-		this.endBairro = endBairro;
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
 	}
 
-	public String getEndCep() {
-		return endCep;
+	public String getCep() {
+		return cep;
 	}
 
-	public void setEndCep(String endCep) {
-		this.endCep = endCep;
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
-	public List<DocumentoModel> getEndDocumentos() {
-		return endDocumentos;
+	public Set<DocumentoModel> getDocumentos() {
+		return documentos;
 	}
 
-	public void setEndDocumentos(List<DocumentoModel> endDocumentos) {
-		this.endDocumentos = endDocumentos;
+	public void setDocumentos(Set<DocumentoModel> documentos) {
+		this.documentos = documentos;
 	}
 
-	public Set<InterferenciaModel> getEndInterferencias() {
-		return endInterferencias;
+	public Set<InterferenciaModel> getInterferencias() {
+		return interferencias;
 	}
 
-	public void setEndInterferencias(Set<InterferenciaModel> endInterferencias) {
-		this.endInterferencias = endInterferencias;
+	public void setInterferencias(Set<InterferenciaModel> interferencias) {
+		this.interferencias = interferencias;
 	}
 
-	public EstadoModel getEndEstado() {
-		return endEstado;
+	public EstadoModel getEstado() {
+		return estado;
 	}
 
-	public void setEndEstado(EstadoModel endEstado) {
-		this.endEstado = endEstado;
+	public void setEstado(EstadoModel estado) {
+		this.estado = estado;
 	}
 
 }

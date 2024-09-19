@@ -1,83 +1,237 @@
 package com.api.main.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.api.main.models.BaciaHidrograficaModel;
 import com.api.main.models.EnderecoModel;
-import com.api.main.models.InterferenciaTipoModel;
+import com.api.main.models.FinalidadeModel;
+import com.api.main.models.SituacaoProcessoModel;
+import com.api.main.models.SubtipoOutorgaModel;
+import com.api.main.models.TipoAtoModel;
+import com.api.main.models.TipoInterferenciaModel;
+import com.api.main.models.TipoOutorgaModel;
+import com.api.main.models.UnidadeHidrograficaModel;
 import com.vividsolutions.jts.geom.Geometry;
 
 public class InterferenciaDTO {
 
-	private Long interId;
+	private Long id;
 
-	private Double interLatitude;
+	private Double latitude;
 
-	private Double interLongitude;
+	private Double longitude;
 
-	private Geometry intGeometry;
+	private Geometry geometry;
 
-	private EnderecoModel interEndereco;
+	private EnderecoModel endereco;
 
-	private InterferenciaTipoModel interferenciaTipo;
+	private TipoInterferenciaModel tipoInterferencia;
+
+	private TipoOutorgaModel tipoOutorga;
+
+	private SubtipoOutorgaModel subtipoOutorga;
+
+	private SituacaoProcessoModel situacaoProcesso;
+
+	private TipoAtoModel tipoAto;
+
+	private BaciaHidrograficaModel baciaHidrografica;
+
+	private UnidadeHidrograficaModel unidadeHidrografica;
+
+	private Set<FinalidadeModel> finalidades = new HashSet<>();
 
 	public InterferenciaDTO() {
 		super();
 	}
 
-	public InterferenciaDTO(Double interLatitude, Double interLongitude, Geometry intGeometry,
-			EnderecoModel interEndereco, InterferenciaTipoModel interferenciaTipo) {
+	public InterferenciaDTO(Double latitude, Double longitude, EnderecoModel endereco) {
 		super();
-		this.interLatitude = interLatitude;
-		this.interLongitude = interLongitude;
-		this.intGeometry = intGeometry;
-		this.interEndereco = interEndereco;
-		this.interferenciaTipo = interferenciaTipo;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.endereco = endereco;
 	}
 
-	public Long getInterId() {
-		return interId;
+	public InterferenciaDTO(Double latitude, Double longitude, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
 	}
 
-	public void setInterId(Long interId) {
-		this.interId = interId;
+	public InterferenciaDTO(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia) {
+		super();
+		this.id = id;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.geometry = geometry;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
 	}
 
-	public Double getInterLatitude() {
-		return interLatitude;
+	public InterferenciaDTO(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
+			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
+		super();
+		this.id = id;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.geometry = geometry;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
+		this.tipoOutorga = tipoOutorga;
+		this.subtipoOutorga = subtipoOutorga;
+		this.situacaoProcesso = situacaoProcesso;
+		this.tipoAto = tipoAto;
 	}
 
-	public void setInterLatitude(Double interLatitude) {
-		this.interLatitude = interLatitude;
+	public InterferenciaDTO(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
+			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.geometry = geometry;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
+		this.tipoOutorga = tipoOutorga;
+		this.subtipoOutorga = subtipoOutorga;
+		this.situacaoProcesso = situacaoProcesso;
+		this.tipoAto = tipoAto;
 	}
 
-	public Double getInterLongitude() {
-		return interLongitude;
+	public InterferenciaDTO(Double latitude, Double longitude, Set<FinalidadeModel> finalidades) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.finalidades = finalidades;
 	}
 
-	public void setInterLongitude(Double interLongitude) {
-		this.interLongitude = interLongitude;
+	public InterferenciaDTO(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
+			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
+			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto, BaciaHidrograficaModel baciaHidrografica,
+			UnidadeHidrograficaModel unidadeHidrografica, Set<FinalidadeModel> finalidades) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.geometry = geometry;
+		this.endereco = endereco;
+		this.tipoInterferencia = tipoInterferencia;
+		this.tipoOutorga = tipoOutorga;
+		this.subtipoOutorga = subtipoOutorga;
+		this.situacaoProcesso = situacaoProcesso;
+		this.tipoAto = tipoAto;
+		this.baciaHidrografica = baciaHidrografica;
+		this.unidadeHidrografica = unidadeHidrografica;
+		this.finalidades = finalidades;
 	}
 
-	public Geometry getIntGeometry() {
-		return intGeometry;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIntGeometry(Geometry intGeometry) {
-		this.intGeometry = intGeometry;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public EnderecoModel getInterEndereco() {
-		return interEndereco;
+	public Double getLatitude() {
+		return latitude;
 	}
 
-	public void setInterEndereco(EnderecoModel interEndereco) {
-		this.interEndereco = interEndereco;
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
 	}
 
-	public InterferenciaTipoModel getInterferenciaTipo() {
-		return interferenciaTipo;
+	public Double getLongitude() {
+		return longitude;
 	}
 
-	public void setInterferenciaTipo(InterferenciaTipoModel interferenciaTipo) {
-		this.interferenciaTipo = interferenciaTipo;
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public Geometry getGeometry() {
+		return geometry;
+	}
+
+	public void setGeometry(Geometry geometry) {
+		this.geometry = geometry;
+	}
+
+	public EnderecoModel getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(EnderecoModel endereco) {
+		this.endereco = endereco;
+	}
+
+	public TipoInterferenciaModel getTipoInterferencia() {
+		return tipoInterferencia;
+	}
+
+	public void setTipoInterferencia(TipoInterferenciaModel tipoInterferencia) {
+		this.tipoInterferencia = tipoInterferencia;
+	}
+
+	public TipoOutorgaModel getTipoOutorga() {
+		return tipoOutorga;
+	}
+
+	public void setTipoOutorga(TipoOutorgaModel tipoOutorga) {
+		this.tipoOutorga = tipoOutorga;
+	}
+
+	public SubtipoOutorgaModel getSubtipoOutorga() {
+		return subtipoOutorga;
+	}
+
+	public void setSubtipoOutorga(SubtipoOutorgaModel subtipoOutorga) {
+		this.subtipoOutorga = subtipoOutorga;
+	}
+
+	public SituacaoProcessoModel getSituacaoProcesso() {
+		return situacaoProcesso;
+	}
+
+	public void setSituacaoProcesso(SituacaoProcessoModel situacaoProcesso) {
+		this.situacaoProcesso = situacaoProcesso;
+	}
+
+	public TipoAtoModel getTipoAto() {
+		return tipoAto;
+	}
+
+	public void setTipoAto(TipoAtoModel tipoAto) {
+		this.tipoAto = tipoAto;
+	}
+
+	public BaciaHidrograficaModel getBaciaHidrografica() {
+		return baciaHidrografica;
+	}
+
+	public void setBaciaHidrografica(BaciaHidrograficaModel baciaHidrografica) {
+		this.baciaHidrografica = baciaHidrografica;
+	}
+
+	public UnidadeHidrograficaModel getUnidadeHidrografica() {
+		return unidadeHidrografica;
+	}
+
+	public void setUnidadeHidrografica(UnidadeHidrograficaModel unidadeHidrografica) {
+		this.unidadeHidrografica = unidadeHidrografica;
+	}
+
+	public Set<FinalidadeModel> getFinalidades() {
+		return finalidades;
+	}
+
+	public void setFinalidades(Set<FinalidadeModel> finalidades) {
+		this.finalidades = finalidades;
 	}
 
 }

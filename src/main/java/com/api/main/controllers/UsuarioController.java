@@ -22,6 +22,7 @@ import com.api.main.services.UsuarioService;
 public class UsuarioController {
 
 	
+	
 	@Autowired
 	private UsuarioService usuarioService;
 

@@ -13,6 +13,7 @@ import com.api.main.repositories.FinalidadeAutorizadaRepository;
 @Service
 public class FinalidadeAutorizadaService {
 	
+	
 
 	
 	

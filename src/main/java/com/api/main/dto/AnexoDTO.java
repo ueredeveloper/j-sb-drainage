@@ -11,6 +11,33 @@ public class AnexoDTO {
 	private String numero;
 	private Set<ProcessoModel> processos = new HashSet<>();
 
+	public AnexoDTO() {
+		super();
+	}
+
+	public AnexoDTO(Long id) {
+		super();
+		this.id = id;
+	}
+
+	public AnexoDTO(Long id, String numero) {
+		super();
+		this.id = id;
+		this.numero = numero;
+	}
+
+	public AnexoDTO(String numero) {
+		super();
+		this.numero = numero;
+	}
+
+	public AnexoDTO(Long id, String numero, Set<ProcessoModel> processos) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.processos = processos;
+	}
+
 	public Long getId() {
 		return id;
 	}

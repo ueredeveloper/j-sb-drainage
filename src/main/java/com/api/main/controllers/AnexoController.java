@@ -21,6 +21,7 @@ import com.api.main.services.AnexoService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/attachment")
 public class AnexoController {
+	
 
 	@Autowired
 	private AnexoService anexoService;
@@ -33,12 +34,6 @@ public class AnexoController {
 	@GetMapping("/list-by-keyword")
 	public ResponseEntity<List<AnexoModel>> listByKeyword(@RequestParam(required = false) String keyword) {
 		List<AnexoModel> resultList = anexoService.listByKeyword(keyword);
-		return ResponseEntity.status(HttpStatus.OK).body(resultList);
-	}
-
-	@GetMapping("/list-all")
-	public ResponseEntity<List<AnexoModel>> findAll() {
-		List<AnexoModel> resultList = anexoService.findAll();
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 

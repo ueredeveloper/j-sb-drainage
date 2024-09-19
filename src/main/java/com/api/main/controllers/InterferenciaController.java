@@ -44,7 +44,7 @@ public class InterferenciaController {
 	}
 
 	@DeleteMapping("/delete")
-	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
+	public ResponseEntity<Object> delete (@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
 			InterferenciaModel deleteResponse = interferenciaService.deleteById(id);
@@ -55,11 +55,7 @@ public class InterferenciaController {
 			}
 
 		} else {
-			// ERROR: Não faz sentido deletar tudo se não há id
-			// Delete all objects
-			// interferenciaService.delete();
-			// return ResponseEntity.ok("Todos os objetos deletados!!!");
-			return ResponseEntity.ok("Id da interferência não informado!!!");
+			return ResponseEntity.ok("{\"info\": \"Id não informado!!!\"}");
 
 		}
 	}

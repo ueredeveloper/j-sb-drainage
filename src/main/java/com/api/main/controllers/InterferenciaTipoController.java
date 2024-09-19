@@ -10,20 +10,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.main.models.InterferenciaTipoModel;
-import com.api.main.services.InterferenciaTipoService;
+import com.api.main.models.TipoInterferenciaModel;
+import com.api.main.services.TipoInterferenciaService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/interference-type")
 public class InterferenciaTipoController {
 
+	
 	@Autowired
-	private InterferenciaTipoService interferenciaTipoService;
+	private TipoInterferenciaService tipoInterferenciaService;
 
 	@GetMapping("/list-all")
-	public ResponseEntity<List<InterferenciaTipoModel>> listAll() {
-		return ResponseEntity.status(HttpStatus.CREATED).body(interferenciaTipoService.listAll());
+	public ResponseEntity<List<TipoInterferenciaModel>> listAll() {
+		return ResponseEntity.status(HttpStatus.CREATED).body(tipoInterferenciaService.listAll());
 	}
 
 }
