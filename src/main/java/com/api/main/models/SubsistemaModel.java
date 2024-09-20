@@ -10,9 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "subsistema")
 public class SubsistemaModel {
-	
-	
-	
+	// v1.12.2
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

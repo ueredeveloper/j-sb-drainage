@@ -12,12 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "tipo_finalidade")
 public class TipoFinalidadeModel {
-
+	// v1.12.2
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -27,6 +25,9 @@ public class TipoFinalidadeModel {
 
 	@OneToMany(mappedBy = "tipoFinalidade", fetch = FetchType.EAGER)
 	private Set<FinalidadeModel> finalidades = new HashSet<>();
+	
+	@OneToMany(mappedBy = "tipoFinalidade", fetch = FetchType.EAGER)
+	private Set<FinalidadeModel> demandas = new HashSet<>();
 
 	public TipoFinalidadeModel() {
 		super();
@@ -36,7 +37,7 @@ public class TipoFinalidadeModel {
 		super();
 		this.descricao = descricao;
 	}
-	
+
 	public TipoFinalidadeModel(Long id, String descricao) {
 		super();
 		this.id = id;
@@ -66,5 +67,15 @@ public class TipoFinalidadeModel {
 	public void setFinalidades(Set<FinalidadeModel> finalidades) {
 		this.finalidades = finalidades;
 	}
+
+	public Set<FinalidadeModel> getDemandas() {
+		return demandas;
+	}
+
+	public void setDemandas(Set<FinalidadeModel> demandas) {
+		this.demandas = demandas;
+	}
+	
+	
 
 }

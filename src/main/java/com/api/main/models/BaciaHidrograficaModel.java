@@ -17,9 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "bacia_hidrografica")
 public class BaciaHidrograficaModel {
-	
-	
-	
+	// v1.12.2
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -12,12 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "tipo_outorga")
 public class TipoOutorgaModel {
-	
+	// v1.12.2
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -31,7 +29,7 @@ public class TipoOutorgaModel {
 	public TipoOutorgaModel() {
 		super();
 	}
-	
+
 	public TipoOutorgaModel(String descricao) {
 		super();
 		this.descricao = descricao;

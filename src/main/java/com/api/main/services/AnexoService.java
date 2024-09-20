@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.main.models.AnexoModel;
-import com.api.main.models.AnexoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.repositories.AnexoRepository;
 import com.api.main.repositories.ProcessoRepository;
@@ -22,7 +21,6 @@ import com.google.gson.reflect.TypeToken;
 
 @Service
 public class AnexoService {
-	
 
 	@Autowired
 	private AnexoRepository anexoRepository;
@@ -69,12 +67,12 @@ public class AnexoService {
 
 	@Transactional
 	public List<AnexoModel> listByKeyword(String keyword) {
-		
+
 		List<AnexoModel> response = readJsonStringAndConvert(keyword);
 
 		return response;
 	}
-	
+
 	public List<AnexoModel> readJsonStringAndConvert(String keyword) {
 
 		List<Object> result = anexoRepository.listByKeyword(keyword);
@@ -82,11 +80,16 @@ public class AnexoService {
 
 		if (result == null) {
 			System.out.println("No results found for the keyword: " + keyword);
-			return response; 
+			return response;
 		}
 
-		/* exemplo de json: [{"anexo":{"id":1,"numero":"197.123.456/2013","processos":[]}}, {"anexo":{"id":2,"numero":"197.456.789/2015","processos":[]}}, {"anexo":{"id":3,"numero":"198.456/2013","processos":[{"id":1,"numero":"197.123/2015"}]}}]*/
-
+		/*
+		 * exemplo de json:
+		 * [{"anexo":{"id":1,"numero":"197.123.456/2013","processos":[]}},
+		 * {"anexo":{"id":2,"numero":"197.456.789/2015","processos":[]}},
+		 * {"anexo":{"id":3,"numero":"198.456/2013","processos":[{"id":1,"numero":
+		 * "197.123/2015"}]}}]
+		 */
 
 		String json = result != null ? result.toString() : null;
 

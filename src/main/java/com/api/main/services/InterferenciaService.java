@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 @Service
 public class InterferenciaService {
 
+	// v1.12.0
 	@Autowired
 	private InterferenciaRepository interferenciaRepository;
 

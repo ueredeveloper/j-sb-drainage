@@ -26,6 +26,7 @@ import com.api.main.services.InterferenciaService;
 @RequestMapping("/interference")
 public class InterferenciaController {
 
+	// v1.12.0
 	@Autowired
 	private InterferenciaService interferenciaService;
 

@@ -2,11 +2,9 @@ package com.api.main.dto;
 
 import java.util.Map;
 
-import net.bytebuddy.asm.Advice.Local;
-
 public class DominioDTO {
 
-	
+	// v1.12.2
 	private Map<Long, TipoInterferenciaDTO> tipoInterferencia;
 	private Map<Long, TipoAtoDTO> tipoAto;
 	private Map<Long, TipoOutorgaDTO> tipoOutorga;
@@ -37,8 +35,6 @@ public class DominioDTO {
 		this.tipoPoco = tipoPoco;
 		this.localCaptacao = localCaptacao;
 	}
-
-
 
 	public Map<Long, TipoInterferenciaDTO> getTipoInterferencia() {
 		return tipoInterferencia;
@@ -112,5 +108,4 @@ public class DominioDTO {
 		this.localCaptacao = localCaptacao;
 	}
 
-	
 }

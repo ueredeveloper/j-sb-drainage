@@ -12,13 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "tipo_ato")
 public class TipoAtoModel {
-
-	
+	// v1.12.2
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -28,18 +25,17 @@ public class TipoAtoModel {
 
 	@OneToMany(mappedBy = "tipoAto", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
-	
-	
+
 	public TipoAtoModel() {
 		super();
 	}
-	
+
 	public TipoAtoModel(Long id, String descricao) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 	}
-	
+
 	public TipoAtoModel(String descricao) {
 		super();
 		this.descricao = descricao;

@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "documento_tipo")
 public class DocumentoTipoModel implements Serializable {
-
+	// v1.12.2
 	private static final long serialVersionUID = 1L;
 
 	@Id

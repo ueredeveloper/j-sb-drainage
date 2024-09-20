@@ -15,16 +15,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "endereco")
-// @JsonIdentityInfo - Para não gerar loop infinito dentro do json
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 public class EnderecoModel {
 
+	// v1.12.2
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -57,7 +55,6 @@ public class EnderecoModel {
 		super();
 	}
 
-	
 	public EnderecoModel(Long id) {
 		super();
 		this.id = id;
@@ -68,12 +65,12 @@ public class EnderecoModel {
 		this.id = id;
 		this.logradouro = logradouro;
 	}
-	
+
 	public EnderecoModel(String logradouro) {
 		super();
 		this.logradouro = logradouro;
 	}
-	
+
 	public EnderecoModel(String logradouro, String cidade, String bairro, String cep) {
 		super();
 		this.logradouro = logradouro;
@@ -87,7 +84,7 @@ public class EnderecoModel {
 		this.logradouro = logradouro;
 		this.interferencias = interferencias;
 	}
-	
+
 	public EnderecoModel(Long id, String logradouro, String cidade, String bairro, String cep, EstadoModel estado) {
 		super();
 		this.id = id;
@@ -97,7 +94,7 @@ public class EnderecoModel {
 		this.cep = cep;
 		this.estado = estado;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

@@ -10,9 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "regiao_administrativa")
 public class RegiaoAdministrativaModel {
-	
-	
-	
+	// v1.12.2
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -8,10 +8,8 @@ import com.api.main.models.EnderecoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.models.UsuarioModel;
 
-//import javax.validation.constraints.NotBlank;
-//@JsonSerialize(using = CustomDocTipoSerializer.class)
 public class DocumentoDTO {
-
+	// v1.12.2
 	private Long id;
 
 	private String numero;

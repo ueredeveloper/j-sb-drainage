@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "documento")
 public class DocumentoModel implements Serializable {
 	
-
+	// v1.12.2
 	private static final long serialVersionUID = 1L;
 
 	@Id

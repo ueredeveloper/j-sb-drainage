@@ -6,8 +6,8 @@ import java.util.Set;
 import com.api.main.models.DocumentoModel;
 
 public class TipoPocoDTO {
-
 	
+	// v1.12.2
 	private Long id;
 
 	private String descricao;

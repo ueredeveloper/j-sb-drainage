@@ -13,18 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "tipoInterferencia")
 public class TipoInterferenciaModel implements Serializable {
-	
+	// v1.12.2
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
-	
+
 	@Column(nullable = true, unique = false, length = 40)
 	String descricao;
 
@@ -34,8 +32,6 @@ public class TipoInterferenciaModel implements Serializable {
 	public TipoInterferenciaModel() {
 		super();
 	}
-	
-	
 
 	public TipoInterferenciaModel(String descricao) {
 		super();

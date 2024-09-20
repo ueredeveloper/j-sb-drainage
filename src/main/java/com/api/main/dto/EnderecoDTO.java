@@ -8,7 +8,7 @@ import com.api.main.models.EstadoModel;
 import com.api.main.models.InterferenciaModel;
 
 public class EnderecoDTO {
-
+	// v1.12.2
 	private Long id;
 
 	private String logradouro;

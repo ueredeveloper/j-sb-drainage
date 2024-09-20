@@ -9,7 +9,7 @@ import com.vividsolutions.jts.geom.Geometry;
 @Entity
 @Table(name = "subterranea")
 public class SubterraneaModel extends InterferenciaModel {
-	
+	// v1.12.2
 	private static final long serialVersionUID = 1L;
 
 	@Column()

@@ -6,7 +6,7 @@ import java.util.Set;
 import com.api.main.models.EnderecoModel;
 
 public class EstadoDTO {
-
+	// v1.12.2
 	
 	Long id;
 	String descricao;

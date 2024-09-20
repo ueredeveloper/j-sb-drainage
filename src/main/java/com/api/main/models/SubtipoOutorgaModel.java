@@ -12,21 +12,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "subtipo_outorga")
 public class SubtipoOutorgaModel {
-	
-	
-	
+	// v1.12.2
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
-	
+
 	@OneToMany(mappedBy = "subtipoOutorga", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
@@ -38,7 +34,7 @@ public class SubtipoOutorgaModel {
 		super();
 		this.descricao = descricao;
 	}
-	
+
 	public SubtipoOutorgaModel(Long id, String descricao) {
 		super();
 		this.id = id;
@@ -68,6 +64,5 @@ public class SubtipoOutorgaModel {
 	public void setInterferencias(Set<InterferenciaModel> interferencias) {
 		this.interferencias = interferencias;
 	}
-	
-	
+
 }
