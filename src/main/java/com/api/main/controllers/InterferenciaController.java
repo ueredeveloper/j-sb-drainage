@@ -1,6 +1,7 @@
 package com.api.main.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -39,8 +40,8 @@ public class InterferenciaController {
 	}
 
 	@GetMapping("/list-by-keyword")
-	public ResponseEntity<List<InterferenciaModel>> list(@RequestParam(required = false) String keyword) {
-		List<InterferenciaModel> resultList = interferenciaService.listByLogradouro(keyword);
+	public ResponseEntity<Set<InterferenciaModel>> list(@RequestParam(required = false) String keyword) {
+		Set<InterferenciaModel> resultList = interferenciaService.listByLogradouro(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
