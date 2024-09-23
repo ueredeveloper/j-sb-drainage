@@ -24,7 +24,7 @@ import com.vividsolutions.jts.geom.Geometry;
 @Inheritance(strategy = InheritanceType.JOINED)
 
 public class InterferenciaModel implements Serializable {
-	// v1.12.2
+
 	private static final long serialVersionUID = 1L;
 
 	@Id

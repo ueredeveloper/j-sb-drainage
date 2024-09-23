@@ -4,7 +4,6 @@ import java.util.Map;
 
 public class DominioDTO {
 
-	// v1.12.2
 	private Map<Long, TipoInterferenciaDTO> tipoInterferencia;
 	private Map<Long, TipoAtoDTO> tipoAto;
 	private Map<Long, TipoOutorgaDTO> tipoOutorga;

@@ -10,7 +10,6 @@ import com.vividsolutions.jts.geom.Geometry;
 
 public class SubterraneaDTO extends InterferenciaDTO {
 
-	// v1.12.2
 	private Boolean caesb; // tem caesb () sim () não
 
 	private String nivelEstatico; // em metros

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "processo")
 public class ProcessoModel {
-	// v1.12.2
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;

@@ -9,7 +9,7 @@ import com.api.main.models.ProcessoModel;
 import com.api.main.models.UsuarioModel;
 
 public class DocumentoDTO {
-	// v1.12.2
+
 	private Long id;
 
 	private String numero;

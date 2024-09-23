@@ -7,7 +7,6 @@ import com.api.main.models.DocumentoModel;
 
 public class DocumentoTipoDTO {
 
-	// v1.12.2
 	private Long id;
 
 	private String descricao;

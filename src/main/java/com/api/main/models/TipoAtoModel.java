@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tipo_ato")
 public class TipoAtoModel {
-	// v1.12.2
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

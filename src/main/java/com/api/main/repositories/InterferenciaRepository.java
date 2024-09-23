@@ -57,7 +57,19 @@ public interface InterferenciaRepository extends JpaRepository<InterferenciaMode
 		    +  "'\"consumo\"', ':' , '\"', f.consumo,'\"' , ',',"
 		    +  "'\"total\"', ':' , '\"', f.total,'\"' , '}'"
 		    + "), ',') , '')"
+		    +  ",'],', "
+		    
+		    + "'\"', 'demandas', '\"', ':', '[', "
+		    +  "COALESCE(STRING_AGG(CONCAT("
+		    +  "'{', '\"id\"', ':' , '\"', f.id,'\"' , ',',"
+		    +  "'\"tipoFinalidade\"', ':' , '{\"', 'id','\"',':', '\"', tf.id, '\"', ',', '\"descricao\"',':', '\"', tf.descricao, '\"', '}',',',"
+		    +  "'\"vazao\"', ':' , '\"', d.vazao,'\"' , ',',"
+		    +  "'\"tempo\"', ':' , '\"', d.tempo,'\"' , ',',"
+		    +  "'\"periodo\"', ':' , '\"', d.periodo,'\"' , ',',"
+		    +  "'\"mes\"', ':' , '\"', d.mes,'\"' , '}'"
+		    + "), ',') , '')"
 		    +  ",']', "
+		    
 		    +  "'}}') " 
 	        + "FROM InterferenciaModel i "
 	        + "LEFT JOIN i.tipoInterferencia ti "
@@ -66,6 +78,7 @@ public interface InterferenciaRepository extends JpaRepository<InterferenciaMode
 	        + "LEFT JOIN i.situacaoProcesso sp "
 	        + "LEFT JOIN i.tipoAto ta "
 	        + "LEFT JOIN i.finalidades f "
+	        + "LEFT JOIN i.demandas d "
 	        + "LEFT JOIN f.tipoFinalidade tf "
 	        
 	        + "LEFT JOIN i.endereco e "

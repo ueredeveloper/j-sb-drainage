@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tipo_outorga")
 public class TipoOutorgaModel {
-	// v1.12.2
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

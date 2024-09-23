@@ -4,7 +4,7 @@ import com.api.main.models.InterferenciaModel;
 import com.api.main.models.TipoFinalidadeModel;
 
 public class DemandaDTO {
-	// v1.12.2
+
 	private Long id;
 	private Double vazao; // litros/dia
 	private int tempo; // horas/dia
@@ -57,6 +57,16 @@ public class DemandaDTO {
 		this.mes = mes;
 		this.tipoFinalidade = tipoFinalidade;
 		this.interferencia = interferencia;
+	}
+	
+	public DemandaDTO(Long id, Double vazao, int tempo, int periodo, int mes, TipoFinalidadeModel tipoFinalidade) {
+		super();
+		this.id = id;
+		this.vazao = vazao;
+		this.tempo = tempo;
+		this.periodo = periodo;
+		this.mes = mes;
+		this.tipoFinalidade = tipoFinalidade;
 	}
 
 	public Long getId() {

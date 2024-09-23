@@ -1,7 +1,7 @@
 package com.api.main.dto;
 
 public class LocalCaptacaoDTO {
-	// v1.12.2
+
 	private Long id;
 	private String descricao;
 	

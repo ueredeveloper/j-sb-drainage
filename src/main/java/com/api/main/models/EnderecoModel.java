@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class EnderecoModel {
 
-	// v1.12.2
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

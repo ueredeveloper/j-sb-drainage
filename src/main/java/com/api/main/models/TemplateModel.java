@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "template")
 public class TemplateModel {
-	// v1.12.2
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

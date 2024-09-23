@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "demanda")
 public class DemandaModel {
-	// v1.12.2
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -64,6 +64,26 @@ public class DemandaModel {
 		this.tempo = tempo;
 		this.periodo = periodo;
 		this.mes = mes;
+	}
+	
+
+	public DemandaModel(Double vazao, int tempo, int periodo, int mes, TipoFinalidadeModel tipoFinalidade) {
+		super();
+		this.vazao = vazao;
+		this.tempo = tempo;
+		this.periodo = periodo;
+		this.mes = mes;
+		this.tipoFinalidade = tipoFinalidade;
+	}
+	
+	public DemandaModel(Long id, Double vazao, int tempo, int periodo, int mes, TipoFinalidadeModel tipoFinalidade) {
+		super();
+		this.id = id;
+		this.vazao = vazao;
+		this.tempo = tempo;
+		this.periodo = periodo;
+		this.mes = mes;
+		this.tipoFinalidade = tipoFinalidade;
 	}
 
 

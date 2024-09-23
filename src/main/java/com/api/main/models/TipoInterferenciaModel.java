@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tipoInterferencia")
 public class TipoInterferenciaModel implements Serializable {
-	// v1.12.2
+
 	private static final long serialVersionUID = 1L;
 
 	@Id

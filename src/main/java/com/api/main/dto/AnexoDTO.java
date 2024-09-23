@@ -6,7 +6,7 @@ import java.util.Set;
 import com.api.main.models.ProcessoModel;
 
 public class AnexoDTO {
-    // v1.12.2
+
 	private Long id;
 	private String numero;
 	private Set<ProcessoModel> processos = new HashSet<>();

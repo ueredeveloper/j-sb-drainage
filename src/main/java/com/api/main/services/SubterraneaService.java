@@ -278,8 +278,13 @@ public class SubterraneaService {
 		if (demandas != null) {
 			demandas.forEach(item -> {
 
-				safeResponse.getDemandas().add(new DemandaModel(
-						item.getId(), item.getVazao(), item.getTempo(), item.getPeriodo(), item.getMes()
+				safeResponse.getDemandas().add(
+						new DemandaModel(
+						item.getId(), 
+						item.getVazao(),
+						item.getTempo(), 
+						item.getPeriodo(), 
+						item.getMes(), new TipoFinalidadeModel(item.getTipoFinalidade().getId(), item.getTipoFinalidade().getDescricao())
 						));
 			});
 

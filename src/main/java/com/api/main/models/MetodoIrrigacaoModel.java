@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "metodo_irrigacao")
 public class MetodoIrrigacaoModel {
-	// v1.12.2
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

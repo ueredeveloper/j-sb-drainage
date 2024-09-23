@@ -6,7 +6,7 @@ import java.util.Set;
 import com.api.main.models.FinalidadeModel;
 
 public class TipoFinalidadeDTO {
-	// v1.12.2
+
 	private Long id;
 
 	private String descricao;

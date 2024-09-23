@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "finalidade")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class FinalidadeModel {
-	// v1.12.2
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

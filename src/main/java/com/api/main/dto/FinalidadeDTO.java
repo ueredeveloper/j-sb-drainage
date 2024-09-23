@@ -4,7 +4,7 @@ import com.api.main.models.InterferenciaModel;
 import com.api.main.models.TipoFinalidadeModel;
 
 public class FinalidadeDTO {
-	// v1.12.2
+
 	private Long id;
 	private String finalidade;
 	private String subfinalidade;

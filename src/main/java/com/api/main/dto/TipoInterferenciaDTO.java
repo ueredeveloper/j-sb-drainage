@@ -2,7 +2,6 @@ package com.api.main.dto;
 
 public class TipoInterferenciaDTO {
 
-	// v1.12.2
 	Long id;
 	String descricao;
 

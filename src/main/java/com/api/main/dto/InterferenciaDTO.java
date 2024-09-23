@@ -16,7 +16,7 @@ import com.api.main.models.UnidadeHidrograficaModel;
 import com.vividsolutions.jts.geom.Geometry;
 
 public class InterferenciaDTO {
-	// v1.12.2
+
 	private Long id;
 
 	private Double latitude;
