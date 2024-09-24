@@ -131,7 +131,6 @@ public class InterferenciaService {
 		// Aqui já se tem o id da interferência salva e então salva as finalidades
 		if (finalidades != null && !finalidades.isEmpty()) {
 			finalidades.forEach(finalidade -> {
-				System.out.println("save finalidades inter id " + savedInterferencia.getId());
 				// Associar a interferência à finalidade
 				finalidade.setInterferencia(savedInterferencia);
 				finalidadeRepository.save(finalidade); // Salvar ou atualizar a finalidade
@@ -143,9 +142,6 @@ public class InterferenciaService {
 
 	@Transactional
 	public Set<InterferenciaModel> listByLogradouro(String keyword) {
-		
-		System.out.println("Utilizando set");
-
 		Set<InterferenciaModel> response = readJsonStringAndConvert(keyword);
 		return response;
 	}
@@ -156,18 +152,13 @@ public class InterferenciaService {
 		
 		Set<InterferenciaModel> response = new HashSet<>();
 	
-
 		if (result == null) {
-			System.out.println("No results found for the keyword: " + keyword);
 			return response; // Return an empty list if no results
 		}
-
 
 		String json = result != null ? result.toString() : null;
 
 		if (json != null) {
-
-			System.out.println("list interferencia by key " + json.toString());
 			// Since the structure is a list of objects containing 'endereco', extract them
 			Set<Map<String, InterferenciaModel>> tempList = new Gson().fromJson(json,
 					new TypeToken<Set<Map<String, InterferenciaModel>>>() {
