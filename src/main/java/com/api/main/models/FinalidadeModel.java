@@ -143,6 +143,8 @@ public class FinalidadeModel {
 	public void setTipoFinalidade(TipoFinalidadeModel tipoFinalidade) {
 		this.tipoFinalidade = tipoFinalidade;
 	}
+	
+	
 
 	
 

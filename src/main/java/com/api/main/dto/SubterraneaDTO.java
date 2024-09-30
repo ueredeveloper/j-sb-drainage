@@ -1,12 +1,6 @@
 package com.api.main.dto;
 
-import com.api.main.models.EnderecoModel;
-import com.api.main.models.SituacaoProcessoModel;
-import com.api.main.models.SubtipoOutorgaModel;
-import com.api.main.models.TipoAtoModel;
-import com.api.main.models.TipoInterferenciaModel;
-import com.api.main.models.TipoOutorgaModel;
-import com.vividsolutions.jts.geom.Geometry;
+import com.api.main.models.TipoPocoModel;
 
 public class SubterraneaDTO extends InterferenciaDTO {
 
@@ -16,40 +10,17 @@ public class SubterraneaDTO extends InterferenciaDTO {
 
 	private String nivelDinamico; // em metros
 
+	private String profundidade; // em metros
+
+	private Integer vazaoOutorgavel;
+
+	private Integer vazaoSistema;
+
+	private Integer vazaoTeste;
+
+	private TipoPocoModel tipoPoco;
+
 	public SubterraneaDTO() {
-	}
-
-	public SubterraneaDTO(Double latitude, Double longitude, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia) {
-		super(latitude, longitude, endereco, tipoInterferencia);
-		// TODO Auto-generated constructor stub
-	}
-
-	public SubterraneaDTO(Double latitude, Double longitude, EnderecoModel endereco) {
-		super(latitude, longitude, endereco);
-		// TODO Auto-generated constructor stub
-	}
-
-	public SubterraneaDTO(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
-			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
-		super(latitude, longitude, geometry, endereco, tipoInterferencia, tipoOutorga, subtipoOutorga, situacaoProcesso,
-				tipoAto);
-		// TODO Auto-generated constructor stub
-	}
-
-	public SubterraneaDTO(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
-			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
-		super(id, latitude, longitude, geometry, endereco, tipoInterferencia, tipoOutorga, subtipoOutorga,
-				situacaoProcesso, tipoAto);
-		// TODO Auto-generated constructor stub
-	}
-
-	public SubterraneaDTO(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia) {
-		super(id, latitude, longitude, geometry, endereco, tipoInterferencia);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Boolean getCaesb() {
@@ -75,6 +46,45 @@ public class SubterraneaDTO extends InterferenciaDTO {
 	public void setNivelDinamico(String nivelDinamico) {
 		this.nivelDinamico = nivelDinamico;
 	}
-	
+
+	public String getProfundidade() {
+		return profundidade;
+	}
+
+	public void setProfundidade(String profundidade) {
+		this.profundidade = profundidade;
+	}
+
+	public Integer getVazaoOutorgavel() {
+		return vazaoOutorgavel;
+	}
+
+	public void setVazaoOutorgavel(Integer vazaoOutorgavel) {
+		this.vazaoOutorgavel = vazaoOutorgavel;
+	}
+
+	public Integer getVazaoSistema() {
+		return vazaoSistema;
+	}
+
+	public void setVazaoSistema(Integer vazaoSistema) {
+		this.vazaoSistema = vazaoSistema;
+	}
+
+	public Integer getVazaoTeste() {
+		return vazaoTeste;
+	}
+
+	public void setVazaoTeste(Integer vazaoTeste) {
+		this.vazaoTeste = vazaoTeste;
+	}
+
+	public TipoPocoModel getTipoPoco() {
+		return tipoPoco;
+	}
+
+	public void setTipoPoco(TipoPocoModel tipoPoco) {
+		this.tipoPoco = tipoPoco;
+	}
 
 }

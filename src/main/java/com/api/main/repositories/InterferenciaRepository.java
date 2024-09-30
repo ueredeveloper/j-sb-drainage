@@ -17,6 +17,15 @@ public interface InterferenciaRepository extends JpaRepository<InterferenciaMode
 		    +  "'\"id\"', ':', i.id, ',', " 
 		    +  "'\"latitude\"', ':', '\"', COALESCE(i.latitude, ''), '\"', ',', " 
 		    +  "'\"longitude\"', ':', '\"', COALESCE(i.longitude, ''), '\"', ',' ,"
+		    +  "'\"vazaoOutorgavel\"', ':', COALESCE(s.vazao_outorgavel, 0), ',' ,"
+		    +  "'\"vazaoTeste\"', ':', COALESCE(s.vazao_teste, 0), ',' ,"
+		    +  "'\"vazaoSistema\"', ':', COALESCE(s.vazao_sistema, 0), ',' ,"
+		    +  "'\"profundidade\"', ':', COALESCE(s.profundidade, '\"\"'), ',' ,"
+		    +  "'\"nivelEstatico\"', ':', COALESCE(s.nivel_estatico, '\"\"'), ',' ,"
+		    +  "'\"nivelDinamico\"', ':', COALESCE(s.nivel_dinamico, '\"\"'), ',' ,"
+		    +  "'\"caesb\"', ':', COALESCE(s.caesb, 'false'), ',' ,"
+		    + "'\"tipoPoco\"', ':', "
+		    + "COALESCE(CONCAT('{', '\"id\"', ':', s.tipo_poco, '}'), 'null'), ',', "
 		    + "'\"endereco\"', ':', "
 		    + "COALESCE(CONCAT('{', '\"id\"', ':', e.id, ',', '\"logradouro\"', ':', '\"', e.logradouro, '\"', '}'), 'null'), ',', "
 		    +  "'\"tipoInterferencia\"', ':', "
@@ -77,6 +86,7 @@ public interface InterferenciaRepository extends JpaRepository<InterferenciaMode
             + "LEFT JOIN situacao_processo sp ON sp.id = i.situacao_processo "
             + "LEFT JOIN tipo_ato ta ON ta.id = i.tipo_ato "
             + "LEFT JOIN endereco e ON e.id = i.endereco " 
+            + "LEFT JOIN subterranea s ON i.id = s.id "
             + "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))"
             + "GROUP BY i.id, i.latitude, i.longitude, e.id, e.logradouro",
     nativeQuery = true)

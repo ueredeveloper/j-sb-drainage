@@ -1,8 +1,6 @@
 package com.api.main.services;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -16,10 +14,13 @@ import org.springframework.stereotype.Service;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.FinalidadeModel;
 import com.api.main.models.InterferenciaModel;
+import com.api.main.models.InterferenciaTypeAdapter;
+import com.api.main.models.SubterraneaModel;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.FinalidadeRepository;
 import com.api.main.repositories.InterferenciaRepository;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 @Service
@@ -149,32 +150,39 @@ public class InterferenciaService {
 	public Set<InterferenciaModel> readJsonStringAndConvert(String keyword) {
 
 		Set<String> result = interferenciaRepository.listByLogradouro(keyword);
-		
 		Set<InterferenciaModel> response = new HashSet<>();
-	
+
 		if (result == null) {
 			return response; // Return an empty list if no results
 		}
 
-		String json = result != null ? result.toString() : null;
+		String json = result.toString();
+		System.out.println(json);
 
-		if (json != null) {
-			// Since the structure is a list of objects containing 'endereco', extract them
-			Set<Map<String, InterferenciaModel>> tempList = new Gson().fromJson(json,
+		if (json != null && !json.isEmpty()) {
+			Gson gson = new GsonBuilder().registerTypeAdapter(InterferenciaModel.class, new InterferenciaTypeAdapter()) 
+					// Registrar o adaptador
+					.create();
+			// Since the structure is a list of objects containing 'interferencia', extract
+			// them
+			Set<Map<String, InterferenciaModel>> tempList = gson.fromJson(json,
 					new TypeToken<Set<Map<String, InterferenciaModel>>>() {
 					}.getType());
 
-			// Iterate over the list and extract 'endereco' object from each map
+			// Iterate over the list and extract 'interferencia' object from each map
 			for (Map<String, InterferenciaModel> map : tempList) {
 				InterferenciaModel obj = map.get("interferencia");
 				if (obj != null) {
+					// Verifica se o objeto é do tipo SubterraneaModel e exibe a vazão
+					if (obj instanceof SubterraneaModel) {
+						SubterraneaModel subterranea = (SubterraneaModel) obj;
+					}
 					response.add(obj);
 				}
 			}
 		}
 
 		return response;
-
 	}
 
 	@Transactional

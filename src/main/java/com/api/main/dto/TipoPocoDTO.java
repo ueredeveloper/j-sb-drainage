@@ -24,8 +24,6 @@ public class TipoPocoDTO {
 		this.descricao = descricao;
 	}
 
-
-
 	public Long getId() {
 		return id;
 	}

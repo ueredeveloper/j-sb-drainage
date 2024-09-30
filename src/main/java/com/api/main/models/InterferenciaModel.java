@@ -41,7 +41,7 @@ public class InterferenciaModel implements Serializable {
 	private Geometry geometry;
 
 	@ManyToOne
-	@JoinColumn(name = "endereco")
+	@JoinColumn(name = "endereco", nullable = true)
 	// @JsonBackReference
 	private EnderecoModel endereco;
 
@@ -82,119 +82,14 @@ public class InterferenciaModel implements Serializable {
 	public InterferenciaModel() {
 		super();
 	}
-
+	
+	
 	public InterferenciaModel(Long id) {
 		super();
 		this.id = id;
 	}
 
-	public InterferenciaModel(Double latitude, Double longitude) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
 
-	public InterferenciaModel(Double latitude, Double longitude, EnderecoModel endereco) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.endereco = endereco;
-	}
-
-	public InterferenciaModel(Double latitude, Double longitude, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.endereco = endereco;
-		this.tipoInterferencia = tipoInterferencia;
-	}
-
-	public InterferenciaModel(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
-			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
-		super();
-		this.id = id;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.geometry = geometry;
-		this.endereco = endereco;
-		this.tipoInterferencia = tipoInterferencia;
-		this.tipoOutorga = tipoOutorga;
-		this.subtipoOutorga = subtipoOutorga;
-		this.situacaoProcesso = situacaoProcesso;
-		this.tipoAto = tipoAto;
-	}
-
-	public InterferenciaModel(Double latitude, Double longitude, TipoInterferenciaModel tipoInterferencia) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.tipoInterferencia = tipoInterferencia;
-	}
-
-	public InterferenciaModel(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
-			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.geometry = geometry;
-		this.endereco = endereco;
-		this.tipoInterferencia = tipoInterferencia;
-		this.tipoOutorga = tipoOutorga;
-		this.subtipoOutorga = subtipoOutorga;
-		this.situacaoProcesso = situacaoProcesso;
-		this.tipoAto = tipoAto;
-	}
-
-	public InterferenciaModel(Double latitude, Double longitude, Set<FinalidadeModel> finalidades) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.finalidades = finalidades;
-	}
-
-	public InterferenciaModel(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
-			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto, BaciaHidrograficaModel baciaHidrografica,
-			UnidadeHidrograficaModel unidadeHidrografica, Set<FinalidadeModel> finalidades) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.geometry = geometry;
-		this.endereco = endereco;
-		this.tipoInterferencia = tipoInterferencia;
-		this.tipoOutorga = tipoOutorga;
-		this.subtipoOutorga = subtipoOutorga;
-		this.situacaoProcesso = situacaoProcesso;
-		this.tipoAto = tipoAto;
-		this.baciaHidrografica = baciaHidrografica;
-		this.unidadeHidrografica = unidadeHidrografica;
-		this.finalidades = finalidades;
-	}
-
-	public InterferenciaModel(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
-			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto, BaciaHidrograficaModel baciaHidrografica,
-			UnidadeHidrograficaModel unidadeHidrografica, Set<FinalidadeModel> finalidades,
-			Set<DemandaModel> demandas) {
-		super();
-		this.id = id;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.geometry = geometry;
-		this.endereco = endereco;
-		this.tipoInterferencia = tipoInterferencia;
-		this.tipoOutorga = tipoOutorga;
-		this.subtipoOutorga = subtipoOutorga;
-		this.situacaoProcesso = situacaoProcesso;
-		this.tipoAto = tipoAto;
-		this.baciaHidrografica = baciaHidrografica;
-		this.unidadeHidrografica = unidadeHidrografica;
-		this.finalidades = finalidades;
-		this.demandas = demandas;
-	}
 
 	public Long getId() {
 		return id;
@@ -234,6 +129,14 @@ public class InterferenciaModel implements Serializable {
 
 	public void setEndereco(EnderecoModel endereco) {
 		this.endereco = endereco;
+	}
+
+	public TipoInterferenciaModel getTipoInterferencia() {
+		return tipoInterferencia;
+	}
+
+	public void setTipoInterferencia(TipoInterferenciaModel tipoInterferencia) {
+		this.tipoInterferencia = tipoInterferencia;
 	}
 
 	public TipoOutorgaModel getTipoOutorga() {
@@ -284,18 +187,6 @@ public class InterferenciaModel implements Serializable {
 		this.unidadeHidrografica = unidadeHidrografica;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public TipoInterferenciaModel getTipoInterferencia() {
-		return tipoInterferencia;
-	}
-
-	public void setTipoInterferencia(TipoInterferenciaModel tipoInterferencia) {
-		this.tipoInterferencia = tipoInterferencia;
-	}
-
 	public Set<FinalidadeModel> getFinalidades() {
 		return finalidades;
 	}
@@ -312,4 +203,10 @@ public class InterferenciaModel implements Serializable {
 		this.demandas = demandas;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+	
 }

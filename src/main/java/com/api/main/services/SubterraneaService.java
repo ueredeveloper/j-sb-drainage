@@ -75,15 +75,22 @@ public class SubterraneaService {
 		existingSubterranea.setCaesb(requestedObject.getCaesb());
 		existingSubterranea.setNivelEstatico(requestedObject.getNivelEstatico());
 		existingSubterranea.setNivelDinamico(requestedObject.getNivelDinamico());
+		existingSubterranea.setProfundidade(requestedObject.getProfundidade());
+		// Tipo Poço
+		existingSubterranea.setTipoPoco(requestedObject.getTipoPoco());
+		existingSubterranea.setVazaoOutorgavel(requestedObject.getVazaoOutorgavel());
+		existingSubterranea.setVazaoTeste(requestedObject.getVazaoTeste());
+		existingSubterranea.setVazaoSistema(requestedObject.getVazaoSistema());
+		
 		existingSubterranea.setGeometry(requestedObject.getGeometry());
+		// Relacionamentos
 		existingSubterranea.setTipoInterferencia(requestedObject.getTipoInterferencia());
 		existingSubterranea.setTipoOutorga(requestedObject.getTipoOutorga());
 		existingSubterranea.setSubtipoOutorga(requestedObject.getSubtipoOutorga());
 		existingSubterranea.setSituacaoProcesso(requestedObject.getSituacaoProcesso());
 		existingSubterranea.setTipoAto(requestedObject.getTipoAto());
-		existingSubterranea.setCaesb(requestedObject.getCaesb());
-		existingSubterranea.setNivelEstatico(requestedObject.getNivelEstatico());
-		existingSubterranea.setNivelDinamico(requestedObject.getNivelDinamico());
+
+		
 
 		// Guardar finalidades temporariamente e limpar no objeto para salvar
 		// interferência
@@ -180,7 +187,7 @@ public class SubterraneaService {
 						existingEndereco.setBairro(requestedObject.getEndereco().getBairro());
 						existingEndereco.setCidade(requestedObject.getEndereco().getCidade());
 						existingEndereco.setCep(requestedObject.getEndereco().getCep());
-
+						// ADICIONAR ESTADO NA EDIÇÃO
 						EnderecoModel updatedEndereco = enderecoRepository.save(existingEndereco);
 
 						record.setEndereco(updatedEndereco);
@@ -208,7 +215,7 @@ public class SubterraneaService {
 			if (finalidades != null && !finalidades.isEmpty()) {
 
 				finalidades.forEach(item -> {
-				
+
 					// Finalidade sem id, salva e relaciona com a interferência
 					if (item.getId() == null) {
 						item.setInterferencia(persistedSubterranea);
@@ -243,8 +250,16 @@ public class SubterraneaService {
 		safeResponse.setLatitude(originalResponse.getLatitude());
 		safeResponse.setLongitude(originalResponse.getLongitude());
 		safeResponse.setCaesb(originalResponse.getCaesb());
+		// Dados do Poço
 		safeResponse.setNivelEstatico(originalResponse.getNivelEstatico());
 		safeResponse.setNivelDinamico(originalResponse.getNivelDinamico());
+		safeResponse.setProfundidade(originalResponse.getProfundidade());
+		
+		safeResponse.setTipoPoco(originalResponse.getTipoPoco());
+		// Vazões
+		safeResponse.setVazaoOutorgavel(originalResponse.getVazaoOutorgavel());
+		safeResponse.setVazaoTeste(originalResponse.getVazaoTeste());
+		safeResponse.setVazaoSistema(originalResponse.getVazaoSistema());
 
 		// Não permite referências cíclicas, que geram loop na criaçaõ do json
 		safeResponse.setEndereco(new EnderecoModel(originalResponse.getEndereco().getId(),
@@ -269,23 +284,20 @@ public class SubterraneaService {
 		if (finalidades != null) {
 			finalidades.forEach(item -> {
 
-				safeResponse.getFinalidades().add(new FinalidadeModel(item.getId(), item.getFinalidade(),
-						item.getSubfinalidade(), item.getQuantidade(), item.getConsumo(), item.getTotal(),
-						new TipoFinalidadeModel(item.getTipoFinalidade().getId(), item.getTipoFinalidade().getDescricao())));
+				safeResponse.getFinalidades()
+						.add(new FinalidadeModel(item.getId(), item.getFinalidade(), item.getSubfinalidade(),
+								item.getQuantidade(), item.getConsumo(), item.getTotal(), new TipoFinalidadeModel(
+										item.getTipoFinalidade().getId(), item.getTipoFinalidade().getDescricao())));
 			});
 
 		}
 		if (demandas != null) {
 			demandas.forEach(item -> {
 
-				safeResponse.getDemandas().add(
-						new DemandaModel(
-						item.getId(), 
-						item.getVazao(),
-						item.getTempo(), 
-						item.getPeriodo(), 
-						item.getMes(), new TipoFinalidadeModel(item.getTipoFinalidade().getId(), item.getTipoFinalidade().getDescricao())
-						));
+				safeResponse.getDemandas()
+						.add(new DemandaModel(item.getId(), item.getVazao(), item.getTempo(), item.getPeriodo(),
+								item.getMes(), new TipoFinalidadeModel(item.getTipoFinalidade().getId(),
+										item.getTipoFinalidade().getDescricao())));
 			});
 
 		}
@@ -320,10 +332,11 @@ public class SubterraneaService {
 					existingDemanda.setTempo(requestedDemanda.getTempo());
 					existingDemanda.setPeriodo(requestedDemanda.getPeriodo());
 					existingDemanda.setMes(requestedDemanda.getMes());
-					
-					/*if (requestedDemanda.getTipoFinalidade() != null) {
-						existingDemanda.setTipoFinalidade(requestedDemanda.getTipoFinalidade());
-					}*/
+
+					/*
+					 * if (requestedDemanda.getTipoFinalidade() != null) {
+					 * existingDemanda.setTipoFinalidade(requestedDemanda.getTipoFinalidade()); }
+					 */
 
 					// Verificar se é necessário atualizar a interferência associada
 					if (requestedDemanda.getInterferencia() != null) {
@@ -393,7 +406,7 @@ public class SubterraneaService {
 	}
 
 	private FinalidadeModel createNewFinalidade(FinalidadeModel toSave, SubterraneaModel interferencia) {
-		
+
 		// Associar a interferência (SubterraneaModel) à nova demanda
 		toSave.setInterferencia(interferencia);
 		return finalidadeRepository.save(toSave);
