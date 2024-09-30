@@ -3,38 +3,18 @@ package com.api.main.dto;
 public class TemplateDTO {
 
 	private Long id;
+
 	private String descricao;
+
 	private String html;
+
+	private String pasta;
+	private String nome;
+	private String conteudo;
 
 	public TemplateDTO() {
 		super();
 	}
-	
-	public TemplateDTO(Long id) {
-		super();
-		this.id = id;
-	}
-
-	public TemplateDTO(String html) {
-		super();
-		this.html = html;
-	}
-	
-	public TemplateDTO(String descricao, String html) {
-		super();
-		this.descricao = descricao;
-		this.html = html;
-	}
-
-	public TemplateDTO(Long id, String descricao, String html) {
-		super();
-		this.id = id;
-		this.descricao = descricao;
-		this.html = html;
-	}
-
-	
-
 
 	public Long getId() {
 		return id;
@@ -42,6 +22,14 @@ public class TemplateDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String getHtml() {
@@ -52,12 +40,28 @@ public class TemplateDTO {
 		this.html = html;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getPasta() {
+		return pasta;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setPasta(String pasta) {
+		this.pasta = pasta;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getConteudo() {
+		return conteudo;
+	}
+
+	public void setConteudo(String conteudo) {
+		this.conteudo = conteudo;
 	}
 
 }

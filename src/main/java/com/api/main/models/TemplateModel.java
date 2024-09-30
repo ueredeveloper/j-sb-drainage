@@ -22,33 +22,26 @@ public class TemplateModel {
 	@Column(nullable = true, unique = false)
 	@Lob
 	private String html;
-
+	@Column(nullable = true, unique = false, length = 250)
+	private String pasta;
+	@Column(nullable = true, unique = false, length = 250)
+	private String nome;
+	@Column(nullable = true, unique = false)
+	@Lob
+	private String conteudo;
+	
 	public TemplateModel() {
 		super();
 	}
 
-	public TemplateModel(Long id) {
-		super();
-		this.id = id;
-	}
-
-	public TemplateModel(Long id, String descricao) {
-		super();
-		this.id = id;
-		this.descricao = descricao;
-	}
-
-	public TemplateModel(String descricao, String html) {
-		super();
-		this.descricao = descricao;
-		this.html = html;
-	}
-
-	public TemplateModel(Long id, String descricao, String html) {
+	public TemplateModel(Long id, String descricao, String html, String pasta, String nome, String conteudo) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.html = html;
+		this.pasta = pasta;
+		this.nome = nome;
+		this.conteudo = conteudo;
 	}
 
 	public Long getId() {
@@ -75,4 +68,31 @@ public class TemplateModel {
 		this.html = html;
 	}
 
+	public String getPasta() {
+		return pasta;
+	}
+
+	public void setPasta(String pasta) {
+		this.pasta = pasta;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getConteudo() {
+		return conteudo;
+	}
+
+	public void setConteudo(String conteudo) {
+		this.conteudo = conteudo;
+	}
+	
+	
+
+	
 }
