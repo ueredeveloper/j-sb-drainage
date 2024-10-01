@@ -35,12 +35,7 @@ public class DocumentoController {
 	public ResponseEntity<Object> save(@RequestBody @Valid DocumentoDTO objDTO) {
 		DocumentoModel objMod = new DocumentoModel();
 		BeanUtils.copyProperties(objDTO, objMod);
-		
-		System.out.println("interferencias size ------------- " + objMod.getEndereco().getInterferencias().size());
-		
-		
 		return ResponseEntity.status(HttpStatus.CREATED).body(documentoService.save(objDTO, objMod));
-
 	}
 
 	@PutMapping("/update")

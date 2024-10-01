@@ -23,9 +23,9 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 		       "ELSE 'null' " +
 		       "END, ',', " +
 		       
-		       "'\"tipo\"', ':', " +
-		       "CASE WHEN d.tipo.id IS NOT NULL " + 
-		       "THEN CONCAT('{', '\"id\"', ':', d.tipo.id, ',', '\"descricao\"', ':','\"', d.tipo.descricao, '\"', '}') ELSE 'null' END,',', " +
+		       "'\"tipoDocumento\"', ':', " +
+		       "CASE WHEN d.tipoDocumento.id IS NOT NULL " + 
+		       "THEN CONCAT('{', '\"id\"', ':', d.tipoDocumento.id, ',', '\"descricao\"', ':','\"', d.tipoDocumento.descricao, '\"', '}') ELSE 'null' END,',', " +
 		       
 		       "'\"processo\"', ':', " +
 		       "CASE WHEN p.id IS NOT NULL " +

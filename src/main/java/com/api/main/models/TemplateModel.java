@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +31,18 @@ public class TemplateModel {
 	@Column(nullable = true, unique = false)
 	@Lob
 	private String conteudo;
+	
+	@ManyToOne
+	@JoinColumn(name = "tipoDocumento")
+	private DocumentoTipoModel tipoDocumento;
+	
+	@ManyToOne
+	@JoinColumn(name = "tipoOutorga")
+	private TipoOutorgaModel tipoOutorga;
+
+	@ManyToOne
+	@JoinColumn(name = "subtipoOutorga")
+	private SubtipoOutorgaModel subtipoOutorga;
 	
 	public TemplateModel() {
 		super();
@@ -91,8 +105,29 @@ public class TemplateModel {
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
 	}
-	
-	
 
+	public DocumentoTipoModel getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(DocumentoTipoModel tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	public TipoOutorgaModel getTipoOutorga() {
+		return tipoOutorga;
+	}
+
+	public void setTipoOutorga(TipoOutorgaModel tipoOutorga) {
+		this.tipoOutorga = tipoOutorga;
+	}
+
+	public SubtipoOutorgaModel getSubtipoOutorga() {
+		return subtipoOutorga;
+	}
+
+	public void setSubtipoOutorga(SubtipoOutorgaModel subtipoOutorga) {
+		this.subtipoOutorga = subtipoOutorga;
+	}
 	
 }

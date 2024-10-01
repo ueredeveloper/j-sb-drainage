@@ -1,5 +1,9 @@
 package com.api.main.dto;
 
+import com.api.main.models.DocumentoTipoModel;
+import com.api.main.models.SubtipoOutorgaModel;
+import com.api.main.models.TipoOutorgaModel;
+
 public class TemplateDTO {
 
 	private Long id;
@@ -11,6 +15,12 @@ public class TemplateDTO {
 	private String pasta;
 	private String nome;
 	private String conteudo;
+
+	private DocumentoTipoModel tipoDocumento;
+
+	private TipoOutorgaModel tipoOutorga;
+
+	private SubtipoOutorgaModel subtipoOutorga;
 
 	public TemplateDTO() {
 		super();
@@ -62,6 +72,30 @@ public class TemplateDTO {
 
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
+	}
+
+	public DocumentoTipoModel getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(DocumentoTipoModel tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	public TipoOutorgaModel getTipoOutorga() {
+		return tipoOutorga;
+	}
+
+	public void setTipoOutorga(TipoOutorgaModel tipoOutorga) {
+		this.tipoOutorga = tipoOutorga;
+	}
+
+	public SubtipoOutorgaModel getSubtipoOutorga() {
+		return subtipoOutorga;
+	}
+
+	public void setSubtipoOutorga(SubtipoOutorgaModel subtipoOutorga) {
+		this.subtipoOutorga = subtipoOutorga;
 	}
 
 }

@@ -25,6 +25,9 @@ public class SubtipoOutorgaModel {
 
 	@OneToMany(mappedBy = "subtipoOutorga", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
+	
+	@OneToMany(mappedBy = "subtipoOutorga", fetch = FetchType.EAGER)
+	private Set<TemplateModel> templates = new HashSet<>();
 
 	public SubtipoOutorgaModel() {
 		super();
