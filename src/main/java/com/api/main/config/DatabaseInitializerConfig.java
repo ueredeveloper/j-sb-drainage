@@ -79,7 +79,7 @@ public class DatabaseInitializerConfig {
 
 		};
 	}
-
+/*
 	@Bean
 	public CommandLineRunner insetHTMLTemplate(TemplateRepository r) {
 
@@ -93,7 +93,7 @@ public class DatabaseInitializerConfig {
 			r.save(htmlDocument);
 
 		};
-	}
+	}*/
 
 	@Bean
 	public CommandLineRunner insertAnexo(AnexoRepository procRepo) {
