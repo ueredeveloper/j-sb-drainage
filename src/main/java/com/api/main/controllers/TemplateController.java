@@ -1,6 +1,6 @@
 package com.api.main.controllers;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -24,8 +24,6 @@ import com.api.main.services.TemplateService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/template")
 public class TemplateController {
-	
-	
 
 	@Autowired
 	private TemplateService service;
@@ -38,15 +36,17 @@ public class TemplateController {
 
 	}
 
-	@GetMapping("/list-all")
-	public ResponseEntity<List<TemplateModel>> findAll() {
-		List<TemplateModel> resultList = service.findAll();
+	@GetMapping("/list-templates-by-params")
+
+	public ResponseEntity<Set<TemplateModel>> listByKeyword(@RequestParam(required = false) String tipoDocumento,
+			@RequestParam(required = false) String tipoOutorga, @RequestParam(required = false) String subtipoOutorga) {
+		Set<TemplateModel> resultList = service.listTemplatesByParams(tipoDocumento, tipoOutorga, subtipoOutorga);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
 	@GetMapping("/list-by-keyword")
-	public ResponseEntity<List<TemplateModel>> listByKeyword(@RequestParam(required = false) String keyword) {
-		List<TemplateModel> resultList = service.listByKeyword(keyword);
+	public ResponseEntity<Set<TemplateModel>> listByKeyword(@RequestParam(required = false) String keyword) {
+		Set<TemplateModel> resultList = service.listByKeyword(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 

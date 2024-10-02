@@ -1,6 +1,7 @@
 package com.api.main.services;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -13,10 +14,7 @@ import com.api.main.repositories.TemplateRepository;
 
 @Service
 public class TemplateService {
-	
-	
 
-	
 	@Autowired
 	private TemplateRepository templateRepository;
 
@@ -34,8 +32,13 @@ public class TemplateService {
 	}
 
 	@Transactional
-	public List<TemplateModel> listByKeyword(String keyword) {
+	public Set<TemplateModel> listByKeyword(String keyword) {
 		return templateRepository.listByKeyword(keyword);
+	}
+
+	@Transactional
+	public Set<TemplateModel> listTemplatesByParams(String tipoDocumento, String tipoOutorga, String subtipoOutorga) {
+		return templateRepository.listTemplatesByParams(tipoDocumento, tipoOutorga, subtipoOutorga);
 	}
 
 }
