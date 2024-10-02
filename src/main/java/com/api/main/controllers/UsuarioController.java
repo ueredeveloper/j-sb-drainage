@@ -1,6 +1,6 @@
 package com.api.main.controllers;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,27 +20,25 @@ import com.api.main.services.UsuarioService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/user")
 public class UsuarioController {
-
-	
 	
 	@Autowired
 	private UsuarioService usuarioService;
 
-	
 	@PostMapping("/create")
 	public ResponseEntity<UsuarioModel> createUsuario(@RequestBody UsuarioModel usuario) {
 		UsuarioModel savedUsuario = usuarioService.saveUsuario(usuario);
 		return ResponseEntity.ok(savedUsuario);
 	}
 
-	/*
-	 * @GetMapping public ResponseEntity<List<UsuarioModel>> getAllUsuarios() {
-	 * List<UsuarioModel> usuarios = usuarioService.getAllUsuarios(); return
-	 * ResponseEntity.ok(usuarios); }
-	 */
-	@GetMapping("/list")
-	public ResponseEntity<List<UsuarioModel>> list(@RequestParam(required = false) String keyword) {
-		List<UsuarioModel> resultList = usuarioService.list(keyword);
+	@GetMapping("/list-by-name")
+	public ResponseEntity<Set<UsuarioModel>> listUsersByName(@RequestParam(required = false) String keyword) {
+		Set<UsuarioModel> resultList = usuarioService.listUsersByName(keyword);
+		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+	}
+	
+	@GetMapping("/list-by-document-id")
+	public ResponseEntity<Set<UsuarioModel>> listUsersByDocumentId(@RequestParam(required = false) Long id) {
+		Set<UsuarioModel> resultList = usuarioService.listUsersByDocumentId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
