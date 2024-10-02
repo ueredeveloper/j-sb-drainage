@@ -17,13 +17,8 @@ public class TemplateModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	@Column(nullable = true, unique = false, length = 250)
 	private String descricao;
-
-	@Column(nullable = true, unique = false)
-	@Lob
-	private String html;
 	@Column(nullable = true, unique = false, length = 250)
 	private String pasta;
 	@Column(nullable = true, unique = false, length = 250)
@@ -48,15 +43,29 @@ public class TemplateModel {
 		super();
 	}
 
-	public TemplateModel(Long id, String descricao, String html, String pasta, String nome, String conteudo) {
+	public TemplateModel(Long id, String descricao, String pasta, String nome, String conteudo) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
-		this.html = html;
 		this.pasta = pasta;
 		this.nome = nome;
 		this.conteudo = conteudo;
 	}
+
+	public TemplateModel(String descricao, String pasta, String nome, String conteudo, DocumentoTipoModel tipoDocumento,
+			TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga) {
+		super();
+		this.descricao = descricao;
+		this.pasta = pasta;
+		this.nome = nome;
+		this.conteudo = conteudo;
+		this.tipoDocumento = tipoDocumento;
+		this.tipoOutorga = tipoOutorga;
+		this.subtipoOutorga = subtipoOutorga;
+	}
+
+
+
 
 	public Long getId() {
 		return id;
@@ -72,14 +81,6 @@ public class TemplateModel {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public String getHtml() {
-		return html;
-	}
-
-	public void setHtml(String html) {
-		this.html = html;
 	}
 
 	public String getPasta() {

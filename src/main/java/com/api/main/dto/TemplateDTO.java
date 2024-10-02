@@ -7,19 +7,13 @@ import com.api.main.models.TipoOutorgaModel;
 public class TemplateDTO {
 
 	private Long id;
-
 	private String descricao;
-
-	private String html;
-
 	private String pasta;
 	private String nome;
 	private String conteudo;
 
 	private DocumentoTipoModel tipoDocumento;
-
 	private TipoOutorgaModel tipoOutorga;
-
 	private SubtipoOutorgaModel subtipoOutorga;
 
 	public TemplateDTO() {
@@ -40,14 +34,6 @@ public class TemplateDTO {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public String getHtml() {
-		return html;
-	}
-
-	public void setHtml(String html) {
-		this.html = html;
 	}
 
 	public String getPasta() {
