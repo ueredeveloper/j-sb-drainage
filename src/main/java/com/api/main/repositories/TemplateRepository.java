@@ -1,6 +1,5 @@
 package com.api.main.repositories;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,10 +17,15 @@ public interface TemplateRepository extends JpaRepository<TemplateModel, Long> {
 	Set<TemplateModel> listByKeyword(@Param("keyword") String keyword);
 
 	@Query("SELECT i FROM TemplateModel i "
-			+ "WHERE (:tipoDocumento IS NULL OR :tipoDocumento = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :keyword, '%'))) "
-			+ "AND (:tipoOutorga IS NULL OR :tipoOutorga = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :param2, '%'))) "
-			+ "AND (:subtipoOutorga IS NULL OR :subtipoOutorga = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :param3, '%')))")
-	Set<TemplateModel> listTemplatesByParams(@Param("keyword") String tipoDocumento,
-			@Param("param2") String tipoOutorga, @Param("param3") String subtipoOutorga);
+	        + "WHERE ((:tipoDocumento IS NULL OR :tipoDocumento = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :tipoDocumento, '%'))) "
+	        + "AND (:tipoOutorga IS NULL OR :tipoOutorga = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :tipoOutorga, '%'))) "
+	        + "AND (:subtipoOutorga IS NULL OR :subtipoOutorga = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :subtipoOutorga, '%')))) "
+	        // Add shared folders conditions
+	        + "OR (i.pasta LIKE '%utils%' OR i.pasta LIKE '%models%' OR i.pasta LIKE '%actions%')")
+	Set<TemplateModel> listTemplatesByParams(
+	        @Param("tipoDocumento") String tipoDocumento,
+	        @Param("tipoOutorga") String tipoOutorga, 
+	        @Param("subtipoOutorga") String subtipoOutorga);
+
 
 }
