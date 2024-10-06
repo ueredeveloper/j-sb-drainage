@@ -30,7 +30,7 @@ public class UsuarioModel implements Serializable {
 	private String nome;
 
 	@Column(nullable = true, unique = false)
-	private Integer cpfCnpj;
+	private Long cpfCnpj;
 
 	@ManyToMany
 	@JoinTable(name = "usuario_documento", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "documento_id"))
@@ -73,11 +73,13 @@ public class UsuarioModel implements Serializable {
 		this.nome = nome;
 	}
 
-	public Integer getCpfCnpj() {
+	
+
+	public Long getCpfCnpj() {
 		return cpfCnpj;
 	}
 
-	public void setCpfCnpj(Integer cpfCnpj) {
+	public void setCpfCnpj(Long cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
 	}
 
