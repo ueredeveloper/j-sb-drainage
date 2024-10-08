@@ -8,8 +8,6 @@ import com.api.main.models.EnderecoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.models.UsuarioModel;
 
-//import javax.validation.constraints.NotBlank;
-//@JsonSerialize(using = CustomDocTipoSerializer.class)
 public class DocumentoDTO {
 
 	private Long id;
@@ -20,8 +18,7 @@ public class DocumentoDTO {
 
 	private ProcessoModel processo;
 
-	// @JsonInclude(Include.NON_NULL)
-	private DocumentoTipoModel tipo;
+	private DocumentoTipoModel tipoDocumento;
 
 	private EnderecoModel endereco;
 
@@ -30,7 +27,7 @@ public class DocumentoDTO {
 	public DocumentoDTO() {
 		super();
 	}
-	
+
 	public DocumentoDTO(String numero, String numeroSei, EnderecoModel endereco) {
 		super();
 		this.numero = numero;
@@ -38,35 +35,35 @@ public class DocumentoDTO {
 		this.endereco = endereco;
 	}
 
-	public DocumentoDTO(String numero, ProcessoModel processo, String numeroSei, DocumentoTipoModel tipo,
+	public DocumentoDTO(String numero, ProcessoModel processo, String numeroSei, DocumentoTipoModel tipoDocumento,
 			EnderecoModel endereco, Set<UsuarioModel> usuarios) {
 		super();
 		this.numero = numero;
 		this.processo = processo;
 		this.numeroSei = numeroSei;
-		this.tipo = tipo;
+		this.tipoDocumento = tipoDocumento;
 		this.endereco = endereco;
 		this.usuarios = usuarios;
 	}
 
-	public DocumentoDTO(Long id, String numero, ProcessoModel processo, String numeroSei, DocumentoTipoModel tipo,
-			EnderecoModel endereco, Set<UsuarioModel> usuarios) {
+	public DocumentoDTO(Long id, String numero, ProcessoModel processo, String numeroSei,
+			DocumentoTipoModel tipoDocumento, EnderecoModel endereco, Set<UsuarioModel> usuarios) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.processo = processo;
 		this.numeroSei = numeroSei;
-		this.tipo = tipo;
+		this.tipoDocumento = tipoDocumento;
 		this.endereco = endereco;
 		this.usuarios = usuarios;
 	}
-	
-	public DocumentoDTO(String numero, String numeroSei, DocumentoTipoModel tipo, EnderecoModel endereco,
+
+	public DocumentoDTO(String numero, String numeroSei, DocumentoTipoModel tipoDocumento, EnderecoModel endereco,
 			Set<UsuarioModel> usuarios) {
 		super();
 		this.numero = numero;
 		this.numeroSei = numeroSei;
-		this.tipo = tipo;
+		this.tipoDocumento = tipoDocumento;
 		this.endereco = endereco;
 		this.usuarios = usuarios;
 	}
@@ -87,14 +84,6 @@ public class DocumentoDTO {
 		this.numero = numero;
 	}
 
-	public ProcessoModel getProcesso() {
-		return processo;
-	}
-
-	public void setProcesso(ProcessoModel processo) {
-		this.processo = processo;
-	}
-
 	public String getNumeroSei() {
 		return numeroSei;
 	}
@@ -103,12 +92,20 @@ public class DocumentoDTO {
 		this.numeroSei = numeroSei;
 	}
 
-	public DocumentoTipoModel getTipo() {
-		return tipo;
+	public ProcessoModel getProcesso() {
+		return processo;
 	}
 
-	public void setTipo(DocumentoTipoModel tipo) {
-		this.tipo = tipo;
+	public void setProcesso(ProcessoModel processo) {
+		this.processo = processo;
+	}
+
+	public DocumentoTipoModel getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(DocumentoTipoModel tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
 
 	public EnderecoModel getEndereco() {
@@ -126,5 +123,7 @@ public class DocumentoDTO {
 	public void setUsuarios(Set<UsuarioModel> usuarios) {
 		this.usuarios = usuarios;
 	}
+
+	
 
 }

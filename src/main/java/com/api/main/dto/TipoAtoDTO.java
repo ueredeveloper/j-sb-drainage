@@ -2,7 +2,6 @@ package com.api.main.dto;
 
 public class TipoAtoDTO {
 
-	
 	private Long id;
 	private String descricao;
 

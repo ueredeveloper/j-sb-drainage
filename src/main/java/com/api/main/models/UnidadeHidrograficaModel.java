@@ -12,24 +12,18 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "unidade_hidrografica")
 public class UnidadeHidrograficaModel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
-	
+
 	@OneToMany(mappedBy = "unidadeHidrografica", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
-	
-	
-
-	
 
 }

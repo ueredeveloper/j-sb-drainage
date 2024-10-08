@@ -24,7 +24,7 @@ import com.api.main.services.FinalidadeService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/purpose")
+@RequestMapping("/purpouse")
 public class FinalidadeController {
 
 	@Autowired
@@ -47,11 +47,6 @@ public class FinalidadeController {
 		}
 	}
 
-	@GetMapping("/list")
-	public ResponseEntity<List<FinalidadeModel>> list(@RequestParam(required = false) String keyword) {
-		List<FinalidadeModel> resultList = finalidadeService.list(keyword);
-		return ResponseEntity.status(HttpStatus.OK).body(resultList);
-	}
 
 	@GetMapping("/list-by-inter-id")
 	public ResponseEntity<List<FinalidadeModel>> listByInterferenciaId(@RequestParam(required = false) Long id) {

@@ -65,10 +65,6 @@ public class DocumentoService {
 			return response; // Return an empty list if no results
 		}
 
-		// example of result [{"endereco": {"id": 1, "logradouro": "Rua Novaes Terceiro,
-		// Casa 12"}}, {"endereco": {"id": 2, "logradouro": "Avenida Principal, Bloco
-		// A"}}, {"endereco": {"id": 3, "logradouro": "Rua das Flores, Apartamento 5"}}]
-
 		String json = result != null ? result.toString() : null;
 
 		if (json != null) {
@@ -112,15 +108,16 @@ public class DocumentoService {
 
 	@Transactional
 	public DocumentoModel update(Long id, DocumentoModel updateDocumento) {
-		
+
 		DocumentoModel originalResponse = documentoRepository.findById(id).map((DocumentoModel record) -> {
 			record.setNumero(updateDocumento.getNumero());
 			record.setNumeroSei(updateDocumento.getNumeroSei());
 
 			// Verifies and saves DocumentoTipoModel (must not be null)
-			if (updateDocumento.getTipo() != null && updateDocumento.getTipo().getId() != null) {
-				Optional<DocumentoTipoModel> documentoTipo = docTipoRepo.findById(updateDocumento.getTipo().getId());
-				documentoTipo.ifPresent(record::setTipo);
+			if (updateDocumento.getTipoDocumento() != null && updateDocumento.getTipoDocumento().getId() != null) {
+				Optional<DocumentoTipoModel> documentoTipo = docTipoRepo
+						.findById(updateDocumento.getTipoDocumento().getId());
+				documentoTipo.ifPresent(record::setTipoDocumento);
 			} else {
 				throw new IllegalArgumentException("É requerido o Tipo de Documento.");
 			}
@@ -212,8 +209,7 @@ public class DocumentoService {
 	public DocumentoModel createSafeResponse(DocumentoModel originalResponse) {
 
 		DocumentoModel safeResponse = new DocumentoModel();
-		
-		System.out.println(originalResponse.getTipo().getDescricao());
+
 		safeResponse.setId(originalResponse.getId());
 		safeResponse.setNumero(originalResponse.getNumero());
 		safeResponse.setNumeroSei(originalResponse.getNumeroSei());
@@ -224,64 +220,19 @@ public class DocumentoService {
 
 		// Não permite referências cíclicas que geram loop na criaçaõ do json
 		safeResponse.setProcesso(
+				// Se o anexo for diferente de nulo preencha com anexo (id, descricao) ou
+				// preenche com nulo
 				new ProcessoModel(originalResponse.getProcesso().getId(), originalResponse.getProcesso().getNumero(),
-						new AnexoModel(originalResponse.getProcesso().getAnexo().getId(),
-								originalResponse.getProcesso().getAnexo().getNumero())));
-		
-		safeResponse.setTipo(new DocumentoTipoModel(originalResponse.getTipo().getId(), originalResponse.getTipo().getDescricao()));
+						originalResponse.getProcesso().getAnexo() != null
+								? new AnexoModel(originalResponse.getProcesso().getAnexo().getId(),
+										originalResponse.getProcesso().getAnexo().getNumero())
+								: null));
+
+		safeResponse.setTipoDocumento(new DocumentoTipoModel(originalResponse.getTipoDocumento().getId(),
+				originalResponse.getTipoDocumento().getDescricao()));
 
 		return safeResponse;
 	}
-
-	/*
-	 * @Transactional public DocumentoModel save(DocumentoDTO objDTO, DocumentoModel
-	 * objMod) { DocumentoModel newObject = documentoRepository.save(objMod);
-	 * 
-	 * // Verifica se docProcesso está presente no DTO if (objMod.getProcesso() !=
-	 * null) {
-	 * 
-	 * ProcessoModel processo = objMod.getProcesso();
-	 * 
-	 * // Verifica se o anexo associado ao processo precisa ser salvo primeiro if
-	 * (processo.getAnexo() != null && processo.getAnexo().getId() == null) {
-	 * AnexoModel anexo = processo.getAnexo(); anexo = anexoRepository.save(anexo);
-	 * processo.setAnexo(anexo); }
-	 * 
-	 * // Salva o ProcessoModel processo = processoRepository.save(processo);
-	 * objMod.setProcesso(processo); }
-	 * 
-	 * // Saves or updates EnderecoModel (can be null or have an existing ID) if
-	 * (objMod.getEndereco() != null) { if (objMod.getEndereco().getId() != null) {
-	 * Optional<EnderecoModel> enderecoOptional =
-	 * enderecoRepository.findById(objMod.getEndereco().getId());
-	 * enderecoOptional.ifPresent(endereco -> { // Editar attributos como Cidade e
-	 * Cep. EnderecoModel existingEndereco = endereco;
-	 * existingEndereco.setLogradouro(objMod.getEndereco().getLogradouro());
-	 * existingEndereco.setCidade(objMod.getEndereco().getCidade());
-	 * existingEndereco.setCep(objMod.getEndereco().getCep());
-	 * 
-	 * EnderecoModel updatedEndereco = enderecoRepository.save(existingEndereco);
-	 * newObject.setEndereco(updatedEndereco); });
-	 * 
-	 * // endereco.ifPresent(record::setEndereco); } else { // Create a new
-	 * EnderecoModel if the ID is null EnderecoModel newEndereco =
-	 * enderecoRepository.save(objMod.getEndereco());
-	 * newObject.setEndereco(newEndereco); } }
-	 * 
-	 * Set<UsuarioModel> usuarios = new HashSet<>();
-	 * 
-	 * // Salvando os usuários e garantindo o relacionamento bidirecional for
-	 * (UsuarioModel usuario : objMod.getUsuarios()) { if (usuario.getId() == null)
-	 * { usuario = usuarioRepository.save(usuario); }
-	 * usuario.getDocumentos().add(newObject); usuarios.add(usuario); }
-	 * 
-	 * newObject.setUsuarios(usuarios);
-	 * 
-	 * // Salva o DocumentoModel atualizado com todas as relações newObject =
-	 * documentoRepository.save(objMod);
-	 * 
-	 * return newObject; }
-	 */
 
 	@Transactional
 	public DocumentoModel save(DocumentoDTO objDTO, DocumentoModel objMod) {

@@ -28,8 +28,12 @@ public class DocumentoTipoModel implements Serializable {
 	private String descricao;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "tipo")
+	@OneToMany(mappedBy = "tipoDocumento")
 	private Set<DocumentoModel> documentos = new HashSet<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "tipoDocumento")
+	private Set<TemplateModel> templates = new HashSet<>();
 
 	// constructors
 	public DocumentoTipoModel() {

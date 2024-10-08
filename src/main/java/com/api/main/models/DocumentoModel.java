@@ -18,7 +18,6 @@ import javax.persistence.Table;
 @Table(name = "documento")
 public class DocumentoModel implements Serializable {
 	
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -41,8 +40,8 @@ public class DocumentoModel implements Serializable {
 	// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
 	// property = "dt_id", scope = DocumentoTipoModel.class)
 	@ManyToOne
-	@JoinColumn(name = "tipo")
-	private DocumentoTipoModel tipo;
+	@JoinColumn(name = "tipoDocumento")
+	private DocumentoTipoModel tipoDocumento;
 
 	@ManyToOne
 	@JoinColumn(name = "endereco")
@@ -69,11 +68,11 @@ public class DocumentoModel implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public DocumentoModel(String numero, String numeroSei, DocumentoTipoModel tipo) {
+	public DocumentoModel(String numero, String numeroSei, DocumentoTipoModel tipoDocumento) {
 		super();
 		this.numero = numero;
 		this.numeroSei = numeroSei;
-		this.tipo = tipo;
+		this.tipoDocumento = tipoDocumento;
 	}
 	
 	
@@ -90,21 +89,21 @@ public class DocumentoModel implements Serializable {
 		this.endereco = endereco;
 	}
 	
-	public DocumentoModel(String numero, String numeroSei, ProcessoModel processo, DocumentoTipoModel tipo) {
+	public DocumentoModel(String numero, String numeroSei, ProcessoModel processo, DocumentoTipoModel tipoDocumento) {
 		super();
 		this.numero = numero;
 		this.numeroSei = numeroSei;
 		this.processo = processo;
-		this.tipo = tipo;
+		this.tipoDocumento = tipoDocumento;
 	}
 
-	public DocumentoModel(String numero, String numeroSei, ProcessoModel processo, DocumentoTipoModel tipo,
+	public DocumentoModel(String numero, String numeroSei, ProcessoModel processo, DocumentoTipoModel tipoDocumento,
 			EnderecoModel endereco, Set<UsuarioModel> usuarios) {
 		super();
 		this.numero = numero;
 		this.numeroSei = numeroSei;
 		this.processo = processo;
-		this.tipo = tipo;
+		this.tipoDocumento = tipoDocumento;
 		this.endereco = endereco;
 		this.usuarios = usuarios;
 	}
@@ -141,12 +140,12 @@ public class DocumentoModel implements Serializable {
 		this.processo = processo;
 	}
 
-	public DocumentoTipoModel getTipo() {
-		return tipo;
+	public DocumentoTipoModel getTipoDocumento() {
+		return tipoDocumento;
 	}
 
-	public void setTipo(DocumentoTipoModel tipo) {
-		this.tipo = tipo;
+	public void setTipoDocumento(DocumentoTipoModel tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
 
 	public EnderecoModel getEndereco() {
@@ -168,9 +167,6 @@ public class DocumentoModel implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
 
 	
-
 }

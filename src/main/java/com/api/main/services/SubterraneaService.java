@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.main.models.DemandaModel;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.FinalidadeModel;
 import com.api.main.models.SituacaoProcessoModel;
@@ -18,6 +19,7 @@ import com.api.main.models.SubtipoOutorgaModel;
 import com.api.main.models.TipoAtoModel;
 import com.api.main.models.TipoFinalidadeModel;
 import com.api.main.models.TipoOutorgaModel;
+import com.api.main.repositories.DemandaRepository;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.FinalidadeRepository;
 import com.api.main.repositories.SubterraneaRepository;
@@ -32,6 +34,9 @@ public class SubterraneaService {
 
 	@Autowired
 	private FinalidadeRepository finalidadeRepository;
+
+	@Autowired
+	private DemandaRepository demandaRepository;
 
 	@Transactional
 	public SubterraneaModel save(SubterraneaModel requestedObject) {
@@ -70,15 +75,35 @@ public class SubterraneaService {
 		existingSubterranea.setCaesb(requestedObject.getCaesb());
 		existingSubterranea.setNivelEstatico(requestedObject.getNivelEstatico());
 		existingSubterranea.setNivelDinamico(requestedObject.getNivelDinamico());
+		existingSubterranea.setProfundidade(requestedObject.getProfundidade());
+		// Tipo Poço
+		existingSubterranea.setTipoPoco(requestedObject.getTipoPoco());
+		existingSubterranea.setVazaoOutorgavel(requestedObject.getVazaoOutorgavel());
+		existingSubterranea.setVazaoTeste(requestedObject.getVazaoTeste());
+		existingSubterranea.setVazaoSistema(requestedObject.getVazaoSistema());
+		
 		existingSubterranea.setGeometry(requestedObject.getGeometry());
+		// Relacionamentos
 		existingSubterranea.setTipoInterferencia(requestedObject.getTipoInterferencia());
 		existingSubterranea.setTipoOutorga(requestedObject.getTipoOutorga());
 		existingSubterranea.setSubtipoOutorga(requestedObject.getSubtipoOutorga());
 		existingSubterranea.setSituacaoProcesso(requestedObject.getSituacaoProcesso());
 		existingSubterranea.setTipoAto(requestedObject.getTipoAto());
-		existingSubterranea.setCaesb(requestedObject.getCaesb());
-		existingSubterranea.setNivelEstatico(requestedObject.getNivelEstatico());
-		existingSubterranea.setNivelDinamico(requestedObject.getNivelDinamico());
+
+		
+
+		// Guardar finalidades temporariamente e limpar no objeto para salvar
+		// interferência
+		Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
+		requestedObject.setFinalidades(new HashSet<>()); // Limpa as finalidades temporariamente
+
+		Set<DemandaModel> demandas = requestedObject.getDemandas();
+		requestedObject.setDemandas(new HashSet<>());
+
+		// Salvar finalidades associadas
+		saveOrUpdateFinalidades(finalidades, requestedObject);
+
+		saveOrUpdateDemandas(demandas, requestedObject);
 	}
 
 	@Transactional
@@ -87,18 +112,21 @@ public class SubterraneaService {
 		// Salvar o endereço, se necessário
 		saveOrUpdateEndereco(requestedObject);
 
-		System.out.println("create new sub " + requestedObject.getSubtipoOutorga().getId());
-
 		// Guardar finalidades temporariamente e limpar no objeto para salvar
 		// interferência
 		Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
-		requestedObject.setFinalidades(null); // Limpa as finalidades temporariamente
+		requestedObject.setFinalidades(new HashSet<>()); // Limpa as finalidades temporariamente
+
+		Set<DemandaModel> demandas = requestedObject.getDemandas();
+		requestedObject.setDemandas(new HashSet<>());
 
 		// Salvar a interferência primeiro
 		SubterraneaModel savedInterferencia = subterraneaRepository.save(requestedObject);
 
 		// Salvar finalidades associadas
-		saveFinalidades(finalidades, savedInterferencia);
+		saveOrUpdateFinalidades(finalidades, savedInterferencia);
+
+		saveOrUpdateDemandas(demandas, savedInterferencia);
 
 		return savedInterferencia;
 	}
@@ -121,6 +149,7 @@ public class SubterraneaService {
 		requestedObject.setEndereco(savedEndereco); // Atualizar o endereço salvo
 	}
 
+	@Transactional
 	private void updateExistingEndereco(SubterraneaModel requestedObject, EnderecoModel endereco) {
 		enderecoRepository.findById(endereco.getId()).ifPresent(existingEndereco -> {
 			updateEnderecoAttributes(existingEndereco, endereco);
@@ -134,29 +163,6 @@ public class SubterraneaService {
 		existingEndereco.setBairro(newEndereco.getBairro());
 		existingEndereco.setCidade(newEndereco.getCidade());
 		existingEndereco.setCep(newEndereco.getCep());
-	}
-
-	private void saveFinalidades(Set<FinalidadeModel> finalidades, SubterraneaModel savedInterferencia) {
-		if (finalidades != null && !finalidades.isEmpty()) {
-
-			// Cria um novo Set para armazenar as finalidades salvas
-			Set<FinalidadeModel> savedFinalidades = new HashSet<>();
-
-			finalidades.forEach(finalidade -> {
-				// Associar a interferência à finalidade
-				finalidade.setInterferencia(savedInterferencia);
-
-				// Salvar a finalidade e adicionar ao Set de finalidades salvas
-				FinalidadeModel savedFinalidade = finalidadeRepository.save(finalidade);
-				savedFinalidades.add(savedFinalidade);
-			});
-
-			// Adicionar todas as finalidades salvas ao objeto SubterraneaModel
-			savedInterferencia.setFinalidades(savedFinalidades);
-
-			// Atualiza a interferência com as finalidades associadas
-			subterraneaRepository.save(savedInterferencia);
-		}
 	}
 
 	@Transactional
@@ -181,7 +187,7 @@ public class SubterraneaService {
 						existingEndereco.setBairro(requestedObject.getEndereco().getBairro());
 						existingEndereco.setCidade(requestedObject.getEndereco().getCidade());
 						existingEndereco.setCep(requestedObject.getEndereco().getCep());
-
+						// ADICIONAR ESTADO NA EDIÇÃO
 						EnderecoModel updatedEndereco = enderecoRepository.save(existingEndereco);
 
 						record.setEndereco(updatedEndereco);
@@ -203,8 +209,30 @@ public class SubterraneaService {
 
 			}
 
+			SubterraneaModel persistedSubterranea = subterraneaRepository.save(record);
+
+			Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
+			if (finalidades != null && !finalidades.isEmpty()) {
+
+				finalidades.forEach(item -> {
+
+					// Finalidade sem id, salva e relaciona com a interferência
+					if (item.getId() == null) {
+						item.setInterferencia(persistedSubterranea);
+						FinalidadeModel savedFinalidade = finalidadeRepository.save(item);
+						record.getFinalidades().add(savedFinalidade);
+
+						// Se tem id, apenas edita
+					} else {
+						item.setInterferencia(record);
+						finalidadeRepository.save(item);
+					}
+				});
+
+			}
+
 			// Salvar as mudanças no banco de dados
-			return subterraneaRepository.save(record);
+			return persistedSubterranea;
 		}).orElse(null);
 
 		if (originalResponse == null) {
@@ -222,8 +250,16 @@ public class SubterraneaService {
 		safeResponse.setLatitude(originalResponse.getLatitude());
 		safeResponse.setLongitude(originalResponse.getLongitude());
 		safeResponse.setCaesb(originalResponse.getCaesb());
+		// Dados do Poço
 		safeResponse.setNivelEstatico(originalResponse.getNivelEstatico());
 		safeResponse.setNivelDinamico(originalResponse.getNivelDinamico());
+		safeResponse.setProfundidade(originalResponse.getProfundidade());
+		
+		safeResponse.setTipoPoco(originalResponse.getTipoPoco());
+		// Vazões
+		safeResponse.setVazaoOutorgavel(originalResponse.getVazaoOutorgavel());
+		safeResponse.setVazaoTeste(originalResponse.getVazaoTeste());
+		safeResponse.setVazaoSistema(originalResponse.getVazaoSistema());
 
 		// Não permite referências cíclicas, que geram loop na criaçaõ do json
 		safeResponse.setEndereco(new EnderecoModel(originalResponse.getEndereco().getId(),
@@ -243,13 +279,25 @@ public class SubterraneaService {
 				new TipoAtoModel(originalResponse.getTipoAto().getId(), originalResponse.getTipoAto().getDescricao()));
 
 		Set<FinalidadeModel> finalidades = originalResponse.getFinalidades();
+		Set<DemandaModel> demandas = originalResponse.getDemandas();
 
 		if (finalidades != null) {
-			finalidades.forEach(f -> {
+			finalidades.forEach(item -> {
 
-				safeResponse.getFinalidades().add(new FinalidadeModel(f.getId(), f.getFinalidade(),
-						f.getSubfinalidade(), f.getQuantidade(), f.getConsumo(), f.getTotal(),
-						new TipoFinalidadeModel(f.getTipoFinalidade().getId(), f.getTipoFinalidade().getDescricao())));
+				safeResponse.getFinalidades()
+						.add(new FinalidadeModel(item.getId(), item.getFinalidade(), item.getSubfinalidade(),
+								item.getQuantidade(), item.getConsumo(), item.getTotal(), new TipoFinalidadeModel(
+										item.getTipoFinalidade().getId(), item.getTipoFinalidade().getDescricao())));
+			});
+
+		}
+		if (demandas != null) {
+			demandas.forEach(item -> {
+
+				safeResponse.getDemandas()
+						.add(new DemandaModel(item.getId(), item.getVazao(), item.getTempo(), item.getPeriodo(),
+								item.getMes(), new TipoFinalidadeModel(item.getTipoFinalidade().getId(),
+										item.getTipoFinalidade().getDescricao())));
 			});
 
 		}
@@ -265,4 +313,103 @@ public class SubterraneaService {
 		subterraneaRepository.deleteById(id);
 		return deleteResponse;
 	}
+
+	@Transactional
+	public void saveOrUpdateDemandas(Set<DemandaModel> demandas, SubterraneaModel requestedObject) {
+
+		for (DemandaModel requestedDemanda : demandas) {
+			DemandaModel savedDemanda;
+
+			// Verificar se há id no objeto solicitado
+			if (requestedDemanda.getId() != null) {
+				Optional<DemandaModel> demandaOptional = demandaRepository.findById(requestedDemanda.getId());
+
+				if (demandaOptional.isPresent()) {
+					DemandaModel existingDemanda = demandaOptional.get();
+
+					// Atualizar atributos da demanda existente
+					existingDemanda.setVazao(requestedDemanda.getVazao());
+					existingDemanda.setTempo(requestedDemanda.getTempo());
+					existingDemanda.setPeriodo(requestedDemanda.getPeriodo());
+					existingDemanda.setMes(requestedDemanda.getMes());
+
+					/*
+					 * if (requestedDemanda.getTipoFinalidade() != null) {
+					 * existingDemanda.setTipoFinalidade(requestedDemanda.getTipoFinalidade()); }
+					 */
+
+					// Verificar se é necessário atualizar a interferência associada
+					if (requestedDemanda.getInterferencia() != null) {
+						existingDemanda.setInterferencia(requestedDemanda.getInterferencia());
+					}
+
+					savedDemanda = demandaRepository.save(existingDemanda);
+				} else {
+					savedDemanda = createNewDemanda(requestedDemanda, requestedObject);
+				}
+			} else {
+				savedDemanda = createNewDemanda(requestedDemanda, requestedObject);
+			}
+
+			// Add saved demand to the subterranea model's demand set
+			requestedObject.getDemandas().add(savedDemanda);
+		}
+
+		// Optionally save the SubterraneaModel if needed
+		subterraneaRepository.save(requestedObject);
+	}
+
+	@Transactional
+	public void saveOrUpdateFinalidades(Set<FinalidadeModel> finalidades, SubterraneaModel requestedObject) {
+
+		for (FinalidadeModel requested : finalidades) {
+			FinalidadeModel saved;
+
+			// Verificar se há id no objeto solicitado
+			if (requested.getId() != null) {
+				Optional<FinalidadeModel> optional = finalidadeRepository.findById(requested.getId());
+
+				if (optional.isPresent()) {
+					FinalidadeModel existing = optional.get();
+
+					// Atualizar atributos da demanda existente
+					existing.setFinalidade(requested.getFinalidade());
+					existing.setSubfinalidade(requested.getSubfinalidade());
+					existing.setQuantidade(requested.getQuantidade());
+					existing.setConsumo(requested.getConsumo());
+
+					// Verificar se é necessário atualizar a interferência associada
+					if (requested.getInterferencia() != null) {
+						existing.setInterferencia(requested.getInterferencia());
+					}
+
+					saved = finalidadeRepository.save(existing);
+				} else {
+					saved = createNewFinalidade(requested, requestedObject);
+				}
+			} else {
+				saved = createNewFinalidade(requested, requestedObject);
+			}
+
+			// Add saved demand to the subterranea model's demand set
+			requestedObject.getFinalidades().add(saved);
+		}
+
+		// Optionally save the SubterraneaModel if needed
+		subterraneaRepository.save(requestedObject);
+	}
+
+	private DemandaModel createNewDemanda(DemandaModel demanda, SubterraneaModel interferencia) {
+		// Associar a interferência (SubterraneaModel) à nova demanda
+		demanda.setInterferencia(interferencia);
+		return demandaRepository.save(demanda);
+	}
+
+	private FinalidadeModel createNewFinalidade(FinalidadeModel toSave, SubterraneaModel interferencia) {
+
+		// Associar a interferência (SubterraneaModel) à nova demanda
+		toSave.setInterferencia(interferencia);
+		return finalidadeRepository.save(toSave);
+	}
+
 }

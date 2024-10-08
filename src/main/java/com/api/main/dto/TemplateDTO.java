@@ -1,42 +1,24 @@
 package com.api.main.dto;
 
-public class TemplateDTO {
-	
+import com.api.main.models.DocumentoTipoModel;
+import com.api.main.models.SubtipoOutorgaModel;
+import com.api.main.models.TipoOutorgaModel;
 
-	
+public class TemplateDTO {
+
 	private Long id;
 	private String descricao;
-	private String html;
+	private String diretorio;
+	private String arquivo;
+	private String conteudo;
+
+	private DocumentoTipoModel tipoDocumento;
+	private TipoOutorgaModel tipoOutorga;
+	private SubtipoOutorgaModel subtipoOutorga;
 
 	public TemplateDTO() {
 		super();
 	}
-	
-	public TemplateDTO(Long id) {
-		super();
-		this.id = id;
-	}
-
-	public TemplateDTO(String html) {
-		super();
-		this.html = html;
-	}
-	
-	public TemplateDTO(String descricao, String html) {
-		super();
-		this.descricao = descricao;
-		this.html = html;
-	}
-
-	public TemplateDTO(Long id, String descricao, String html) {
-		super();
-		this.id = id;
-		this.descricao = descricao;
-		this.html = html;
-	}
-
-	
-
 
 	public Long getId() {
 		return id;
@@ -46,20 +28,60 @@ public class TemplateDTO {
 		this.id = id;
 	}
 
-	public String getHtml() {
-		return html;
-	}
-
-	public void setHtml(String html) {
-		this.html = html;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public String getDiretorio() {
+		return diretorio;
+	}
+
+	public void setDiretorio(String diretorio) {
+		this.diretorio = diretorio;
+	}
+
+	public String getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(String arquivo) {
+		this.arquivo = arquivo;
+	}
+
+	public String getConteudo() {
+		return conteudo;
+	}
+
+	public void setConteudo(String conteudo) {
+		this.conteudo = conteudo;
+	}
+
+	public DocumentoTipoModel getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(DocumentoTipoModel tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	public TipoOutorgaModel getTipoOutorga() {
+		return tipoOutorga;
+	}
+
+	public void setTipoOutorga(TipoOutorgaModel tipoOutorga) {
+		this.tipoOutorga = tipoOutorga;
+	}
+
+	public SubtipoOutorgaModel getSubtipoOutorga() {
+		return subtipoOutorga;
+	}
+
+	public void setSubtipoOutorga(SubtipoOutorgaModel subtipoOutorga) {
+		this.subtipoOutorga = subtipoOutorga;
 	}
 
 }

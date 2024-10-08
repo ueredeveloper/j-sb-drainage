@@ -7,13 +7,11 @@ import com.api.main.models.DocumentoModel;
 
 public class UsuarioDTO {
 
-	
-	
 	private Long id;
 
 	private String nome;
 
-	private Integer cpfCnpj;
+	private Long cpfCnpj;
 
 	private Set<DocumentoModel> documentos = new HashSet<>();
 	
@@ -56,11 +54,11 @@ public class UsuarioDTO {
 		this.nome = nome;
 	}
 
-	public Integer getCpfCnpj() {
+	public Long getCpfCnpj() {
 		return cpfCnpj;
 	}
 
-	public void setCpfCnpj(Integer cpfCnpj) {
+	public void setCpfCnpj(Long cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
 	}
 

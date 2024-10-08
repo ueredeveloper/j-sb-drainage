@@ -12,9 +12,6 @@ import com.api.main.models.FinalidadeModel;
 @Repository
 public interface FinalidadeRepository extends JpaRepository<FinalidadeModel, Long> {
 
-	@Query("SELECT f FROM FinalidadeModel f")
-	List<FinalidadeModel> list(@Param("keyword") String keyword);
-
 	@Query("SELECT " + "CONCAT('{', '\"finalidade\"', ':', '{', " + "'\"id\"', ':', f.id, ',', "
 			+ "'\"finalidade\"', ':','\"', COALESCE(f.finalidade, ''),'\"', ',', "
 			+ "'\"subfinalidade\"', ':','\"', COALESCE(f.subfinalidade, ''),'\"', ',', "

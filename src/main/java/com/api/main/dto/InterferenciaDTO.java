@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.api.main.models.BaciaHidrograficaModel;
+import com.api.main.models.DemandaModel;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.FinalidadeModel;
 import com.api.main.models.SituacaoProcessoModel;
@@ -42,92 +43,15 @@ public class InterferenciaDTO {
 
 	private Set<FinalidadeModel> finalidades = new HashSet<>();
 
+	private Set<DemandaModel> demandas = new HashSet<>();
+
 	public InterferenciaDTO() {
 		super();
 	}
-
-	public InterferenciaDTO(Double latitude, Double longitude, EnderecoModel endereco) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.endereco = endereco;
-	}
-
-	public InterferenciaDTO(Double latitude, Double longitude, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.endereco = endereco;
-		this.tipoInterferencia = tipoInterferencia;
-	}
-
-	public InterferenciaDTO(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia) {
+	
+	public InterferenciaDTO(Long id) {
 		super();
 		this.id = id;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.geometry = geometry;
-		this.endereco = endereco;
-		this.tipoInterferencia = tipoInterferencia;
-	}
-
-	public InterferenciaDTO(Long id, Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
-			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
-		super();
-		this.id = id;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.geometry = geometry;
-		this.endereco = endereco;
-		this.tipoInterferencia = tipoInterferencia;
-		this.tipoOutorga = tipoOutorga;
-		this.subtipoOutorga = subtipoOutorga;
-		this.situacaoProcesso = situacaoProcesso;
-		this.tipoAto = tipoAto;
-	}
-
-	public InterferenciaDTO(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
-			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.geometry = geometry;
-		this.endereco = endereco;
-		this.tipoInterferencia = tipoInterferencia;
-		this.tipoOutorga = tipoOutorga;
-		this.subtipoOutorga = subtipoOutorga;
-		this.situacaoProcesso = situacaoProcesso;
-		this.tipoAto = tipoAto;
-	}
-
-	public InterferenciaDTO(Double latitude, Double longitude, Set<FinalidadeModel> finalidades) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.finalidades = finalidades;
-	}
-
-	public InterferenciaDTO(Double latitude, Double longitude, Geometry geometry, EnderecoModel endereco,
-			TipoInterferenciaModel tipoInterferencia, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga,
-			SituacaoProcessoModel situacaoProcesso, TipoAtoModel tipoAto, BaciaHidrograficaModel baciaHidrografica,
-			UnidadeHidrograficaModel unidadeHidrografica, Set<FinalidadeModel> finalidades) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.geometry = geometry;
-		this.endereco = endereco;
-		this.tipoInterferencia = tipoInterferencia;
-		this.tipoOutorga = tipoOutorga;
-		this.subtipoOutorga = subtipoOutorga;
-		this.situacaoProcesso = situacaoProcesso;
-		this.tipoAto = tipoAto;
-		this.baciaHidrografica = baciaHidrografica;
-		this.unidadeHidrografica = unidadeHidrografica;
-		this.finalidades = finalidades;
 	}
 
 	public Long getId() {
@@ -232,6 +156,14 @@ public class InterferenciaDTO {
 
 	public void setFinalidades(Set<FinalidadeModel> finalidades) {
 		this.finalidades = finalidades;
+	}
+
+	public Set<DemandaModel> getDemandas() {
+		return demandas;
+	}
+
+	public void setDemandas(Set<DemandaModel> demandas) {
+		this.demandas = demandas;
 	}
 
 }

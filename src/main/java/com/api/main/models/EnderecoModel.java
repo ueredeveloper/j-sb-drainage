@@ -1,26 +1,3 @@
-<<<<<<< HEAD
-package com.api.main.models;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-=======
 package com.api.main.models;
 
 import java.util.HashSet;
@@ -38,15 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
->>>>>>> v1.11.1
 @Entity
 @Table(name = "endereco")
-// @JsonIdentityInfo - Para não gerar loop infinito dentro do json
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 public class EnderecoModel {
 
 	@Id
@@ -81,7 +54,6 @@ public class EnderecoModel {
 		super();
 	}
 
-	
 	public EnderecoModel(Long id) {
 		super();
 		this.id = id;
@@ -92,12 +64,12 @@ public class EnderecoModel {
 		this.id = id;
 		this.logradouro = logradouro;
 	}
-	
+
 	public EnderecoModel(String logradouro) {
 		super();
 		this.logradouro = logradouro;
 	}
-	
+
 	public EnderecoModel(String logradouro, String cidade, String bairro, String cep) {
 		super();
 		this.logradouro = logradouro;
@@ -111,7 +83,7 @@ public class EnderecoModel {
 		this.logradouro = logradouro;
 		this.interferencias = interferencias;
 	}
-	
+
 	public EnderecoModel(Long id, String logradouro, String cidade, String bairro, String cep, EstadoModel estado) {
 		super();
 		this.id = id;
@@ -121,7 +93,7 @@ public class EnderecoModel {
 		this.cep = cep;
 		this.estado = estado;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

@@ -107,3 +107,11 @@
 | 3   | Reservatório     |
 | 4   | Canal            |
 | 5   | Lago Natural     |
+
+
+# 25-09-2024
+
+Verificar a edição do Estado ao editar um endereço.
+
+
+

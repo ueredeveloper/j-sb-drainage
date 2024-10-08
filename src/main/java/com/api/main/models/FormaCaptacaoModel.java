@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "forma_captacao")
 public class FormaCaptacaoModel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-package com.api.main.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-
-import javax.persistence.Table;
-
-=======
 package com.api.main.models;
 
 import javax.persistence.Column;
@@ -24,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
->>>>>>> v1.11.1
 @Entity
 @Table(name = "finalidade")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -157,6 +144,8 @@ public class FinalidadeModel {
 	public void setTipoFinalidade(TipoFinalidadeModel tipoFinalidade) {
 		this.tipoFinalidade = tipoFinalidade;
 	}
+	
+	
 
 	
 

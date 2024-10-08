@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -109,7 +108,7 @@ public class EnderecoService {
 		if (endereco == null) {
 			throw new NoSuchElementException("Não foi encontrado endereço com o id: " + id);
 		}
-		
+
 		// Cria novo objeto e assim só envia os dados necessários para a responsta.
 		EnderecoModel response = new EnderecoModel();
 		response.setId(endereco.getId());
@@ -119,8 +118,7 @@ public class EnderecoService {
 		response.setBairro(endereco.getBairro());
 		response.setEstado(endereco.getEstado());
 		// Limpa as interferências relacionadas.
-		response.setInterferencias( new HashSet<>());
-		
+		response.setInterferencias(new HashSet<>());
 
 		return response;
 	}
@@ -134,26 +132,29 @@ public class EnderecoService {
 			System.out.println("No results found for the keyword: " + keyword);
 			return response; // Return an empty list if no results
 		}
-		
-		//example of result [{"endereco": {"id": 1, "logradouro": "Rua Novaes Terceiro, Casa 12"}}, {"endereco": {"id": 2, "logradouro": "Avenida Principal, Bloco A"}}, {"endereco": {"id": 3, "logradouro": "Rua das Flores, Apartamento 5"}}]
+
+		// example of result [{"endereco": {"id": 1, "logradouro": "Rua Novaes Terceiro,
+		// Casa 12"}}, {"endereco": {"id": 2, "logradouro": "Avenida Principal, Bloco
+		// A"}}, {"endereco": {"id": 3, "logradouro": "Rua das Flores, Apartamento 5"}}]
 
 		String endJson = result != null ? result.toString() : null;
-		
-		if (endJson != null) {
-			
-			System.out.println("string " + endJson);
-	        // Since the structure is a list of objects containing 'endereco', extract them
-	        List<Map<String, EnderecoModel>> tempList = new Gson().fromJson(endJson,
-	                new TypeToken<List<Map<String, EnderecoModel>>>() {}.getType());
 
-	        // Iterate over the list and extract 'endereco' object from each map
-	        for (Map<String, EnderecoModel> map : tempList) {
-	            EnderecoModel endereco = map.get("endereco");
-	            if (endereco != null) {
-	                response.add(endereco);
-	            }
-	        }
-	    }
+		if (endJson != null) {
+
+			System.out.println("string " + endJson);
+			// Since the structure is a list of objects containing 'endereco', extract them
+			List<Map<String, EnderecoModel>> tempList = new Gson().fromJson(endJson,
+					new TypeToken<List<Map<String, EnderecoModel>>>() {
+					}.getType());
+
+			// Iterate over the list and extract 'endereco' object from each map
+			for (Map<String, EnderecoModel> map : tempList) {
+				EnderecoModel endereco = map.get("endereco");
+				if (endereco != null) {
+					response.add(endereco);
+				}
+			}
+		}
 
 		return response;
 

@@ -4,7 +4,11 @@
       {
         "id": "8217d106-3b7d-454a-bc5c-e2feb86dd527",
         "line": 20,
+<<<<<<< HEAD
         "version": 318,
+=======
+        "version": 336,
+>>>>>>> fix/queries-for-supabase
         "index": 720
       }
     ]

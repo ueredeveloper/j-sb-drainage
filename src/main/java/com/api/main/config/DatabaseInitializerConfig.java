@@ -45,9 +45,10 @@ public class DatabaseInitializerConfig {
 
 		return (args) -> {
 
+			r.save(new DocumentoTipoModel("Parecer"));
+			r.save(new DocumentoTipoModel("Despacho"));
 			r.save(new DocumentoTipoModel("Requerimento"));
 			r.save(new DocumentoTipoModel("Ofício"));
-			r.save(new DocumentoTipoModel("Despacho"));
 
 		};
 	}
@@ -79,7 +80,7 @@ public class DatabaseInitializerConfig {
 
 		};
 	}
-
+/*
 	@Bean
 	public CommandLineRunner insetHTMLTemplate(TemplateRepository r) {
 
@@ -93,7 +94,7 @@ public class DatabaseInitializerConfig {
 			r.save(htmlDocument);
 
 		};
-	}
+	}*/
 
 	@Bean
 	public CommandLineRunner insertAnexo(AnexoRepository procRepo) {

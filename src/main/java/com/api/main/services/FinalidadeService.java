@@ -31,11 +31,6 @@ public class FinalidadeService {
 	TipoFinalidadeRepository tipoFinalidadeRepository;
 
 	@Transactional
-	public List<FinalidadeModel> list(String keyword) {
-		return finalidadeRepository.list(keyword);
-	}
-
-	@Transactional
 	public List<FinalidadeModel> listByInterferenciaId(Long id) {
 
 		List<FinalidadeModel> response = readJsonStringAndConvert(id);
@@ -81,13 +76,13 @@ public class FinalidadeService {
 
 	@Transactional
 	public FinalidadeModel save(FinalidadeModel finMod) {
-		return finalidadeRepository.save(finMod);
-
+		FinalidadeModel originalResponse = finalidadeRepository.save(finMod);
+		return createSafeResponse(originalResponse);
 	}
 
 	@Transactional
 	public FinalidadeModel update(Long id, FinalidadeModel toUpdateObject) {
-		FinalidadeModel response = finalidadeRepository.findById(id).map((FinalidadeModel record) -> {
+		FinalidadeModel originalResponse = finalidadeRepository.findById(id).map((FinalidadeModel record) -> {
 			record.setFinalidade(toUpdateObject.getFinalidade());
 			record.setSubfinalidade(toUpdateObject.getSubfinalidade());
 			record.setQuantidade(toUpdateObject.getQuantidade());
@@ -115,23 +110,39 @@ public class FinalidadeService {
 			return finalidadeRepository.save(record);
 		}).orElse(null);
 
-		if (response == null) {
+		if (originalResponse == null) {
 			throw new NoSuchElementException("Não foi encontrado a finalidade com o id: " + id);
 		}
 
 		// Remove a interferência e a adiciona novamente apenas com o id. Assim não dá o
 		// loop no json (finalidade com interferencia com finalidade, ...)
-		response.setInterferencia(new InterferenciaModel(response.getInterferencia().getId()));
+		
 
-		return response;
+		return createSafeResponse(originalResponse);
 	}
 
 	@Transactional
 	public FinalidadeModel deleteById(Long id) {
-		FinalidadeModel deletedDocument = finalidadeRepository.findById(id)
+		FinalidadeModel originalResponse = finalidadeRepository.findById(id)
 				.orElseThrow(() -> new NoSuchElementException("Não foi encontrado documento com o id: " + id));
 		finalidadeRepository.deleteById(id);
-		return deletedDocument;
+		return createSafeResponse(originalResponse);
+	}
+
+	public FinalidadeModel createSafeResponse(FinalidadeModel originalResponse) {
+
+		FinalidadeModel safeResponse = new FinalidadeModel();
+
+		safeResponse.setId(originalResponse.getId());
+		safeResponse.setFinalidade(originalResponse.getFinalidade());
+		safeResponse.setSubfinalidade(originalResponse.getSubfinalidade());
+		safeResponse.setQuantidade(originalResponse.getQuantidade());
+		safeResponse.setConsumo(originalResponse.getConsumo());
+		safeResponse.setTotal(originalResponse.getTotal());
+		safeResponse.setTipoFinalidade(new TipoFinalidadeModel(originalResponse.getTipoFinalidade().getId(), originalResponse.getTipoFinalidade().getDescricao()));
+		safeResponse.setInterferencia(new InterferenciaModel(originalResponse.getInterferencia().getId()));
+
+		return safeResponse;
 	}
 
 	@Transactional
