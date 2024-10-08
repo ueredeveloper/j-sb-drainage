@@ -18,6 +18,7 @@ public interface InterferenciaRepository extends JpaRepository<InterferenciaMode
 		    +  "'\"latitude\"', ':', '\"', COALESCE(i.latitude, ''), '\"', ',', " 
 		    +  "'\"longitude\"', ':', '\"', COALESCE(i.longitude, ''), '\"', ',' ,"
 		    +  "'\"vazaoOutorgavel\"', ':', COALESCE(s.vazao_outorgavel, 0), ',' ,"
+		    +  "'\"vazaoAutorizada\"', ':', COALESCE(s.vazao_autorizada, 0), ',' ,"
 		    +  "'\"vazaoTeste\"', ':', COALESCE(s.vazao_teste, 0), ',' ,"
 		    +  "'\"vazaoSistema\"', ':', COALESCE(s.vazao_sistema, 0), ',' ,"
 		    +  "'\"profundidade\"', ':', COALESCE(s.profundidade, '\"\"'), ',' ,"

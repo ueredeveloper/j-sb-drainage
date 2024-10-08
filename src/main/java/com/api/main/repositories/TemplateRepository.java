@@ -21,7 +21,7 @@ public interface TemplateRepository extends JpaRepository<TemplateModel, Long> {
 	        + "AND (:tipoOutorga IS NULL OR :tipoOutorga = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :tipoOutorga, '%'))) "
 	        + "AND (:subtipoOutorga IS NULL OR :subtipoOutorga = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :subtipoOutorga, '%')))) "
 	        // Add shared folders conditions
-	        + "OR (i.pasta LIKE '%utils%' OR i.pasta LIKE '%models%' OR i.pasta LIKE '%actions%')")
+	        + "OR (i.diretorio LIKE '%utils%' OR i.diretorio LIKE '%models%' OR i.diretorio LIKE '%actions%')")
 	Set<TemplateModel> listTemplatesByParams(
 	        @Param("tipoDocumento") String tipoDocumento,
 	        @Param("tipoOutorga") String tipoOutorga, 

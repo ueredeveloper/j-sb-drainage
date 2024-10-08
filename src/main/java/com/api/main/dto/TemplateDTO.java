@@ -8,8 +8,8 @@ public class TemplateDTO {
 
 	private Long id;
 	private String descricao;
-	private String pasta;
-	private String nome;
+	private String diretorio;
+	private String arquivo;
 	private String conteudo;
 
 	private DocumentoTipoModel tipoDocumento;
@@ -36,20 +36,20 @@ public class TemplateDTO {
 		this.descricao = descricao;
 	}
 
-	public String getPasta() {
-		return pasta;
+	public String getDiretorio() {
+		return diretorio;
 	}
 
-	public void setPasta(String pasta) {
-		this.pasta = pasta;
+	public void setDiretorio(String diretorio) {
+		this.diretorio = diretorio;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getArquivo() {
+		return arquivo;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setArquivo(String arquivo) {
+		this.arquivo = arquivo;
 	}
 
 	public String getConteudo() {

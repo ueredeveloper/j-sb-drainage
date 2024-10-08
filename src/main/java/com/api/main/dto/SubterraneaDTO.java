@@ -17,6 +17,8 @@ public class SubterraneaDTO extends InterferenciaDTO {
 	private Integer vazaoSistema;
 
 	private Integer vazaoTeste;
+	
+	private Integer vazaoAutorizada; // 
 
 	private TipoPocoModel tipoPoco;
 
@@ -87,4 +89,12 @@ public class SubterraneaDTO extends InterferenciaDTO {
 		this.tipoPoco = tipoPoco;
 	}
 
+	public Integer getVazaoAutorizada() {
+		return vazaoAutorizada;
+	}
+
+	public void setVazaoAutorizada(Integer vazaoAutorizada) {
+		this.vazaoAutorizada = vazaoAutorizada;
+	}
+	
 }

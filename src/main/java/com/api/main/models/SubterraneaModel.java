@@ -25,13 +25,16 @@ public class SubterraneaModel extends InterferenciaModel {
 	private String profundidade; // em metros
 
 	@Column()
-	private Integer vazaoOutorgavel; // em metros
+	private Integer vazaoOutorgavel; // 
 
 	@Column()
-	private Integer vazaoSistema; // em metros
+	private Integer vazaoSistema; // 
+	
+	@Column()
+	private Integer vazaoAutorizada; // 
 
 	@Column()
-	private Integer vazaoTeste; // em metros
+	private Integer vazaoTeste; // 
 
 	@ManyToOne
 	@JoinColumn(name = "tipoPoco", nullable = true)
@@ -109,6 +112,14 @@ public class SubterraneaModel extends InterferenciaModel {
 
 	public void setTipoPoco(TipoPocoModel tipoPoco) {
 		this.tipoPoco = tipoPoco;
+	}
+
+	public Integer getVazaoAutorizada() {
+		return vazaoAutorizada;
+	}
+
+	public void setVazaoAutorizada(Integer vazaoAutorizada) {
+		this.vazaoAutorizada = vazaoAutorizada;
 	}
 	
 
