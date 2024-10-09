@@ -20,17 +20,17 @@ public class TemplateModel {
 	@Column(nullable = true, unique = false, length = 250)
 	private String descricao;
 	@Column(nullable = true, unique = false, length = 250)
-	private String pasta;
+	private String diretorio;
 	@Column(nullable = true, unique = false, length = 250)
-	private String nome;
+	private String arquivo;
 	@Column(nullable = true, unique = false)
 	@Lob
 	private String conteudo;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "tipoDocumento")
 	private DocumentoTipoModel tipoDocumento;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "tipoOutorga")
 	private TipoOutorgaModel tipoOutorga;
@@ -38,34 +38,31 @@ public class TemplateModel {
 	@ManyToOne
 	@JoinColumn(name = "subtipoOutorga")
 	private SubtipoOutorgaModel subtipoOutorga;
-	
+
 	public TemplateModel() {
 		super();
 	}
 
-	public TemplateModel(Long id, String descricao, String pasta, String nome, String conteudo) {
+	public TemplateModel(Long id, String descricao, String diretorio, String arquivo, String conteudo) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
-		this.pasta = pasta;
-		this.nome = nome;
+		this.diretorio = diretorio;
+		this.arquivo = arquivo;
 		this.conteudo = conteudo;
 	}
 
-	public TemplateModel(String descricao, String pasta, String nome, String conteudo, DocumentoTipoModel tipoDocumento,
-			TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga) {
+	public TemplateModel(String descricao, String diretorio, String arquivo, String conteudo,
+			DocumentoTipoModel tipoDocumento, TipoOutorgaModel tipoOutorga, SubtipoOutorgaModel subtipoOutorga) {
 		super();
 		this.descricao = descricao;
-		this.pasta = pasta;
-		this.nome = nome;
+		this.diretorio = diretorio;
+		this.arquivo = arquivo;
 		this.conteudo = conteudo;
 		this.tipoDocumento = tipoDocumento;
 		this.tipoOutorga = tipoOutorga;
 		this.subtipoOutorga = subtipoOutorga;
 	}
-
-
-
 
 	public Long getId() {
 		return id;
@@ -83,20 +80,20 @@ public class TemplateModel {
 		this.descricao = descricao;
 	}
 
-	public String getPasta() {
-		return pasta;
+	public String getDiretorio() {
+		return diretorio;
 	}
 
-	public void setPasta(String pasta) {
-		this.pasta = pasta;
+	public void setDiretorio(String diretorio) {
+		this.diretorio = diretorio;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getArquivo() {
+		return arquivo;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setArquivo(String arquivo) {
+		this.arquivo = arquivo;
 	}
 
 	public String getConteudo() {
@@ -130,5 +127,5 @@ public class TemplateModel {
 	public void setSubtipoOutorga(SubtipoOutorgaModel subtipoOutorga) {
 		this.subtipoOutorga = subtipoOutorga;
 	}
-	
+
 }

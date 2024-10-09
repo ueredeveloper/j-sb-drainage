@@ -1,3 +1,4 @@
+
 package com.api.main.models;
 
 import javax.persistence.Column;

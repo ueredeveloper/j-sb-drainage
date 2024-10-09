@@ -73,8 +73,11 @@ public class UsuarioModel implements Serializable {
 		this.nome = nome;
 	}
 
+<<<<<<< HEAD
 	
 
+=======
+>>>>>>> 5d8b78b6c2cfa630987f88c785f283c5f478bbcd
 	public Long getCpfCnpj() {
 		return cpfCnpj;
 	}

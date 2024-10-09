@@ -9,28 +9,27 @@ import com.api.main.models.TipoInterferenciaModel;
 
 public interface DominioRepository extends JpaRepository<TipoInterferenciaModel, Long> {
 	
-
 	/*
 	 * @Query(value =
-	 * "SELECT ta.id AS tipoAtoId, ta.descricao AS tipoAtoDescricao, " +
-	 * "ti.id AS tipoInterferenciaId, ti.descricao AS tipoInterferenciaDescricao " +
+	 * "SELECT _ta.id AS tipoAtoId, _ta.descricao AS tipoAtoDescricao, " +
+	 * "_ti.id AS tipoInterferenciaId, _ti.descricao AS tipoInterferenciaDescricao " +
 	 * "FROM TIPO_ATO ta, TIPO_INTERFERENCIA ti", nativeQuery = true) List<Object[]>
 	 * listAll();
 	 */
-	@Query(value = "SELECT 'TipoAto', ta.id AS id, ta.descricao AS descricao FROM TIPO_ATO ta "
-			+ "UNION ALL SELECT 'TipoInterferencia', ti.id AS id, ti.descricao AS descricao FROM TIPO_INTERFERENCIA ti "
-			+ "UNION All SELECT 'TipoOutorga', to.id AS id, to.descricao AS descricao FROM TIPO_OUTORGA to "
-			+ "UNION All SELECT 'SubtipoOutorga', so.id AS id, so.descricao AS descricao FROM SUBTIPO_OUTORGA so "
-			+ "UNION All SELECT 'Estado', e.id AS id, e.descricao AS descricao FROM ESTADO e "
-			+ "UNION All SELECT 'SituacaoProcesso', sp.id AS id, sp.descricao AS descricao FROM SITUACAO_PROCESSO sp "
-			+ "UNION All SELECT 'Subsistema', s.id AS id, s.descricao AS descricao FROM SUBSISTEMA s "
-			+ "UNION All SELECT 'TipoPoco', tp.id AS id, tp.descricao AS descricao FROM TIPO_POCO tp "
-			+ "UNION All SELECT 'LocalCaptacao', lc.id AS id, lc.descricao AS descricao FROM LOCAL_CAPTACAO lc "
+	@Query(value = "SELECT 'TipoAto', _ta.id AS id, _ta.descricao AS descricao FROM TIPO_ATO _ta "
+			+ "UNION ALL SELECT 'TipoInterferencia', _ti.id AS id, _ti.descricao AS descricao FROM TIPO_INTERFERENCIA _ti "
+			+ "UNION All SELECT 'TipoOutorga', _to.id AS id, _to.descricao AS descricao FROM TIPO_OUTORGA _to "
+			+ "UNION All SELECT 'SubtipoOutorga', _so.id AS id, _so.descricao AS descricao FROM SUBTIPO_OUTORGA _so "
+			+ "UNION All SELECT 'Estado', _e.id AS id, _e.descricao AS descricao FROM ESTADO _e "
+			+ "UNION All SELECT 'SituacaoProcesso', _sp.id AS id, _sp.descricao AS descricao FROM SITUACAO_PROCESSO _sp "
+			+ "UNION All SELECT 'Subsistema', _s.id AS id, _s.descricao AS descricao FROM SUBSISTEMA _s "
+			+ "UNION All SELECT 'TipoPoco', _tp.id AS id, _tp.descricao AS descricao FROM TIPO_POCO _tp "
+			+ "UNION All SELECT 'LocalCaptacao', _lc.id AS id, _lc.descricao AS descricao FROM LOCAL_CAPTACAO _lc "
 			, nativeQuery = true)
 	List<Object[]> listAll();
 	
 	
-	/*"SELECT ta.id id, ta.descricao descricao FROM TIPO_ATO ta "
+	/*"SELECT _ta.id id, _ta.descricao descricao FROM TIPO_ATO ta "
 	[
 	    [
 	        1,

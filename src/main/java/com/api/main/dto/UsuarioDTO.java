@@ -54,6 +54,7 @@ public class UsuarioDTO {
 		this.nome = nome;
 	}
 
+<<<<<<< HEAD
 	public Long getCpfCnpj() {
 		return cpfCnpj;
 	}
@@ -62,6 +63,16 @@ public class UsuarioDTO {
 		this.cpfCnpj = cpfCnpj;
 	}
 
+=======
+	public Long getCpfCnpj() {
+		return cpfCnpj;
+	}
+
+	public void setCpfCnpj(Long cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+	}
+
+>>>>>>> 5d8b78b6c2cfa630987f88c785f283c5f478bbcd
 	public Set<DocumentoModel> getDocumentos() {
 		return documentos;
 	}
