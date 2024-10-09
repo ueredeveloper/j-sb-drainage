@@ -34,6 +34,12 @@ public class TipoInterferenciaModel implements Serializable {
 		super();
 	}
 
+	public TipoInterferenciaModel(Long id, String descricao){
+		super();
+		this.id = id;
+		this.descricao = descricao;
+	}
+
 	public TipoInterferenciaModel(String descricao) {
 		super();
 		this.descricao = descricao;

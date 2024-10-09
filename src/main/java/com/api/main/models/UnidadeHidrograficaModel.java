@@ -26,4 +26,8 @@ public class UnidadeHidrograficaModel {
 	@OneToMany(mappedBy = "unidadeHidrografica", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
+	public UnidadeHidrograficaModel() {
+		super();
+	}
+
 }

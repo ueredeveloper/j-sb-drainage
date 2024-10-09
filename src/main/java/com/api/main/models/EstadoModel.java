@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "estado")
 public class EstadoModel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
@@ -32,13 +32,17 @@ public class EstadoModel {
 	public EstadoModel() {
 		super();
 	}
-	
+
+	public EstadoModel(Long id, String descricao) {
+		super();
+		this.id = id;
+		this.descricao = descricao;
+	}
 
 	public EstadoModel(String descricao) {
 		super();
 		this.descricao = descricao;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -63,8 +67,5 @@ public class EstadoModel {
 	public void setEnderecos(Set<EnderecoModel> enderecos) {
 		this.enderecos = enderecos;
 	}
-	
-	
-	
 
 }

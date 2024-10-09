@@ -18,12 +18,19 @@ public class LocalCaptacaoModel {
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
 
+	public LocalCaptacaoModel() {
+		super();
+	}
+
+	public LocalCaptacaoModel(Long id, String descricao) {
+		super();
+		this.id = id;
+		this.descricao = descricao;
+	}
+
 	public LocalCaptacaoModel(String descricao) {
 		super();
 		this.descricao = descricao;
 	}
-	
-	
-	
 
 }
