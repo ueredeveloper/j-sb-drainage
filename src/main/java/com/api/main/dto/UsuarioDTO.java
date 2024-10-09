@@ -15,8 +15,6 @@ public class UsuarioDTO {
 
 	private Set<DocumentoModel> documentos = new HashSet<>();
 	
-	
-
 	public UsuarioDTO() {
 		super();
 	}
@@ -25,17 +23,11 @@ public class UsuarioDTO {
 		super();
 		this.nome = nome;
 	}
-	
-	
-	public UsuarioDTO(String nome, Set<DocumentoModel> documentos) {
+
+	public UsuarioDTO(String nome, Long cpfCnpj) {
 		super();
 		this.nome = nome;
-		this.documentos = documentos;
-	}
-
-	public UsuarioDTO(Set<DocumentoModel> documentos) {
-		super();
-		this.documentos = documentos;
+		this.cpfCnpj = cpfCnpj;
 	}
 
 	public Long getId() {

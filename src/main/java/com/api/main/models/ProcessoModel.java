@@ -1,4 +1,3 @@
-
 package com.api.main.models;
 
 import java.util.HashSet;

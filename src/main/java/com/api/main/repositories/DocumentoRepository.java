@@ -14,33 +14,33 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 	
 	@Query("SELECT " +
 		       "CONCAT('{', '\"documento\"', ':', '{', " +
-		       "'\"id\"', ':', d.id, ',', " +
-		       "'\"numero\"', ':', '\"', COALESCE(d.numero, ''), '\"', ',', " +
-		       "'\"numeroSei\"', ':', '\"', COALESCE(d.numeroSei, ''), '\"', ',', " +
+		       "'\"id\"', ':', _d.id, ',', " +
+		       "'\"numero\"', ':', '\"', COALESCE(_d.numero, ''), '\"', ',', " +
+		       "'\"numeroSei\"', ':', '\"', COALESCE(_d.numeroSei, ''), '\"', ',', " +
 		       "'\"endereco\"', ':', " +
-		       "CASE WHEN e.id IS NOT NULL " +
-		       "THEN CONCAT('{', '\"id\"', ':', e.id, ',', '\"logradouro\"', ':', '\"', e.logradouro, '\"', '}') " +
+		       "CASE WHEN _e.id IS NOT NULL " +
+		       "THEN CONCAT('{', '\"id\"', ':', _e.id, ',', '\"logradouro\"', ':', '\"', _e.logradouro, '\"', '}') " +
 		       "ELSE 'null' " +
 		       "END, ',', " +
 		       
 		       "'\"tipoDocumento\"', ':', " +
-		       "CASE WHEN d.tipoDocumento.id IS NOT NULL " + 
-		       "THEN CONCAT('{', '\"id\"', ':', d.tipoDocumento.id, ',', '\"descricao\"', ':','\"', d.tipoDocumento.descricao, '\"', '}') ELSE 'null' END,',', " +
+		       "CASE WHEN _d.tipoDocumento.id IS NOT NULL " + 
+		       "THEN CONCAT('{', '\"id\"', ':', _d.tipoDocumento.id, ',', '\"descricao\"', ':','\"', _d.tipoDocumento.descricao, '\"', '}') ELSE 'null' END,',', " +
 		       
 		       "'\"processo\"', ':', " +
-		       "CASE WHEN p.id IS NOT NULL " +
-		       "THEN CONCAT('{', '\"id\"', ':', p.id, ',', '\"numero\"', ':', '\"', p.numero, '\"', ',', " +
+		       "CASE WHEN _p.id IS NOT NULL " +
+		       "THEN CONCAT('{', '\"id\"', ':', _p.id, ',', '\"numero\"', ':', '\"', _p.numero, '\"', ',', " +
 		       "'\"anexo\"', ':', " +
-		       "CASE WHEN p.anexo.id IS NOT NULL " +
-		       "THEN CONCAT('{', '\"id\"', ':', p.anexo.id, ',', '\"numero\"', ':', '\"', p.anexo.numero, '\"', '}') " +
+		       "CASE WHEN _p.anexo.id IS NOT NULL " +
+		       "THEN CONCAT('{', '\"id\"', ':', _p.anexo.id, ',', '\"numero\"', ':', '\"', _p.anexo.numero, '\"', '}') " +
 		       "ELSE 'null' " +
 		       "END, '}') " +
 		       "ELSE 'null' " +
 		       "END, '}}') " +
-		       "FROM DocumentoModel d " +
-		       "LEFT JOIN d.endereco e " +
-		       "LEFT JOIN d.processo p " +
-		       "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+		       "FROM DocumentoModel _d " +
+		       "LEFT JOIN _d.endereco _e " +
+		       "LEFT JOIN _d.processo _p " +
+		       "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
 
 		List<Object> listByKeyword(@Param("keyword") String keyword);
 	

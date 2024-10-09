@@ -1,3 +1,4 @@
+
 package com.api.main.models;
 
 import java.io.Serializable;
@@ -31,6 +32,12 @@ public class TipoInterferenciaModel implements Serializable {
 
 	public TipoInterferenciaModel() {
 		super();
+	}
+
+	public TipoInterferenciaModel(Long id, String descricao){
+		super();
+		this.id = id;
+		this.descricao = descricao;
 	}
 
 	public TipoInterferenciaModel(String descricao) {
