@@ -18,12 +18,13 @@ public class MetodoIrrigacaoModel {
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
 
+	public MetodoIrrigacaoModel() {
+		super();
+	}
+
 	public MetodoIrrigacaoModel(String descricao) {
 		super();
 		this.descricao = descricao;
 	}
-	
-	
-	
 
 }

@@ -18,11 +18,13 @@ public class RegiaoAdministrativaModel {
 	@Column(nullable = true, unique = false, length = 40)
 	private String descricao;
 
+	public RegiaoAdministrativaModel() {
+		super();
+	}
+	
 	public RegiaoAdministrativaModel(String descricao) {
 		super();
 		this.descricao = descricao;
 	}
 	
-	
-
 }

@@ -6,7 +6,6 @@ public class SubsistemaDTO {
 
 	private String descricao;
 	
-	
 
 	public SubsistemaDTO() {
 		super();

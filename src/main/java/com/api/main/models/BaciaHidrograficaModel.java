@@ -28,6 +28,10 @@ public class BaciaHidrograficaModel {
 	@JsonIgnore
 	@OneToMany(mappedBy = "baciaHidrografica", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
+
 	
+	public BaciaHidrograficaModel(){
+		super();
+	}
 
 }
