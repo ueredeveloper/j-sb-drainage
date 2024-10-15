@@ -10,7 +10,7 @@ import com.api.utils.EnvLoader;
 public class Main {
 	public static void main(String... args) {
 
-		EnvLoader.loadEnvFile(".env");
+		//EnvLoader.loadEnvFile(".env");
 
 		SpringApplication.run(Main.class, args);
 	}
