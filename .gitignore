@@ -25,6 +25,7 @@ hs_err_pid*
 target/**
 /target/
 
+
 # database
 src/main/resources/application.properties
 # password
