@@ -11,6 +11,8 @@ public class Main {
 	public static void main(String... args) {
 
 		//EnvLoader.loadEnvFile(".env");
+		
+		System.out.println("remove application.properties do .gitignore! ");
 
 		SpringApplication.run(Main.class, args);
 	}

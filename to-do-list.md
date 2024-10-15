@@ -114,4 +114,5 @@
 Verificar a edição do Estado ao editar um endereço.
 
 
-
+# 15/10/2024
+	Remover o arquivo application.properties do .env para que seja possível mudar update e create banco de dados.
