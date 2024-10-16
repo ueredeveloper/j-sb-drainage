@@ -28,6 +28,8 @@ public class EnvLoader {
 					String key = parts[0].trim();
 					String value = parts[1].trim();
 					// Set the system property
+					
+					System.out.println(key + ", " + value);
 					System.setProperty(key, value);
 				}
 			}
