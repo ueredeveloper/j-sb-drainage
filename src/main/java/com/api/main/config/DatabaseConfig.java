@@ -11,7 +11,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@PropertySource("classpath:.env")
+//@PropertySource("classpath:.env")
 public class DatabaseConfig {
 
 	@Value("${DATABASE_USERNAME}")
