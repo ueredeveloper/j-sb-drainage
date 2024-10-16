@@ -1,6 +1,5 @@
 package com.api.main.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,17 +35,6 @@ import com.api.main.repositories.TipoPocoRepository;
 @Configuration
 @RestController
 public class DatabaseInitializerConfig {
-
-	@Autowired
-	private DotEnvComponent dotEnvComponent;
-
-	@Bean
-	public CommandLineRunner run() {
-		return args -> {
-			// Call the print method to display the environment variables
-			dotEnvComponent.printDbConfig();
-		};
-	}
 
 	@Bean
 	public CommandLineRunner insertDocumentoTipo(DocumentoTipoRepository r) {
