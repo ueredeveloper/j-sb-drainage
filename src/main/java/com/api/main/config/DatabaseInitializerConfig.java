@@ -32,10 +32,12 @@ import com.api.main.repositories.TipoInterferenciaRepository;
 import com.api.main.repositories.TipoOutorgaRepository;
 import com.api.main.repositories.TipoPocoRepository;
 
+
 @Configuration
 @RestController
 public class DatabaseInitializerConfig {
 
+	
 	@Bean
 	public CommandLineRunner insertDocumentoTipo(DocumentoTipoRepository r) {
 
