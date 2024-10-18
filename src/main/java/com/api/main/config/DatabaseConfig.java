@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-@Configuration
+//@Configuration
 //@PropertySource("classpath:.env")
 public class DatabaseConfig {
 

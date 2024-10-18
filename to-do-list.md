@@ -116,3 +116,10 @@ Verificar a edição do Estado ao editar um endereço.
 
 # 15/10/2024
 	Remover o arquivo application.properties do .env para que seja possível mudar update e create banco de dados.
+	
+	
+#17/10/2024
+	Para deploy heroku
+		1 - Mudar application.propeties para supabase
+		2 - remover sql -> spring.jpa.show-sql=false
+		3 - Comentar DatabaseConfig -> //@PropertySource("classpath:.env")
