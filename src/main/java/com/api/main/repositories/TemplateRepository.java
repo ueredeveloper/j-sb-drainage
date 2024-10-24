@@ -17,9 +17,9 @@ public interface TemplateRepository extends JpaRepository<TemplateModel, Long> {
 	Set<TemplateModel> listByKeyword(@Param("keyword") String keyword);
 
 	@Query("SELECT i FROM TemplateModel i "
-	        + "WHERE ((:tipoDocumento IS NULL OR :tipoDocumento = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :tipoDocumento, '%'))) "
-	        + "AND (:tipoOutorga IS NULL OR :tipoOutorga = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :tipoOutorga, '%'))) "
-	        + "AND (:subtipoOutorga IS NULL OR :subtipoOutorga = '' OR LOWER(i.descricao) LIKE LOWER(CONCAT('%', :subtipoOutorga, '%')))) "
+	        + "WHERE ((:tipoDocumento IS NULL OR :tipoDocumento = '' OR LOWER(i.nome) LIKE LOWER(CONCAT('%', :tipoDocumento, '%'))) "
+	        + "AND (:tipoOutorga IS NULL OR :tipoOutorga = '' OR LOWER(i.nome) LIKE LOWER(CONCAT('%', :tipoOutorga, '%'))) "
+	        + "AND (:subtipoOutorga IS NULL OR :subtipoOutorga = '' OR LOWER(i.nome) LIKE LOWER(CONCAT('%', :subtipoOutorga, '%')))) "
 	        // Add shared folders conditions
 	        + "OR (i.diretorio LIKE '%utils%' OR i.diretorio LIKE '%models%' OR i.diretorio LIKE '%shared%')")
 	Set<TemplateModel> listTemplatesByParams(
