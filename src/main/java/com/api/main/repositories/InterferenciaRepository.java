@@ -18,7 +18,6 @@ public interface InterferenciaRepository extends JpaRepository<InterferenciaMode
 		    +  "'\"latitude\"', ':', '\"', COALESCE(_i.latitude, null), '\"', ',', " 
 		    +  "'\"longitude\"', ':', '\"', COALESCE(_i.longitude, null), '\"', ',' ,"
 		    +  "'\"vazaoOutorgavel\"', ':', COALESCE(_s.vazao_outorgavel, 0), ',' ,"
-		    +  "'\"vazaoAutorizada\"', ':', COALESCE(_s.vazao_autorizada, 0), ',' ,"
 		    +  "'\"vazaoTeste\"', ':', COALESCE(_s.vazao_teste, 0), ',' ,"
 		    +  "'\"vazaoSistema\"', ':', COALESCE(_s.vazao_sistema, 0), ',' ,"
 		    +  "'\"profundidade\"', ':', COALESCE(_s.profundidade, '\"\"'), ',' ,"
@@ -90,7 +89,7 @@ public interface InterferenciaRepository extends JpaRepository<InterferenciaMode
             + "LEFT JOIN subterranea _s ON _i.id = _s.id "
             + "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))"
             + "GROUP BY "
-				 		+"_i.id,_i.latitude,_i.longitude,_e.id,_e.logradouro,_s.vazao_outorgavel,_s.vazao_autorizada,"
+				 		+"_i.id,_i.latitude,_i.longitude,_e.id,_e.logradouro,_s.vazao_outorgavel,"
 				 		+"_s.vazao_teste,_s.vazao_sistema,_s.profundidade,_s.nivel_estatico,_s.nivel_dinamico,"
 				 		+"_s.caesb,_s.tipo_poco,_ti.id,_to.id,_so.id,_sp.id,_ta.id",
     nativeQuery = true)
