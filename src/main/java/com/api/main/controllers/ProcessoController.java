@@ -1,6 +1,7 @@
 package com.api.main.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -50,8 +51,8 @@ public class ProcessoController {
 	}
 
 	@GetMapping("/list-by-keyword")
-	public ResponseEntity<List<ProcessoModel>> list(@RequestParam(required = false) String keyword) {
-		List<ProcessoModel> resultList = service.listByKeyword(keyword);
+	public ResponseEntity<Set<ProcessoModel>> list(@RequestParam(required = false) String keyword) {
+		Set<ProcessoModel> resultList = service.listByKeyword(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 

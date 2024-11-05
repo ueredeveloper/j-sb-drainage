@@ -1,10 +1,12 @@
 package com.api.main.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -14,8 +16,10 @@ import org.springframework.stereotype.Service;
 
 import com.api.main.models.AnexoModel;
 import com.api.main.models.ProcessoModel;
+import com.api.main.models.UsuarioModel;
 import com.api.main.repositories.AnexoRepository;
 import com.api.main.repositories.ProcessoRepository;
+import com.api.main.repositories.UsuarioRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -27,6 +31,9 @@ public class ProcessoService {
 
 	@Autowired
 	private AnexoRepository anexoRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	@Transactional
 	public ProcessoModel save(ProcessoModel objMod) {
@@ -36,6 +43,13 @@ public class ProcessoService {
 			anexo = anexoRepository.save(anexo); // Salva o anexo
 			objMod.setAnexo(anexo); // Atualiza a referência do anexo no processo
 		}
+		
+		if (objMod.getUsuario() != null && objMod.getUsuario().getId() == null) {
+			UsuarioModel usuario = objMod.getUsuario();
+			usuario = usuarioRepository.save(usuario); // Salva o anexo
+			objMod.setUsuario(usuario); // Atualiza a referência do anexo no processo
+		}
+		
 		return processoRepository.save(objMod); // Salva o processo
 	}
 
@@ -53,16 +67,18 @@ public class ProcessoService {
 	}
 
 	@Transactional
-	public List<ProcessoModel> listByKeyword(String keyword) {
-		List<ProcessoModel> response = readJsonStringAndConvert(keyword);
+	public Set<ProcessoModel> listByKeyword(String keyword) {
+		Set<ProcessoModel> response = readJsonStringAndConvert(keyword);
 
 		return response;
 	}
 
-	public List<ProcessoModel> readJsonStringAndConvert(String keyword) {
+	public Set<ProcessoModel> readJsonStringAndConvert(String keyword) {
 
 		List<Object> result = processoRepository.listByKeyword(keyword);
-		List<ProcessoModel> response = new ArrayList<>();
+		Set<ProcessoModel> response = new HashSet<>();
+		
+		System.out.println(result);
 
 		if (result == null) {
 			System.out.println("No results found for the keyword: " + keyword);
@@ -70,13 +86,15 @@ public class ProcessoService {
 		}
 
 		String json = result != null ? result.toString() : null;
+		
+		
 
 		if (json != null) {
 
 			System.out.println("list processo by key " + json);
 			// Since the structure is a list of objects containing 'object', extract them
-			List<Map<String, ProcessoModel>> tempList = new Gson().fromJson(json,
-					new TypeToken<List<Map<String, ProcessoModel>>>() {
+			Set<Map<String, ProcessoModel>> tempList = new Gson().fromJson(json,
+					new TypeToken<Set<Map<String, ProcessoModel>>>() {
 					}.getType());
 
 			// Iterate over the list and extract 'object' object from each map

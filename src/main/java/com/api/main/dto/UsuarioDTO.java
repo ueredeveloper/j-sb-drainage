@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.api.main.models.DocumentoModel;
+import com.api.main.models.ProcessoModel;
 
 public class UsuarioDTO {
 
@@ -14,6 +15,8 @@ public class UsuarioDTO {
 	private Long cpfCnpj;
 
 	private Set<DocumentoModel> documentos = new HashSet<>();
+	
+	private Set<ProcessoModel> processos = new HashSet<>();
 	
 	public UsuarioDTO() {
 		super();
@@ -54,12 +57,5 @@ public class UsuarioDTO {
 		this.cpfCnpj = cpfCnpj;
 	}
 
-	public Set<DocumentoModel> getDocumentos() {
-		return documentos;
-	}
-
-	public void setDocumentos(Set<DocumentoModel> documentos) {
-		this.documentos = documentos;
-	}
 
 }

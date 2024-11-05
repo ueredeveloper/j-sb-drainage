@@ -27,6 +27,10 @@ public class ProcessoModel {
 	@ManyToOne
 	@JoinColumn(name = "anexo", referencedColumnName = "id")
 	private AnexoModel anexo;
+	
+	@ManyToOne
+	@JoinColumn(name = "usuario", referencedColumnName = "id")
+	private UsuarioModel usuario;
 
 	@OneToMany(mappedBy = "processo")
 	private Set<DocumentoModel> documentos = new HashSet<>();
@@ -85,6 +89,14 @@ public class ProcessoModel {
 		this.anexo = anexo;
 	}
 
+	public UsuarioModel getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioModel usuario) {
+		this.usuario = usuario;
+	}
+
 	public Set<DocumentoModel> getDocumentos() {
 		return documentos;
 	}
@@ -92,5 +104,7 @@ public class ProcessoModel {
 	public void setDocumentos(Set<DocumentoModel> documentos) {
 		this.documentos = documentos;
 	}
+
+	
 
 }
