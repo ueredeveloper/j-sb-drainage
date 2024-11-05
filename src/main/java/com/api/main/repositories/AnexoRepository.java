@@ -23,10 +23,13 @@ public interface AnexoRepository extends JpaRepository<AnexoModel, Long> {
 		    "'\"numero\"', ':', '\"', _a.numero, '\"', ',', " +
 		    "'\"processos\"', ':', " +
 		    "CASE WHEN EXISTS (SELECT 1 FROM processo _p WHERE _p.anexo = _a.id) " +
-		    "THEN CONCAT('[', (SELECT STRING_AGG(CONCAT('{', '\"id\"', ':', _p.id, ',', '\"numero\"', ':', '\"', _p.numero, '\"', '}'), ',') FROM processo p WHERE _p.anexo = _a.id), ']') " +
+		    "THEN CONCAT('[', ("
+		    + "SELECT STRING_AGG(CONCAT('{', '\"id\"', ':', _p.id, ',', '\"numero\"', ':', '\"', _p.numero, '\"', '}'), ',') "
+		    + "FROM processo _p WHERE _p.anexo = _a.id), ']') " +
 		    "ELSE '[]' END, " +
 		    "'}', '}') " +
 		    "FROM anexo _a " +
+		    
 		    "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_a.numero) LIKE LOWER(CONCAT('%', :keyword, '%')))",
 		    nativeQuery = true)
 		List<Object> listByKeyword(@Param("keyword") String keyword);

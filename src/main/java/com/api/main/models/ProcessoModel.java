@@ -21,7 +21,7 @@ public class ProcessoModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 
-	@Column(nullable = true, unique = false, length = 40)
+	@Column(nullable = true, unique = true, length = 40)
 	String numero;
 
 	@ManyToOne
