@@ -38,6 +38,18 @@ public class ProcessoModel {
 	public ProcessoModel() {
 		super();
 	}
+	
+	public ProcessoModel(Long id) {
+		super();
+		this.id = id;
+	}
+	
+	
+	public ProcessoModel(Long id, String numero) {
+		super();
+		this.id = id;
+		this.numero = numero;
+	}
 
 	public ProcessoModel(Long id, String numero, AnexoModel anexo) {
 		super();
@@ -63,6 +75,14 @@ public class ProcessoModel {
 		super();
 		this.numero = numero;
 		this.anexo = anexo;
+	}
+	
+	public ProcessoModel(Long id, String numero, AnexoModel anexo, UsuarioModel usuario) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.anexo = anexo;
+		this.usuario = usuario;
 	}
 
 	public Long getId() {

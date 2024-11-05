@@ -62,6 +62,13 @@ public class UsuarioModel implements Serializable {
 		super();
 		this.documentos = documentos;
 	}
+	
+	public UsuarioModel(Long id, String nome, Long cpfCnpj) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cpfCnpj = cpfCnpj;
+	}
 
 	public Long getId() {
 		return id;
