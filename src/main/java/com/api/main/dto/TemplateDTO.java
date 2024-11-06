@@ -7,6 +7,7 @@ import com.api.main.models.TipoOutorgaModel;
 public class TemplateDTO {
 
 	private Long id;
+	private String nome;
 	private String descricao;
 	private String diretorio;
 	private String arquivo;
@@ -26,6 +27,14 @@ public class TemplateDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getDescricao() {

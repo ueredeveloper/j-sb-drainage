@@ -1,5 +1,10 @@
 package com.api.main.config;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.api.main.models.AnexoModel;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.models.EnderecoModel;
@@ -27,15 +32,12 @@ import com.api.main.repositories.TipoInterferenciaRepository;
 import com.api.main.repositories.TipoOutorgaRepository;
 import com.api.main.repositories.TipoPocoRepository;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RestController;
 
 @Configuration
 @RestController
 public class DatabaseInitializerConfig {
 
+	
 	@Bean
 	public CommandLineRunner insertDocumentoTipo(DocumentoTipoRepository r) {
 

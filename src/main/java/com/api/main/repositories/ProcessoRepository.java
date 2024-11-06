@@ -14,16 +14,28 @@ public interface ProcessoRepository extends JpaRepository<ProcessoModel, Long> {
 
 	@Query("SELECT CONCAT('{', " +
 		       "'\"processo\"', ':', '{', " +
-		       "'\"id\"', ':', p.id, ',', " +
-		       "'\"numero\"', ':', '\"', COALESCE(p.numero, ''), '\"', ',', " +
-		       "'\"anexo\"', ':', " +
-		       "CASE WHEN p.anexo.id IS NOT NULL " +
-		       "THEN CONCAT('{', '\"id\"', ':', p.anexo.id, ',', '\"numero\"', ':', '\"', COALESCE(p.anexo.numero, ''), '\"', '}') " +
-		       "ELSE 'null' " +
-		       "END, '}', '}') " +
-		       "FROM ProcessoModel p " +
-		       "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(p.numero) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+		           "'\"id\"', ':', _p.id, ',', " +
+		           "'\"numero\"', ':', '\"', COALESCE(_p.numero, ''), '\"', ',', " +
+		           
+		           "'\"usuario\"', ':', " +
+		           "CASE WHEN _u.id IS NOT NULL " +
+		               "THEN CONCAT('{', '\"id\"', ':', _u.id, ',', '\"nome\"', ':', '\"', COALESCE(_u.nome, ''), '\"', '}') " +
+		           "ELSE 'null' " +
+		           "END, ',', " +
+		           
+		           "'\"anexo\"', ':', " +
+		           "CASE WHEN _a.id IS NOT NULL " +
+		               "THEN CONCAT('{', '\"id\"', ':', _a.id, ',', '\"numero\"', ':', '\"', COALESCE(_a.numero, ''), '\"', '}') " +
+		           "ELSE 'null' " +
+		           "END, " +
+		       "'}', '}') " +
+		       "FROM ProcessoModel _p " + 
+		       "LEFT JOIN _p.anexo _a " +
+		       "LEFT JOIN _p.usuario _u " +
+		       "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_p.numero) LIKE LOWER(CONCAT('%', :keyword, '%')))")
 		List<Object> listByKeyword(@Param("keyword") String keyword);
+
+
 
 
 }

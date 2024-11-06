@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,6 +39,10 @@ public class UsuarioModel implements Serializable {
 	@JsonIgnore
 	private Set<DocumentoModel> documentos = new HashSet<>();
 
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private Set<ProcessoModel> processos = new HashSet<>();
+
 	public UsuarioModel() {
 		super();
 	}
@@ -46,15 +52,11 @@ public class UsuarioModel implements Serializable {
 		this.nome = nome;
 	}
 
-	public UsuarioModel(String nome, Set<DocumentoModel> documentos) {
+	public UsuarioModel(Long id, String nome, Long cpfCnpj) {
 		super();
+		this.id = id;
 		this.nome = nome;
-		this.documentos = documentos;
-	}
-
-	public UsuarioModel(Set<DocumentoModel> documentos) {
-		super();
-		this.documentos = documentos;
+		this.cpfCnpj = cpfCnpj;
 	}
 
 	public Long getId() {
@@ -73,11 +75,6 @@ public class UsuarioModel implements Serializable {
 		this.nome = nome;
 	}
 
-<<<<<<< HEAD
-	
-
-=======
->>>>>>> 5d8b78b6c2cfa630987f88c785f283c5f478bbcd
 	public Long getCpfCnpj() {
 		return cpfCnpj;
 	}
@@ -94,8 +91,16 @@ public class UsuarioModel implements Serializable {
 		this.documentos = documentos;
 	}
 
+	public Set<ProcessoModel> getProcessos() {
+		return processos;
+	}
+
+	public void setProcessos(Set<ProcessoModel> processos) {
+		this.processos = processos;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	
 }

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.api.main.models.DocumentoModel;
+import com.api.main.models.ProcessoModel;
 
 public class UsuarioDTO {
 
@@ -14,8 +15,8 @@ public class UsuarioDTO {
 	private Long cpfCnpj;
 
 	private Set<DocumentoModel> documentos = new HashSet<>();
-	
-	
+
+	private Set<ProcessoModel> processos = new HashSet<>();
 
 	public UsuarioDTO() {
 		super();
@@ -25,17 +26,18 @@ public class UsuarioDTO {
 		super();
 		this.nome = nome;
 	}
-	
-	
-	public UsuarioDTO(String nome, Set<DocumentoModel> documentos) {
+
+	public UsuarioDTO(String nome, Long cpfCnpj) {
 		super();
 		this.nome = nome;
-		this.documentos = documentos;
+		this.cpfCnpj = cpfCnpj;
 	}
 
-	public UsuarioDTO(Set<DocumentoModel> documentos) {
+	public UsuarioDTO(Long id, String nome, Long cpfCnpj) {
 		super();
-		this.documentos = documentos;
+		this.id = id;
+		this.nome = nome;
+		this.cpfCnpj = cpfCnpj;
 	}
 
 	public Long getId() {
@@ -54,7 +56,6 @@ public class UsuarioDTO {
 		this.nome = nome;
 	}
 
-<<<<<<< HEAD
 	public Long getCpfCnpj() {
 		return cpfCnpj;
 	}
@@ -63,22 +64,20 @@ public class UsuarioDTO {
 		this.cpfCnpj = cpfCnpj;
 	}
 
-=======
-	public Long getCpfCnpj() {
-		return cpfCnpj;
-	}
-
-	public void setCpfCnpj(Long cpfCnpj) {
-		this.cpfCnpj = cpfCnpj;
-	}
-
->>>>>>> 5d8b78b6c2cfa630987f88c785f283c5f478bbcd
 	public Set<DocumentoModel> getDocumentos() {
 		return documentos;
 	}
 
 	public void setDocumentos(Set<DocumentoModel> documentos) {
 		this.documentos = documentos;
+	}
+
+	public Set<ProcessoModel> getProcessos() {
+		return processos;
+	}
+
+	public void setProcessos(Set<ProcessoModel> processos) {
+		this.processos = processos;
 	}
 
 }

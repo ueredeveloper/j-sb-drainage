@@ -21,18 +21,34 @@ public class ProcessoModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 
-	@Column(nullable = true, unique = false, length = 40)
+	@Column(nullable = true, unique = true, length = 40)
 	String numero;
 
 	@ManyToOne
 	@JoinColumn(name = "anexo", referencedColumnName = "id")
 	private AnexoModel anexo;
+	
+	@ManyToOne
+	@JoinColumn(name = "usuario", referencedColumnName = "id")
+	private UsuarioModel usuario;
 
 	@OneToMany(mappedBy = "processo")
 	private Set<DocumentoModel> documentos = new HashSet<>();
 
 	public ProcessoModel() {
 		super();
+	}
+	
+	public ProcessoModel(Long id) {
+		super();
+		this.id = id;
+	}
+	
+	
+	public ProcessoModel(Long id, String numero) {
+		super();
+		this.id = id;
+		this.numero = numero;
 	}
 
 	public ProcessoModel(Long id, String numero, AnexoModel anexo) {
@@ -60,6 +76,14 @@ public class ProcessoModel {
 		this.numero = numero;
 		this.anexo = anexo;
 	}
+	
+	public ProcessoModel(Long id, String numero, AnexoModel anexo, UsuarioModel usuario) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.anexo = anexo;
+		this.usuario = usuario;
+	}
 
 	public Long getId() {
 		return id;
@@ -85,6 +109,14 @@ public class ProcessoModel {
 		this.anexo = anexo;
 	}
 
+	public UsuarioModel getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioModel usuario) {
+		this.usuario = usuario;
+	}
+
 	public Set<DocumentoModel> getDocumentos() {
 		return documentos;
 	}
@@ -92,5 +124,7 @@ public class ProcessoModel {
 	public void setDocumentos(Set<DocumentoModel> documentos) {
 		this.documentos = documentos;
 	}
+
+	
 
 }

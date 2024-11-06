@@ -29,9 +29,6 @@ public class SubterraneaModel extends InterferenciaModel {
 
 	@Column()
 	private Integer vazaoSistema; // 
-	
-	@Column()
-	private Integer vazaoAutorizada; // 
 
 	@Column()
 	private Integer vazaoTeste; // 
@@ -114,13 +111,5 @@ public class SubterraneaModel extends InterferenciaModel {
 		this.tipoPoco = tipoPoco;
 	}
 
-	public Integer getVazaoAutorizada() {
-		return vazaoAutorizada;
-	}
-
-	public void setVazaoAutorizada(Integer vazaoAutorizada) {
-		this.vazaoAutorizada = vazaoAutorizada;
-	}
-	
 
 }

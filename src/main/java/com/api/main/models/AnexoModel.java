@@ -22,7 +22,7 @@ public class AnexoModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = true, unique = false, length = 40)
+	@Column(nullable = true, unique = true, length = 40)
 	private String numero;
 
 	@OneToMany(mappedBy = "anexo", cascade = CascadeType.ALL, orphanRemoval = true)
