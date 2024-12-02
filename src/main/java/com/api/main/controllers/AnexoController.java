@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.models.AnexoModel;
+import com.api.main.models.ProcessoModel;
 import com.api.main.services.AnexoService;
 
 @RestController
@@ -45,6 +47,21 @@ public class AnexoController {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
+	}
+	
+
+	@DeleteMapping("/delete-by-id")
+	public ResponseEntity<Object> delete(@RequestParam(required = false) Long id) {
+		if (id != null) {
+			// Delete a specific object by ID
+			AnexoModel deleteResponse = anexoService.deleteById(id);
+			if (deleteResponse != null) {
+				return ResponseEntity.ok(deleteResponse);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		}
+		return null; 
 	}
 
 }

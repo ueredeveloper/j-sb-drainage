@@ -36,7 +36,7 @@ import com.api.main.repositories.TipoPocoRepository;
 @Configuration
 @RestController
 public class DatabaseInitializerConfig {
-
+/*
 	
 	@Bean
 	public CommandLineRunner insertDocumentoTipo(DocumentoTipoRepository r) {
@@ -104,9 +104,9 @@ public class DatabaseInitializerConfig {
 	@Bean
 	public CommandLineRunner insertTipoOutorga(TipoOutorgaRepository r) {
 
-		/*
-		 * Tipo_Outorga (1, N'Outorga') (2, N'Outorga Prévia') (3, N'Registro')
-		 */
+		
+		//Tipo_Outorga (1, N'Outorga') (2, N'Outorga Prévia') (3, N'Registro')
+		
 
 		return (args) -> {
 
@@ -198,6 +198,6 @@ public class DatabaseInitializerConfig {
 			r.save(new TipoFinalidadeModel(2L, "Autorizada"));
 
 		};
-	}
+	}*/
 
 }
