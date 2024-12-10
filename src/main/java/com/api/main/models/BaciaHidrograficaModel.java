@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.locationtech.jts.geom.Geometry;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -22,15 +24,29 @@ public class BaciaHidrograficaModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = true, unique = false, length = 40)
-	private String descricao;
-	
+	@Column(name = "objectid")
+	private Long objectid;
+
+	@Column(name = "shape_leng")
+	private Double shapeLeng;
+
+	@Column(name = "bacia_cod")
+	private Long baciaCod;
+
+	@Column(name = "bacia_nome")
+	private String baciaNome;
+
+	@Column(name = "gdb_geomattr_data")
+	private String gdbGeomattrData;
+
+	@Column(name = "int_shape", columnDefinition = "geometry(POLYGON, 4674)")
+	private Geometry intShape;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "baciaHidrografica", fetch = FetchType.EAGER)
 	private Set<InterferenciaModel> interferencias = new HashSet<>();
 
-	
-	public BaciaHidrograficaModel(){
+	public BaciaHidrograficaModel() {
 		super();
 	}
 

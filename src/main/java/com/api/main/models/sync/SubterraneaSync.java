@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.locationtech.jts.geom.Geometry;
+
 @Entity
 @Table(name = "subterranea_sync")
 public class SubterraneaSync {
@@ -63,6 +65,9 @@ public class SubterraneaSync {
 
 	@Column(name = "int_longitude")
 	private Double intLongitude;
+	
+	@Column(name = "int_shape", columnDefinition = "geometry(POINT, 4674)")
+	private Geometry intShape;
 
 	@Column(name = "int_data_publicacao")
 	private String intDataPublicacao;
