@@ -67,7 +67,7 @@ public class BarragemSync {
 	@Column(name = "to_descricao")
 	private String toDescricao;
 
-	@Column(name = "int_id")
+	@Column(name = "int_id", nullable = false, unique = true)
 	private Long intId;
 
 	@Column(name = "int_latitude")

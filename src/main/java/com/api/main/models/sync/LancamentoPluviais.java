@@ -55,7 +55,7 @@ public class LancamentoPluviais {
 	@Column(name = "emp_endereco")
 	private String empEndereco;
 
-	@Column(name = "int_id")
+	@Column(name = "int_id", nullable = false, unique = true)
 	private Long intId;
 
 	@Column(name = "int_latitude")
