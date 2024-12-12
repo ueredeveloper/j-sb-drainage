@@ -39,7 +39,7 @@ public class BaciaHidrograficaModel {
 	@Column(name = "gdb_geomattr_data")
 	private String gdbGeomattrData;
 
-	@Column(name = "int_shape", columnDefinition = "geometry(POLYGON, 4674)")
+	@Column(name = "shape", columnDefinition = "geometry(POLYGON, 4674)")
 	private Geometry shape;
 
 	@JsonIgnore

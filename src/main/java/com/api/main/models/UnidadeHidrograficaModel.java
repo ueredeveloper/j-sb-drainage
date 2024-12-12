@@ -52,7 +52,7 @@ public class UnidadeHidrograficaModel {
 	@Column(name = "shape_leng")
 	private Double shapeLeng;
 
-	@Column(name = "int_shape", columnDefinition = "geometry(POLYGON, 4674)")
+	@Column(name = "shape", columnDefinition = "geometry(POLYGON, 4674)")
 	private Geometry shape;
 
 	@Column(name = "area_km_sq")
