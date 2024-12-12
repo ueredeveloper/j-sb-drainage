@@ -17,7 +17,7 @@ import org.locationtech.jts.geom.Geometry;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "bacia_hidrografica")
+@Table(name = "bacias_hidrograficas")
 public class BaciaHidrograficaModel {
 
 	@Id
@@ -40,7 +40,7 @@ public class BaciaHidrograficaModel {
 	private String gdbGeomattrData;
 
 	@Column(name = "int_shape", columnDefinition = "geometry(POLYGON, 4674)")
-	private Geometry intShape;
+	private Geometry shape;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "baciaHidrografica", fetch = FetchType.EAGER)
