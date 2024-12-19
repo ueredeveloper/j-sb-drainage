@@ -6,8 +6,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,15 +17,12 @@ import org.locationtech.jts.geom.Geometry;
 public class UnidadeHidrograficaModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name = "id_bacia")
-	private Long idBacia;
-	
 	@Column(name = "objectid")
 	private Long objectid;
-	
+
+	@Column(name = "id_bacia")
+	private Long idBacia;
+
 	@Column(name = "bacia_nome")
 	private String baciaNome;
 
@@ -36,7 +31,7 @@ public class UnidadeHidrograficaModel {
 
 	@Column(name = "subbacia_n")
 	private String subbaciaN;
-	
+
 	@Column(name = "uh_nome")
 	private String uhNome;
 
@@ -52,7 +47,7 @@ public class UnidadeHidrograficaModel {
 	@Column(name = "shape_leng")
 	private Double shapeLeng;
 
-	@Column(name = "shape", columnDefinition = "geometry(POLYGON, 4674)")
+	@Column(name = "shape", columnDefinition = "geometry(Geometry, 4674)")
 	private Geometry shape;
 
 	@Column(name = "area_km_sq")
@@ -72,7 +67,7 @@ public class UnidadeHidrograficaModel {
 
 	@Column(name = "qmm_mai")
 	private Double qmmMai;
-	
+
 	@Column(name = "qmm_jun")
 	private Double qmmJun;
 
@@ -90,7 +85,7 @@ public class UnidadeHidrograficaModel {
 
 	@Column(name = "qmm_nov")
 	private Double qmmNov;
-	
+
 	@Column(name = "qmm_dez")
 	private Double qmmDez;
 

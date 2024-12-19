@@ -6,8 +6,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,9 +19,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class BaciaHidrograficaModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
 	@Column(name = "objectid")
 	private Long objectid;
 
@@ -39,7 +34,7 @@ public class BaciaHidrograficaModel {
 	@Column(name = "gdb_geomattr_data")
 	private String gdbGeomattrData;
 
-	@Column(name = "shape", columnDefinition = "geometry(POLYGON, 4674)")
+	@Column(name = "shape", columnDefinition = "geometry(Geometry, 4674)")
 	private Geometry shape;
 
 	@JsonIgnore

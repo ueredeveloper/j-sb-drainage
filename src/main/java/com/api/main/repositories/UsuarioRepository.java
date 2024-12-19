@@ -20,4 +20,8 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
 	@Query(value = "SELECT * FROM usuario u JOIN usuario_documento ud ON u.id = ud.usuario_id WHERE ud.documento_id = :documentoId", nativeQuery = true)
 	Set<UsuarioModel> listUsersByDocumentId(@Param("documentoId") Long documentoId);
 	
+	@Query("SELECT u FROM UsuarioModel u WHERE CAST(u.cpfCnpj AS string) LIKE %:cpfCnpj%")
+	Set<UsuarioModel> findByCpfCnpjContaining(@Param("cpfCnpj") String cpfCnpj);
+	
+	
 }

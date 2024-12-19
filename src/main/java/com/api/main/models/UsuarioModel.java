@@ -28,10 +28,10 @@ public class UsuarioModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = true, unique = false, length = 500)
+	@Column(nullable = false, unique = false, length = 500)
 	private String nome;
 
-	@Column(nullable = true, unique = false)
+	@Column(nullable = false, unique = true)
 	private Long cpfCnpj;
 
 	@ManyToMany

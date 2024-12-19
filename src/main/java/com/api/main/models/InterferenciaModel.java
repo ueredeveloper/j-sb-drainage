@@ -66,11 +66,11 @@ public class InterferenciaModel implements Serializable {
 	private TipoAtoModel tipoAto;
 
 	@ManyToOne
-	@JoinColumn(name = "baciaHidrografica")
+	@JoinColumn(name = "baciaHidrografica", referencedColumnName = "objectid")
 	private BaciaHidrograficaModel baciaHidrografica;
 
 	@ManyToOne
-	@JoinColumn(name = "unidadeHidrografica")
+	@JoinColumn(name = "unidadeHidrografica", referencedColumnName = "objectid")
 	private UnidadeHidrograficaModel unidadeHidrografica;
 
 	@OneToMany(mappedBy = "interferencia", cascade = CascadeType.ALL, orphanRemoval = true)
