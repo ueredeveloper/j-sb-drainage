@@ -158,6 +158,8 @@ public class InterferenciaService {
 
 		String json = result.toString();
 		
+		System.out.println(json);
+		
 		if (json != null && !json.isEmpty()) {
 			Gson gson = new GsonBuilder().registerTypeAdapter(InterferenciaModel.class, new InterferenciaTypeAdapter()) 
 					// Registrar o adaptador

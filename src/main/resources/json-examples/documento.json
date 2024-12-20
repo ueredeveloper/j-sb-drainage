@@ -1,0 +1,355 @@
+{
+	"id": 9,
+	"numero": "456",
+	"numeroSei": 789,
+	"tipoDocumento": {
+		"id": 2,
+		"descricao": "Despacho"
+	},
+	"endereco": {
+		"id": 12,
+		"logradouro": "Era Casa Era Jardim",
+		"cidade": "",
+		"bairro": "",
+		"cep": "",
+		"documentos": [],
+		"interferencias": [
+			{
+				"id": 1,
+				"latitude": 4545.0,
+				"longitude": 4578.0,
+				"endereco": {
+					"id": 13,
+					"logradouro": "Era Casa Era Jardim",
+					"documentos": [],
+					"interferencias": []
+				},
+				"tipoInterferencia": {
+					"id": 2,
+					"descricao": "Subterrânea"
+				},
+				"tipoOutorga": {
+					"id": 3,
+					"descricao": "Registro"
+				},
+				"subtipoOutorga": {
+					"id": 3,
+					"descricao": "Transferência"
+				},
+				"situacaoProcesso": {
+					"id": 3,
+					"descricao": "Outorgado"
+				},
+				"tipoAto": {
+					"id": 3,
+					"descricao": "Despacho"
+				},
+				"finalidades": [
+					{
+						"id": 3,
+						"finalidade": "Irrgação",
+						"subfinalidade": "Paisagistica",
+						"quantidade": 456.0,
+						"consumo": 789.0,
+						"total": 359784.0,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 2,
+						"finalidade": "Abastecimento Humano",
+						"subfinalidade": "Rural",
+						"quantidade": 12.0,
+						"consumo": 789.0,
+						"total": 9468.0,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 1,
+						"finalidade": "Criação de Animais",
+						"subfinalidade": "Bovino",
+						"quantidade": 456.0,
+						"consumo": 789.0,
+						"total": 359784.0,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					}
+				],
+				"demandas": [
+					{
+						"id": 4,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 90,
+						"mes": 11,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 9,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 31,
+						"mes": 12,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 1,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 28,
+						"mes": 2,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 14,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 90,
+						"mes": 4,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 20,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 91,
+						"mes": 10,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 10,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 31,
+						"mes": 7,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 22,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 30,
+						"mes": 6,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 5,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 30,
+						"mes": 4,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 3,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 88,
+						"mes": 2,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 2,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 91,
+						"mes": 5,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 6,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 31,
+						"mes": 10,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 21,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 91,
+						"mes": 8,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 19,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 91,
+						"mes": 7,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 12,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 31,
+						"mes": 1,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 23,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 30,
+						"mes": 9,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 17,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 90,
+						"mes": 9,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 24,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 31,
+						"mes": 3,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 18,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 30,
+						"mes": 11,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 8,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 90,
+						"mes": 6,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 11,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 91,
+						"mes": 1,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 7,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 91,
+						"mes": 12,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 13,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 31,
+						"mes": 5,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					},
+					{
+						"id": 16,
+						"vazao": 369282.0,
+						"tempo": 57,
+						"periodo": 91,
+						"mes": 3,
+						"tipoFinalidade": {
+							"id": 2,
+							"descricao": "Autorizada"
+						}
+					},
+					{
+						"id": 15,
+						"vazao": 369252.0,
+						"tempo": 7,
+						"periodo": 31,
+						"mes": 8,
+						"tipoFinalidade": {
+							"id": 1,
+							"descricao": "Requerida"
+						}
+					}
+				]
+			}
+		]
+	},
+	"usuarios": []
+}
