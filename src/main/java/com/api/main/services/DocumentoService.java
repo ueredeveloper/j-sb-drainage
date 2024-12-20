@@ -276,6 +276,7 @@ public class DocumentoService {
 	}
 
 	private EnderecoModel saveEndereco(EnderecoModel endereco) {
+		
 		if (endereco.getId() == null) {
 			// Se o endereço não tem ID, ele ainda não foi salvo, então salvamos
 			return enderecoRepository.save(endereco);
@@ -297,12 +298,15 @@ public class DocumentoService {
 
 	private Set<UsuarioModel> saveUsuarios(Set<UsuarioModel> usuarios, DocumentoModel newObject) {
 		Set<UsuarioModel> savedUsuarios = new HashSet<>();
+		
 		for (UsuarioModel usuario : usuarios) {
-			System.out.println(usuario.getNome());
+			
 			if (usuario.getId() == null) {
 				usuario = usuarioRepository.save(usuario);
 			}
 			usuario.getDocumentos().add(newObject);
+			
+			System.out.println("usuario salvo - id " + usuario.getId());
 			savedUsuarios.add(usuario);
 		}
 		return savedUsuarios;
