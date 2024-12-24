@@ -8,15 +8,17 @@ THEN CONCAT('[', (SELECT STRING_AGG(CONCAT(
 	'{', '"id"', ':', _f.id, ',', 
 	'"finalidade"', ':', '"', _f.finalidade, '"', ',',
 	'"subfinalidade"', ':', '"', _f.subfinalidade, '"', ',',
-	'"quantidade"', ':', '"', _f.quantidade, '"', ',',
-	'"consumo"', ':', '"', _f.consumo, '"', ',',
-	'"total"', ':', '"', _f.total, '"', 
+	-- se não houver adiciona zero
+	'"quantidade"', ':', '"', COALESCE(_f.quantidade, 0), '"', ',',
+	'"consumo"', ':', '"', COALESCE(_f.consumo, 0), '"', ',',
+	'"tipoFinalidade"', ':', '{', '"id"', ':',_f.tipo_finalidade, '}', ',',
+	'"total"', ':', '"', COALESCE(_f.total, 0), '"', 
 	'}'), ',')
 FROM finalidade _f WHERE _f.interferencia = _s.id), ']') 
 ELSE '[]' END, 
 '}')
 from subterranea _s
-where _s.id = 11
+where _s.id = 12
 
 
 
