@@ -122,81 +122,15 @@ public class DocumentoService {
 				throw new IllegalArgumentException("É requerido o Tipo de Documento.");
 			}
 
-			// Saves or updates ProcessoModel (can be null or have an existing ID)
-			if (updateDocumento.getProcesso() != null) {
-				ProcessoModel processo = updateDocumento.getProcesso();
-
-				// Check if ProcessoModel has an ID
-				if (processo.getId() != null) {
-					Optional<ProcessoModel> existingProcesso = processoRepository.findById(processo.getId());
-					if (existingProcesso.isPresent()) {
-						ProcessoModel proc = existingProcesso.get();
-						// Check if ProcessoModel has an AnexoModel
-						if (processo.getAnexo() != null) {
-							AnexoModel anexo = processo.getAnexo();
-							if (anexo.getId() != null) {
-								Optional<AnexoModel> existingAnexo = anexoRepository.findById(anexo.getId());
-								if (existingAnexo.isPresent()) {
-									proc.setAnexo(existingAnexo.get());
-								} else {
-									// Handle if AnexoModel is not found
-									throw new IllegalArgumentException("Anexo não encontrado.");
-								}
-							} else {
-								// Save new AnexoModel if ID is null
-								AnexoModel newAnexo = anexoRepository.save(anexo);
-								proc.setAnexo(newAnexo);
-							}
-						}
-						record.setProcesso(proc);
-					} else {
-						// Handle if ProcessoModel is not found
-						throw new IllegalArgumentException("Processo não encontrado.");
-					}
-				} else {
-					// Save new ProcessoModel if ID is null
-					ProcessoModel newProcesso = processoRepository.save(processo);
-					if (processo.getAnexo() != null) {
-						AnexoModel anexo = processo.getAnexo();
-						if (anexo.getId() != null) {
-							Optional<AnexoModel> existingAnexo = anexoRepository.findById(anexo.getId());
-							existingAnexo.ifPresent(newProcesso::setAnexo);
-						} else {
-							AnexoModel newAnexo = anexoRepository.save(anexo);
-							newProcesso.setAnexo(newAnexo);
-						}
-					}
-					record.setProcesso(newProcesso);
-				}
-			}
-
-			// Saves or updates EnderecoModel (can be null or have an existing ID)
-			if (updateDocumento.getEndereco() != null) {
-				if (updateDocumento.getEndereco().getId() != null) {
-					Optional<EnderecoModel> enderecoOptional = enderecoRepository
-							.findById(updateDocumento.getEndereco().getId());
-					enderecoOptional.ifPresent(endereco -> {
-						// Editar attributos como Cidade e Cep.
-						EnderecoModel existingEndereco = endereco;
-						existingEndereco.setLogradouro(updateDocumento.getEndereco().getLogradouro());
-						existingEndereco.setCidade(updateDocumento.getEndereco().getCidade());
-						existingEndereco.setCep(updateDocumento.getEndereco().getCep());
-
-						EnderecoModel updatedEndereco = enderecoRepository.save(existingEndereco);
-						record.setEndereco(updatedEndereco);
-					});
-
-					// endereco.ifPresent(record::setEndereco);
-				} else {
-					// Create a new EnderecoModel if the ID is null
-					EnderecoModel newEndereco = enderecoRepository.save(updateDocumento.getEndereco());
-					record.setEndereco(newEndereco);
-				}
-			}
-
 			return documentoRepository.save(record);
 
 		}).orElse(null);
+
+		updateProcesso(updateDocumento, originalResponse);
+
+		updateEndereco(updateDocumento, originalResponse);
+
+		updateUsuarios(updateDocumento, originalResponse);
 
 		if (originalResponse == null) {
 			throw new NoSuchElementException("Não foi encontrado documento com o id: " + id);
@@ -276,7 +210,7 @@ public class DocumentoService {
 	}
 
 	private EnderecoModel saveEndereco(EnderecoModel endereco) {
-		
+
 		if (endereco.getId() == null) {
 			// Se o endereço não tem ID, ele ainda não foi salvo, então salvamos
 			return enderecoRepository.save(endereco);
@@ -284,6 +218,86 @@ public class DocumentoService {
 			// Se já tem ID, verificamos se o endereço já está salvo e retornamos o
 			// existente
 			return enderecoRepository.findById(endereco.getId()).orElseGet(() -> enderecoRepository.save(endereco));
+		}
+	}
+
+	@Transactional
+	private void updateEndereco(DocumentoModel updateDocumento, DocumentoModel originalResponse) {
+		if (updateDocumento.getEndereco() != null) {
+			EnderecoModel enderecoToUpdate = updateDocumento.getEndereco();
+
+			// Check if EnderecoModel has an ID
+			if (enderecoToUpdate.getId() != null) {
+				Optional<EnderecoModel> existingEndereco = enderecoRepository.findById(enderecoToUpdate.getId());
+				if (existingEndereco.isPresent()) {
+					EnderecoModel existing = existingEndereco.get();
+
+					// Update attributes of the existing EnderecoModel
+					existing.setLogradouro(enderecoToUpdate.getLogradouro());
+					existing.setCidade(enderecoToUpdate.getCidade());
+					existing.setCep(enderecoToUpdate.getCep());
+
+					// Save the updated EnderecoModel and set it to the original response
+					EnderecoModel updatedEndereco = enderecoRepository.save(existing);
+					originalResponse.setEndereco(updatedEndereco);
+				} else {
+					throw new IllegalArgumentException("Endereço não encontrado.");
+				}
+			} else {
+				// Save a new EnderecoModel if the ID is null
+				EnderecoModel newEndereco = enderecoRepository.save(enderecoToUpdate);
+				originalResponse.setEndereco(newEndereco);
+			}
+		}
+	}
+
+	@Transactional
+	private void updateProcesso(DocumentoModel updateDocumento, DocumentoModel originalResponse) {
+		if (updateDocumento.getProcesso() != null) {
+			ProcessoModel processo = updateDocumento.getProcesso();
+
+			// Check if ProcessoModel has an ID
+			if (processo.getId() != null) {
+				Optional<ProcessoModel> existingProcesso = processoRepository.findById(processo.getId());
+				if (existingProcesso.isPresent()) {
+					ProcessoModel proc = existingProcesso.get();
+
+					// Check if ProcessoModel has an AnexoModel
+					if (processo.getAnexo() != null) {
+						AnexoModel anexo = processo.getAnexo();
+						if (anexo.getId() != null) {
+							Optional<AnexoModel> existingAnexo = anexoRepository.findById(anexo.getId());
+							if (existingAnexo.isPresent()) {
+								proc.setAnexo(existingAnexo.get());
+							} else {
+								throw new IllegalArgumentException("Anexo não encontrado.");
+							}
+						} else {
+							// Save new AnexoModel if ID is null
+							AnexoModel newAnexo = anexoRepository.save(anexo);
+							proc.setAnexo(newAnexo);
+						}
+					}
+					originalResponse.setProcesso(proc);
+				} else {
+					throw new IllegalArgumentException("Processo não encontrado.");
+				}
+			} else {
+				// Save new ProcessoModel if ID is null
+				ProcessoModel newProcesso = processoRepository.save(processo);
+
+				if (processo.getAnexo() != null) {
+					AnexoModel anexo = processo.getAnexo();
+					if (anexo.getId() != null) {
+						Optional<AnexoModel> existingAnexo = anexoRepository.findById(anexo.getId());
+						existingAnexo.ifPresent(newProcesso::setAnexo);
+					} else {
+						AnexoModel newAnexo = anexoRepository.save(anexo);
+						newProcesso.setAnexo(newAnexo);
+					}
+				}
+				originalResponse.setProcesso(newProcesso);
+			}
 		}
 	}
 
@@ -297,19 +311,36 @@ public class DocumentoService {
 	}
 
 	private Set<UsuarioModel> saveUsuarios(Set<UsuarioModel> usuarios, DocumentoModel newObject) {
+
 		Set<UsuarioModel> savedUsuarios = new HashSet<>();
-		
+
 		for (UsuarioModel usuario : usuarios) {
-			
+
 			if (usuario.getId() == null) {
 				usuario = usuarioRepository.save(usuario);
 			}
 			usuario.getDocumentos().add(newObject);
-			
+
 			System.out.println("usuario salvo - id " + usuario.getId());
 			savedUsuarios.add(usuario);
 		}
 		return savedUsuarios;
+	}
+
+	private UsuarioModel saveOrUpdateUsuario(UsuarioModel usuario, DocumentoModel documento) {
+		Set<DocumentoModel> docsToRelation = new HashSet<>();
+		docsToRelation.add(documento);
+		usuario.setDocumentos(docsToRelation);
+		return usuarioRepository.save(usuario);
+	}
+
+	private void updateUsuarios(DocumentoModel updateDocumento, DocumentoModel originalResponse) {
+		Set<UsuarioModel> usuarios = updateDocumento.getUsuarios();
+		if (usuarios != null && !usuarios.isEmpty()) {
+			originalResponse.getUsuarios().clear();
+			usuarios.forEach(
+					usuario -> originalResponse.getUsuarios().add(saveOrUpdateUsuario(usuario, originalResponse)));
+		}
 	}
 
 }
