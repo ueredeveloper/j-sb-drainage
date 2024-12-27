@@ -84,6 +84,15 @@ public class ProcessoModel {
 		this.anexo = anexo;
 		this.usuario = usuario;
 	}
+	
+	
+
+	public ProcessoModel(Long id, String numero, UsuarioModel usuario) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.usuario = usuario;
+	}
 
 	public Long getId() {
 		return id;

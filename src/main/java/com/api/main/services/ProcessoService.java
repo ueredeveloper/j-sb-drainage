@@ -37,19 +37,66 @@ public class ProcessoService {
 	@Transactional
 	public ProcessoModel save(ProcessoModel objMod) {
 		// Verifica se o anexo não tem ID (precisa ser salvo primeiro)
-		if (objMod.getAnexo() != null && objMod.getAnexo().getId() == null) {
-			AnexoModel anexo = objMod.getAnexo();
-			anexo = anexoRepository.save(anexo); // Salva o anexo
-			objMod.setAnexo(anexo); // Atualiza a referência do anexo no processo
+		// Check if Anexo needs to be saved or updated
+
+		AnexoModel anexo = null;
+		UsuarioModel usuario = null;
+
+		if (objMod.getAnexo() != null) {
+			if (objMod.getAnexo().getId() == null) {
+				// Save new Anexo if ID is null
+				anexo = anexoRepository.save(objMod.getAnexo());
+				objMod.setAnexo(anexo);
+			} else {
+				// Update existing Anexo if ID is present
+				AnexoModel existingAnexo = anexoRepository.findById(objMod.getAnexo().getId())
+						.orElseThrow(() -> new EntityNotFoundException(
+								"Anexo with ID " + objMod.getAnexo().getId() + " not found."));
+				existingAnexo.setNumero(objMod.getAnexo().getNumero());
+				anexo = anexoRepository.save(existingAnexo);
+				objMod.setAnexo(anexo);
+			}
 		}
 
-		if (objMod.getUsuario() != null && objMod.getUsuario().getId() == null) {
-			UsuarioModel usuario = objMod.getUsuario();
-			usuario = usuarioRepository.save(usuario); // Salva o anexo
-			objMod.setUsuario(usuario); // Atualiza a referência do anexo no processo
+		// Check if Usuario needs to be saved or updated
+		if (objMod.getUsuario() != null) {
+			if (objMod.getUsuario().getId() == null) {
+				// Save new Usuario if ID is null
+				usuario = usuarioRepository.save(objMod.getUsuario());
+				objMod.setUsuario(usuario);
+			} else {
+				// Update existing Usuario if ID is present
+				UsuarioModel existingUsuario = usuarioRepository.findById(objMod.getUsuario().getId())
+						.orElseThrow(() -> new EntityNotFoundException(
+								"Usuario with ID " + objMod.getUsuario().getId() + " not found."));
+				existingUsuario.setNome(objMod.getUsuario().getNome());
+				existingUsuario.setCpfCnpj(objMod.getUsuario().getCpfCnpj());
+
+				usuario = usuarioRepository.save(existingUsuario);
+				objMod.setUsuario(usuario);
+			}
 		}
 
-		return processoRepository.save(objMod); // Salva o processo
+		// Check if Usuario needs to be saved or updated
+
+		if (objMod.getId() == null) {
+			// Save new Usuario if ID is null
+			ProcessoModel originalResponse = processoRepository.save(objMod);
+			return createSafeResponse(originalResponse);
+		} else {
+			// Update existing Usuario if ID is present
+			ProcessoModel existingProcesso = processoRepository.findById(objMod.getId())
+					.orElseThrow(() -> new EntityNotFoundException("Processo Id " + objMod.getId() + " not found."));
+
+			existingProcesso.setNumero(objMod.getNumero());
+			existingProcesso.setAnexo(anexo);
+			existingProcesso.setUsuario(usuario);
+
+			processoRepository.save(existingProcesso);
+			return createSafeResponse(existingProcesso);
+
+		}
+
 	}
 
 	@Transactional
@@ -107,25 +154,25 @@ public class ProcessoService {
 	}
 
 	public ProcessoModel createSafeResponse(ProcessoModel originalResponse) {
-	    ProcessoModel safeResponse = new ProcessoModel();
+		ProcessoModel safeResponse = new ProcessoModel();
 
-	    safeResponse.setId(originalResponse.getId());
-	    safeResponse.setNumero(originalResponse.getNumero());
+		safeResponse.setId(originalResponse.getId());
+		safeResponse.setNumero(originalResponse.getNumero());
 
-	    // Only set Anexo if it exists and has an ID
-	    if (originalResponse.getAnexo() != null && originalResponse.getAnexo().getId() != null) {
-	        safeResponse.setAnexo(new AnexoModel(originalResponse.getAnexo().getId(), originalResponse.getAnexo().getNumero()));
-	    }
+		// Only set Anexo if it exists and has an ID
+		if (originalResponse.getAnexo() != null && originalResponse.getAnexo().getId() != null) {
+			safeResponse.setAnexo(
+					new AnexoModel(originalResponse.getAnexo().getId(), originalResponse.getAnexo().getNumero()));
+		}
 
-	    // Only set Usuario if it exists and has an ID
-	    if (originalResponse.getUsuario() != null && originalResponse.getUsuario().getId() != null) {
-	        safeResponse.setUsuario(new UsuarioModel(originalResponse.getUsuario().getId(),
-	                originalResponse.getUsuario().getNome(), originalResponse.getUsuario().getCpfCnpj()));
-	    }
+		// Only set Usuario if it exists and has an ID
+		if (originalResponse.getUsuario() != null && originalResponse.getUsuario().getId() != null) {
+			safeResponse.setUsuario(new UsuarioModel(originalResponse.getUsuario().getId(),
+					originalResponse.getUsuario().getNome(), originalResponse.getUsuario().getCpfCnpj()));
+		}
 
-	    return safeResponse;
+		return safeResponse;
 	}
-
 
 	@Transactional
 	public Set<ProcessoModel> listByKeyword(String keyword) {

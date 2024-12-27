@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 
 import com.api.main.models.AnexoModel;
 import com.api.main.models.ProcessoModel;
+import com.api.main.models.UsuarioModel;
 import com.api.main.repositories.AnexoRepository;
 import com.api.main.repositories.ProcessoRepository;
+import com.api.main.repositories.UsuarioRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -26,28 +28,62 @@ public class AnexoService {
 	private AnexoRepository anexoRepository;
 	@Autowired
 	private ProcessoRepository processoRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	@Transactional
-	public AnexoModel save(AnexoModel anexo) {
+	public AnexoModel save(AnexoModel requestedObject) {
+		Long id = requestedObject.getId();
+		AnexoModel originalResponse = null;
 
-		// Inicializa um novo AnexoModel
-		AnexoModel newAnexo = new AnexoModel();
-		newAnexo.setNumero(anexo.getNumero());
+		if (id != null && anexoRepository.existsById(id)) {
+			originalResponse = anexoRepository.findById(id).map((AnexoModel record) -> {
 
-		Set<ProcessoModel> processos = new HashSet<>();
+				record.setNumero(requestedObject.getNumero());
 
-		// Itera sobre os processos para garantir que eles estão corretamente salvos e
-		// relacionados
-		for (ProcessoModel processo : anexo.getProcessos()) {
-			if (processo.getId() == null) {
-				processo.setAnexo(newAnexo);
-				processo = processoRepository.save(processo);
-			}
-			processos.add(processo);
+				AnexoModel editedObject = anexoRepository.save(record);
+				return createSafeResponse(editedObject);
+			}).orElse(null);
 		}
 
-		newAnexo.setProcessos(processos);
-		return anexoRepository.save(newAnexo);
+		if (originalResponse == null) {
+			// Salva as interferências, se houver
+			if (requestedObject.getProcessos() != null && !requestedObject.getProcessos().isEmpty()) {
+				for (ProcessoModel object : requestedObject.getProcessos()) {
+
+					if (object.getUsuario() != null) {
+						if (object.getUsuario().getId() == null) {
+							// Save new Anexo if ID is null
+							UsuarioModel user = usuarioRepository.save(object.getUsuario());
+							object.setUsuario(user);
+						} else {
+							// Update existing Anexo if ID is present
+							UsuarioModel existingUser = usuarioRepository.findById(object.getUsuario().getId())
+									.orElseThrow(() -> new EntityNotFoundException(
+											"Usuario with ID " + object.getUsuario().getId() + " not found."));
+
+							existingUser.setNome(object.getUsuario().getNome());
+
+							object.setUsuario(existingUser);
+						}
+					}
+
+					object.setAnexo(requestedObject); // Relaciona a interferência com o endereço
+				}
+
+				// Salva todas as interferências associadas ao endereço
+				List<ProcessoModel> objects = processoRepository.saveAll(requestedObject.getProcessos());
+				// Atualiza o conjunto de interferências no endereço
+				requestedObject.setProcessos(new HashSet<>(objects));
+			}
+
+			// Salva o endereço com as interferências atualizadas
+			originalResponse = anexoRepository.save(requestedObject);
+
+		}
+
+		return createSafeResponse(originalResponse);
+
 	}
 
 	@Transactional
@@ -61,9 +97,14 @@ public class AnexoService {
 	}
 
 	@Transactional
-	public void deleteById(Long id) {
+	public AnexoModel deleteById(Long id) {
+		AnexoModel deleteResponse = anexoRepository.findById(id)
+				.orElseThrow(() -> new NoSuchElementException("Não foi encontrado anexo com o id: " + id));
+
 		anexoRepository.deleteById(id);
+		return createSafeResponse(deleteResponse);
 	}
+
 
 	@Transactional
 	public List<AnexoModel> listByKeyword(String keyword) {
@@ -133,4 +174,32 @@ public class AnexoService {
 
 		return response;
 	}
+
+	public AnexoModel createSafeResponse(AnexoModel originalResponse) {
+	    AnexoModel safeResponse = new AnexoModel();
+	    safeResponse.setId(originalResponse.getId());
+	    safeResponse.setNumero(originalResponse.getNumero());
+
+	    // Inicialize a lista de processos no safeResponse, se ainda não estiver inicializada
+	    if (safeResponse.getProcessos() == null) {
+	        safeResponse.setProcessos(new HashSet<>());
+	    }
+
+	    // Somente preencha os processos se originalResponse tiver processos
+	    if (originalResponse.getProcessos() != null && !originalResponse.getProcessos().isEmpty()) {
+	        for (ProcessoModel object : originalResponse.getProcessos()) {
+	            if (object != null && object.getUsuario() != null && object.getAnexo() != null) {
+	                safeResponse.getProcessos().add(new ProcessoModel(
+	                    object.getId(),
+	                    object.getNumero(),
+	                    new AnexoModel(object.getAnexo().getId(), object.getAnexo().getNumero()),
+	                    new UsuarioModel(object.getUsuario().getId(), object.getUsuario().getNome())
+	                ));
+	            }
+	        }
+	    }
+
+	    return safeResponse;
+	}
+
 }

@@ -37,7 +37,7 @@ import com.api.main.repositories.TipoPocoRepository;
 @RestController
 public class DatabaseInitializerConfig {
 
-	
+	/*
 	@Bean
 	public CommandLineRunner insertDocumentoTipo(DocumentoTipoRepository r) {
 
@@ -78,7 +78,8 @@ public class DatabaseInitializerConfig {
 
 		};
 	}
-
+*/
+	/*
 	@Bean
 	public CommandLineRunner insertAnexo(AnexoRepository procRepo) {
 
@@ -88,8 +89,9 @@ public class DatabaseInitializerConfig {
 			procRepo.save(new AnexoModel("197.456.789/2015"));
 
 		};
-	};
+	};*/
 
+	/*
 	@Bean
 	public CommandLineRunner insertEndereco(EnderecoRepository r) {
 		return (args) -> {
@@ -99,14 +101,15 @@ public class DatabaseInitializerConfig {
 			r.save(new EnderecoModel("Rua das Flores, Apartamento 5", "h", "i", "j"));
 
 		};
-	}
+	}*/
 
+	/*
 	@Bean
 	public CommandLineRunner insertTipoOutorga(TipoOutorgaRepository r) {
 
-		/*
-		 * Tipo_Outorga (1, N'Outorga') (2, N'Outorga Prévia') (3, N'Registro')
-		 */
+		
+		//Tipo_Outorga (1, N'Outorga') (2, N'Outorga Prévia') (3, N'Registro')
+		
 
 		return (args) -> {
 
@@ -160,8 +163,10 @@ public class DatabaseInitializerConfig {
 			r.save(new TipoAtoModel(6L, "Resolução ANA"));
 			r.save(new TipoAtoModel(7L, "Portaria DNAEE"));
 		};
-	}
+	}*/
 
+	
+	/*
 	@Bean
 	CommandLineRunner insertFormaCaptacao(FormaCaptacaoRepository r) {
 		return (args) -> {
@@ -199,5 +204,6 @@ public class DatabaseInitializerConfig {
 
 		};
 	}
+	*/
 
 }

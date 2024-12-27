@@ -28,17 +28,17 @@ public class UsuarioModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = true, unique = false, length = 500)
+	@Column(nullable = false, unique = false, length = 500)
 	private String nome;
 
-	@Column(nullable = true, unique = false)
+	@Column(nullable = false, unique = true)
 	private Long cpfCnpj;
 
 	@ManyToMany
 	@JoinTable(name = "usuario_documento", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "documento_id"))
 	@JsonIgnore
 	private Set<DocumentoModel> documentos = new HashSet<>();
-
+	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<ProcessoModel> processos = new HashSet<>();
@@ -49,6 +49,25 @@ public class UsuarioModel implements Serializable {
 
 	public UsuarioModel(String nome) {
 		super();
+		this.nome = nome;
+	}
+
+	public UsuarioModel(String nome, Set<DocumentoModel> documentos) {
+		super();
+		this.nome = nome;
+		this.documentos = documentos;
+	}
+
+	public UsuarioModel(Set<DocumentoModel> documentos) {
+		super();
+		this.documentos = documentos;
+	}
+	
+	
+	
+	public UsuarioModel(Long id, String nome) {
+		super();
+		this.id = id;
 		this.nome = nome;
 	}
 
@@ -95,12 +114,4 @@ public class UsuarioModel implements Serializable {
 		return processos;
 	}
 
-	public void setProcessos(Set<ProcessoModel> processos) {
-		this.processos = processos;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
 }
