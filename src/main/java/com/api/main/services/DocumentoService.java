@@ -69,7 +69,7 @@ public class DocumentoService {
 
 		if (json != null) {
 
-			//System.out.println("list doc by key " + json);
+			// System.out.println("list doc by key " + json);
 			// Since the structure is a list of objects containing 'endereco', extract them
 			List<Map<String, DocumentoModel>> tempList = new Gson().fromJson(json,
 					new TypeToken<List<Map<String, DocumentoModel>>>() {
@@ -107,16 +107,16 @@ public class DocumentoService {
 	}
 
 	@Transactional
-	public DocumentoModel update(Long id, DocumentoModel updateDocumento) {
+	public DocumentoModel update(Long id, DocumentoModel toUpdateObject) {
 
 		DocumentoModel originalResponse = documentoRepository.findById(id).map((DocumentoModel record) -> {
-			record.setNumero(updateDocumento.getNumero());
-			record.setNumeroSei(updateDocumento.getNumeroSei());
+			record.setNumero(toUpdateObject.getNumero());
+			record.setNumeroSei(toUpdateObject.getNumeroSei());
 
 			// Verifies and saves DocumentoTipoModel (must not be null)
-			if (updateDocumento.getTipoDocumento() != null && updateDocumento.getTipoDocumento().getId() != null) {
+			if (toUpdateObject.getTipoDocumento() != null && toUpdateObject.getTipoDocumento().getId() != null) {
 				Optional<DocumentoTipoModel> documentoTipo = docTipoRepo
-						.findById(updateDocumento.getTipoDocumento().getId());
+						.findById(toUpdateObject.getTipoDocumento().getId());
 				documentoTipo.ifPresent(record::setTipoDocumento);
 			} else {
 				throw new IllegalArgumentException("É requerido o Tipo de Documento.");
@@ -126,17 +126,17 @@ public class DocumentoService {
 
 		}).orElse(null);
 
-		updateProcesso(updateDocumento, originalResponse);
+		updateProcesso(toUpdateObject, originalResponse);
 
-		updateEndereco(updateDocumento, originalResponse);
+		updateEndereco(toUpdateObject, originalResponse);
 
-		updateUsuarios(updateDocumento, originalResponse);
+		saveOrUpdateUsuarios(toUpdateObject, originalResponse);
 
 		if (originalResponse == null) {
 			throw new NoSuchElementException("Não foi encontrado documento com o id: " + id);
 		}
 
-		return createSafeResponse(originalResponse);
+		return createSafeResponse(documentoRepository.save(originalResponse));
 
 	}
 
@@ -171,76 +171,72 @@ public class DocumentoService {
 	@Transactional
 	public DocumentoModel save(DocumentoDTO objDTO, DocumentoModel objMod) {
 
-	    // Processa o EnderecoModel antes de salvar o DocumentoModel
-	    if (objMod.getEndereco() != null) {
-	        EnderecoModel savedEndereco = saveEndereco(objMod.getEndereco());
-	        objMod.setEndereco(savedEndereco);
+		// Processa o EnderecoModel antes de salvar o DocumentoModel
+		if (objMod.getEndereco() != null) {
+			EnderecoModel savedEndereco = saveEndereco(objMod.getEndereco());
+			objMod.setEndereco(savedEndereco);
 
-	        // Salva as Interferencias associadas ao EnderecoModel
-	        if (savedEndereco.getInterferencias() != null) {
-	            for (InterferenciaModel interferencia : savedEndereco.getInterferencias()) {
-	                interferencia.setEndereco(savedEndereco);
-	                interferenciaRepository.save(interferencia);
-	            }
-	        }
-	    }
+			// Salva as Interferencias associadas ao EnderecoModel
+			if (savedEndereco.getInterferencias() != null) {
+				for (InterferenciaModel interferencia : savedEndereco.getInterferencias()) {
+					interferencia.setEndereco(savedEndereco);
+					interferenciaRepository.save(interferencia);
+				}
+			}
+		}
 
-	    // Processa o ProcessoModel se presente
-	    if (objMod.getProcesso() != null) {
-	        ProcessoModel processo = objMod.getProcesso();
+		// Processa o ProcessoModel se presente
+		if (objMod.getProcesso() != null) {
+			ProcessoModel processo = objMod.getProcesso();
 
-	        if (processo.getId() != null) {
-	            // Verifica se o processo já existe
-	            ProcessoModel existingProcesso = processoRepository.findById(processo.getId())
-	                .orElseThrow(() -> new RuntimeException("Processo não encontrado para o ID: " + processo.getId()));
-	            
-	            // Relaciona o processo existente ao DocumentoModel
-	            objMod.setProcesso(existingProcesso);
-	        } else {
-	            // Salva um novo processo
-	            ProcessoModel savedProcesso = saveProcesso(processo);
-	            objMod.setProcesso(savedProcesso);
-	        }
-	    }
+			if (processo.getId() != null) {
+				// Verifica se o processo já existe
+				ProcessoModel existingProcesso = processoRepository.findById(processo.getId()).orElseThrow(
+						() -> new RuntimeException("Processo não encontrado para o ID: " + processo.getId()));
 
-	    // Salva o DocumentoModel com o Endereco e Processo atualizados
-	    DocumentoModel newObject = documentoRepository.save(objMod);
-	    
-	    Set<UsuarioModel> processedUsuarios = new HashSet<>();
+				// Relaciona o processo existente ao DocumentoModel
+				objMod.setProcesso(existingProcesso);
+			} else {
+				// Salva um novo processo
+				ProcessoModel savedProcesso = saveProcesso(processo);
+				objMod.setProcesso(savedProcesso);
+			}
+		}
 
-	    if (objMod.getUsuarios() != null) {
-	       
-	        
-	        for (UsuarioModel usuario : objMod.getUsuarios()) {
-	            // Verifica se o usuário já existe no banco de dados
-	            UsuarioModel existingUsuario = usuarioRepository.findById(usuario.getId())
-	                .orElse(null);
+		// Salva o DocumentoModel com o Endereco e Processo atualizados
+		DocumentoModel newObject = documentoRepository.save(objMod);
 
-	            if (existingUsuario != null) {
-	                // Usuário já existe, adiciona à relação com o documento
-	                processedUsuarios.add(existingUsuario);
-	                existingUsuario.getDocumentos().add(objMod);
-	            } else {
-	                // Usuário não existe, salva e relaciona ao documento
-	                UsuarioModel savedUsuario = usuarioRepository.save(usuario);
-	                processedUsuarios.add(savedUsuario);
-	                savedUsuario.getDocumentos().add(objMod);
-	            }
+		Set<UsuarioModel> processedUsuarios = new HashSet<>();
 
-	            // Log para depuração
-	            System.out.println("Usuário processado: " + usuario.getNome() + ", CPF/CNPJ: " + usuario.getCpfCnpj());
-	        }
-	        
-	    }
+		if (objMod.getUsuarios() != null) {
 
-	    newObject.setUsuarios(processedUsuarios);
-	     
-	    // Salva novamente o DocumentoModel atualizado
-	    DocumentoModel originalResponse = documentoRepository.save(newObject);
-	    return createSafeResponse(originalResponse);
+			for (UsuarioModel usuario : objMod.getUsuarios()) {
+				// Verifica se o usuário já existe no banco de dados
+				UsuarioModel existingUsuario = usuarioRepository.findById(usuario.getId()).orElse(null);
+
+				if (existingUsuario != null) {
+					// Usuário já existe, adiciona à relação com o documento
+					processedUsuarios.add(existingUsuario);
+					existingUsuario.getDocumentos().add(objMod);
+				} else {
+					// Usuário não existe, salva e relaciona ao documento
+					UsuarioModel savedUsuario = usuarioRepository.save(usuario);
+					processedUsuarios.add(savedUsuario);
+					savedUsuario.getDocumentos().add(objMod);
+				}
+
+				// Log para depuração
+				System.out.println("Usuário processado: " + usuario.getNome() + ", CPF/CNPJ: " + usuario.getCpfCnpj());
+			}
+
+		}
+
+		newObject.setUsuarios(processedUsuarios);
+
+		// Salva novamente o DocumentoModel atualizado
+		DocumentoModel originalResponse = documentoRepository.save(newObject);
+		return createSafeResponse(originalResponse);
 	}
-
-
 
 	private EnderecoModel saveEndereco(EnderecoModel endereco) {
 
@@ -343,43 +339,36 @@ public class DocumentoService {
 		return processoRepository.save(processo);
 	}
 
-	private Set<UsuarioModel> saveUsuarios(Set<UsuarioModel> usuarios, DocumentoModel newObject) {
+	private void saveOrUpdateUsuarios(DocumentoModel toUpdateObject, DocumentoModel originalResponse) {
 
-	    Set<UsuarioModel> response = new HashSet<>();
+		Set<UsuarioModel> processedUsuarios = new HashSet<>();
 
-	    for (UsuarioModel usuario : usuarios) {
-	        if (usuario.getId() == null) {
-	            // Usuário novo, salva no banco de dados
-	            usuario = usuarioRepository.save(usuario);
-	        }
+		if (toUpdateObject.getUsuarios() != null) {
 
-	        // Adiciona o documento ao conjunto de documentos do usuário
-	        usuario.getDocumentos().add(newObject);
+			for (UsuarioModel usuario : toUpdateObject.getUsuarios()) {
+				// Verifica se o usuário já existe no banco de dados
+				UsuarioModel existingUsuario = usuarioRepository.findById(usuario.getId()).orElse(null);
 
-	        // Atualiza o usuário no banco de dados (para persistir a associação)
-	        usuario = usuarioRepository.save(usuario);
+				if (existingUsuario != null) {
+					// Usuário já existe, adiciona à relação com o documento
+					processedUsuarios.add(existingUsuario);
+					existingUsuario.getDocumentos().add(toUpdateObject);
 
-	        System.out.println("Usuário salvo - ID: " + usuario.getId());
-	        response.add(usuario);
-	    }
-	    return response;
-	}
+				} else {
+					// Usuário não existe, salva e relaciona ao documento
+					UsuarioModel savedUsuario = usuarioRepository.save(usuario);
+					processedUsuarios.add(savedUsuario);
+					savedUsuario.getDocumentos().add(toUpdateObject);
 
+				}
 
-	private UsuarioModel saveOrUpdateUsuario(UsuarioModel usuario, DocumentoModel documento) {
-		Set<DocumentoModel> docsToRelation = new HashSet<>();
-		docsToRelation.add(documento);
-		usuario.setDocumentos(docsToRelation);
-		return usuarioRepository.save(usuario);
-	}
+				// Log para depuração
+				System.out.println("Usuário processado: " + usuario.getNome() + ", CPF/CNPJ: " + usuario.getCpfCnpj());
+			}
 
-	private void updateUsuarios(DocumentoModel updateDocumento, DocumentoModel originalResponse) {
-		Set<UsuarioModel> usuarios = updateDocumento.getUsuarios();
-		if (usuarios != null && !usuarios.isEmpty()) {
-			originalResponse.getUsuarios().clear();
-			usuarios.forEach(
-					usuario -> originalResponse.getUsuarios().add(saveOrUpdateUsuario(usuario, originalResponse)));
 		}
+
+		originalResponse.setUsuarios(processedUsuarios);
 	}
 
 }
