@@ -186,7 +186,7 @@ public class ProcessoService {
 		List<Object> result = processoRepository.listByKeyword(keyword);
 		Set<ProcessoModel> response = new HashSet<>();
 
-		System.out.println(result);
+		//System.out.println(result);
 
 		if (result == null) {
 			System.out.println("No results found for the keyword: " + keyword);
@@ -197,7 +197,7 @@ public class ProcessoService {
 
 		if (json != null) {
 
-			System.out.println("list processo by key " + json);
+			//System.out.println("list processo by key " + json);
 			// Since the structure is a list of objects containing 'object', extract them
 			Set<Map<String, ProcessoModel>> tempList = new Gson().fromJson(json,
 					new TypeToken<Set<Map<String, ProcessoModel>>>() {

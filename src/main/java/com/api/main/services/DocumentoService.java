@@ -69,7 +69,7 @@ public class DocumentoService {
 
 		if (json != null) {
 
-			System.out.println("list doc by key " + json);
+			//System.out.println("list doc by key " + json);
 			// Since the structure is a list of objects containing 'endereco', extract them
 			List<Map<String, DocumentoModel>> tempList = new Gson().fromJson(json,
 					new TypeToken<List<Map<String, DocumentoModel>>>() {
@@ -171,43 +171,76 @@ public class DocumentoService {
 	@Transactional
 	public DocumentoModel save(DocumentoDTO objDTO, DocumentoModel objMod) {
 
-		// Processa o EnderecoModel antes de salvar o DocumentoModel
-		if (objMod.getEndereco() != null) {
+	    // Processa o EnderecoModel antes de salvar o DocumentoModel
+	    if (objMod.getEndereco() != null) {
+	        EnderecoModel savedEndereco = saveEndereco(objMod.getEndereco());
+	        objMod.setEndereco(savedEndereco);
 
-			EnderecoModel savedEndereco = saveEndereco(objMod.getEndereco());
-			objMod.setEndereco(savedEndereco); // Atualiza o DocumentoModel com o endereço salvo
+	        // Salva as Interferencias associadas ao EnderecoModel
+	        if (savedEndereco.getInterferencias() != null) {
+	            for (InterferenciaModel interferencia : savedEndereco.getInterferencias()) {
+	                interferencia.setEndereco(savedEndereco);
+	                interferenciaRepository.save(interferencia);
+	            }
+	        }
+	    }
 
-			// Salva as Interferencias associadas ao EnderecoModel
-			if (savedEndereco.getInterferencias() != null) {
+	    // Processa o ProcessoModel se presente
+	    if (objMod.getProcesso() != null) {
+	        ProcessoModel processo = objMod.getProcesso();
 
-				for (InterferenciaModel interferencia : savedEndereco.getInterferencias()) {
-					interferencia.setEndereco(savedEndereco);
-					interferenciaRepository.save(interferencia);
-				}
-			}
+	        if (processo.getId() != null) {
+	            // Verifica se o processo já existe
+	            ProcessoModel existingProcesso = processoRepository.findById(processo.getId())
+	                .orElseThrow(() -> new RuntimeException("Processo não encontrado para o ID: " + processo.getId()));
+	            
+	            // Relaciona o processo existente ao DocumentoModel
+	            objMod.setProcesso(existingProcesso);
+	        } else {
+	            // Salva um novo processo
+	            ProcessoModel savedProcesso = saveProcesso(processo);
+	            objMod.setProcesso(savedProcesso);
+	        }
+	    }
 
-		}
+	    // Salva o DocumentoModel com o Endereco e Processo atualizados
+	    DocumentoModel newObject = documentoRepository.save(objMod);
+	    
+	    Set<UsuarioModel> processedUsuarios = new HashSet<>();
 
-		// 08/08/2024 - Não está salvando usuários nem processo
+	    if (objMod.getUsuarios() != null) {
+	       
+	        
+	        for (UsuarioModel usuario : objMod.getUsuarios()) {
+	            // Verifica se o usuário já existe no banco de dados
+	            UsuarioModel existingUsuario = usuarioRepository.findById(usuario.getId())
+	                .orElse(null);
 
-		// Processa o ProcessoModel se presente
-		if (objMod.getProcesso() != null) {
-			ProcessoModel savedProcesso = saveProcesso(objMod.getProcesso());
-			objMod.setProcesso(savedProcesso); // Atualiza o DocumentoModel com o processo salvo
-		}
+	            if (existingUsuario != null) {
+	                // Usuário já existe, adiciona à relação com o documento
+	                processedUsuarios.add(existingUsuario);
+	                existingUsuario.getDocumentos().add(objMod);
+	            } else {
+	                // Usuário não existe, salva e relaciona ao documento
+	                UsuarioModel savedUsuario = usuarioRepository.save(usuario);
+	                processedUsuarios.add(savedUsuario);
+	                savedUsuario.getDocumentos().add(objMod);
+	            }
 
-		// Agora que o Endereco e Processo foram salvos, salva o DocumentoModel
-		DocumentoModel newObject = documentoRepository.save(objMod);
+	            // Log para depuração
+	            System.out.println("Usuário processado: " + usuario.getNome() + ", CPF/CNPJ: " + usuario.getCpfCnpj());
+	        }
+	        
+	    }
 
-		// Processa os Usuários associados
-		Set<UsuarioModel> usuarios = saveUsuarios(objMod.getUsuarios(), newObject);
-		newObject.setUsuarios(usuarios);
-
-		// Salva o DocumentoModel atualizado com todas as relações
-		DocumentoModel originalResponse = documentoRepository.save(newObject);
-		return createSafeResponse(originalResponse);
-
+	    newObject.setUsuarios(processedUsuarios);
+	     
+	    // Salva novamente o DocumentoModel atualizado
+	    DocumentoModel originalResponse = documentoRepository.save(newObject);
+	    return createSafeResponse(originalResponse);
 	}
+
+
 
 	private EnderecoModel saveEndereco(EnderecoModel endereco) {
 
@@ -312,20 +345,26 @@ public class DocumentoService {
 
 	private Set<UsuarioModel> saveUsuarios(Set<UsuarioModel> usuarios, DocumentoModel newObject) {
 
-		Set<UsuarioModel> savedUsuarios = new HashSet<>();
+	    Set<UsuarioModel> response = new HashSet<>();
 
-		for (UsuarioModel usuario : usuarios) {
+	    for (UsuarioModel usuario : usuarios) {
+	        if (usuario.getId() == null) {
+	            // Usuário novo, salva no banco de dados
+	            usuario = usuarioRepository.save(usuario);
+	        }
 
-			if (usuario.getId() == null) {
-				usuario = usuarioRepository.save(usuario);
-			}
-			usuario.getDocumentos().add(newObject);
+	        // Adiciona o documento ao conjunto de documentos do usuário
+	        usuario.getDocumentos().add(newObject);
 
-			System.out.println("usuario salvo - id " + usuario.getId());
-			savedUsuarios.add(usuario);
-		}
-		return savedUsuarios;
+	        // Atualiza o usuário no banco de dados (para persistir a associação)
+	        usuario = usuarioRepository.save(usuario);
+
+	        System.out.println("Usuário salvo - ID: " + usuario.getId());
+	        response.add(usuario);
+	    }
+	    return response;
 	}
+
 
 	private UsuarioModel saveOrUpdateUsuario(UsuarioModel usuario, DocumentoModel documento) {
 		Set<DocumentoModel> docsToRelation = new HashSet<>();

@@ -52,7 +52,7 @@ public class FinalidadeService {
 
 		String json = result != null ? result.toString() : null;
 
-		System.out.println(json);
+		//System.out.println(json);
 
 		if (json != null) {
 

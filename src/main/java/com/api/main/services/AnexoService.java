@@ -136,7 +136,7 @@ public class AnexoService {
 
 		if (json != null) {
 
-			System.out.println("list anexo by key " + json);
+			//System.out.println("list anexo by key " + json);
 			// Since the structure is a list of objects containing 'endereco', extract them
 			List<Map<String, AnexoModel>> tempList = new Gson().fromJson(json,
 					new TypeToken<List<Map<String, AnexoModel>>>() {
