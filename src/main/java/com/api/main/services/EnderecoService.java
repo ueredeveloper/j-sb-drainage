@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.main.models.DemandaModel;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.InterferenciaModel;
 import com.api.main.repositories.EnderecoRepository;
@@ -23,23 +25,23 @@ import com.google.gson.reflect.TypeToken;
 public class EnderecoService {
 
 	@Autowired
-	private EnderecoRepository endRepo;
+	private EnderecoRepository enderecoRepository;
 	@Autowired
-	private InterferenciaRepository interRepo;
+	private InterferenciaRepository interferenciaRepository;
 
 	@Transactional
 	public EnderecoModel save(EnderecoModel requestedEndereco) {
 		Long id = requestedEndereco.getId();
 		EnderecoModel response = null;
 
-		if (id != null && endRepo.existsById(id)) {
-			response = endRepo.findById(id).map((EnderecoModel record) -> {
+		if (id != null && enderecoRepository.existsById(id)) {
+			response = enderecoRepository.findById(id).map((EnderecoModel record) -> {
 				record.setLogradouro(requestedEndereco.getLogradouro());
 				record.setCidade(requestedEndereco.getCidade());
 				record.setCep(requestedEndereco.getCep());
 				record.setBairro(requestedEndereco.getBairro());
 				record.setEstado(requestedEndereco.getEstado());
-				return endRepo.save(record);
+				return enderecoRepository.save(record);
 			}).orElse(null);
 		}
 
@@ -51,13 +53,13 @@ public class EnderecoService {
 				}
 
 				// Salva todas as interferências associadas ao endereço
-				List<InterferenciaModel> interferencias = interRepo.saveAll(requestedEndereco.getInterferencias());
+				List<InterferenciaModel> interferencias = interferenciaRepository.saveAll(requestedEndereco.getInterferencias());
 				// Atualiza o conjunto de interferências no endereço
 				requestedEndereco.setInterferencias(new HashSet<>(interferencias));
 			}
 
 			// Salva o endereço com as interferências atualizadas
-			response = endRepo.save(requestedEndereco);
+			response = enderecoRepository.save(requestedEndereco);
 		}
 
 		return response;
@@ -65,44 +67,44 @@ public class EnderecoService {
 
 	/*
 	 * @Transactional public List<EnderecoModel> listByKeyword(String keyword) {
-	 * return endRepo.listByKeyword(keyword); }
+	 * return enderecoRepository.listByKeyword(keyword); }
 	 */
 
 	@Transactional
-	public List<EnderecoModel> listByKeyword(String keyword) {
+	public Set<EnderecoModel> listByKeyword(String keyword) {
 
-		List<EnderecoModel> response = readJsonStringAndConvert(keyword);
+		Set<EnderecoModel> response = readJsonStringAndConvert(keyword);
 		return response;
 	}
 
 	@Transactional
 	public void delete() {
-		endRepo.deleteAll();
+		enderecoRepository.deleteAll();
 	}
 
 	@Transactional
 	public EnderecoModel deleteById(Long id) {
-		EnderecoModel deleted = endRepo.findById(id)
+		EnderecoModel deleted = enderecoRepository.findById(id)
 				.orElseThrow(() -> new NoSuchElementException("Não foi encontrado endereço com o id: " + id));
-		endRepo.deleteById(id);
+		enderecoRepository.deleteById(id);
 		return deleted;
 	}
 
 	@Transactional
 	public Optional<EnderecoModel> findById(Long id) {
-		return endRepo.findById(id);
+		return enderecoRepository.findById(id);
 	}
 
 	@Transactional
 	public EnderecoModel update(Long id, EnderecoModel requestedEndereco) {
-		EnderecoModel endereco = endRepo.findById(id).map((EnderecoModel record) -> {
+		EnderecoModel endereco = enderecoRepository.findById(id).map((EnderecoModel record) -> {
 			record.setLogradouro(requestedEndereco.getLogradouro());
 			record.setCidade(requestedEndereco.getCidade());
 			record.setCep(requestedEndereco.getCep());
 			record.setBairro(requestedEndereco.getBairro());
 			record.setEstado(requestedEndereco.getEstado());
 
-			return endRepo.save(record);
+			return enderecoRepository.save(record);
 		}).orElse(null);
 
 		if (endereco == null) {
@@ -123,11 +125,11 @@ public class EnderecoService {
 		return response;
 	}
 
-	public List<EnderecoModel> readJsonStringAndConvert(String keyword) {
+	public Set<EnderecoModel> readJsonStringAndConvert(String keyword) {
 
-		List<Object> result = endRepo.listByKeyword(keyword);
-		List<EnderecoModel> response = new ArrayList<>();
-
+		Set<Object> result = enderecoRepository.listByKeyword(keyword);
+		Set<EnderecoModel> response = new HashSet<>();
+		
 		if (result == null) {
 			System.out.println("No results found for the keyword: " + keyword);
 			return response; // Return an empty list if no results
@@ -143,8 +145,8 @@ public class EnderecoService {
 
 			//System.out.println("string " + endJson);
 			// Since the structure is a list of objects containing 'endereco', extract them
-			List<Map<String, EnderecoModel>> tempList = new Gson().fromJson(endJson,
-					new TypeToken<List<Map<String, EnderecoModel>>>() {
+			Set<Map<String, EnderecoModel>> tempList = new Gson().fromJson(endJson,
+					new TypeToken<Set<Map<String, EnderecoModel>>>() {
 					}.getType());
 
 			// Iterate over the list and extract 'endereco' object from each map

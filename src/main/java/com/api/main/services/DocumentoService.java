@@ -88,43 +88,42 @@ public class DocumentoService {
 		return response;
 
 	}
-	
+
 	public List<DocumentoModel> readJsonStringAndConvert(Long id) {
-	    // Fetch data from repository
-	    List<Object> result = documentoRepository.listByUserId(id);
-	    List<DocumentoModel> response = new ArrayList<>();
+		// Fetch data from repository
+		List<Object> result = documentoRepository.listByUserId(id);
+		List<DocumentoModel> response = new ArrayList<>();
 
-	    if (result == null || result.isEmpty()) {
-	        System.out.println("No results found for the id: " + id);
-	        return response; // Return an empty list if no results
-	    }
+		if (result == null || result.isEmpty()) {
+			System.out.println("No results found for the id: " + id);
+			return response; // Return an empty list if no results
+		}
 
-	    // Convert result to JSON string
-	    String json = result.toString();
+		// Convert result to JSON string
+		String json = result.toString();
 
-	    try {
-	        // Deserialize JSON array into a list of DocumentoModel objects
-	        response = new Gson().fromJson(json, new TypeToken<List<DocumentoModel>>() {}.getType());
-	    } catch (JsonSyntaxException e) {
-	        System.err.println("Error parsing JSON: " + e.getMessage());
-	    }
+		try {
+			// Deserialize JSON array into a list of DocumentoModel objects
+			response = new Gson().fromJson(json, new TypeToken<List<DocumentoModel>>() {
+			}.getType());
+		} catch (JsonSyntaxException e) {
+			System.err.println("Error parsing JSON: " + e.getMessage());
+		}
 
-	    return response;
+		return response;
 	}
 
 	@Transactional
-    public Long deleteDocUserRelation(Long documentoId, Long usuarioId) {
-        // Attempt to delete the user-document relation
-        Long docId = documentoRepository.deleteDocUseRelation(documentoId, usuarioId);
-        
-        System.out.println(docId);
+	public Long deleteDocUserRelation(Long documentoId, Long usuarioId) {
+		// Attempt to delete the user-document relation
+		Long docId = documentoRepository.deleteDocUseRelation(documentoId, usuarioId);
 
-        if (docId != null) {
-            return docId;
-        } else {
-            return null;
-        }
-    }
+		if (docId != null) {
+			return docId;
+		} else {
+			return null;
+		}
+	}
 
 	@Transactional
 	public DocumentoModel deleteById(Long id) {
@@ -138,9 +137,9 @@ public class DocumentoService {
 	public Optional<DocumentoModel> findById(Long id) {
 		return documentoRepository.findById(id);
 	}
-	
+
 	@Transactional
-	public List<DocumentoModel> listByUserId (Long id) {
+	public List<DocumentoModel> listByUserId(Long id) {
 		List<DocumentoModel> response = readJsonStringAndConvert(id);
 		return response;
 	}
@@ -181,57 +180,53 @@ public class DocumentoService {
 
 	public DocumentoModel createSafeResponse(DocumentoModel originalResponse) {
 
-	    DocumentoModel safeResponse = new DocumentoModel();
+		DocumentoModel safeResponse = new DocumentoModel();
 
-	    safeResponse.setId(originalResponse.getId());
-	    safeResponse.setNumero(originalResponse.getNumero());
-	    safeResponse.setNumeroSei(originalResponse.getNumeroSei());
+		safeResponse.setId(originalResponse.getId());
+		safeResponse.setNumero(originalResponse.getNumero());
+		safeResponse.setNumeroSei(originalResponse.getNumeroSei());
 
-	    // Safe handling of endereco (address), checking for null before accessing its fields
-	    if (originalResponse.getEndereco() != null) {
-	        safeResponse.setEndereco(new EnderecoModel(
-	            originalResponse.getEndereco().getId(),
-	            originalResponse.getEndereco().getLogradouro()
-	        ));
-	    } else {
-	        safeResponse.setEndereco(null); // You can set this to null or handle as needed
-	    }
+		// Safe handling of endereco (address), checking for null before accessing its
+		// fields
+		if (originalResponse.getEndereco() != null) {
+			safeResponse.setEndereco(new EnderecoModel(originalResponse.getEndereco().getId(),
+					originalResponse.getEndereco().getLogradouro()));
+		} else {
+			safeResponse.setEndereco(null); // You can set this to null or handle as needed
+		}
 
-	    // Safe handling of processo (process), checking for null before accessing its fields
-	    if (originalResponse.getProcesso() != null) {
-	        ProcessoModel processo = originalResponse.getProcesso();
-	        
-	        // Safe handling of anexo (attachment) inside processo, checking for null before accessing its fields
-	        AnexoModel anexo = null;
-	        if (processo.getAnexo() != null) {
-	            anexo = new AnexoModel(
-	                processo.getAnexo().getId(),
-	                processo.getAnexo().getNumero()
-	            );
-	        }
+		// Safe handling of processo (process), checking for null before accessing its
+		// fields
+		if (originalResponse.getProcesso() != null) {
+			ProcessoModel processo = originalResponse.getProcesso();
 
-	        safeResponse.setProcesso(new ProcessoModel(
-	            processo.getId(),
-	            processo.getNumero(),
-	            anexo // Attach the anexo if it exists, otherwise it will be null
-	        ));
-	    } else {
-	        safeResponse.setProcesso(null); // You can set this to null or handle as needed
-	    }
+			// Safe handling of anexo (attachment) inside processo, checking for null before
+			// accessing its fields
+			AnexoModel anexo = null;
+			if (processo.getAnexo() != null) {
+				anexo = new AnexoModel(processo.getAnexo().getId(), processo.getAnexo().getNumero());
+			}
 
-	    // Safe handling of tipoDocumento (document type), checking for null before accessing its fields
-	    if (originalResponse.getTipoDocumento() != null) {
-	        safeResponse.setTipoDocumento(new DocumentoTipoModel(
-	            originalResponse.getTipoDocumento().getId(),
-	            originalResponse.getTipoDocumento().getDescricao()
-	        ));
-	    } else {
-	        safeResponse.setTipoDocumento(null); // You can set this to null or handle as needed
-	    }
+			safeResponse.setProcesso(new ProcessoModel(processo.getId(), processo.getNumero(), anexo // Attach the anexo
+																										// if it exists,
+																										// otherwise it
+																										// will be null
+			));
+		} else {
+			safeResponse.setProcesso(null); // You can set this to null or handle as needed
+		}
 
-	    return safeResponse;
+		// Safe handling of tipoDocumento (document type), checking for null before
+		// accessing its fields
+		if (originalResponse.getTipoDocumento() != null) {
+			safeResponse.setTipoDocumento(new DocumentoTipoModel(originalResponse.getTipoDocumento().getId(),
+					originalResponse.getTipoDocumento().getDescricao()));
+		} else {
+			safeResponse.setTipoDocumento(null); // You can set this to null or handle as needed
+		}
+
+		return safeResponse;
 	}
-
 
 	@Transactional
 	public DocumentoModel save(DocumentoDTO objDTO, DocumentoModel objMod) {

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -53,8 +54,8 @@ public class EnderecoController {
 
 	// mudar Object[] para EnderecoModel
 	@GetMapping("/list-by-keyword")
-	public ResponseEntity<List<EnderecoModel>> list(@RequestParam(required = false) String keyword) {
-		List<EnderecoModel> resultList = enderecoService.listByKeyword(keyword);
+	public ResponseEntity<Set<EnderecoModel>> list(@RequestParam(required = false) String keyword) {
+		Set<EnderecoModel> resultList = enderecoService.listByKeyword(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
