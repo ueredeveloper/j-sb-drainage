@@ -101,7 +101,6 @@ public class DocumentoService {
 
 	    // Convert result to JSON string
 	    String json = result.toString();
-	    System.out.println(json);
 
 	    try {
 	        // Deserialize JSON array into a list of DocumentoModel objects
@@ -114,16 +113,23 @@ public class DocumentoService {
 	}
 
 	@Transactional
-	public void delete() {
-		documentoRepository.deleteAll();
-	}
+    public String deleteDocUseRelation(Long documentoId, Long usuarioId) {
+        // Attempt to delete the user-document relation
+        int rowsAffected = documentoRepository.deleteDocUseRelation(documentoId, usuarioId);
+
+        if (rowsAffected > 0) {
+            return "Relação do documento e usuário removida com sucesso.";
+        } else {
+            throw new NoSuchElementException("Não foi encontrado documento com o id: " + documentoId + " e usuário com o id: " + usuarioId);
+        }
+    }
 
 	@Transactional
 	public DocumentoModel deleteById(Long id) {
 		DocumentoModel deletedDocument = documentoRepository.findById(id)
 				.orElseThrow(() -> new NoSuchElementException("Não foi encontrado documento com o id: " + id));
 		documentoRepository.deleteById(id);
-		return deletedDocument;
+		return createSafeResponse(deletedDocument);
 	}
 
 	@Transactional
@@ -173,31 +179,57 @@ public class DocumentoService {
 
 	public DocumentoModel createSafeResponse(DocumentoModel originalResponse) {
 
-		DocumentoModel safeResponse = new DocumentoModel();
+	    DocumentoModel safeResponse = new DocumentoModel();
 
-		safeResponse.setId(originalResponse.getId());
-		safeResponse.setNumero(originalResponse.getNumero());
-		safeResponse.setNumeroSei(originalResponse.getNumeroSei());
+	    safeResponse.setId(originalResponse.getId());
+	    safeResponse.setNumero(originalResponse.getNumero());
+	    safeResponse.setNumeroSei(originalResponse.getNumeroSei());
 
-		// Não permite referências cíclicas que geram loop na criaçaõ do json
-		safeResponse.setEndereco(new EnderecoModel(originalResponse.getEndereco().getId(),
-				originalResponse.getEndereco().getLogradouro()));
+	    // Safe handling of endereco (address), checking for null before accessing its fields
+	    if (originalResponse.getEndereco() != null) {
+	        safeResponse.setEndereco(new EnderecoModel(
+	            originalResponse.getEndereco().getId(),
+	            originalResponse.getEndereco().getLogradouro()
+	        ));
+	    } else {
+	        safeResponse.setEndereco(null); // You can set this to null or handle as needed
+	    }
 
-		// Não permite referências cíclicas que geram loop na criaçaõ do json
-		safeResponse.setProcesso(
-				// Se o anexo for diferente de nulo preencha com anexo (id, descricao) ou
-				// preenche com nulo
-				new ProcessoModel(originalResponse.getProcesso().getId(), originalResponse.getProcesso().getNumero(),
-						originalResponse.getProcesso().getAnexo() != null
-								? new AnexoModel(originalResponse.getProcesso().getAnexo().getId(),
-										originalResponse.getProcesso().getAnexo().getNumero())
-								: null));
+	    // Safe handling of processo (process), checking for null before accessing its fields
+	    if (originalResponse.getProcesso() != null) {
+	        ProcessoModel processo = originalResponse.getProcesso();
+	        
+	        // Safe handling of anexo (attachment) inside processo, checking for null before accessing its fields
+	        AnexoModel anexo = null;
+	        if (processo.getAnexo() != null) {
+	            anexo = new AnexoModel(
+	                processo.getAnexo().getId(),
+	                processo.getAnexo().getNumero()
+	            );
+	        }
 
-		safeResponse.setTipoDocumento(new DocumentoTipoModel(originalResponse.getTipoDocumento().getId(),
-				originalResponse.getTipoDocumento().getDescricao()));
+	        safeResponse.setProcesso(new ProcessoModel(
+	            processo.getId(),
+	            processo.getNumero(),
+	            anexo // Attach the anexo if it exists, otherwise it will be null
+	        ));
+	    } else {
+	        safeResponse.setProcesso(null); // You can set this to null or handle as needed
+	    }
 
-		return safeResponse;
+	    // Safe handling of tipoDocumento (document type), checking for null before accessing its fields
+	    if (originalResponse.getTipoDocumento() != null) {
+	        safeResponse.setTipoDocumento(new DocumentoTipoModel(
+	            originalResponse.getTipoDocumento().getId(),
+	            originalResponse.getTipoDocumento().getDescricao()
+	        ));
+	    } else {
+	        safeResponse.setTipoDocumento(null); // You can set this to null or handle as needed
+	    }
+
+	    return safeResponse;
 	}
+
 
 	@Transactional
 	public DocumentoModel save(DocumentoDTO objDTO, DocumentoModel objMod) {

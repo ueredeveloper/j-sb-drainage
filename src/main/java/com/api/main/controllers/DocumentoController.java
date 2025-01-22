@@ -1,7 +1,6 @@
 package com.api.main.controllers;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -28,7 +27,6 @@ import com.api.main.services.DocumentoService;
 @RequestMapping("/document")
 public class DocumentoController {
 
-	
 	@Autowired
 	private DocumentoService documentoService;
 
@@ -54,15 +52,15 @@ public class DocumentoController {
 		List<DocumentoModel> resultList = documentoService.listByKeyword(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
-	
+
 	@GetMapping("/list-by-user-id")
-	public ResponseEntity<List<DocumentoModel>> listByUserId (@RequestParam(required = false) Long id) {
+	public ResponseEntity<List<DocumentoModel>> listByUserId(@RequestParam(required = false) Long id) {
 		List<DocumentoModel> resultList = documentoService.listByUserId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 
 	@DeleteMapping("/delete")
-	public ResponseEntity<Object> deleteProcesso(@RequestParam(required = false) Long id) {
+	public ResponseEntity<Object> delete(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
 			DocumentoModel deleteResponse = documentoService.deleteById(id);
@@ -73,7 +71,24 @@ public class DocumentoController {
 			}
 		} else {
 			// Delete all objects
-			documentoService.delete();
+			documentoService.deleteById(id);
+			return ResponseEntity.ok("Objeto deletado com sucesso!!!");
+		}
+	}
+
+	@DeleteMapping("/delete-user-doc-relation")
+	public ResponseEntity<Object> deleteUserDocRelation(@RequestParam(required = true) Long docId, @RequestParam(required = true) Long usId) {
+		if (docId != null & usId !=null) {
+			// Delete a specific object by ID
+			String response = documentoService.deleteDocUseRelation (docId, usId);
+			if (response != null) {
+				return ResponseEntity.ok(response);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} else {
+			// Delete all objects
+			documentoService.deleteDocUseRelation(docId, usId);
 			return ResponseEntity.ok("Todos os objetos deletados!!!");
 		}
 	}
