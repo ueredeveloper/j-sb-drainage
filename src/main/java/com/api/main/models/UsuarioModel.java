@@ -42,6 +42,7 @@ public class UsuarioModel implements Serializable {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<ProcessoModel> processos = new HashSet<>();
+	
 
 	public UsuarioModel() {
 		super();

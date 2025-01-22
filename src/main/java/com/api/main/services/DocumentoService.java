@@ -29,6 +29,7 @@ import com.api.main.repositories.InterferenciaRepository;
 import com.api.main.repositories.ProcessoRepository;
 import com.api.main.repositories.UsuarioRepository;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 @Service
@@ -87,6 +88,30 @@ public class DocumentoService {
 		return response;
 
 	}
+	
+	public List<DocumentoModel> readJsonStringAndConvert(Long id) {
+	    // Fetch data from repository
+	    List<Object> result = documentoRepository.listByUserId(id);
+	    List<DocumentoModel> response = new ArrayList<>();
+
+	    if (result == null || result.isEmpty()) {
+	        System.out.println("No results found for the id: " + id);
+	        return response; // Return an empty list if no results
+	    }
+
+	    // Convert result to JSON string
+	    String json = result.toString();
+	    System.out.println(json);
+
+	    try {
+	        // Deserialize JSON array into a list of DocumentoModel objects
+	        response = new Gson().fromJson(json, new TypeToken<List<DocumentoModel>>() {}.getType());
+	    } catch (JsonSyntaxException e) {
+	        System.err.println("Error parsing JSON: " + e.getMessage());
+	    }
+
+	    return response;
+	}
 
 	@Transactional
 	public void delete() {
@@ -104,6 +129,12 @@ public class DocumentoService {
 	@Transactional
 	public Optional<DocumentoModel> findById(Long id) {
 		return documentoRepository.findById(id);
+	}
+	
+	@Transactional
+	public List<DocumentoModel> listByUserId (Long id) {
+		List<DocumentoModel> response = readJsonStringAndConvert(id);
+		return response;
 	}
 
 	@Transactional

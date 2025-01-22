@@ -1,6 +1,7 @@
 package com.api.main.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -51,6 +52,12 @@ public class DocumentoController {
 	@GetMapping("/list")
 	public ResponseEntity<List<DocumentoModel>> listByKeyword(@RequestParam(required = false) String keyword) {
 		List<DocumentoModel> resultList = documentoService.listByKeyword(keyword);
+		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+	}
+	
+	@GetMapping("/list-by-user-id")
+	public ResponseEntity<List<DocumentoModel>> listByUserId (@RequestParam(required = false) Long id) {
+		List<DocumentoModel> resultList = documentoService.listByUserId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 

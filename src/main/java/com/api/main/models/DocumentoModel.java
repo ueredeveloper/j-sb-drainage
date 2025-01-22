@@ -12,12 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "documento")
 public class DocumentoModel implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -26,7 +27,6 @@ public class DocumentoModel implements Serializable {
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String numero;
-	
 
 	@Column(nullable = true, unique = false, length = 40)
 	private String numeroSei;
@@ -49,7 +49,7 @@ public class DocumentoModel implements Serializable {
 
 	@ManyToMany(mappedBy = "documentos")
 	private Set<UsuarioModel> usuarios = new HashSet<>();
-	
+
 
 	public DocumentoModel() {
 		super();
@@ -59,7 +59,6 @@ public class DocumentoModel implements Serializable {
 		super();
 		this.numero = numero;
 	}
-	
 
 	public DocumentoModel(String numero, String numeroSei, EnderecoModel endereco) {
 		super();
@@ -74,8 +73,7 @@ public class DocumentoModel implements Serializable {
 		this.numeroSei = numeroSei;
 		this.tipoDocumento = tipoDocumento;
 	}
-	
-	
+
 	public DocumentoModel(String numero, String numeroSei, ProcessoModel processo) {
 		super();
 		this.numero = numero;
@@ -88,7 +86,7 @@ public class DocumentoModel implements Serializable {
 		this.numero = numero;
 		this.endereco = endereco;
 	}
-	
+
 	public DocumentoModel(String numero, String numeroSei, ProcessoModel processo, DocumentoTipoModel tipoDocumento) {
 		super();
 		this.numero = numero;
@@ -168,5 +166,4 @@ public class DocumentoModel implements Serializable {
 		return serialVersionUID;
 	}
 
-	
 }
