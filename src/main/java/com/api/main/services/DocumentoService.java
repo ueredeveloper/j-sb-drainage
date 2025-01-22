@@ -113,14 +113,16 @@ public class DocumentoService {
 	}
 
 	@Transactional
-    public String deleteDocUseRelation(Long documentoId, Long usuarioId) {
+    public Long deleteDocUserRelation(Long documentoId, Long usuarioId) {
         // Attempt to delete the user-document relation
-        int rowsAffected = documentoRepository.deleteDocUseRelation(documentoId, usuarioId);
+        Long docId = documentoRepository.deleteDocUseRelation(documentoId, usuarioId);
+        
+        System.out.println(docId);
 
-        if (rowsAffected > 0) {
-            return "Relação do documento e usuário removida com sucesso.";
+        if (docId != null) {
+            return docId;
         } else {
-            throw new NoSuchElementException("Não foi encontrado documento com o id: " + documentoId + " e usuário com o id: " + usuarioId);
+            return null;
         }
     }
 

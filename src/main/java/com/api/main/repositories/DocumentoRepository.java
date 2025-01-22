@@ -63,8 +63,8 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 	 * 
 	 * @param docId
 	 */
-	@Modifying
-	@Query(value = "DELETE FROM usuario_documento WHERE documento_id = :docId AND usuario_id = :usId", nativeQuery = true)
-	int deleteDocUseRelation(@Param("docId") Long docId, @Param("usId") Long usId);
+	
+	@Query(value = "DELETE FROM usuario_documento WHERE documento_id = :docId AND usuario_id = :usId RETURNING documento_id", nativeQuery = true)
+	Long deleteDocUseRelation(@Param("docId") Long docId, @Param("usId") Long usId);
 
 }

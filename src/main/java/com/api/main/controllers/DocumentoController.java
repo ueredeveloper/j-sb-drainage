@@ -80,7 +80,7 @@ public class DocumentoController {
 	public ResponseEntity<Object> deleteUserDocRelation(@RequestParam(required = true) Long docId, @RequestParam(required = true) Long usId) {
 		if (docId != null & usId !=null) {
 			// Delete a specific object by ID
-			String response = documentoService.deleteDocUseRelation (docId, usId);
+			Long response = documentoService.deleteDocUserRelation (docId, usId);
 			if (response != null) {
 				return ResponseEntity.ok(response);
 			} else {
@@ -88,7 +88,7 @@ public class DocumentoController {
 			}
 		} else {
 			// Delete all objects
-			documentoService.deleteDocUseRelation(docId, usId);
+			documentoService.deleteDocUserRelation(docId, usId);
 			return ResponseEntity.ok("Todos os objetos deletados!!!");
 		}
 	}
