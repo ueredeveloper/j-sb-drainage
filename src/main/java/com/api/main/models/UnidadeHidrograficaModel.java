@@ -102,4 +102,222 @@ public class UnidadeHidrograficaModel {
 		super();
 	}
 
+	public Long getObjectid() {
+		return objectid;
+	}
+
+	public void setObjectid(Long objectid) {
+		this.objectid = objectid;
+	}
+
+	public Long getIdBacia() {
+		return idBacia;
+	}
+
+	public void setIdBacia(Long idBacia) {
+		this.idBacia = idBacia;
+	}
+
+	public String getBaciaNome() {
+		return baciaNome;
+	}
+
+	public void setBaciaNome(String baciaNome) {
+		this.baciaNome = baciaNome;
+	}
+
+	public String getBaciaCodi() {
+		return baciaCodi;
+	}
+
+	public void setBaciaCodi(String baciaCodi) {
+		this.baciaCodi = baciaCodi;
+	}
+
+	public String getSubbaciaN() {
+		return subbaciaN;
+	}
+
+	public void setSubbaciaN(String subbaciaN) {
+		this.subbaciaN = subbaciaN;
+	}
+
+	public String getUhNome() {
+		return uhNome;
+	}
+
+	public void setUhNome(String uhNome) {
+		this.uhNome = uhNome;
+	}
+
+	public String getUhLabel() {
+		return uhLabel;
+	}
+
+	public void setUhLabel(String uhLabel) {
+		this.uhLabel = uhLabel;
+	}
+
+	public Long getUhCodigo() {
+		return uhCodigo;
+	}
+
+	public void setUhCodigo(Long uhCodigo) {
+		this.uhCodigo = uhCodigo;
+	}
+
+	public Long getSubbciaCo() {
+		return subbciaCo;
+	}
+
+	public void setSubbciaCo(Long subbciaCo) {
+		this.subbciaCo = subbciaCo;
+	}
+
+	public Double getShapeLeng() {
+		return shapeLeng;
+	}
+
+	public void setShapeLeng(Double shapeLeng) {
+		this.shapeLeng = shapeLeng;
+	}
+
+	public Geometry getShape() {
+		return shape;
+	}
+
+	public void setShape(Geometry shape) {
+		this.shape = shape;
+	}
+
+	public Double getAreaKmSq() {
+		return areaKmSq;
+	}
+
+	public void setAreaKmSq(Double areaKmSq) {
+		this.areaKmSq = areaKmSq;
+	}
+
+	public Double getQmmJan() {
+		return qmmJan;
+	}
+
+	public void setQmmJan(Double qmmJan) {
+		this.qmmJan = qmmJan;
+	}
+
+	public Double getQmmFev() {
+		return qmmFev;
+	}
+
+	public void setQmmFev(Double qmmFev) {
+		this.qmmFev = qmmFev;
+	}
+
+	public Double getQmmMar() {
+		return qmmMar;
+	}
+
+	public void setQmmMar(Double qmmMar) {
+		this.qmmMar = qmmMar;
+	}
+
+	public Double getQmmAbr() {
+		return qmmAbr;
+	}
+
+	public void setQmmAbr(Double qmmAbr) {
+		this.qmmAbr = qmmAbr;
+	}
+
+	public Double getQmmMai() {
+		return qmmMai;
+	}
+
+	public void setQmmMai(Double qmmMai) {
+		this.qmmMai = qmmMai;
+	}
+
+	public Double getQmmJun() {
+		return qmmJun;
+	}
+
+	public void setQmmJun(Double qmmJun) {
+		this.qmmJun = qmmJun;
+	}
+
+	public Double getQmmJul() {
+		return qmmJul;
+	}
+
+	public void setQmmJul(Double qmmJul) {
+		this.qmmJul = qmmJul;
+	}
+
+	public Double getQmmAgo() {
+		return qmmAgo;
+	}
+
+	public void setQmmAgo(Double qmmAgo) {
+		this.qmmAgo = qmmAgo;
+	}
+
+	public Double getQmmSet() {
+		return qmmSet;
+	}
+
+	public void setQmmSet(Double qmmSet) {
+		this.qmmSet = qmmSet;
+	}
+
+	public Double getQmmOut() {
+		return qmmOut;
+	}
+
+	public void setQmmOut(Double qmmOut) {
+		this.qmmOut = qmmOut;
+	}
+
+	public Double getQmmNov() {
+		return qmmNov;
+	}
+
+	public void setQmmNov(Double qmmNov) {
+		this.qmmNov = qmmNov;
+	}
+
+	public Double getQmmDez() {
+		return qmmDez;
+	}
+
+	public void setQmmDez(Double qmmDez) {
+		this.qmmDez = qmmDez;
+	}
+
+	public String getRgHidro() {
+		return rgHidro;
+	}
+
+	public void setRgHidro(String rgHidro) {
+		this.rgHidro = rgHidro;
+	}
+
+	public String getGdbGeomattrData() {
+		return gdbGeomattrData;
+	}
+
+	public void setGdbGeomattrData(String gdbGeomattrData) {
+		this.gdbGeomattrData = gdbGeomattrData;
+	}
+
+	public Set<InterferenciaModel> getInterferencias() {
+		return interferencias;
+	}
+
+	public void setInterferencias(Set<InterferenciaModel> interferencias) {
+		this.interferencias = interferencias;
+	}
+	
+	
+
 }

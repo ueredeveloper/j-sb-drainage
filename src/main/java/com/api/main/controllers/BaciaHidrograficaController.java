@@ -23,10 +23,10 @@ public class BaciaHidrograficaController {
 	@Autowired
 	private BaciasHidrograficasService service;
 
-	@GetMapping("/find-bh-by-point")
-	public ResponseEntity<List<BaciaHidrograficaModel>> listByCoordinates(@RequestParam Double lat,
+	@GetMapping("/find-by-point")
+	public ResponseEntity<List<BaciaHidrograficaModel>> findByPoint (@RequestParam Double lat,
 			@RequestParam Double lng) {
-		List<BaciaHidrograficaModel> resultList = service.findBhByPoint(lat, lng);
+		List<BaciaHidrograficaModel> resultList = service.findByPoint(lat, lng);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 	

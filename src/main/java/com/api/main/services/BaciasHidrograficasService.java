@@ -19,8 +19,8 @@ public class BaciasHidrograficasService {
 	private BaciaHidrograficaRepository repository;
 
 	@Transactional
-	public List<BaciaHidrograficaModel> findBhByPoint(Double lat, Double lng) {
-		List<Object[]> result = repository.findBhByPoint(lat, lng);
+	public List<BaciaHidrograficaModel> findByPoint(Double lat, Double lng) {
+		List<Object[]> result = repository.findByPoint(lat, lng);
 		List<BaciaHidrograficaModel> response = new ArrayList<>();
 
 		if (result == null || result.isEmpty()) {
