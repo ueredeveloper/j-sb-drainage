@@ -45,4 +45,62 @@ public class BaciaHidrograficaModel {
 		super();
 	}
 
+	public Long getObjectid() {
+		return objectid;
+	}
+
+	public void setObjectid(Long objectid) {
+		this.objectid = objectid;
+	}
+
+	public Double getShapeLeng() {
+		return shapeLeng;
+	}
+
+	public void setShapeLeng(Double shapeLeng) {
+		this.shapeLeng = shapeLeng;
+	}
+
+	public Long getBaciaCod() {
+		return baciaCod;
+	}
+
+	public void setBaciaCod(Long baciaCod) {
+		this.baciaCod = baciaCod;
+	}
+
+	public String getBaciaNome() {
+		return baciaNome;
+	}
+
+	public void setBaciaNome(String baciaNome) {
+		this.baciaNome = baciaNome;
+	}
+
+	public String getGdbGeomattrData() {
+		return gdbGeomattrData;
+	}
+
+	public void setGdbGeomattrData(String gdbGeomattrData) {
+		this.gdbGeomattrData = gdbGeomattrData;
+	}
+
+	public Geometry getShape() {
+		return shape;
+	}
+
+	public void setShape(Geometry shape) {
+		this.shape = shape;
+	}
+
+	public Set<InterferenciaModel> getInterferencias() {
+		return interferencias;
+	}
+
+	public void setInterferencias(Set<InterferenciaModel> interferencias) {
+		this.interferencias = interferencias;
+	}
+	
+	
+
 }
