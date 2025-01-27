@@ -1,68 +1,68 @@
 # To Do List
 
 ## 17 de Junho de 2024
-- [ ] **Buscar por interferência**
-    - Decidir se a busca será feita por coordenadas convertendo-as para string ou criando um círculo no SQL e buscar coordenadas contidas neste círculo, para encontrar proximidade com o ponto solicitado.
+- [ ] **Buscar por interferï¿½ncia**
+    - Decidir se a busca serï¿½ feita por coordenadas convertendo-as para string ou criando um cï¿½rculo no SQL e buscar coordenadas contidas neste cï¿½rculo, para encontrar proximidade com o ponto solicitado.
  	
 ## 31 de Julho de 2024
-- [ ] **Tabelas Acessórias da Interferência**
+- [ ] **Tabelas Acessï¿½rias da Interferï¿½ncia**
     - **Interferencia_Tipo**
 
-| ID  | Descrição                        |
+| ID  | Descriï¿½ï¿½o                        |
 | --- | -------------------------------- |
 | 1   | Superficial                      |
-| 2   | Subterrânea                      |
-| 3   | Lançamento de Águas Pluviais     |
+| 2   | Subterrï¿½nea                      |
+| 3   | Lanï¿½amento de ï¿½guas Pluviais     |
 | 4   | Canal                            |
-| 5   | Caminhão Pipa                    |
-| 6   | Lançamento de Efluentes          |
+| 5   | Caminhï¿½o Pipa                    |
+| 6   | Lanï¿½amento de Efluentes          |
 | 7   | Barragem                         |
 
     - **Tipo_Outorga**
 
-| ID  | Descrição           |
+| ID  | Descriï¿½ï¿½o           |
 | --- | ------------------- |
 | 1   | Outorga             |
-| 2   | Outorga Prévia      |
+| 2   | Outorga Prï¿½via      |
 | 3   | Registro            |
 
     - **Subtipo_Outorga**
 
-| ID  | Descrição           |
+| ID  | Descriï¿½ï¿½o           |
 | --- | ------------------- |
-| 1   | Renovação           |
-| 2   | Modificação         |
-| 3   | Transferência       |
-| 4   | Suspensão/Revogação |
+| 1   | Renovaï¿½ï¿½o           |
+| 2   | Modificaï¿½ï¿½o         |
+| 3   | Transferï¿½ncia       |
+| 4   | Suspensï¿½o/Revogaï¿½ï¿½o |
 | 5   |                     |
 
     - **Situacao_Processo**
 
-| ID  | Descrição                  |
+| ID  | Descriï¿½ï¿½o                  |
 | --- | -------------------------- |
 | 1   | Arquivado                  |
-| 2   | Em Análise                 |
+| 2   | Em Anï¿½lise                 |
 | 3   | Outorgado                  |
 | 4   | Vencida                    |
 | 5   | Arquivado (CNRH 16)        |
-| 6   | Pendência                  |
+| 6   | Pendï¿½ncia                  |
 | 7   | Indeferido                 |
 | 8   | Revogado                   |
 
     - **Tipo_Ato**
 
-| ID  | Descrição        |
+| ID  | Descriï¿½ï¿½o        |
 | --- | ---------------- |
 | 1   | Despacho         |
 | 2   | Portaria         |
 | 3   | Registro         |
-| 4   | Resolução        |
-| 5   | Resolução ANA    |
+| 4   | Resoluï¿½ï¿½o        |
+| 5   | Resoluï¿½ï¿½o ANA    |
 | 6   | Portaria DNAEE   |
 
-    - **Bacia Hidrográfica**
+    - **Bacia Hidrogrï¿½fica**
 
-| ID  | Descrição        |
+| ID  | Descriï¿½ï¿½o        |
 | --- | ---------------- |
 | 1   | Bacia 1          |
 | 2   | Bacia 2          |
@@ -70,56 +70,62 @@
 
     - **UNIDADE_HIDROGRAFICA**
 
-| ID  | Descrição        |
+| ID  | Descriï¿½ï¿½o        |
 | --- | ---------------- |
 | 1   | Unidade 1        |
 | 2   | Unidade 2        |
 | 3   | Unidade 3        |
 
-- [ ] **Tabelas Acessórias Subterrâneo**
+- [ ] **Tabelas Acessï¿½rias Subterrï¿½neo**
     - **SubSistema**
     
-| ID  | Descrição        |
+| ID  | Descriï¿½ï¿½o        |
 | --- | ---------------- |
 | 1   | SubSistema 1     |
 | 2   | SubSistema 2     |
 
-    - **Tipo Poço**
+    - **Tipo Poï¿½o**
 
-| ID  | Descrição        |
+| ID  | Descriï¿½ï¿½o        |
 | --- | ---------------- |
 | 1   | Manual           |
 | 2   | Tubular          |
 
     - **Forma_Captacao**
 
-| ID  | Descrição        |
+| ID  | Descriï¿½ï¿½o        |
 | --- | ---------------- |
 | 1   | Bombeamento      |
 | 2   | Gravidade        |
 
     - **Local_Captacao**
 
-| ID  | Descrição        |
+| ID  | Descriï¿½ï¿½o        |
 | --- | ---------------- |
 | 1   | Nascente         |
 | 2   | Rio              |
-| 3   | Reservatório     |
+| 3   | Reservatï¿½rio     |
 | 4   | Canal            |
 | 5   | Lago Natural     |
 
 
 # 25-09-2024
 
-Verificar a edição do Estado ao editar um endereço.
+Verificar a ediï¿½ï¿½o do Estado ao editar um endereï¿½o.
 
 
 # 15/10/2024
-	Remover o arquivo application.properties do .env para que seja possível mudar update e create banco de dados.
+	Remover o arquivo application.properties do .env para que seja possï¿½vel mudar update e create banco de dados.
 	
 	
-#17/10/2024
+# 17/10/2024
 	Para deploy heroku
 		1 - Mudar application.propeties para supabase
 		2 - remover sql -> spring.jpa.show-sql=false
 		3 - Comentar DatabaseConfig -> //@PropertySource("classpath:.env")
+		
+		
+# 27/01/2025
+- [] NÃ£o estÃ¡ deletando uma interferÃªncia com as finalidades e demandas. O cascade type all nÃ£o estÃ¡ funcionando.
+
+

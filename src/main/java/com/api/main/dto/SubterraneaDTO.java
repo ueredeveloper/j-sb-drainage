@@ -17,10 +17,16 @@ public class SubterraneaDTO extends InterferenciaDTO {
 	private Integer vazaoSistema;
 
 	private Integer vazaoTeste;
-	
-	private Integer vazaoAutorizada; // 
+
+	private Integer vazaoAutorizada; //
 
 	private TipoPocoModel tipoPoco;
+
+	private String sistema;
+
+	private String subsistema;
+
+	private String codPlan;
 
 	public SubterraneaDTO() {
 	}
@@ -96,5 +102,29 @@ public class SubterraneaDTO extends InterferenciaDTO {
 	public void setVazaoAutorizada(Integer vazaoAutorizada) {
 		this.vazaoAutorizada = vazaoAutorizada;
 	}
-	
+
+	public String getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(String sistema) {
+		this.sistema = sistema;
+	}
+
+	public String getSubsistema() {
+		return subsistema;
+	}
+
+	public void setSubsistema(String subsistema) {
+		this.subsistema = subsistema;
+	}
+
+	public String getCodPlan() {
+		return codPlan;
+	}
+
+	public void setCodPlan(String codPlan) {
+		this.codPlan = codPlan;
+	}
+
 }

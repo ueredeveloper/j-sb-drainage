@@ -17,5 +17,8 @@ public interface HidrogeoFraturadoRepository extends JpaRepository<HidrogeoFratu
 
 	@Query(value = "SELECT objectid, cod_plan, sistema, subsistema FROM hidrogeo_fraturado", nativeQuery = true)
 	List<Object[]> listAll();
+	
+	@Query(value = "SELECT objectid, cod_plan, sistema, subsistema FROM hidrogeo_fraturado WHERE cod_plan =:codPlan", nativeQuery = true)
+	List<Object[]> listByCodPlan(@Param("codPlan") String codPlan);
 
 }

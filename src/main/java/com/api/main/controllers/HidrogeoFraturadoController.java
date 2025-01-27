@@ -12,11 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.HidrogeoFraturadoDTO;
-import com.api.main.dto.UnidadeHidrograficaDTO;
 import com.api.main.models.HidrogeoFraturado;
-import com.api.main.models.UnidadeHidrograficaModel;
-import com.api.main.services.HIdrogeoFraturadoService;
-import com.api.main.services.UnidadeHidrograficaService;
+import com.api.main.services.HidrogeoFraturadoService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -24,11 +21,10 @@ import com.api.main.services.UnidadeHidrograficaService;
 public class HidrogeoFraturadoController {
 
 	@Autowired
-	private HIdrogeoFraturadoService service;
+	private HidrogeoFraturadoService service;
 
 	@GetMapping("/find-by-point")
-	public ResponseEntity<List<HidrogeoFraturado>> findByPoint(@RequestParam Double lat,
-			@RequestParam Double lng) {
+	public ResponseEntity<List<HidrogeoFraturado>> findByPoint(@RequestParam Double lat, @RequestParam Double lng) {
 		List<HidrogeoFraturado> resultList = service.findByPoint(lat, lng);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
@@ -37,6 +33,15 @@ public class HidrogeoFraturadoController {
 	public ResponseEntity<List<HidrogeoFraturadoDTO>> listAll() {
 		// Call the service to fetch the list
 		List<HidrogeoFraturadoDTO> resultList = service.listAll();
+
+		// Return the result with HTTP status OK
+		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+	}
+	
+	@GetMapping("/list-by-cod-plan")
+	public ResponseEntity<List<HidrogeoFraturadoDTO>> listByCodPan(@RequestParam String codPlan) {
+		// Call the service to fetch the list
+		List<HidrogeoFraturadoDTO> resultList = service.listByCodPlan(codPlan);
 
 		// Return the result with HTTP status OK
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);

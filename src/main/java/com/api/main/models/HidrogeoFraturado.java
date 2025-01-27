@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.locationtech.jts.geom.Geometry;
 
@@ -84,6 +85,7 @@ public class HidrogeoFraturado {
 	@Column(name = "cod_plan")
 	private String codPlan;
 
+	@Transient
 	@Column(name = "shape", columnDefinition = "geometry(Geometry, 4674)")
 	private Geometry shape;
 

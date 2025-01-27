@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.locationtech.jts.geom.Geometry;
 
@@ -33,7 +34,11 @@ public class BaciaHidrograficaModel {
 
 	@Column(name = "gdb_geomattr_data")
 	private String gdbGeomattrData;
+	// Adiciona transient para ao salvar não ter erro de conversão desta tabela para json
+	//  could not deserialize] with root cause
+	//java.io.StreamCorruptedException: invalid stream header: 30313033
 
+	@Transient
 	@Column(name = "shape", columnDefinition = "geometry(Geometry, 4674)")
 	private Geometry shape;
 
@@ -44,6 +49,15 @@ public class BaciaHidrograficaModel {
 	public BaciaHidrograficaModel() {
 		super();
 	}
+	
+	
+
+	public BaciaHidrograficaModel(Long objectid) {
+		super();
+		this.objectid = objectid;
+	}
+
+
 
 	public Long getObjectid() {
 		return objectid;

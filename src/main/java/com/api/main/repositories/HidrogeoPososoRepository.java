@@ -17,5 +17,9 @@ public interface HidrogeoPososoRepository extends JpaRepository<HidrogeoPoroso, 
 
 	@Query(value = "SELECT objectid, cod_plan, sistema FROM hidrogeo_poroso", nativeQuery = true)
 	List<Object[]> listAll();
+	
+	@Query(value = "SELECT objectid, cod_plan, sistema FROM hidrogeo_poroso WHERE cod_plan =:codPlan", nativeQuery = true)
+	List<Object[]> listByCodPlan(@Param("codPlan") String codPlan);
+	
 
 }

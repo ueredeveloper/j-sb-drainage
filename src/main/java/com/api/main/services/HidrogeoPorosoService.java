@@ -60,5 +60,25 @@ public class HidrogeoPorosoService {
 
 		return response;
 	}
+	
+	@Transactional
+	public List<HidrogeoPorosoDTO> listByCodPlan (String codPlan) {
+		// Fetch data from repository
+		List<Object[]> resultList = repository.listByCodPlan(codPlan);
+		List<HidrogeoPorosoDTO> response = new ArrayList<>();
+
+		// Map the Object[] to DTO
+		for (Object[] row : resultList) {
+			HidrogeoPorosoDTO dto = new HidrogeoPorosoDTO();
+			dto.setObjectId(Long.parseLong((String) row[0].toString()));
+			dto.setCodPlan((String) row[1]);
+			dto.setSistema((String) row[2]);
+			response.add(dto);
+		}
+
+		return response;
+	}
+	
+	
 
 }

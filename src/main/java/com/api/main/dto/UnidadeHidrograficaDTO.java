@@ -7,6 +7,16 @@ public class UnidadeHidrograficaDTO {
 	private String uhLabel;
 	private String baciaCodi;
 	private Long uhCodigo;
+	
+	public UnidadeHidrograficaDTO() {
+		super();
+	}
+	
+	public UnidadeHidrograficaDTO(Long objectid) {
+		super();
+		this.objectid = objectid;
+	}
+
 	public Long getObjectid() {
 		return objectid;
 	}

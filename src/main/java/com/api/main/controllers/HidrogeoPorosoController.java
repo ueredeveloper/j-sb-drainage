@@ -37,5 +37,14 @@ public class HidrogeoPorosoController {
 		// Return the result with HTTP status OK
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
+	
+	@GetMapping("/list-by-cod-plan")
+	public ResponseEntity<List<HidrogeoPorosoDTO>> listByCodPan(@RequestParam String codPlan) {
+		// Call the service to fetch the list
+		List<HidrogeoPorosoDTO> resultList = service.listByCodPlan(codPlan);
+
+		// Return the result with HTTP status OK
+		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+	}
 
 }

@@ -32,10 +32,21 @@ public class SubterraneaModel extends InterferenciaModel {
 
 	@Column()
 	private Integer vazaoTeste; // 
+	
+	@Column(columnDefinition = "varchar(20)")
+	private String sistema;
+	
+	@Column(columnDefinition = "varchar(20)")
+	private String subsistema;
+	
+	@Column(name = "cod_plan")
+	private String codPlan;
 
 	@ManyToOne
 	@JoinColumn(name = "tipoPoco", nullable = true)
 	private TipoPocoModel tipoPoco;
+	
+	
 
 	// Adicionar tipo poco, subsistema código do subsistema
 
@@ -111,5 +122,30 @@ public class SubterraneaModel extends InterferenciaModel {
 		this.tipoPoco = tipoPoco;
 	}
 
+	public String getSistema() {
+		return sistema;
+	}
 
+	public void setSistema(String sistema) {
+		this.sistema = sistema;
+	}
+
+	public String getSubsistema() {
+		return subsistema;
+	}
+
+	public void setSubsistema(String subsistema) {
+		this.subsistema = subsistema;
+	}
+
+	public String getCodPlan() {
+		return codPlan;
+	}
+
+	public void setCodPlan(String codPlan) {
+		this.codPlan = codPlan;
+	}
+	
+	
+	
 }

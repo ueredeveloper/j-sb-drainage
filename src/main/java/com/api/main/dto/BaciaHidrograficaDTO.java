@@ -8,12 +8,21 @@ public class BaciaHidrograficaDTO {
     private String shape;  // This will hold the GeoJSON as a String
 
     // Getters and Setters
-
+    
     public Long getObjectid() {
         return objectid;
     }
 
-    public void setObjectid(Long objectid) {
+    public BaciaHidrograficaDTO() {
+		super();
+	}
+
+	public BaciaHidrograficaDTO(Long objectid) {
+		super();
+		this.objectid = objectid;
+	}
+
+	public void setObjectid(Long objectid) {
         this.objectid = objectid;
     }
 

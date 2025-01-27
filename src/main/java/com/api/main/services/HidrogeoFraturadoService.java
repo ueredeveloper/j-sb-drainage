@@ -16,7 +16,7 @@ import com.api.main.repositories.HidrogeoFraturadoRepository;
 import com.api.main.repositories.HidrogeoPososoRepository;
 
 @Service
-public class HIdrogeoFraturadoService {
+public class HidrogeoFraturadoService {
 
 	@Autowired
 	private HidrogeoFraturadoRepository repository;
@@ -51,6 +51,25 @@ public class HIdrogeoFraturadoService {
 	public List<HidrogeoFraturadoDTO> listAll() {
 		// Fetch data from repository
 		List<Object[]> resultList = repository.listAll();
+		List<HidrogeoFraturadoDTO> response = new ArrayList<>();
+
+		// Map the Object[] to DTO
+		for (Object[] row : resultList) {
+			HidrogeoFraturadoDTO dto = new HidrogeoFraturadoDTO();
+			dto.setObjectId(Long.parseLong((String) row[0].toString()));
+			dto.setCodPlan((String) row[1]);
+			dto.setSistema((String) row[2]);
+			dto.setSubsistema((String) row[3]);
+			response.add(dto);
+		}
+
+		return response;
+	}
+	
+	@Transactional
+	public List<HidrogeoFraturadoDTO> listByCodPlan (String codPlan) {
+		// Fetch data from repository
+		List<Object[]> resultList = repository.listByCodPlan(codPlan);
 		List<HidrogeoFraturadoDTO> response = new ArrayList<>();
 
 		// Map the Object[] to DTO

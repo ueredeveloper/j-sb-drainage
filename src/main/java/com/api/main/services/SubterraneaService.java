@@ -70,6 +70,7 @@ public class SubterraneaService {
 	}
 
 	private void updateSubterraneaAttributes(SubterraneaModel existingSubterranea, SubterraneaModel requestedObject) {
+	
 		existingSubterranea.setLatitude(requestedObject.getLatitude());
 		existingSubterranea.setLongitude(requestedObject.getLongitude());
 		existingSubterranea.setCaesb(requestedObject.getCaesb());
@@ -89,6 +90,10 @@ public class SubterraneaService {
 		existingSubterranea.setSubtipoOutorga(requestedObject.getSubtipoOutorga());
 		existingSubterranea.setSituacaoProcesso(requestedObject.getSituacaoProcesso());
 		existingSubterranea.setTipoAto(requestedObject.getTipoAto());
+		
+		existingSubterranea.setCodPlan(requestedObject.getCodPlan());
+		existingSubterranea.setSistema(requestedObject.getSistema());
+		existingSubterranea.setSubsistema(requestedObject.getSubsistema());
 
 		
 
