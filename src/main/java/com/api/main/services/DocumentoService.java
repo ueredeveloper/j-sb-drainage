@@ -400,32 +400,32 @@ public class DocumentoService {
 	}
 
 	private void saveOrUpdateUsuarios(DocumentoModel toUpdateObject, DocumentoModel originalResponse) {
-
 		Set<UsuarioModel> processedUsuarios = new HashSet<>();
 
 		if (toUpdateObject.getUsuarios() != null) {
-
 			for (UsuarioModel usuario : toUpdateObject.getUsuarios()) {
-				// Verifica se o usuário já existe no banco de dados
+				// Check if the user exists in the database
 				UsuarioModel existingUsuario = usuarioRepository.findById(usuario.getId()).orElse(null);
 
 				if (existingUsuario != null) {
-					// Usuário já existe, adiciona à relação com o documento
+					// Check if the relationship between the user and document already exists
+					boolean relationshipExists = usuarioRepository.existsRelationship(existingUsuario.getId(),
+							toUpdateObject.getId());
+
+					if (!relationshipExists) {
+						existingUsuario.getDocumentos().add(toUpdateObject);
+					}
 					processedUsuarios.add(existingUsuario);
-					existingUsuario.getDocumentos().add(toUpdateObject);
-
 				} else {
-					// Usuário não existe, salva e relaciona ao documento
+					// Save the user if it doesn't exist and relate it to the document
 					UsuarioModel savedUsuario = usuarioRepository.save(usuario);
-					processedUsuarios.add(savedUsuario);
 					savedUsuario.getDocumentos().add(toUpdateObject);
-
+					processedUsuarios.add(savedUsuario);
 				}
 
-				// Log para depuração
-				System.out.println("Usuário processado: " + usuario.getNome() + ", CPF/CNPJ: " + usuario.getCpfCnpj());
+				// Log for debugging
+				System.out.println("Processed user: " + usuario.getNome() + ", CPF/CNPJ: " + usuario.getCpfCnpj());
 			}
-
 		}
 
 		originalResponse.setUsuarios(processedUsuarios);
