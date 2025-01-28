@@ -3,6 +3,7 @@ package com.api.main.dto;
 import com.api.main.models.InterferenciaModel;
 import com.api.main.models.TipoFinalidadeModel;
 
+
 public class FinalidadeDTO {
 
 	private Long id;

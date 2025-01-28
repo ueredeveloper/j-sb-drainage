@@ -2,6 +2,7 @@ package com.api.main.dto;
 
 import com.api.main.models.TipoPocoModel;
 
+
 public class SubterraneaDTO extends InterferenciaDTO {
 
 	private Boolean caesb; // tem caesb () sim () não

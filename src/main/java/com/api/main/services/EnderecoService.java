@@ -1,6 +1,5 @@
 package com.api.main.services;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -13,13 +12,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.api.main.models.DemandaModel;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.InterferenciaModel;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.InterferenciaRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 
 @Service
 public class EnderecoService {
@@ -53,7 +52,8 @@ public class EnderecoService {
 				}
 
 				// Salva todas as interferências associadas ao endereço
-				List<InterferenciaModel> interferencias = interferenciaRepository.saveAll(requestedEndereco.getInterferencias());
+				List<InterferenciaModel> interferencias = interferenciaRepository
+						.saveAll(requestedEndereco.getInterferencias());
 				// Atualiza o conjunto de interferências no endereço
 				requestedEndereco.setInterferencias(new HashSet<>(interferencias));
 			}
@@ -129,7 +129,7 @@ public class EnderecoService {
 
 		Set<Object> result = enderecoRepository.listByKeyword(keyword);
 		Set<EnderecoModel> response = new HashSet<>();
-		
+
 		if (result == null) {
 			System.out.println("No results found for the keyword: " + keyword);
 			return response; // Return an empty list if no results
@@ -143,7 +143,7 @@ public class EnderecoService {
 
 		if (endJson != null) {
 
-			//System.out.println("string " + endJson);
+			// System.out.println("string " + endJson);
 			// Since the structure is a list of objects containing 'endereco', extract them
 			Set<Map<String, EnderecoModel>> tempList = new Gson().fromJson(endJson,
 					new TypeToken<Set<Map<String, EnderecoModel>>>() {

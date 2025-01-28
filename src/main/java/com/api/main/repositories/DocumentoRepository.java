@@ -3,17 +3,18 @@ package com.api.main.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.api.main.models.DocumentoModel;
 
+
 @Repository
 public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long> {
 	/**
 	 * Seleciona documentos por uma palavra chave.
+	 * 
 	 * @param keyword
 	 * @return
 	 */
@@ -63,8 +64,8 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 	 * 
 	 * @param docId
 	 */
-	
+
 	@Query(value = "DELETE FROM usuario_documento WHERE documento_id = :docId AND usuario_id = :usId RETURNING documento_id", nativeQuery = true)
 	Long deleteDocUseRelation(@Param("docId") Long docId, @Param("usId") Long usId);
-	
+
 }

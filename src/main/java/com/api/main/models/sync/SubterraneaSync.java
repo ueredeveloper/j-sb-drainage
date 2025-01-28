@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import org.locationtech.jts.geom.Geometry;
 
+
 @Entity
 @Table(name = "subterranea_sync")
 public class SubterraneaSync {

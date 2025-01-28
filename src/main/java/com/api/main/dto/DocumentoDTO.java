@@ -8,6 +8,7 @@ import com.api.main.models.EnderecoModel;
 import com.api.main.models.ProcessoModel;
 import com.api.main.models.UsuarioModel;
 
+
 public class DocumentoDTO {
 
 	private Long id;

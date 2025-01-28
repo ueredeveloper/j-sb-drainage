@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import com.api.main.models.TipoInterferenciaModel;
 import com.api.main.repositories.TipoInterferenciaRepository;
 
+
 @Service
 public class TipoInterferenciaService {
 	
-
 	@Autowired
 	TipoInterferenciaRepository tipoInterferenciaRepository;
 

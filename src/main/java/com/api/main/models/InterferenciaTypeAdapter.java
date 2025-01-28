@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+
 /**
  * Esta classe implementa a interface `JsonDeserializer` para desserializar 
  * JSONs no modelo adequado, seja `InterferenciaModel` ou sua subclasse `SubterraneaModel`.

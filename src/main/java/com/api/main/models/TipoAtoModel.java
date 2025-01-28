@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
+
 @Entity
 @Table(name = "tipo_ato")
 public class TipoAtoModel {

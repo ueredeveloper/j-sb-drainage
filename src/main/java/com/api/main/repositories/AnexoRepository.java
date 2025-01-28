@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.AnexoModel;
 
+
 @Repository
 public interface AnexoRepository extends JpaRepository<AnexoModel, Long> {
 	

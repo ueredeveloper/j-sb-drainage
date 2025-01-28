@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.ProcessoModel;
 
+
 @Repository
 public interface ProcessoRepository extends JpaRepository<ProcessoModel, Long> {
 

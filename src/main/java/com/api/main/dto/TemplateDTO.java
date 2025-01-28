@@ -4,6 +4,7 @@ import com.api.main.models.DocumentoTipoModel;
 import com.api.main.models.SubtipoOutorgaModel;
 import com.api.main.models.TipoOutorgaModel;
 
+
 public class TemplateDTO {
 
 	private Long id;

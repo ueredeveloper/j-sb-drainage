@@ -2,6 +2,7 @@ package com.api.main.dto;
 
 import java.util.Map;
 
+
 public class DominioDTO {
 
 	private Map<Long, TipoInterferenciaDTO> tipoInterferencia;

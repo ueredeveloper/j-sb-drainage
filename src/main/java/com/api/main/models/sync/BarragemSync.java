@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import org.locationtech.jts.geom.Geometry;
 
+
 @Entity
 @Table(name = "barragem_sync")
 public class BarragemSync {

@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import org.locationtech.jts.geom.Geometry;
 
+
 @Entity
 @Table(name = "lancamento_efluentes_sync") // Replace "barragem" with your desired table name
 public class LancamentoEfluentesSync {

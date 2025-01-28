@@ -1,6 +1,5 @@
 package com.api.main.controllers;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -46,7 +45,7 @@ public class InterferenciaController {
 	}
 
 	@DeleteMapping("/delete")
-	public ResponseEntity<Object> delete (@RequestParam(required = false) Long id) {
+	public ResponseEntity<Object> delete(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
 			InterferenciaModel deleteResponse = interferenciaService.deleteById(id);

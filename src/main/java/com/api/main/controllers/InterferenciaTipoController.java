@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.main.models.TipoInterferenciaModel;
 import com.api.main.services.TipoInterferenciaService;
 
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/interference-type")

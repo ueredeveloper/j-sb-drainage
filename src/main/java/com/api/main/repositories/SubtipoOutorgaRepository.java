@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.SubtipoOutorgaModel;
 
+
 @Repository
 public interface SubtipoOutorgaRepository extends JpaRepository<SubtipoOutorgaModel, Long> {
 

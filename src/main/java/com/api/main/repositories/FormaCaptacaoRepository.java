@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.FormaCaptacaoModel;
 
+
 @Repository
 public interface FormaCaptacaoRepository extends JpaRepository<FormaCaptacaoModel, Long> {
 

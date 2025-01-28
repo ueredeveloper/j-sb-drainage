@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.UsuarioModel;
 
+
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
 

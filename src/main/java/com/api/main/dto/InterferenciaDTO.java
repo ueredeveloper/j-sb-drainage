@@ -15,6 +15,7 @@ import com.api.main.models.TipoOutorgaModel;
 import com.api.main.models.UnidadeHidrograficaModel;
 import com.vividsolutions.jts.geom.Geometry;
 
+
 public class InterferenciaDTO {
 
 	private Long id;

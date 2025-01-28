@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.FinalidadeModel;
 
+
 @Repository
 public interface FinalidadeRepository extends JpaRepository<FinalidadeModel, Long> {
 

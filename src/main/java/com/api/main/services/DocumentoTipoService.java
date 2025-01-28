@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.repositories.DocumentoTipoRepository;
 
+
 @Service
 public class DocumentoTipoService {
-	
-
 	
 	@Autowired
 	private DocumentoTipoRepository documentoTipoService;

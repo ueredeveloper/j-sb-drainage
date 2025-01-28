@@ -15,6 +15,7 @@ import com.api.main.dto.HidrogeoFraturadoDTO;
 import com.api.main.models.HidrogeoFraturado;
 import com.api.main.services.HidrogeoFraturadoService;
 
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/fraturado")

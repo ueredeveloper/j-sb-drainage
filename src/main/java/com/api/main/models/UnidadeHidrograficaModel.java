@@ -13,6 +13,7 @@ import javax.persistence.Transient;
 
 import org.locationtech.jts.geom.Geometry;
 
+
 @Entity
 @Table(name = "unidades_hidrograficas")
 public class UnidadeHidrograficaModel {

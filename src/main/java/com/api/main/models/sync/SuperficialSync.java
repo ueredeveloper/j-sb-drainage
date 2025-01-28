@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import org.locationtech.jts.geom.Geometry;
 
 
+
 @Entity
 @Table(name = "superficial_sync")
 public class SuperficialSync {

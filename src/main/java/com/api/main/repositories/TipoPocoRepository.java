@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.TipoPocoModel;
 
+
 @Repository
 public interface TipoPocoRepository extends JpaRepository<TipoPocoModel, Long> {
 

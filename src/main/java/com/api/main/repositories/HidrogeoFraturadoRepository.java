@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.HidrogeoFraturado;
 
+
 @Repository
 public interface HidrogeoFraturadoRepository extends JpaRepository<HidrogeoFraturado, Long> {
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.TipoFinalidadeModel;
 
+
 @Repository
 public interface TipoFinalidadeRepository extends JpaRepository<TipoFinalidadeModel, Long> {
 

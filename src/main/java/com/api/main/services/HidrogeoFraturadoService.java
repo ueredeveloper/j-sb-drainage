@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.main.dto.HidrogeoFraturadoDTO;
-import com.api.main.dto.HidrogeoPorosoDTO;
 import com.api.main.models.HidrogeoFraturado;
-import com.api.main.models.HidrogeoPoroso;
 import com.api.main.repositories.HidrogeoFraturadoRepository;
-import com.api.main.repositories.HidrogeoPososoRepository;
+
 
 @Service
 public class HidrogeoFraturadoService {
@@ -65,9 +63,9 @@ public class HidrogeoFraturadoService {
 
 		return response;
 	}
-	
+
 	@Transactional
-	public List<HidrogeoFraturadoDTO> listByCodPlan (String codPlan) {
+	public List<HidrogeoFraturadoDTO> listByCodPlan(String codPlan) {
 		// Fetch data from repository
 		List<Object[]> resultList = repository.listByCodPlan(codPlan);
 		List<HidrogeoFraturadoDTO> response = new ArrayList<>();

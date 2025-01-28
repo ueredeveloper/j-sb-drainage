@@ -19,6 +19,7 @@ import com.api.main.dto.TipoOutorgaDTO;
 import com.api.main.dto.TipoPocoDTO;
 import com.api.main.repositories.DominioRepository;
 
+
 @Service
 public class DominioService {
 

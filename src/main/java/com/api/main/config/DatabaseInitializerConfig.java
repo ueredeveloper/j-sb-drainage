@@ -33,6 +33,7 @@ import com.api.main.repositories.TipoOutorgaRepository;
 import com.api.main.repositories.TipoPocoRepository;
 
 
+
 @Configuration
 @RestController
 public class DatabaseInitializerConfig {

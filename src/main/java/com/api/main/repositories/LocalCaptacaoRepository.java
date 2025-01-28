@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.LocalCaptacaoModel;
 
+
 @Repository
 public interface LocalCaptacaoRepository extends JpaRepository<LocalCaptacaoModel, Long> {
 

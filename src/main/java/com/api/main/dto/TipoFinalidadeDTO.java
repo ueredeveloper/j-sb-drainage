@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.api.main.models.FinalidadeModel;
 
+
 public class TipoFinalidadeDTO {
 
 	private Long id;

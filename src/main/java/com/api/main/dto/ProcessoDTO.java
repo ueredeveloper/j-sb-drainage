@@ -7,6 +7,7 @@ import com.api.main.models.AnexoModel;
 import com.api.main.models.DocumentoModel;
 import com.api.main.models.UsuarioModel;
 
+
 public class ProcessoDTO {
 
 	Long id;

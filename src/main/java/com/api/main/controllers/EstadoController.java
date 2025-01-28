@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.main.models.EstadoModel;
 import com.api.main.services.EstadoService;
 
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/state")

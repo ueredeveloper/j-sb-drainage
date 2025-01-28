@@ -2,7 +2,6 @@ package com.api.main.controllers;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.dto.EnderecoDTO;
 import com.api.main.models.EnderecoModel;
-import com.api.main.models.InterferenciaModel;
 import com.api.main.services.EnderecoService;
 
 @RestController

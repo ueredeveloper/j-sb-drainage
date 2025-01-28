@@ -20,6 +20,7 @@ import com.api.main.dto.DocumentoTipoDTO;
 import com.api.main.models.DocumentoTipoModel;
 import com.api.main.services.DocumentoTipoService;
 
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/document-type")

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.SituacaoProcessoModel;
 
+
 @Repository
 public interface SituacaoProcessoRepository extends JpaRepository<SituacaoProcessoModel, Long> {
 

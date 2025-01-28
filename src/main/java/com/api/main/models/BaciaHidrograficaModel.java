@@ -15,6 +15,7 @@ import org.locationtech.jts.geom.Geometry;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 @Entity
 @Table(name = "bacias_hidrograficas")
 public class BaciaHidrograficaModel {

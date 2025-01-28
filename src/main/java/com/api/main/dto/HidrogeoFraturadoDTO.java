@@ -1,5 +1,6 @@
 package com.api.main.dto;
 
+
 public class HidrogeoFraturadoDTO {
 
 	private Long objectid;

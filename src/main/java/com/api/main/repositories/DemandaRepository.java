@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.DemandaModel;
 
+
 @Repository
 public interface DemandaRepository extends JpaRepository<DemandaModel, Long> {
 

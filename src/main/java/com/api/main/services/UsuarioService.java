@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.api.main.models.UsuarioModel;
 import com.api.main.repositories.UsuarioRepository;
 
+
 @Service
 public class UsuarioService {
 

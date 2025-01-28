@@ -1,7 +1,5 @@
 package com.api.main.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -9,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,11 +19,11 @@ import com.api.main.models.InterferenciaModel;
 import com.api.main.models.SubterraneaModel;
 import com.api.main.services.SubterraneaService;
 
+
 @RestController
 @RequestMapping("/interference/subterranean")
 public class SubterraneaController {
 
-	
 	@Autowired
 	private SubterraneaService subterraneaService;
 
@@ -46,8 +43,9 @@ public class SubterraneaController {
 			return ResponseEntity.notFound().build();
 		}
 	}
+
 	@DeleteMapping("/delete")
-	public ResponseEntity<Object> delete (@RequestParam(required = false) Long id) {
+	public ResponseEntity<Object> delete(@RequestParam(required = false) Long id) {
 		if (id != null) {
 			// Delete a specific object by ID
 			InterferenciaModel deleteResponse = subterraneaService.deleteById(id);

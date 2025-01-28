@@ -16,14 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.main.models.AnexoModel;
-import com.api.main.models.ProcessoModel;
 import com.api.main.services.AnexoService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/attachment")
 public class AnexoController {
-	
 
 	@Autowired
 	private AnexoService anexoService;
@@ -48,7 +46,6 @@ public class AnexoController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
 
 	@DeleteMapping("/delete-by-id")
 	public ResponseEntity<Object> delete(@RequestParam(required = false) Long id) {
@@ -61,7 +58,7 @@ public class AnexoController {
 				return ResponseEntity.notFound().build();
 			}
 		}
-		return null; 
+		return null;
 	}
 
 }

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.TipoAtoModel;
 
+
+
 @Repository
 public interface TipoAtoRepository extends JpaRepository<TipoAtoModel, Long> {
 

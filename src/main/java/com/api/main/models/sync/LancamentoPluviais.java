@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import org.locationtech.jts.geom.Geometry;
 
+
 @Entity
 @Table(name = "lancamento_pluviais_sync")
 public class LancamentoPluviais {

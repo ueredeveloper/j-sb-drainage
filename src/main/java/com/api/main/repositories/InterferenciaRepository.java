@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.main.models.InterferenciaModel;
 
+
 @Repository
 public interface InterferenciaRepository extends JpaRepository<InterferenciaModel, Long> {
 

@@ -8,6 +8,8 @@ import javax.persistence.Transient;
 
 import org.locationtech.jts.geom.Geometry;
 
+
+
 @Entity
 @Table(name = "hidrogeo_fraturado")
 public class HidrogeoFraturado {

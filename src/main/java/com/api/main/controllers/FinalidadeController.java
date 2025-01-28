@@ -22,6 +22,7 @@ import com.api.main.dto.FinalidadeDTO;
 import com.api.main.models.FinalidadeModel;
 import com.api.main.services.FinalidadeService;
 
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/purpouse")
