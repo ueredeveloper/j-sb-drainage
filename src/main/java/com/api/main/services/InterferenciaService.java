@@ -8,6 +8,10 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.PrecisionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +64,16 @@ public class InterferenciaService {
 				existingInterferencia.setLongitude(requestedObject.getLongitude());
 				existingInterferencia.setGeometry(requestedObject.getGeometry());
 				existingInterferencia.setTipoInterferencia(requestedObject.getTipoInterferencia());
+				
+				// Cria uma fábrica de geometrias
+		        GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4674);
 
+		        // Cria um ponto com as coordenadas fornecidas
+		        Point point = geometryFactory.createPoint(new Coordinate(requestedObject.getLongitude(), requestedObject.getLatitude()));
+
+		        existingInterferencia.setGeometry(point);
+		         System.out.println("save interferencia service, if id != null ");
+		        
 				if (requestedObject.getBaciaHidrografica() != null) {
 					Long objectId = requestedObject.getBaciaHidrografica().getObjectid();
 					Optional<BaciaHidrograficaModel> baciaOpt = baciaRepository.findById(objectId);
@@ -125,6 +138,8 @@ public class InterferenciaService {
 				savedInterferencia = createNewInterferencia(requestedObject);
 			}
 		} else {
+			
+			System.out.println("save interferencia service, if id == null ");
 			// Criação de uma nova interferência com finalidades
 			savedInterferencia = createNewInterferencia(requestedObject);
 		}
@@ -159,6 +174,16 @@ public class InterferenciaService {
 		// Não é possível salvar com as finalidades, pois o id da interferência na
 		// finalidade neste momento ainda está vazio.
 		requestedObject.setFinalidades(null);
+		
+		System.out.println("int service, create new interferencia ");
+		
+		// Salva coordenadas em formato geometry
+        GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4674);
+
+        // Cria um ponto com as coordenadas fornecidas
+        Point point = geometryFactory.createPoint(new Coordinate(requestedObject.getLongitude(), requestedObject.getLatitude()));
+
+        requestedObject.setGeometry(point);
 
 		// Salvar a interferência antes de associar as finalidades
 		InterferenciaModel savedInterferencia = interferenciaRepository.save(requestedObject);

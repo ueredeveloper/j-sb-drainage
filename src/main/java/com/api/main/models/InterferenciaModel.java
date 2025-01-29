@@ -17,8 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.vividsolutions.jts.geom.Geometry;
-
+import org.locationtech.jts.geom.Geometry;
 
 @Entity
 @Table(name = "interferencia")
@@ -37,7 +36,7 @@ public class InterferenciaModel implements Serializable {
 	@Column(nullable = true, unique = false)
 	private Double longitude;
 
-	@Column(nullable = true, unique = false)
+	@Column(nullable = true, unique = false, columnDefinition = "geometry(POINT, 4674)")
 	private Geometry geometry;
 
 	@ManyToOne
@@ -82,14 +81,11 @@ public class InterferenciaModel implements Serializable {
 	public InterferenciaModel() {
 		super();
 	}
-	
-	
+
 	public InterferenciaModel(Long id) {
 		super();
 		this.id = id;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -207,6 +203,4 @@ public class InterferenciaModel implements Serializable {
 		return serialVersionUID;
 	}
 
-
-	
 }

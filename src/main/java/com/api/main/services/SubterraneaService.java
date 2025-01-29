@@ -7,6 +7,10 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.PrecisionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +27,6 @@ import com.api.main.repositories.DemandaRepository;
 import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.FinalidadeRepository;
 import com.api.main.repositories.SubterraneaRepository;
-
 
 @Service
 public class SubterraneaService {
@@ -71,9 +74,20 @@ public class SubterraneaService {
 	}
 
 	private void updateSubterraneaAttributes(SubterraneaModel existingSubterranea, SubterraneaModel requestedObject) {
-	
+
+		System.out.println("sub service, update sub att ");
 		existingSubterranea.setLatitude(requestedObject.getLatitude());
 		existingSubterranea.setLongitude(requestedObject.getLongitude());
+
+		// Salva coordenadas em formato geometry
+		GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4674);
+
+		// Cria um ponto com as coordenadas fornecidas
+		Point point = geometryFactory
+				.createPoint(new Coordinate(requestedObject.getLongitude(), requestedObject.getLatitude()));
+
+		existingSubterranea.setGeometry(point);
+
 		existingSubterranea.setCaesb(requestedObject.getCaesb());
 		existingSubterranea.setNivelEstatico(requestedObject.getNivelEstatico());
 		existingSubterranea.setNivelDinamico(requestedObject.getNivelDinamico());
@@ -83,20 +97,18 @@ public class SubterraneaService {
 		existingSubterranea.setVazaoOutorgavel(requestedObject.getVazaoOutorgavel());
 		existingSubterranea.setVazaoTeste(requestedObject.getVazaoTeste());
 		existingSubterranea.setVazaoSistema(requestedObject.getVazaoSistema());
-		
-		existingSubterranea.setGeometry(requestedObject.getGeometry());
+
+		// existingSubterranea.setGeometry(requestedObject.getGeometry());
 		// Relacionamentos
 		existingSubterranea.setTipoInterferencia(requestedObject.getTipoInterferencia());
 		existingSubterranea.setTipoOutorga(requestedObject.getTipoOutorga());
 		existingSubterranea.setSubtipoOutorga(requestedObject.getSubtipoOutorga());
 		existingSubterranea.setSituacaoProcesso(requestedObject.getSituacaoProcesso());
 		existingSubterranea.setTipoAto(requestedObject.getTipoAto());
-		
+
 		existingSubterranea.setCodPlan(requestedObject.getCodPlan());
 		existingSubterranea.setSistema(requestedObject.getSistema());
 		existingSubterranea.setSubsistema(requestedObject.getSubsistema());
-
-		
 
 		// Guardar finalidades temporariamente e limpar no objeto para salvar
 		// interferência
@@ -125,6 +137,19 @@ public class SubterraneaService {
 
 		Set<DemandaModel> demandas = requestedObject.getDemandas();
 		requestedObject.setDemandas(new HashSet<>());
+
+		// Salva coordenadas em formato geometry
+		GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4674);
+		
+		System.out.println("sub serv create new lat " + requestedObject.getLatitude());
+
+		// Cria um ponto com as coordenadas fornecidas
+		Point point = geometryFactory
+				.createPoint(new Coordinate(requestedObject.getLongitude(), requestedObject.getLatitude()));
+
+		requestedObject.setGeometry(point);
+
+		System.out.println("sub service, create new subt ");
 
 		// Salvar a interferência primeiro
 		SubterraneaModel savedInterferencia = subterraneaRepository.save(requestedObject);
@@ -174,6 +199,8 @@ public class SubterraneaService {
 	@Transactional
 	public SubterraneaModel update(Long id, SubterraneaModel requestedObject) {
 
+		System.out.println("sub service, udpate  ");
+
 		SubterraneaModel originalResponse = subterraneaRepository.findById(id).map((SubterraneaModel record) -> {
 
 			// Atualizar atributos da interferência
@@ -214,6 +241,15 @@ public class SubterraneaService {
 				}
 
 			}
+			
+			// Salva coordenadas em formato geometry
+			GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4674);
+
+			// Cria um ponto com as coordenadas fornecidas
+			Point point = geometryFactory
+					.createPoint(new Coordinate(requestedObject.getLongitude(), requestedObject.getLatitude()));
+
+			record.setGeometry(point);
 
 			SubterraneaModel persistedSubterranea = subterraneaRepository.save(record);
 
@@ -260,7 +296,7 @@ public class SubterraneaService {
 		safeResponse.setNivelEstatico(originalResponse.getNivelEstatico());
 		safeResponse.setNivelDinamico(originalResponse.getNivelDinamico());
 		safeResponse.setProfundidade(originalResponse.getProfundidade());
-		
+
 		safeResponse.setTipoPoco(originalResponse.getTipoPoco());
 		// Vazões
 		safeResponse.setVazaoOutorgavel(originalResponse.getVazaoOutorgavel());

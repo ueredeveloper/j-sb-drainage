@@ -3,6 +3,8 @@ package com.api.main.dto;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.locationtech.jts.geom.Geometry;
+
 import com.api.main.models.BaciaHidrograficaModel;
 import com.api.main.models.DemandaModel;
 import com.api.main.models.EnderecoModel;
@@ -13,7 +15,7 @@ import com.api.main.models.TipoAtoModel;
 import com.api.main.models.TipoInterferenciaModel;
 import com.api.main.models.TipoOutorgaModel;
 import com.api.main.models.UnidadeHidrograficaModel;
-import com.vividsolutions.jts.geom.Geometry;
+
 
 
 public class InterferenciaDTO {
