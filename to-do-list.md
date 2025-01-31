@@ -128,4 +128,9 @@ Verificar a edi��o do Estado ao editar um endere�o.
 # 27/01/2025
 - [] Não está deletando uma interferência com as finalidades e demandas. O cascade type all não está funcionando.
 
+# 
 
+
+# 31/01/2025
+- [X Não está criando a coluna shape na compilação para o replit.
+	Criei a coluna com sql: ALTER TABLE hidrogeo_poroso ADD COLUMN shape GEOMETRY(Geometry, 4674);
