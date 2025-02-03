@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.main.dto.DTDemandaDTO;
 import com.api.main.dto.InterferenciaDTO;
 import com.api.main.models.InterferenciaModel;
 import com.api.main.services.InterferenciaService;
@@ -59,5 +60,11 @@ public class InterferenciaController {
 			return ResponseEntity.ok("{\"info\": \"Id não informado!!!\"}");
 
 		}
+	}
+
+	@GetMapping("/search-by-end-id")
+	public ResponseEntity<Set<DTDemandaDTO>> getDemandaByAddressId(@RequestParam Long endId) {
+		Set<DTDemandaDTO> result = interferenciaService.getDemandaByAddressId(endId);
+		return ResponseEntity.ok(result);
 	}
 }

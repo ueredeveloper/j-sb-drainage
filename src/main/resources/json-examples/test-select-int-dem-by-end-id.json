@@ -1,0 +1,134 @@
+[
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 5,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 31,
+		"vol_mensal_mm": 906.75
+	},
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 1,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 31,
+		"vol_mensal_mm": 906.75
+	},
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 12,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 31,
+		"vol_mensal_mm": 906.75
+	},
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 7,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 31,
+		"vol_mensal_mm": 906.75
+	},
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 4,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 30,
+		"vol_mensal_mm": 877.5
+	},
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 11,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 30,
+		"vol_mensal_mm": 877.5
+	},
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 6,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 30,
+		"vol_mensal_mm": 877.5
+	},
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 9,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 30,
+		"vol_mensal_mm": 877.5
+	},
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 8,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 31,
+		"vol_mensal_mm": 906.75
+	},
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 2,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 28,
+		"vol_mensal_mm": 818.9999999999999
+	},
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 3,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 31,
+		"vol_mensal_mm": 906.75
+	},
+	{
+		"id_interferencia": 57,
+		"vazao_lh": 2925,
+		"vazao_ld": 29250,
+		"mes": 10,
+		"vazao_mh": 2.925,
+		"tempo_h": 10,
+		"vol_max_md": 29.25,
+		"periodo_d": 31,
+		"vol_mensal_mm": 906.75
+	}
+]

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.main.dto.DTUsuarioDTO;
 import com.api.main.models.UsuarioModel;
 import com.api.main.services.UsuarioService;
 
@@ -33,9 +34,15 @@ public class UsuarioController {
 		return ResponseEntity.ok(savedUsuario);
 	}
 
+	@GetMapping("/list-by-name")
+	public ResponseEntity<Set<UsuarioModel>> listUsersByName(@RequestParam(required = false) String name) {
+		Set<UsuarioModel> resultList = usuarioService.listUsersByName(name);
+		return ResponseEntity.status(HttpStatus.OK).body(resultList);
+	}
+	
 	@GetMapping("/list-by-keyword")
-	public ResponseEntity<Set<UsuarioModel>> listUsersByName(@RequestParam(required = false) String keyword) {
-		Set<UsuarioModel> resultList = usuarioService.listUsersByName(keyword);
+	public ResponseEntity<Set<DTUsuarioDTO>> listUsersByKeyword (@RequestParam(required = false) String keyword) {
+		Set<DTUsuarioDTO> resultList = usuarioService.listUserByKeyword(keyword);
 		return ResponseEntity.status(HttpStatus.OK).body(resultList);
 	}
 	

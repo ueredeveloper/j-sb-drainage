@@ -15,6 +15,7 @@ import org.locationtech.jts.geom.PrecisionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.main.dto.DTDemandaDTO;
 import com.api.main.models.BaciaHidrograficaModel;
 import com.api.main.models.EnderecoModel;
 import com.api.main.models.FinalidadeModel;
@@ -27,6 +28,9 @@ import com.api.main.repositories.EnderecoRepository;
 import com.api.main.repositories.FinalidadeRepository;
 import com.api.main.repositories.InterferenciaRepository;
 import com.api.main.repositories.UnidadeHidrograficaRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -48,6 +52,9 @@ public class InterferenciaService {
 	@Autowired
 	private UnidadeHidrograficaRepository unidadeRepository;
 
+	@Autowired
+	private ObjectMapper objectMapper;
+
 	@Transactional
 	public InterferenciaModel save(InterferenciaModel requestedObject) {
 		InterferenciaModel savedInterferencia;
@@ -64,16 +71,17 @@ public class InterferenciaService {
 				existingInterferencia.setLongitude(requestedObject.getLongitude());
 				existingInterferencia.setGeometry(requestedObject.getGeometry());
 				existingInterferencia.setTipoInterferencia(requestedObject.getTipoInterferencia());
-				
+
 				// Cria uma fábrica de geometrias
-		        GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4674);
+				GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4674);
 
-		        // Cria um ponto com as coordenadas fornecidas
-		        Point point = geometryFactory.createPoint(new Coordinate(requestedObject.getLongitude(), requestedObject.getLatitude()));
+				// Cria um ponto com as coordenadas fornecidas
+				Point point = geometryFactory
+						.createPoint(new Coordinate(requestedObject.getLongitude(), requestedObject.getLatitude()));
 
-		        existingInterferencia.setGeometry(point);
-		         System.out.println("save interferencia service, if id != null ");
-		        
+				existingInterferencia.setGeometry(point);
+				System.out.println("save interferencia service, if id != null ");
+
 				if (requestedObject.getBaciaHidrografica() != null) {
 					Long objectId = requestedObject.getBaciaHidrografica().getObjectid();
 					Optional<BaciaHidrograficaModel> baciaOpt = baciaRepository.findById(objectId);
@@ -138,7 +146,7 @@ public class InterferenciaService {
 				savedInterferencia = createNewInterferencia(requestedObject);
 			}
 		} else {
-			
+
 			System.out.println("save interferencia service, if id == null ");
 			// Criação de uma nova interferência com finalidades
 			savedInterferencia = createNewInterferencia(requestedObject);
@@ -174,16 +182,17 @@ public class InterferenciaService {
 		// Não é possível salvar com as finalidades, pois o id da interferência na
 		// finalidade neste momento ainda está vazio.
 		requestedObject.setFinalidades(null);
-		
+
 		System.out.println("int service, create new interferencia ");
-		
+
 		// Salva coordenadas em formato geometry
-        GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4674);
+		GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4674);
 
-        // Cria um ponto com as coordenadas fornecidas
-        Point point = geometryFactory.createPoint(new Coordinate(requestedObject.getLongitude(), requestedObject.getLatitude()));
+		// Cria um ponto com as coordenadas fornecidas
+		Point point = geometryFactory
+				.createPoint(new Coordinate(requestedObject.getLongitude(), requestedObject.getLatitude()));
 
-        requestedObject.setGeometry(point);
+		requestedObject.setGeometry(point);
 
 		// Salvar a interferência antes de associar as finalidades
 		InterferenciaModel savedInterferencia = interferenciaRepository.save(requestedObject);
@@ -267,6 +276,43 @@ public class InterferenciaService {
 		safeResponse.setLongitude(originalResponse.getLongitude());
 
 		return safeResponse;
+	}
+
+	public Set<DTDemandaDTO> getDemandaByAddressId(Long endId) {
+		// Recuperando os dados brutos da consulta
+		Set<Object[]> rawResults = interferenciaRepository.listByAddressId(endId);
+		Set<DTDemandaDTO> result = new HashSet<>();
+
+		// Iterando pelos resultados e mapeando para o DTO
+		for (Object[] row : rawResults) {
+
+			DTDemandaDTO dto = new DTDemandaDTO();
+
+			// Mapeando os campos da consulta para o DTO
+			dto.setInd_id(((Number) row[0]).longValue());
+			dto.setEnd_id(((Number) row[1]).longValue());
+			dto.setEnd_logradouro((String) row[2]);
+			dto.setInt_latitude((Double) row[3]);
+			dto.setInt_longitude((Double) row[4]);
+			dto.setSub_tp_id(((Number) row[5]).longValue());
+
+			String jsonString = (String) row[6];
+			if (jsonString != null) {
+				try {
+					// Converte a String JSON para JsonNode
+					JsonNode jsonNode = objectMapper.readTree(jsonString);
+					dto.setDt_demanda(jsonNode);
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			dto.setVol_anual_ma(((Number) row[7]).doubleValue());
+			// Adicionando o DTO ao conjunto de resultados
+			result.add(dto);
+		}
+
+		return result;
 	}
 
 }

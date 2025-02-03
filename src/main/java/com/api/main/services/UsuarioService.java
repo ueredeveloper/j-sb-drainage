@@ -1,5 +1,6 @@
 package com.api.main.services;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -9,8 +10,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.main.dto.DTDemandaDTO;
+import com.api.main.dto.DTUsuarioDTO;
 import com.api.main.models.UsuarioModel;
 import com.api.main.repositories.UsuarioRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Service
@@ -18,6 +24,9 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private ObjectMapper objectMapper;
 
 	public UsuarioModel saveUsuario(UsuarioModel usuario) {
 		return usuarioRepository.save(usuario);
@@ -28,8 +37,8 @@ public class UsuarioService {
 	}
 
 	@Transactional
-	public Set<UsuarioModel> listUsersByName(String keyword) {
-		return usuarioRepository.listUsersByName(keyword);
+	public Set<UsuarioModel> listUsersByName(String name) {
+		return usuarioRepository.listUsersByName(name);
 	}
 	
 	@Transactional
@@ -67,6 +76,36 @@ public class UsuarioService {
 
 		return originalResponse;
 
+	}
+	
+	@Transactional
+	public Set<DTUsuarioDTO> listUserByKeyword (String keywork) {
+		// Recuperando os dados brutos da consulta
+		Set<Object[]> rawResults = usuarioRepository.listUserByKeyword(keywork);
+		Set<DTUsuarioDTO> result = new HashSet<>();
+
+		// Iterando pelos resultados e mapeando para o DTO
+		for (Object[] row : rawResults) {
+
+			DTUsuarioDTO dto = new DTUsuarioDTO();
+
+			/// Mapeando os campos da consulta para o DTO
+	        dto.setUs_id(row[0] != null ? ((Number) row[0]).longValue() : null);
+	        dto.setUs_nome((String) row[1]);
+	        dto.setUs_cpf_cnpj(row[2] != null ? Long.parseLong(row[2].toString()) : null);
+	        dto.setUs_doc_id(row[3] != null && !row[3].toString().trim().isEmpty() ? Long.parseLong(row[3].toString()) : null);
+
+	        dto.setDoc_end(row[4] != null ? Long.parseLong(row[4].toString()) : null);
+	        dto.setDoc_sei(row[5] != null ? Long.parseLong(row[5].toString()) : null);
+	        dto.setProc_sei(row[6] != null ? Long.parseLong(row[6].toString()) : null);
+	        dto.setEnd_id(row[7] != null ? Long.parseLong(row[7].toString()) : null);
+	        dto.setEnd_logradouro((String) row[8]);
+			
+			// Adicionando o DTO ao conjunto de resultados
+			result.add(dto);
+		}
+
+		return result;
 	}
 
 }

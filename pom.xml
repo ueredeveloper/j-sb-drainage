@@ -63,10 +63,11 @@
 
 		<!-- Hibernate Spatial -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-spatial</artifactId>
-			<version>5.4.24.Final</version>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-spatial</artifactId>
+		    <version>5.4.9.Final</version> <!-- This version should be compatible with Java 8 -->
 		</dependency>
+
 
 		<!-- Geolatte (opcional, apenas se necessário) -->
 		<dependency>
@@ -95,6 +96,7 @@
 			<artifactId>dotenv-java</artifactId>
 			<version>2.2.0</version>
 		</dependency>
+		
 	</dependencies>
 
 	<build>
