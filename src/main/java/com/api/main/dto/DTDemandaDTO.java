@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class DTDemandaDTO {
 
-	private Long ind_id;
+	private Long int_id;
 	private Long end_id;
 	private String end_logradouro;
 	private Double int_latitude;
@@ -18,12 +18,12 @@ public class DTDemandaDTO {
 		super();
 	}
 
-	public Long getInd_id() {
-		return ind_id;
+	public Long getInt_id() {
+		return int_id;
 	}
 
-	public void setInd_id(Long ind_id) {
-		this.ind_id = ind_id;
+	public void setInt_id(Long int_id) {
+		this.int_id = int_id;
 	}
 
 	public Long getEnd_id() {

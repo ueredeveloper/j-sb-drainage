@@ -289,7 +289,7 @@ public class InterferenciaService {
 			DTDemandaDTO dto = new DTDemandaDTO();
 
 			// Mapeando os campos da consulta para o DTO
-			dto.setInd_id(((Number) row[0]).longValue());
+			dto.setInt_id(((Number) row[0]).longValue());
 			dto.setEnd_id(((Number) row[1]).longValue());
 			dto.setEnd_logradouro((String) row[2]);
 			dto.setInt_latitude((Double) row[3]);

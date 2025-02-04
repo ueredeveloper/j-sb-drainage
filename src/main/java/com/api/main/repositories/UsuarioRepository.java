@@ -25,9 +25,10 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
 	@Query(value = "SELECT COUNT(ud) > 0 FROM usuario u " + "JOIN usuario_documento ud ON ud.usuario_id = u.id "
 			+ "WHERE u.id = :usuarioId AND ud.documento_id = :documentoId", nativeQuery = true)
 	boolean existsRelationship(@Param("usuarioId") Long usuarioId, @Param("documentoId") Long documentoId);
+	//us_nome}&us_cpf_cnpj=${us_cpf_cnpj}&doc_sei=${doc_sei}&proc_sei=${proc_sei
 	
-	
-	 @Query(value = "SELECT _u.id AS us_id, " +
+	 @Query(value = "SELECT " +
+	 			"_u.id AS us_id, " +
 	            "_u.nome AS us_nome, " +
 	            "_u.cpf_cnpj AS us_cpf_cnpj, " +
 	            "_ud.documento_id us_doc_id," +
@@ -41,11 +42,11 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
 	            "LEFT JOIN documento _d ON _d.id = _ud.documento_id " +
 	            "LEFT JOIN processo _p ON _p.id = _d.processo " +
 	            "LEFT JOIN endereco _e ON _e.id = _d.endereco " +
-	            "WHERE _u.nome LIKE LOWER(CONCAT('%', :keywork, '%')) " +
-	            "OR LOWER(CAST(_u.cpf_cnpj AS VARCHAR)) LIKE LOWER(CONCAT('%', :keywork, '%')) " +
-	            "OR LOWER(CAST(_d.numero_sei AS VARCHAR)) LIKE LOWER(CONCAT('%', :keywork, '%')) " +
-	            "OR LOWER(_p.numero) LIKE LOWER(CONCAT('%', :keywork, '%'))", 
+	            "WHERE LOWER(CAST(_u.nome AS VARCHAR)) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+	            "OR LOWER(CAST(_u.cpf_cnpj AS VARCHAR)) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+	            "OR LOWER(CAST(_d.numero_sei AS VARCHAR)) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+	            "OR LOWER(CAST(_p.numero AS VARCHAR)) LIKE LOWER(CONCAT('%', :keyword, '%'))", 
 	            nativeQuery = true)
-	    Set<Object[]> listUserByKeyword (@Param("keywork") String keywork);
+	    Set<Object[]> listUserByKeyword (@Param("keyword") String keyword);
 
 }

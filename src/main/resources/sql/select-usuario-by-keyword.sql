@@ -1,8 +1,10 @@
+
 SELECT
+_p.numero, 
   _u.id us_id, 
   _u.nome us_nome,
   _u.cpf_cnpj us_cpf_cnpj, 
-  '' us_doc_id,
+  _ud.documento_id us_doc_id,
 
   _d.endereco AS doc_end, 
   _d.numero_sei AS doc_sei,
@@ -16,7 +18,7 @@ SELECT
   LEFT JOIN processo _p ON _p.id = _d.processo
   LEFT JOIN endereco _e ON _e.id = _d.endereco
   where 
-  	_u.nome LIKE '%456.%' 
-	 OR _u.cpf_cnpj::varchar(255) LIKE '%456.%' 
-		OR _d.numero_sei::varchar(255) LIKE '%456.%' 
-		  OR _p.numero::varchar(255) LIKE '%456.%'  
+  	_u.nome LIKE '%456.123%' 
+	 OR _u.cpf_cnpj::text LIKE '%456.123%' 
+		OR _d.numero_sei::text LIKE '%456.123%' 
+		  OR _p.numero LIKE '%456.123%' 

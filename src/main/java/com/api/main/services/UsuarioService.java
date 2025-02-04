@@ -79,9 +79,11 @@ public class UsuarioService {
 	}
 	
 	@Transactional
-	public Set<DTUsuarioDTO> listUserByKeyword (String keywork) {
+	public Set<DTUsuarioDTO> listUserByKeyword (String keyword) {
+		
+		System.out.println(keyword);
 		// Recuperando os dados brutos da consulta
-		Set<Object[]> rawResults = usuarioRepository.listUserByKeyword(keywork);
+		Set<Object[]> rawResults = usuarioRepository.listUserByKeyword(keyword);
 		Set<DTUsuarioDTO> result = new HashSet<>();
 
 		// Iterando pelos resultados e mapeando para o DTO
