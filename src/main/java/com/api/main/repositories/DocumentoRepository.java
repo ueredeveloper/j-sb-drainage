@@ -37,7 +37,7 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 			+ "LEFT JOIN _d.endereco _e " + "LEFT JOIN _d.processo _p "
 			+ "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
 
-	List<Object> listByKeyword(@Param("keyword") String keyword);
+	List<Object> listByKeyword1(@Param("keyword") String keyword);
 
 	/**
 	 * Seleciona documentos pelo id do usuário.
@@ -58,6 +58,66 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 			+ "JOIN usuario _u ON _u.id = _ud.usuario_id " + "WHERE _u.id = :userId", nativeQuery = true)
 
 	List<Object> listByUserId(@Param("userId") Long userId);
+	
+	
+	@Query(value = "SELECT CONCAT (\r\n"
+			+ "'{', \r\n"
+			+ "'\"documento\"', ':', \r\n"
+			+ "'{'\r\n"
+			+ "'\"id\"',':','\"', _d.id,'\"',',',\r\n"
+			+ "'\"numero\"',':','\"', _d.numero,'\"',',',\r\n"
+			+ "'\"numeroSei\"',':','\"', _d.numero_sei,'\"',',',\r\n"
+			+ "\r\n"
+			+ "'\"endereco\"', ':',\r\n"
+			+ "CASE WHEN _e.id IS NOT NULL\r\n"
+			+ "THEN CONCAT('{', \r\n"
+			+ "'\"','id','\"',':','\"',_e.id,'\"',',',\r\n"
+			+ "'\"','logradouro','\"',':','\"',_e.logradouro,'\"',\r\n"
+			+ "'}'\r\n"
+			+ ")\r\n"
+			+ "ELSE 'null'\r\n"
+			+ "END, ','\r\n"
+			+ "'\"', 'tipoDocumento', '\"', ':',\r\n"
+			+ "CASE WHEN _td.id IS NOT NULL\r\n"
+			+ "THEN CONCAT('{', \r\n"
+			+ "'\"','id','\"',':','\"',_td.id,'\"',',',\r\n"
+			+ "'\"','descricao','\"',':','\"',_td.descricao,'\"',\r\n"
+			+ "'}'\r\n"
+			+ ")\r\n"
+			+ "ELSE 'null'\r\n"
+			+ "END, ','\r\n"
+			+ "'\"', 'processo', '\"', ':',\r\n"
+			+ "CASE WHEN _p.id IS NOT NULL\r\n"
+			+ "THEN CONCAT('{', \r\n"
+			+ "'\"','id','\"',':','\"',_p.id,'\"',',',\r\n"
+			+ "'\"','numero','\"',':','\"',_p.numero,'\"',',',\r\n"
+			+ "'\"','anexo','\"',':',\r\n"
+			+ "CASE WHEN _a.id IS NOT NULL\r\n"
+			+ "THEN CONCAT('{', \r\n"
+			+ "'\"','id','\"',':','\"',_a.id,'\"',',',\r\n"
+			+ "'\"','numero','\"',':','\"',_a.numero,'\"',\r\n"
+			+ "'}'\r\n"
+			+ ")\r\n"
+			+ "ELSE 'null'\r\n"
+			+ "END, \r\n"
+			+ "'}'\r\n"
+			+ ")\r\n"
+			+ "ELSE 'null'\r\n"
+			+ "END\r\n"
+			+ ",'}'\r\n"
+			+ ",'}'\r\n"
+			+ ")\r\n"
+			+ "from documento _d\r\n"
+			+ "LEFT JOIN endereco _e on _e.id = _d.endereco\r\n"
+			+ "LEFT JOIN documento_tipo _td on _td.id = _d.tipo_documento\r\n"
+			+ "LEFT JOIN processo _p on _p.id = _d.processo\r\n"
+			+ "LEFT JOIN anexo _a on _p.anexo = _a.id\r\n"
+			+ "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))"
+			, nativeQuery = true)
+
+	List<Object> listByKeyword(@Param("keyword") String keyword);
+	
+	
 
 	/**
 	 * Delete o relacionamento entre um usuário e um documento.

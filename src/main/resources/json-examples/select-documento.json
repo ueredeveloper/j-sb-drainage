@@ -1,0 +1,20 @@
+{
+	"documento": {
+		"id": "88",
+		"numero": "123/456",
+		"numeroSei": "4567899875",
+		"endereco": {
+			"id": "46",
+			"logradouro": "Rua Borges Landeiro, Apt 123456789 "
+		},
+		"tipoDocumento": {
+			"id": "3",
+			"descricao": "Requerimento"
+		},
+		"processo": {
+			"id": "43",
+			"numero": "123.456+789",
+			"anexo": null
+		}
+	}
+}
