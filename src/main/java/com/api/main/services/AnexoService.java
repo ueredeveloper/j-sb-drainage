@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -34,58 +35,55 @@ public class AnexoService {
 
 	@Transactional
 	public AnexoModel save(AnexoModel requestedObject) {
-		Long id = requestedObject.getId();
-		AnexoModel originalResponse = null;
+		// Id do anexo se tiver
+	    Long id = requestedObject.getId();
+	    // Numero do anexo para busca
+	    String anexoNumero = requestedObject.getNumero();
+	    AnexoModel originalResponse = null;
 
-		if (id != null && anexoRepository.existsById(id)) {
-			originalResponse = anexoRepository.findById(id).map((AnexoModel record) -> {
+	    if (id != null && anexoRepository.existsById(id)) {
+	        originalResponse = anexoRepository.findById(id).map((AnexoModel record) -> {
+	            record.setNumero(anexoNumero);
+	            AnexoModel editedObject = anexoRepository.save(record);
+	            return createSafeResponse(editedObject);
+	        }).orElse(null);
+	    }
 
-				record.setNumero(requestedObject.getNumero());
+	    if (originalResponse == null) {
+	    	Set<ProcessoModel> processos = requestedObject.getProcessos();
+	        // Primeiro, salva o Anexo antes de processar os Processos
+	        requestedObject = anexoRepository.save(new AnexoModel(requestedObject.getNumero()));
 
-				AnexoModel editedObject = anexoRepository.save(record);
-				return createSafeResponse(editedObject);
-			}).orElse(null);
-		}
+	        // Agora, salva os Processos, se houver
+	        if (processos != null && !processos.isEmpty()) {
+	            for (ProcessoModel object : processos) {
+	                if (object.getUsuario() != null) {
+	                    if (object.getUsuario().getId() == null) {
+	                        UsuarioModel user = usuarioRepository.save(object.getUsuario());
+	                        object.setUsuario(user);
+	                    } else {
+	                        UsuarioModel existingUser = usuarioRepository.findById(object.getUsuario().getId())
+	                                .orElseThrow(() -> new EntityNotFoundException(
+	                                        "Usuario with ID " + object.getUsuario().getId() + " not found."));
+	                        existingUser.setNome(object.getUsuario().getNome());
+	                        object.setUsuario(existingUser);
+	                    }
+	                }
 
-		if (originalResponse == null) {
-			// Salva as interferências, se houver
-			if (requestedObject.getProcessos() != null && !requestedObject.getProcessos().isEmpty()) {
-				for (ProcessoModel object : requestedObject.getProcessos()) {
+	                object.setAnexo(requestedObject); // Agora, o Anexo já está salvo e gerenciado
+	            }
 
-					if (object.getUsuario() != null) {
-						if (object.getUsuario().getId() == null) {
-							// Save new Anexo if ID is null
-							UsuarioModel user = usuarioRepository.save(object.getUsuario());
-							object.setUsuario(user);
-						} else {
-							// Update existing Anexo if ID is present
-							UsuarioModel existingUser = usuarioRepository.findById(object.getUsuario().getId())
-									.orElseThrow(() -> new EntityNotFoundException(
-											"Usuario with ID " + object.getUsuario().getId() + " not found."));
+	            // Salva os Processos associados ao Anexo
+	            List<ProcessoModel> objects = processoRepository.saveAll(processos);
+	            requestedObject.setProcessos(new HashSet<>(objects));
+	        }
 
-							existingUser.setNome(object.getUsuario().getNome());
+	        originalResponse = requestedObject;
+	    }
 
-							object.setUsuario(existingUser);
-						}
-					}
-
-					object.setAnexo(requestedObject); // Relaciona a interferência com o endereço
-				}
-
-				// Salva todas as interferências associadas ao endereço
-				List<ProcessoModel> objects = processoRepository.saveAll(requestedObject.getProcessos());
-				// Atualiza o conjunto de interferências no endereço
-				requestedObject.setProcessos(new HashSet<>(objects));
-			}
-
-			// Salva o endereço com as interferências atualizadas
-			originalResponse = anexoRepository.save(requestedObject);
-
-		}
-
-		return createSafeResponse(originalResponse);
-
+	    return createSafeResponse(originalResponse);
 	}
+
 
 	@Transactional
 	public List<AnexoModel> getAll() {
