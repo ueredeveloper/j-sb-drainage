@@ -37,6 +37,7 @@ public class HidrogeoPorosoService {
 			model.setObjectId(Long.parseLong((String) row[0].toString()));
 			model.setCodPlan((String) row[1]);
 			model.setSistema((String) row[2]);
+			model.setqMedia((Double)row[3]);
 
 			response.add(model);
 		}
@@ -56,6 +57,7 @@ public class HidrogeoPorosoService {
 			dto.setObjectId(Long.parseLong((String) row[0].toString()));
 			dto.setCodPlan((String) row[1]);
 			dto.setSistema((String) row[2]);
+			dto.setqMedia((Double)row[3]);
 			response.add(dto);
 		}
 

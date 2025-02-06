@@ -8,7 +8,8 @@ BEGIN
     SELECT 
 	 	hp.objectid::INTEGER,
 		hp.cod_plan::TEXT,
-		hp.sistema::TEXT
+		hp.sistema::TEXT,
+		hp.q_media::DOUBLE PRECISION
     FROM hidrogeo_poroso hp
     WHERE ST_Contains(hp.shape, ST_SetSRID(ST_MakePoint(longitude, latitude), 4674));
 END;

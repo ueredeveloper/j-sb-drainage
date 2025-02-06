@@ -9,7 +9,8 @@ BEGIN
 	 	hf.objectid::INTEGER,
 		hf.cod_plan::TEXT,
 		hf.sistema::TEXT,
-		hf.subsistema::TEXT
+		hf.subsistema::TEXT,
+		hf.vazao::DOUBLE PRECISION 
     FROM hidrogeo_fraturado hf
     WHERE ST_Contains(hf.shape, ST_SetSRID(ST_MakePoint(longitude, latitude), 4674));
 END;

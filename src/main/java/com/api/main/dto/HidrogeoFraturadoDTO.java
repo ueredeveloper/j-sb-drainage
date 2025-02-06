@@ -7,6 +7,7 @@ public class HidrogeoFraturadoDTO {
 	private String codPlan;
 	private String sistema;
 	private String subsistema;
+	private Double vazao;
 
 	public Long getObjectId() {
 		return objectid;
@@ -40,4 +41,20 @@ public class HidrogeoFraturadoDTO {
 		this.subsistema = subsistema;
 	}
 
+	public Long getObjectid() {
+		return objectid;
+	}
+
+	public void setObjectid(Long objectid) {
+		this.objectid = objectid;
+	}
+
+	public Double getVazao() {
+		return vazao;
+	}
+
+	public void setVazao(Double vazao) {
+		this.vazao = vazao;
+	}
+	
 }

@@ -25,18 +25,17 @@ hs_err_pid*
 target/**
 /target/
 
-
-# database
-#src/main/resources/application.properties
-#*.properties
-# password
+# Ignorar arquivos de configuração sensíveis
+src/main/resources/application.properties
+*.properties
 .env
 
-# replit
-.cache/replit/__replit_disk_meta.json
-#.replit
+# Ignorar arquivos do Replit
+.replit
 .replit.backup
-#*.replit
+.cache/replit/__replit_disk_meta.json
+*.replit
+
 
 
 
