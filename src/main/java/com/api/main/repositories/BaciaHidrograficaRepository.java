@@ -13,6 +13,7 @@ import com.api.main.models.BaciaHidrograficaModel;
 @Repository
 public interface BaciaHidrograficaRepository extends JpaRepository<BaciaHidrograficaModel, Long> {
 
+	
 	@Query(value = "SELECT * FROM find_bh_by_point(:lng, :lat)", nativeQuery = true)
 	List<Object[]> findByPoint(@Param("lat") Double lat, @Param("lng") Double lng);
 

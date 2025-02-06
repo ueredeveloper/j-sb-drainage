@@ -1,8 +1,4 @@
-#compile = "javac -classpath .:target/dependency/* -d . $(find . -type f -name '*.java')"
-
-run = "mvn package && java -jar target/j-sb-drainage-1.12.5.jar"
-
-entrypoint = "Main.java"
+run = "mvn clean package && java -jar target/j-sb-drainage-2.0.1.jar"
 hidden = ["**/*.class"]
 
 [packager]
@@ -63,3 +59,7 @@ mainClass = "Main"
 [[ports]]
 localPort = 8080
 externalPort = 80
+
+[deployment]
+run = ["sh", "-c", "mvn clean package && java -jar target/j-sb-drainage-2.0.1.jar"]
+deploymentTarget = "cloudrun"

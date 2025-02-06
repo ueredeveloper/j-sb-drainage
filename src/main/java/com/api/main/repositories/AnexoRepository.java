@@ -14,6 +14,7 @@ import com.api.main.models.AnexoModel;
 public interface AnexoRepository extends JpaRepository<AnexoModel, Long> {
 	
 
+	
 	/*@Query("SELECT DISTINCT a FROM AnexoModel a LEFT JOIN _a.processos p WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_a.numero) LIKE %:keyword%)")
 	List<AnexoModel> listByKeyword(String keyword);*/
 	

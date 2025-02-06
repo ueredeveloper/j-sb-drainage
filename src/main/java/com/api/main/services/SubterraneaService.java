@@ -31,6 +31,7 @@ import com.api.main.repositories.SubterraneaRepository;
 @Service
 public class SubterraneaService {
 
+	
 	@Autowired
 	private SubterraneaRepository subterraneaRepository;
 	@Autowired
@@ -419,6 +420,7 @@ public class SubterraneaService {
 					existing.setSubfinalidade(requested.getSubfinalidade());
 					existing.setQuantidade(requested.getQuantidade());
 					existing.setConsumo(requested.getConsumo());
+					existing.setTotal(requested.getTotal());
 
 					// Verificar se é necessário atualizar a interferência associada
 					if (requested.getInterferencia() != null) {

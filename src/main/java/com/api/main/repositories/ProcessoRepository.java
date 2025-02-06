@@ -13,6 +13,7 @@ import com.api.main.models.ProcessoModel;
 @Repository
 public interface ProcessoRepository extends JpaRepository<ProcessoModel, Long> {
 
+	
 	@Query("SELECT CONCAT('{', " +
 		       "'\"processo\"', ':', '{', " +
 		           "'\"id\"', ':', _p.id, ',', " +

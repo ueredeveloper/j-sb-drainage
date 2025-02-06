@@ -134,3 +134,9 @@ Verificar a edi��o do Estado ao editar um endere�o.
 # 31/01/2025
 - [X Não está criando a coluna shape na compilação para o replit.
 	Criei a coluna com sql: ALTER TABLE hidrogeo_poroso ADD COLUMN shape GEOMETRY(Geometry, 4674);
+
+#06/02/2025
+- [] Verificar busca por documento. Busca por número do documento, endereço se possível etc. Não está buscando
+	pelo número do documento, por exemplo: 140918752
+	
+	
