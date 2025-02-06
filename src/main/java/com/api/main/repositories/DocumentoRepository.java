@@ -33,9 +33,12 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 			+ "THEN CONCAT('{', '\"id\"', ':', _p.id, ',', '\"numero\"', ':', '\"', _p.numero, '\"', ',', "
 			+ "'\"anexo\"', ':', " + "CASE WHEN _p.anexo.id IS NOT NULL "
 			+ "THEN CONCAT('{', '\"id\"', ':', _p.anexo.id, ',', '\"numero\"', ':', '\"', _p.anexo.numero, '\"', '}') "
-			+ "ELSE 'null' " + "END, '}') " + "ELSE 'null' " + "END, '}}') " + "FROM DocumentoModel _d "
-			+ "LEFT JOIN _d.endereco _e " + "LEFT JOIN _d.processo _p "
-			+ "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+			+ "ELSE 'null' " + "END, '}') " + "ELSE 'null' " + "END, '}}') " 
+			+ "FROM DocumentoModel _d "
+			+ "LEFT JOIN _d.endereco _e " 
+			+ "LEFT JOIN _d.processo _p "
+			+ "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%'))) "
+			+ "OR (:keyword IS NULL OR :keyword = '' OR LOWER(_d.numero) LIKE LOWER(CONCAT('%', :keyword, '%')))")
 
 	List<Object> listByKeyword1(@Param("keyword") String keyword);
 
@@ -112,7 +115,9 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 			+ "LEFT JOIN documento_tipo _td on _td.id = _d.tipo_documento\r\n"
 			+ "LEFT JOIN processo _p on _p.id = _d.processo\r\n"
 			+ "LEFT JOIN anexo _a on _p.anexo = _a.id\r\n"
-			+ "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%')))"
+			+ "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%'))) "
+			+ "OR (:keyword IS NULL OR :keyword = '' OR LOWER(_d.numero) LIKE LOWER(CONCAT('%', :keyword, '%'))) "
+			+ "OR (:keyword IS NULL OR :keyword = '' OR LOWER(_d.numero_sei) LIKE LOWER(CONCAT('%', :keyword, '%')))"
 			, nativeQuery = true)
 
 	List<Object> listByKeyword(@Param("keyword") String keyword);

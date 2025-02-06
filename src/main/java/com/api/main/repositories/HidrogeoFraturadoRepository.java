@@ -16,10 +16,10 @@ public interface HidrogeoFraturadoRepository extends JpaRepository<HidrogeoFratu
 	@Query(value = "SELECT * FROM find_fraturado_by_point(:lng, :lat)", nativeQuery = true)
 	List<Object[]> findByPoint(@Param("lat") Double lat, @Param("lng") Double lng);
 
-	@Query(value = "SELECT objectid, cod_plan, sistema, subsistema FROM hidrogeo_fraturado", nativeQuery = true)
+	@Query(value = "SELECT objectid, cod_plan, sistema, subsistema, vazao FROM hidrogeo_fraturado", nativeQuery = true)
 	List<Object[]> listAll();
 	
-	@Query(value = "SELECT objectid, cod_plan, sistema, subsistema FROM hidrogeo_fraturado WHERE cod_plan =:codPlan", nativeQuery = true)
+	@Query(value = "SELECT objectid, cod_plan, sistema, subsistema, vazao FROM hidrogeo_fraturado WHERE cod_plan =:codPlan", nativeQuery = true)
 	List<Object[]> listByCodPlan(@Param("codPlan") String codPlan);
 
 }

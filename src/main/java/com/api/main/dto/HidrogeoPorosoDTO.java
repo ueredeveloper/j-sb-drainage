@@ -1,6 +1,5 @@
 package com.api.main.dto;
 
-
 public class HidrogeoPorosoDTO {
 
 	private Long objectid;

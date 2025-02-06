@@ -1,8 +1,12 @@
 /**
 Busca o subsistema por uma ponto (lat, lng)
 */
+
+--DROP FUNCTION find_poroso_by_point;
+
+
 CREATE OR REPLACE FUNCTION find_poroso_by_point(longitude DOUBLE PRECISION, latitude DOUBLE PRECISION)
-RETURNS TABLE (objectid INTEGER, cod_plan TEXT, sistema TEXT) AS $$
+RETURNS TABLE (objectid INTEGER, cod_plan TEXT, sistema TEXT, q_media DOUBLE PRECISION) AS $$
 BEGIN
     RETURN QUERY
     SELECT 

@@ -25,6 +25,7 @@ hs_err_pid*
 target/**
 /target/
 
+<<<<<<< HEAD
 # Ignorar arquivos de configuração sensíveis
 src/main/resources/application.properties
 *.properties
@@ -36,6 +37,20 @@ src/main/resources/application.properties
 .cache/replit/__replit_disk_meta.json
 *.replit
 
+=======
+
+# database
+src/main/resources/application.properties
+*.properties
+# password
+.env
+
+# replit
+.cache/replit/__replit_disk_meta.json
+.replit
+.replit.backup
+*.replit
+>>>>>>> fix/busca-vazao-subsistema
 
 
 
