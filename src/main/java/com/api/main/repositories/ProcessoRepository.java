@@ -34,7 +34,8 @@ public interface ProcessoRepository extends JpaRepository<ProcessoModel, Long> {
 		       "FROM ProcessoModel _p " + 
 		       "LEFT JOIN _p.anexo _a " +
 		       "LEFT JOIN _p.usuario _u " +
-		       "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_p.numero) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+		       "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_p.numero) LIKE LOWER(CONCAT('%', :keyword, '%'))) " +
+		       "OR (:keyword IS NULL OR :keyword = '' OR LOWER(_u.nome) LIKE LOWER(CONCAT('%', :keyword, '%')))")
 		List<Object> listByKeyword(@Param("keyword") String keyword);
 
 

@@ -38,6 +38,7 @@ public class HidrogeoFraturadoService {
 			model.setCodPlan((String) row[1]);
 			model.setSistema((String) row[2]);
 			model.setSubsistema((String) row[3]);
+			model.setVazao((Double) row[4]);
 
 			response.add(model);
 		}
@@ -58,6 +59,7 @@ public class HidrogeoFraturadoService {
 			dto.setCodPlan((String) row[1]);
 			dto.setSistema((String) row[2]);
 			dto.setSubsistema((String) row[3]);
+			dto.setVazao((Double) row[4]);
 			response.add(dto);
 		}
 
@@ -77,6 +79,7 @@ public class HidrogeoFraturadoService {
 			dto.setCodPlan((String) row[1]);
 			dto.setSistema((String) row[2]);
 			dto.setSubsistema((String) row[3]);
+			dto.setVazao((Double) row[4]);
 			response.add(dto);
 		}
 

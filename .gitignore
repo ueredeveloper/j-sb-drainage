@@ -27,16 +27,16 @@ target/**
 
 
 # database
-#src/main/resources/application.properties
-#*.properties
+src/main/resources/application.properties
+*.properties
 # password
 .env
 
 # replit
 .cache/replit/__replit_disk_meta.json
-#.replit
+.replit
 .replit.backup
-#*.replit
+*.replit
 
 
 

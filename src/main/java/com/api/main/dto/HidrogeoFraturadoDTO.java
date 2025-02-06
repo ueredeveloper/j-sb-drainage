@@ -1,12 +1,12 @@
 package com.api.main.dto;
 
-
 public class HidrogeoFraturadoDTO {
 
 	private Long objectid;
 	private String codPlan;
 	private String sistema;
 	private String subsistema;
+	private Double vazao;
 
 	public Long getObjectId() {
 		return objectid;
@@ -38,6 +38,22 @@ public class HidrogeoFraturadoDTO {
 
 	public void setSubsistema(String subsistema) {
 		this.subsistema = subsistema;
+	}
+
+	public Long getObjectid() {
+		return objectid;
+	}
+
+	public void setObjectid(Long objectid) {
+		this.objectid = objectid;
+	}
+
+	public Double getVazao() {
+		return vazao;
+	}
+
+	public void setVazao(Double vazao) {
+		this.vazao = vazao;
 	}
 
 }
