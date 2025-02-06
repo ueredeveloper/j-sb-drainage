@@ -55,9 +55,4 @@ public class HidrogeoFraturadoDTO {
 	public void setVazao(Double vazao) {
 		this.vazao = vazao;
 	}
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> fix/busca-vazao-subsistema
 }

@@ -17,7 +17,6 @@ import com.api.main.models.TipoOutorgaModel;
 import com.api.main.models.UnidadeHidrograficaModel;
 
 
-
 public class InterferenciaDTO {
 
 	private Long id;

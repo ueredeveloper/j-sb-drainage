@@ -16,6 +16,7 @@ import com.api.main.repositories.HidrogeoFraturadoRepository;
 @Service
 public class HidrogeoFraturadoService {
 
+	
 	@Autowired
 	private HidrogeoFraturadoRepository repository;
 
@@ -38,11 +39,7 @@ public class HidrogeoFraturadoService {
 			model.setCodPlan((String) row[1]);
 			model.setSistema((String) row[2]);
 			model.setSubsistema((String) row[3]);
-<<<<<<< HEAD
-			model.setVazao((Double)row[4]);
-=======
 			model.setVazao((Double) row[4]);
->>>>>>> fix/busca-vazao-subsistema
 
 			response.add(model);
 		}
@@ -63,11 +60,7 @@ public class HidrogeoFraturadoService {
 			dto.setCodPlan((String) row[1]);
 			dto.setSistema((String) row[2]);
 			dto.setSubsistema((String) row[3]);
-<<<<<<< HEAD
-			dto.setVazao((Double)row[4]);
-=======
 			dto.setVazao((Double) row[4]);
->>>>>>> fix/busca-vazao-subsistema
 			response.add(dto);
 		}
 
