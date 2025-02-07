@@ -130,17 +130,10 @@ public class ProcessoService {
 			// Check if Usuario needs to be saved or updated
 			if (updateProcesso.getUsuario() != null) {
 				if (updateProcesso.getUsuario().getId() != null) {
-					// Save new Usuario if ID is null
-					//UsuarioModel usuario = usuarioRepository.save(updateProcesso.getUsuario());
-					//existingProcesso.setUsuario(usuario);
-					
 					// Update existing Usuario if ID is present
 					UsuarioModel existingUsuario = usuarioRepository.findById(updateProcesso.getUsuario().getId())
 							.orElseThrow(() -> new EntityNotFoundException(
 									"Usuario with ID " + updateProcesso.getUsuario().getId() + " not found."));
-					//existingUsuario.setNome(updateProcesso.getUsuario().getNome());
-					//existingUsuario.setCpfCnpj(updateProcesso.getUsuario().getCpfCnpj());
-					//usuarioRepository.save(existingUsuario);
 					existingProcesso.setUsuario(existingUsuario);
 					
 				} 

@@ -136,7 +136,8 @@ Verificar a edi��o do Estado ao editar um endere�o.
 	Criei a coluna com sql: ALTER TABLE hidrogeo_poroso ADD COLUMN shape GEOMETRY(Geometry, 4674);
 
 #06/02/2025
-- [] Verificar busca por documento. Busca por número do documento, endereço se possível etc. Não está buscando
+- [X] Verificar busca por documento. Busca por número do documento, endereço se possível etc. Não está buscando
 	pelo número do documento, por exemplo: 140918752
+		Agora busca por logradouro, número do processo, número do documento e número sei do documento.
 	
 	

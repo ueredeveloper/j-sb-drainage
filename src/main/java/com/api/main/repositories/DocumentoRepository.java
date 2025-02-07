@@ -117,7 +117,8 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 			+ "LEFT JOIN anexo _a on _p.anexo = _a.id\r\n"
 			+ "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%'))) "
 			+ "OR (:keyword IS NULL OR :keyword = '' OR LOWER(_d.numero) LIKE LOWER(CONCAT('%', :keyword, '%'))) "
-			+ "OR (:keyword IS NULL OR :keyword = '' OR LOWER(_d.numero_sei) LIKE LOWER(CONCAT('%', :keyword, '%')))"
+			+ "OR (:keyword IS NULL OR :keyword = '' OR LOWER(_d.numero_sei) LIKE LOWER(CONCAT('%', :keyword, '%'))) "
+			+ "OR (:keyword IS NULL OR :keyword = '' OR LOWER(_p.numero) LIKE LOWER(CONCAT('%', :keyword, '%')))"
 			, nativeQuery = true)
 
 	List<Object> listByKeyword(@Param("keyword") String keyword);

@@ -34,13 +34,13 @@ public interface InterferenciaRepository extends JpaRepository<InterferenciaMode
 		    
 			+  "'\"unidadeHidrografica\"', ':', "
 			+  "CASE WHEN _i.unidade_hidrografica IS NOT NULL "
-			+  "THEN CONCAT('{', '\"objectid\"', ':', _i.unidade_hidrografica, '}') "
+			+  "THEN CONCAT('{', '\"objectid\"', ':', _uh.objectid,',','\"uhNome\"',':','\"',_uh.uh_nome,'\"', '}') "
 			+  "ELSE 'null' "
 			+  "END, ',', "
 			
 			+  "'\"baciaHidrografica\"', ':', "
 			+  "CASE WHEN _i.bacia_hidrografica IS NOT NULL "
-			+  "THEN CONCAT('{', '\"objectid\"', ':', _i.bacia_hidrografica, '}') "
+			+  "THEN CONCAT('{', '\"objectid\"', ':', _bh.objectid,',','\"baciaNome\"',':','\"',_bh.bacia_nome,'\"', '}') "
 			+  "ELSE 'null' "
 			+  "END, ',', "
 			
@@ -108,14 +108,15 @@ public interface InterferenciaRepository extends JpaRepository<InterferenciaMode
             + "LEFT JOIN situacao_processo _sp ON _sp.id = _i.situacao_processo "
             + "LEFT JOIN tipo_ato _ta ON _ta.id = _i.tipo_ato "
             + "LEFT JOIN unidades_hidrograficas _uh ON _uh.objectid = _i.unidade_hidrografica "
-            + "LEFT JOIN bacias_hidrograficas _ba ON _ba.objectid = _i.bacia_hidrografica "
+            + "LEFT JOIN bacias_hidrograficas _bh ON _bh.objectid = _i.bacia_hidrografica "
             + "LEFT JOIN endereco _e ON _e.id = _i.endereco " 
             + "LEFT JOIN subterranea _s ON _i.id = _s.id "
             + "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%'))) "
             + "GROUP BY "
 				 		+"_s.id, _d.id, _i.id,_i.latitude,_i.longitude,_e.id,_e.logradouro,_s.vazao_outorgavel,"
 				 		+"_s.vazao_teste,_s.vazao_sistema,_s.profundidade,_s.nivel_estatico,_s.nivel_dinamico,"
-				 		+"_s.caesb,_s.tipo_poco,_ti.id,_to.id,_so.id,_sp.id,_ta.id",
+				 		+"_s.caesb,_s.tipo_poco,_ti.id,_to.id,_so.id,_sp.id,_ta.id,_uh.objectid,_uh.uh_nome,"
+				 		+ "_bh.objectid,_bh.bacia_nome",
     nativeQuery = true)
 	Set<String> listByLogradouro(@Param("keyword") String keyword);
 	
