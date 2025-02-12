@@ -144,4 +144,8 @@ Verificar a edi��o do Estado ao editar um endere�o.
 - [] Deletar interferência
 	Não está funcionando, não deleta, apesar de sumir no frontend.
 	
+#12/02/2025
+- [X] Melhora pesquisa de anexo, adiconar processos com id e usuários com id.
+
+	
 	
