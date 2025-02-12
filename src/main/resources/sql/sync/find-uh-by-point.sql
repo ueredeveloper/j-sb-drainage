@@ -1,6 +1,9 @@
 /***
 * Busca unidade hidrográfica a partir de um ponto (lat, lng).
 */
+
+--DROP FUNCTION find_uh_by_point;
+
 CREATE OR REPLACE FUNCTION find_uh_by_point(longitude DOUBLE PRECISION, latitude DOUBLE PRECISION)
 RETURNS TABLE (objectid INTEGER, uh_codigo INTEGER, uh_label TEXT, bacia_codi TEXT, uh_nome TEXT ) AS $$
 BEGIN
@@ -11,7 +14,6 @@ BEGIN
 		uh.uh_label::TEXT,
 		uh.bacia_codi::TEXT, 
         uh.uh_nome::TEXT
-		
     FROM unidades_hidrograficas uh
     WHERE ST_Contains(uh.shape, ST_SetSRID(ST_MakePoint(longitude, latitude), 4674));
 END;

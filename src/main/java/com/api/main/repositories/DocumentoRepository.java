@@ -12,36 +12,7 @@ import com.api.main.models.DocumentoModel;
 
 @Repository
 public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long> {
-	/**
-	 * Seleciona documentos por uma palavra chave.
-	 * 
-	 * @param keyword
-	 * @return
-	 */
-	@Query("SELECT " + "CONCAT('{', '\"documento\"', ':', '{', " + "'\"id\"', ':', _d.id, ',', "
-			+ "'\"numero\"', ':', '\"', COALESCE(_d.numero, ''), '\"', ',', "
-			+ "'\"numeroSei\"', ':', '\"', COALESCE(_d.numeroSei, ''), '\"', ',', " + "'\"endereco\"', ':', "
-			+ "CASE WHEN _e.id IS NOT NULL "
-			+ "THEN CONCAT('{', '\"id\"', ':', _e.id, ',', '\"logradouro\"', ':', '\"', _e.logradouro, '\"', '}') "
-			+ "ELSE 'null' " + "END, ',', " +
-
-			"'\"tipoDocumento\"', ':', " + "CASE WHEN _d.tipoDocumento.id IS NOT NULL "
-			+ "THEN CONCAT('{', '\"id\"', ':', _d.tipoDocumento.id, ',', '\"descricao\"', ':','\"', _d.tipoDocumento.descricao, '\"', '}') ELSE 'null' END,',', "
-			+
-
-			"'\"processo\"', ':', " + "CASE WHEN _p.id IS NOT NULL "
-			+ "THEN CONCAT('{', '\"id\"', ':', _p.id, ',', '\"numero\"', ':', '\"', _p.numero, '\"', ',', "
-			+ "'\"anexo\"', ':', " + "CASE WHEN _p.anexo.id IS NOT NULL "
-			+ "THEN CONCAT('{', '\"id\"', ':', _p.anexo.id, ',', '\"numero\"', ':', '\"', _p.anexo.numero, '\"', '}') "
-			+ "ELSE 'null' " + "END, '}') " + "ELSE 'null' " + "END, '}}') " 
-			+ "FROM DocumentoModel _d "
-			+ "LEFT JOIN _d.endereco _e " 
-			+ "LEFT JOIN _d.processo _p "
-			+ "WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(_e.logradouro) LIKE LOWER(CONCAT('%', :keyword, '%'))) "
-			+ "OR (:keyword IS NULL OR :keyword = '' OR LOWER(_d.numero) LIKE LOWER(CONCAT('%', :keyword, '%')))")
-
-	List<Object> listByKeyword1(@Param("keyword") String keyword);
-
+	
 	/**
 	 * Seleciona documentos pelo id do usuário.
 	 * 
@@ -75,7 +46,8 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 			+ "CASE WHEN _e.id IS NOT NULL\r\n"
 			+ "THEN CONCAT('{', \r\n"
 			+ "'\"','id','\"',':','\"',_e.id,'\"',',',\r\n"
-			+ "'\"','logradouro','\"',':','\"',_e.logradouro,'\"',\r\n"
+			+ "'\"','logradouro','\"',':','\"',_e.logradouro,'\"',',',\r\n"
+			+ "'\"','bairro','\"',':','\"',_e.bairro,'\"',\r\n"
 			+ "'}'\r\n"
 			+ ")\r\n"
 			+ "ELSE 'null'\r\n"

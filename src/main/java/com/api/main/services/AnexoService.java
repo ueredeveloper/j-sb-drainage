@@ -230,7 +230,10 @@ public class AnexoService {
 					safeResponse.getProcessos()
 							.add(new ProcessoModel(object.getId(), object.getNumero(),
 									new AnexoModel(object.getAnexo().getId(), object.getAnexo().getNumero()),
-									new UsuarioModel(object.getUsuario().getId(), object.getUsuario().getNome())));
+									new UsuarioModel(
+											object.getUsuario().getId(), 
+											object.getUsuario().getNome(), 
+											object.getUsuario().getCpfCnpj())));
 				}
 			}
 		}

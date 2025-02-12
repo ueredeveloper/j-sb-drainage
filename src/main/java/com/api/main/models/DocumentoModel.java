@@ -12,9 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "documento")
@@ -29,7 +27,7 @@ public class DocumentoModel implements Serializable {
 	@Column(nullable = true, unique = false, length = 40)
 	private String numero;
 
-	@Column(nullable = true, unique = false, length = 40)
+	@Column(nullable = true, unique = true, length = 40)
 	private String numeroSei;
 
 	@ManyToOne
@@ -50,7 +48,6 @@ public class DocumentoModel implements Serializable {
 
 	@ManyToMany(mappedBy = "documentos")
 	private Set<UsuarioModel> usuarios = new HashSet<>();
-
 
 	public DocumentoModel() {
 		super();

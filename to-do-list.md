@@ -139,5 +139,9 @@ Verificar a edi��o do Estado ao editar um endere�o.
 - [X] Verificar busca por documento. Busca por número do documento, endereço se possível etc. Não está buscando
 	pelo número do documento, por exemplo: 140918752
 		Agora busca por logradouro, número do processo, número do documento e número sei do documento.
+
+#11/02/2025
+- [] Deletar interferência
+	Não está funcionando, não deleta, apesar de sumir no frontend.
 	
 	
