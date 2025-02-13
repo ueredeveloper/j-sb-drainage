@@ -1,0 +1,26 @@
+{
+	"anexo": {
+		"id": 64,
+		"numero": "00197-00000928/2024-19",
+		"processos": [
+			{
+				"id": 56,
+				"numero": "00197-00001533/2021-82",
+				"usuario": {
+					"id": 99,
+					"nome": "José Saramago",
+					"cpfCnpj": "44466699985"
+				}
+			},
+			{
+				"id": 55,
+				"numero": "00197-00000928/2024-19",
+				"usuario": {
+					"id": 102,
+					"nome": "INC09 BRASAL INCORPORAÇÕES LTDA",
+					"cpfCnpj": "1585584000138"
+				}
+			}
+		]
+	}
+}

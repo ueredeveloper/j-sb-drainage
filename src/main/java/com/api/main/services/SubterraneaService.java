@@ -1,9 +1,13 @@
 package com.api.main.services;
 
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -132,12 +136,35 @@ public class SubterraneaService {
 		// Salvar o endereço, se necessário
 		saveOrUpdateEndereco(requestedObject);
 
-		// Guardar finalidades temporariamente e limpar no objeto para salvar
-		// interferência
-		Set<FinalidadeModel> finalidades = requestedObject.getFinalidades();
+		// Guardar finalidades temporariamente, organizar e limpar no objeto para salvar
+		List<FinalidadeModel> finalidades = requestedObject.getFinalidades().stream()
+				
+				// Ordena as finalidades de acordo com a prioridade desejada:
+				// 1. "Abastecimento Humano" vem primeiro
+				// 2. "Criação de Animais" vem em segundo
+				// 3. Outras finalidades ficam no final
+				.sorted(Comparator.comparingInt(f -> {
+
+					String purpouse = f.getFinalidade().toLowerCase();
+					
+					// Converte para minúsculo e compara. Assim aceita tanto Abastecimento como
+					// abastecimento na comparação
+					if (purpouse.contains(("aba")))
+						return 1;
+					if (purpouse.contains(("cri")))
+						return 2;
+					return 3; // Outras finalidades
+				})).collect(Collectors.toList());
+
+
+		Set<FinalidadeModel> sortedFinalidades = new LinkedHashSet<>();
+		
+		sortedFinalidades.addAll(finalidades);
+		
 		requestedObject.setFinalidades(new HashSet<>()); // Limpa as finalidades temporariamente
 
 		Set<DemandaModel> demandas = requestedObject.getDemandas();
+		
 		requestedObject.setDemandas(new HashSet<>());
 
 		// Salva coordenadas em formato geometry
@@ -157,7 +184,7 @@ public class SubterraneaService {
 		SubterraneaModel savedInterferencia = subterraneaRepository.save(requestedObject);
 
 		// Salvar finalidades associadas
-		saveOrUpdateFinalidades(finalidades, savedInterferencia);
+		saveOrUpdateFinalidades(sortedFinalidades, savedInterferencia);
 
 		saveOrUpdateDemandas(demandas, savedInterferencia);
 
