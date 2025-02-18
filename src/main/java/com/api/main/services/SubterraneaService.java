@@ -81,7 +81,6 @@ public class SubterraneaService {
 
 	private void updateSubterraneaAttributes(SubterraneaModel existingSubterranea, SubterraneaModel requestedObject) {
 
-		System.out.println("sub service, update sub att ");
 		existingSubterranea.setLatitude(requestedObject.getLatitude());
 		existingSubterranea.setLongitude(requestedObject.getLongitude());
 
@@ -178,7 +177,6 @@ public class SubterraneaService {
 
 		requestedObject.setGeometry(point);
 
-		System.out.println("sub service, create new subt ");
 
 		// Salvar a interferência primeiro
 		SubterraneaModel savedInterferencia = subterraneaRepository.save(requestedObject);

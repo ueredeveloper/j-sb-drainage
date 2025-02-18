@@ -18,7 +18,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 @Table(name = "usuario")
 public class UsuarioModel implements Serializable {
@@ -32,18 +31,17 @@ public class UsuarioModel implements Serializable {
 	@Column(nullable = false, unique = false, length = 500)
 	private String nome;
 
-	@Column(nullable = false, unique = true)
-	private Long cpfCnpj;
+	@Column(nullable = false, unique = true, length = 14)
+	private String cpfCnpj;
 
 	@ManyToMany
 	@JoinTable(name = "usuario_documento", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "documento_id"))
 	@JsonIgnore
 	private Set<DocumentoModel> documentos = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<ProcessoModel> processos = new HashSet<>();
-	
 
 	public UsuarioModel() {
 		super();
@@ -64,16 +62,14 @@ public class UsuarioModel implements Serializable {
 		super();
 		this.documentos = documentos;
 	}
-	
-	
-	
+
 	public UsuarioModel(Long id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
 
-	public UsuarioModel(Long id, String nome, Long cpfCnpj) {
+	public UsuarioModel(Long id, String nome, String cpfCnpj) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -96,12 +92,16 @@ public class UsuarioModel implements Serializable {
 		this.nome = nome;
 	}
 
-	public Long getCpfCnpj() {
+	public String getCpfCnpj() {
 		return cpfCnpj;
 	}
 
-	public void setCpfCnpj(Long cpfCnpj) {
+	public void setCpfCnpj(String cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
+	}
+
+	public void setProcessos(Set<ProcessoModel> processos) {
+		this.processos = processos;
 	}
 
 	public Set<DocumentoModel> getDocumentos() {

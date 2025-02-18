@@ -13,7 +13,7 @@ public class UsuarioDTO {
 
 	private String nome;
 
-	private Long cpfCnpj;
+	private String cpfCnpj;
 
 	private Set<DocumentoModel> documentos = new HashSet<>();
 	
@@ -28,7 +28,7 @@ public class UsuarioDTO {
 		this.nome = nome;
 	}
 
-	public UsuarioDTO(String nome, Long cpfCnpj) {
+	public UsuarioDTO(String nome, String cpfCnpj) {
 		super();
 		this.nome = nome;
 		this.cpfCnpj = cpfCnpj;
@@ -50,13 +50,20 @@ public class UsuarioDTO {
 		this.nome = nome;
 	}
 
-	public Long getCpfCnpj() {
+	public String getCpfCnpj() {
 		return cpfCnpj;
 	}
 
-	public void setCpfCnpj(Long cpfCnpj) {
+	public void setCpfCnpj(String cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
 	}
+
+	public Set<DocumentoModel> getDocumentos() {
+		return documentos;
+	}
+
+
+	
 
 
 }
