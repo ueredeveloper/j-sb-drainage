@@ -65,11 +65,7 @@ public class EnderecoService {
 		return response;
 	}
 
-	/*
-	 * @Transactional public List<EnderecoModel> listByKeyword(String keyword) {
-	 * return enderecoRepository.listByKeyword(keyword); }
-	 */
-
+	
 	@Transactional
 	public Set<EnderecoModel> listByKeyword(String keyword) {
 

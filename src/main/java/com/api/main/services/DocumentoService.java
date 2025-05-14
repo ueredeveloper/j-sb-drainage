@@ -71,7 +71,6 @@ public class DocumentoService {
 
 		if (json != null) {
 
-			// System.out.println("list doc by key " + json);
 			// Since the structure is a list of objects containing 'endereco', extract them
 			List<Map<String, DocumentoModel>> tempList = new Gson().fromJson(json,
 					new TypeToken<List<Map<String, DocumentoModel>>>() {
@@ -79,9 +78,9 @@ public class DocumentoService {
 
 			// Iterate over the list and extract 'endereco' object from each map
 			for (Map<String, DocumentoModel> map : tempList) {
-				DocumentoModel endereco = map.get("documento");
-				if (endereco != null) {
-					response.add(endereco);
+				DocumentoModel documento = map.get("documento");
+				if (documento != null) {
+					response.add(documento);
 				}
 			}
 		}
@@ -190,8 +189,13 @@ public class DocumentoService {
 		// Safe handling of endereco (address), checking for null before accessing its
 		// fields
 		if (originalResponse.getEndereco() != null) {
-			safeResponse.setEndereco(new EnderecoModel(originalResponse.getEndereco().getId(),
-					originalResponse.getEndereco().getLogradouro()));
+			safeResponse.setEndereco(new EnderecoModel(
+					originalResponse.getEndereco().getId(),
+					originalResponse.getEndereco().getLogradouro(),
+					originalResponse.getEndereco().getCidade(),
+					originalResponse.getEndereco().getBairro(),
+					originalResponse.getEndereco().getCep(),
+					originalResponse.getEndereco().getEstado()));
 		} else {
 			safeResponse.setEndereco(null); // You can set this to null or handle as needed
 		}
@@ -324,8 +328,10 @@ public class DocumentoService {
 
 					// Update attributes of the existing EnderecoModel
 					existing.setLogradouro(enderecoToUpdate.getLogradouro());
+					existing.setBairro(enderecoToUpdate.getBairro());
 					existing.setCidade(enderecoToUpdate.getCidade());
 					existing.setCep(enderecoToUpdate.getCep());
+					existing.setEstado(enderecoToUpdate.getEstado());
 
 					// Save the updated EnderecoModel and set it to the original response
 					EnderecoModel updatedEndereco = enderecoRepository.save(existing);

@@ -1,3 +1,4 @@
+
 run = "mvn clean package && java -jar target/j-sb-drainage-2.0.2.jar"
 hidden = ["**/*.class"]
 

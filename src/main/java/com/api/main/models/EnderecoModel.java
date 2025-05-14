@@ -60,31 +60,6 @@ public class EnderecoModel {
 		this.id = id;
 	}
 
-	public EnderecoModel(Long id, String logradouro) {
-		super();
-		this.id = id;
-		this.logradouro = logradouro;
-	}
-
-	public EnderecoModel(String logradouro) {
-		super();
-		this.logradouro = logradouro;
-	}
-
-	public EnderecoModel(String logradouro, String cidade, String bairro, String cep) {
-		super();
-		this.logradouro = logradouro;
-		this.cidade = cidade;
-		this.bairro = bairro;
-		this.cep = cep;
-	}
-
-	public EnderecoModel(String logradouro, Set<InterferenciaModel> interferencias) {
-		super();
-		this.logradouro = logradouro;
-		this.interferencias = interferencias;
-	}
-
 	public EnderecoModel(Long id, String logradouro, String cidade, String bairro, String cep, EstadoModel estado) {
 		super();
 		this.id = id;

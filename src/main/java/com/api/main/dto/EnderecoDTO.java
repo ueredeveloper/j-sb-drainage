@@ -29,11 +29,10 @@ public class EnderecoDTO {
 	public EnderecoDTO() {
 		super();
 	}
-
-	public EnderecoDTO(String logradouro, Set<InterferenciaModel> interferencias) {
+	
+	public EnderecoDTO(Long id) {
 		super();
-		this.logradouro = logradouro;
-		this.interferencias = interferencias;
+		this.id = id;
 	}
 
 	public EnderecoDTO(Long id, String logradouro, String cidade, String cep, String bairro, EstadoModel estado) {
@@ -44,6 +43,18 @@ public class EnderecoDTO {
 		this.cep = cep;
 		this.bairro = bairro;
 		this.estado = estado;
+	}
+	
+	public EnderecoDTO(Long id, String logradouro, String cidade, String cep, String bairro, EstadoModel estado,
+			Set<InterferenciaModel> interferencias) {
+		super();
+		this.id = id;
+		this.logradouro = logradouro;
+		this.cidade = cidade;
+		this.cep = cep;
+		this.bairro = bairro;
+		this.estado = estado;
+		this.interferencias = interferencias;
 	}
 
 	public String getLogradouro() {

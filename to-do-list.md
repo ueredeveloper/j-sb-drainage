@@ -146,6 +146,14 @@ Verificar a edi��o do Estado ao editar um endere�o.
 	
 #12/02/2025
 - [X] Melhora pesquisa de anexo, adiconar processos com id e usuários com id.
-
+#28/04/2025
+* ** [] Buscar usuário por nome e cpf
+	No momento só está buscando pelo nome.
 	
+#14/05/2025
+- [X] Persistência Documento com Endereço
+	Ao salvar o documento, a resposta não estava trazendo o bairro do endereço. 
+	Resolvido em 14/05/2025.
+	
+
 	

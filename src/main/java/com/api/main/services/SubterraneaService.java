@@ -35,8 +35,6 @@ import com.api.main.repositories.SubterraneaRepository;
 @Service
 public class SubterraneaService {
 
-	
-	
 	@Autowired
 	private SubterraneaRepository subterraneaRepository;
 	@Autowired
@@ -137,7 +135,7 @@ public class SubterraneaService {
 
 		// Guardar finalidades temporariamente, organizar e limpar no objeto para salvar
 		List<FinalidadeModel> finalidades = requestedObject.getFinalidades().stream()
-				
+
 				// Ordena as finalidades de acordo com a prioridade desejada:
 				// 1. "Abastecimento Humano" vem primeiro
 				// 2. "Criação de Animais" vem em segundo
@@ -145,7 +143,7 @@ public class SubterraneaService {
 				.sorted(Comparator.comparingInt(f -> {
 
 					String purpouse = f.getFinalidade().toLowerCase();
-					
+
 					// Converte para minúsculo e compara. Assim aceita tanto Abastecimento como
 					// abastecimento na comparação
 					if (purpouse.contains(("aba")))
@@ -155,20 +153,19 @@ public class SubterraneaService {
 					return 3; // Outras finalidades
 				})).collect(Collectors.toList());
 
-
 		Set<FinalidadeModel> sortedFinalidades = new LinkedHashSet<>();
-		
+
 		sortedFinalidades.addAll(finalidades);
-		
+
 		requestedObject.setFinalidades(new HashSet<>()); // Limpa as finalidades temporariamente
 
 		Set<DemandaModel> demandas = requestedObject.getDemandas();
-		
+
 		requestedObject.setDemandas(new HashSet<>());
 
 		// Salva coordenadas em formato geometry
 		GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4674);
-		
+
 		System.out.println("sub serv create new lat " + requestedObject.getLatitude());
 
 		// Cria um ponto com as coordenadas fornecidas
@@ -176,7 +173,6 @@ public class SubterraneaService {
 				.createPoint(new Coordinate(requestedObject.getLongitude(), requestedObject.getLatitude()));
 
 		requestedObject.setGeometry(point);
-
 
 		// Salvar a interferência primeiro
 		SubterraneaModel savedInterferencia = subterraneaRepository.save(requestedObject);
@@ -268,7 +264,7 @@ public class SubterraneaService {
 				}
 
 			}
-			
+
 			// Salva coordenadas em formato geometry
 			GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4674);
 
@@ -332,7 +328,9 @@ public class SubterraneaService {
 
 		// Não permite referências cíclicas, que geram loop na criaçaõ do json
 		safeResponse.setEndereco(new EnderecoModel(originalResponse.getEndereco().getId(),
-				originalResponse.getEndereco().getLogradouro()));
+				originalResponse.getEndereco().getLogradouro(), originalResponse.getEndereco().getBairro(),
+				originalResponse.getEndereco().getCidade(), originalResponse.getEndereco().getCep(),
+				originalResponse.getEndereco().getEstado()));
 
 		safeResponse.setTipoInterferencia(originalResponse.getTipoInterferencia());
 		safeResponse.setTipoOutorga(new TipoOutorgaModel(originalResponse.getTipoOutorga().getId(),

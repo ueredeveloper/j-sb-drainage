@@ -47,6 +47,7 @@ public interface DocumentoRepository extends JpaRepository<DocumentoModel, Long>
 			+ "THEN CONCAT('{', \r\n"
 			+ "'\"','id','\"',':','\"',_e.id,'\"',',',\r\n"
 			+ "'\"','logradouro','\"',':','\"',_e.logradouro,'\"',',',\r\n"
+			+ "'\"','cidade','\"',':','\"',_e.cidade,'\"',',',\r\n"
 			+ "'\"','bairro','\"',':','\"',_e.bairro,'\"',\r\n"
 			+ "'}'\r\n"
 			+ ")\r\n"
